@@ -35,4 +35,28 @@
     color: #0070f3;
     font-weight: 700;
   }
+
+  .navbar-icons {
+    display: flex;
+    align-items: center;
+    gap: 1rem; /* icon 間距 */
+    margin-left: 1.5rem;
+  }
+  
+  .icon-link {
+    display: flex;
+    align-items: center;
+    cursor: pointer;
+  }
+  
+  .nav-icon {
+    width: 48px;
+    height: 48px;
+    transition: opacity 0.3s ease;
+  }
+  
+  .nav-icon:hover {
+    opacity: 0.7;
+  }
+  
   
