@@ -1,0 +1,18 @@
+.testimonial {
+    background-color: #f0f4f8;
+    padding: 3rem 2rem;
+    text-align: center;
+  }
+  
+  .testimonial blockquote {
+    font-size: 1.2rem;
+    font-style: italic;
+    margin: 0 auto 1rem;
+    max-width: 600px;
+  }
+  
+  .testimonial .user-name {
+    font-weight: bold;
+    color: #444;
+  }
+  

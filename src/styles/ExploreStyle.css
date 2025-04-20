@@ -1,0 +1,19 @@
+.explore-call {
+    background-color: #f9f9f9;
+    padding: 3rem 2rem;
+    text-align: center;
+  }
+  
+  .explore-call h2 {
+    font-size: 2rem;
+    margin-bottom: 1rem;
+  }
+  
+  .explore-call p {
+    font-size: 1.1rem;
+    max-width: 600px;
+    margin: 0 auto;
+    line-height: 1.6;
+  }
+  
+  

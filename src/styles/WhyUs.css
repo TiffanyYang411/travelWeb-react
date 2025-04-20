@@ -1,0 +1,40 @@
+/* src/styles/WhyUs.css */
+.why-us-section {
+    background-color: #ffffff;
+    padding: 3rem 2rem;
+    text-align: center;
+  }
+  
+  .why-us-section h2 {
+    font-size: 2rem;
+    margin-bottom: 2rem;
+  }
+  
+  .why-us-cards {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 2rem;
+    justify-content: center;
+  }
+  
+  .why-us-card {
+    background-color: #f5f7fa;
+    padding: 1.5rem;
+    border-radius: 12px;
+    max-width: 280px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+    text-align: left;
+  }
+  
+  .why-us-card h3 {
+    font-size: 1.2rem;
+    margin-bottom: 0.5rem;
+    color: #1a1a1a;
+  }
+  
+  .why-us-card p {
+    font-size: 0.95rem;
+    color: #555;
+    line-height: 1.6;
+  }
+  

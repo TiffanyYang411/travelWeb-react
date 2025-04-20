@@ -1,0 +1,66 @@
+/* src/styles/Home.css */
+
+:root {
+  --color-primary: #142E3F;
+  --color-secondary-1: #DCE8ED;
+  --color-secondary-2: #F6FBFC;
+  --color-accent: #FF6F19;
+  --color-functional: #FF0000;
+
+  --font-zh: 'LXGW WenKai TC', sans-serif;
+  --font-en: 'Piazzolla', serif;
+}
+
+.home-page {
+  font-family: var(--font-zh);
+  background-color: #fff;
+}
+
+.section {
+  width: 100%;
+  max-width: 1440px;
+  height: 800px;
+  margin: 0 auto;
+  padding: 4rem 2rem;
+  box-sizing: border-box;
+}
+
+.banner-section {
+  background-color: var(--color-primary);
+  color: white;
+}
+
+.style-section {
+  background-color: var(--color-secondary-1);
+}
+
+.explore-section {
+  background-color: var(--color-secondary-2);
+}
+
+.testimonial-section {
+  background-color: #f0f4f8;
+}
+
+.whyus-section {
+  background-color: #ffffff;
+}
+
+/* 字體設計輔助 class，可視需要用在各元件中 */
+.zh-title {
+  font-family: var(--font-zh);
+  font-weight: bold;
+}
+
+.en-title {
+  font-family: var(--font-en);
+  font-weight: bold;
+}
+
+.zh-text {
+  font-family: var(--font-zh);
+}
+
+.en-text {
+  font-family: var(--font-en);
+}
