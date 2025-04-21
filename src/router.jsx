@@ -26,6 +26,10 @@ const router = createBrowserRouter([
         path: '/login',
         element: <Login /> // 不使用共用 Layout（例如登入頁可跳過 Navbar）
     }
-]);
+],
+{
+    basename: '/travelWeb-react'
+}
+);
 
 export default router;

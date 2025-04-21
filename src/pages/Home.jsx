@@ -30,7 +30,7 @@ function Home() {
         <WhyUs />
       </section>
 
-      <Footer />
+      {/* <Footer /> */}
     </div>
   );
 }
