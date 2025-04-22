@@ -1,66 +1,225 @@
-/* src/styles/Home.css */
-
-:root {
-  --color-primary: #142E3F;
-  --color-secondary-1: #DCE8ED;
-  --color-secondary-2: #F6FBFC;
-  --color-accent: #FF6F19;
-  --color-functional: #FF0000;
-
-  --font-zh: 'LXGW WenKai TC', sans-serif;
-  --font-en: 'Piazzolla', serif;
-}
-
+/* 全域設定 */
 .home-page {
-  font-family: var(--font-zh);
-  background-color: #fff;
+  font-family: 'Piazzolla', serif;
+  color: #142E3F;
+  background-color: var(--primary-color); /* ✅ 用 CSS 變數 */
+  line-height: 1.6;
 }
 
 .section {
-  width: 100%;
-  max-width: 1440px;
-  height: 800px;
+  padding: 80px 20px;
+  max-width: 1200px;
   margin: 0 auto;
-  padding: 4rem 2rem;
-  box-sizing: border-box;
 }
 
-.banner-section {
-  background-color: var(--color-primary);
+/* Banner 區塊（動畫版） */
+.hero-section {
+  position: relative;
+  height: 800px;
+  overflow: hidden;
+}
+
+.hero-background {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  background-size: cover;
+  background-position: center;
+  transform: scale(1);
+  transition: transform 3s ease-in-out;
+  z-index: 0;
+  filter: brightness(0.6);
+}
+
+.hero-section.expanded .hero-background {
+  transform: scale(1.1);
+}
+
+.hero-quote {
+  position: absolute;
+  top: 50%;
+  left: 10%;
+  transform: translateY(-50%);
+  width: 320px;
+  z-index: 1;
+  transition: all 1.2s ease-in-out;
+}
+
+.quote-expanded {
+  top: auto;
+  bottom: 60px;
+  left: 60px;
+  width: 520px;
+}
+
+.window-frame-top {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  z-index: 3;
+  pointer-events: none;
+}
+
+
+.banner h1 {
+  font-size: 3rem;
   color: white;
+  margin-bottom: 1rem;
 }
 
-.style-section {
-  background-color: var(--color-secondary-1);
+.banner p {
+  font-size: 1.25rem;
+  color: #f6fbfc;
 }
 
-.explore-section {
-  background-color: var(--color-secondary-2);
+.banner-btn {
+  background-color: #FF6F19;
+  color: white;
+  border: none;
+  padding: 12px 24px;
+  font-size: 1rem;
+  border-radius: 8px;
+  margin-top: 20px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
 }
 
-.testimonial-section {
-  background-color: #f0f4f8;
+.banner-btn:hover {
+  background-color: #e6600f;
 }
 
-.whyus-section {
-  background-color: #ffffff;
+/* TravelStyles 區塊 */
+.style-section h2 {
+  text-align: center;
+  font-size: 2rem;
+  margin-bottom: 40px;
 }
 
-/* 字體設計輔助 class，可視需要用在各元件中 */
-.zh-title {
-  font-family: var(--font-zh);
+.style-grid {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 40px;
+}
+
+.style-card {
+  width: 280px;
+  background-color: #F6FBFC;
+  border-radius: 16px;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.05);
+  padding: 20px;
+  text-align: center;
+  transition: transform 0.3s ease;
+}
+
+.style-card:hover {
+  transform: translateY(-5px);
+}
+
+.style-card img {
+  width: 100%;
+  border-radius: 12px;
+  margin-bottom: 15px;
+}
+
+.style-card h3 {
+  font-size: 1.2rem;
+  margin-bottom: 10px;
+}
+
+/* Explore Call 區塊 */
+.explore-call {
+  background-color: #DCE8ED;
+  padding: 60px 40px;
+  border-radius: 16px;
+  text-align: center;
+}
+
+.explore-call h2 {
+  font-size: 2rem;
+  margin-bottom: 1rem;
+}
+
+.explore-call p {
+  font-size: 1.1rem;
+  margin-bottom: 1.5rem;
+}
+
+.explore-btn {
+  background-color: #142E3F;
+  color: white;
+  padding: 12px 24px;
+  border: none;
+  font-size: 1rem;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.explore-btn:hover {
+  background-color: #0f202b;
+}
+
+/* Testimonial 區塊 */
+.testimonial-section h2 {
+  text-align: center;
+  font-size: 2rem;
+  margin-bottom: 40px;
+}
+
+.testimonial-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 30px;
+}
+
+.testimonial-card {
+  background-color: #F6FBFC;
+  padding: 20px;
+  border-radius: 12px;
+  font-style: italic;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+}
+
+.testimonial-card span {
+  display: block;
+  margin-top: 12px;
+  text-align: right;
+  font-style: normal;
   font-weight: bold;
 }
 
-.en-title {
-  font-family: var(--font-en);
-  font-weight: bold;
+/* Why Us 區塊 */
+.whyus-section h2 {
+  text-align: center;
+  font-size: 2rem;
+  margin-bottom: 40px;
 }
 
-.zh-text {
-  font-family: var(--font-zh);
+.whyus-grid {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 40px;
 }
 
-.en-text {
-  font-family: var(--font-en);
+.whyus-card {
+  background-color: #fff;
+  width: 280px;
+  padding: 20px;
+  text-align: center;
+  border-radius: 16px;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.05);
 }
+
+.whyus-card img {
+  width: 60px;
+  margin-bottom: 15px;
+}
+
+.whyus-card h3 {
+  font-size: 1.25rem;
+  margin-bottom: 10px;
+}
+

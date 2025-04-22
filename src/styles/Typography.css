@@ -1,0 +1,57 @@
+/* 中文標題字體大小與樣式 */
+.title-zh-48 {
+    font-size: 48pt;
+    font-family: 'LXGW WenKai TC', serif;
+    font-weight: bold;
+  }
+  
+  .title-zh-36 {
+    font-size: 36pt;
+    font-family: 'LXGW WenKai TC', serif;
+    font-weight: bold;
+  }
+  
+  .title-zh-32 {
+    font-size: 32pt;
+    font-family: 'LXGW WenKai TC', serif;
+    font-weight: bold;
+  }
+  
+  /* 中文內文樣式 */
+  .text-zh-regular-24 {
+    font-size: 24pt;
+    font-family: 'LXGW WenKai TC', serif;
+    font-weight: normal;
+  }
+  
+  .text-zh-bold-24 {
+    font-size: 24pt;
+    font-family: 'LXGW WenKai TC', serif;
+    font-weight: bold;
+  }
+  
+  .text-zh-bold-16 {
+    font-size: 16pt;
+    font-family: 'LXGW WenKai TC', serif;
+    font-weight: bold;
+  }
+  
+  /* 英文標題字體樣式 */
+  .title-en-bold-32 {
+    font-size: 32pt;
+    font-family: 'Piazzolla', serif;
+    font-weight: bold;
+  }
+  
+  .text-en-regular-16 {
+    font-size: 16pt;
+    font-family: 'Piazzolla', serif;
+    font-weight: 400;
+  }
+  
+  .text-en-bold-14 {
+    font-size: 14pt;
+    font-family: 'Piazzolla', serif;
+    font-weight: bold;
+  }
+  

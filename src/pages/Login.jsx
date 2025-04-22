@@ -1,5 +1,7 @@
 // src/pages/Login.jsx
 import '../styles/Login.css';
+import '../styles/Typography.css';
+
 
 function Login() {
   return (

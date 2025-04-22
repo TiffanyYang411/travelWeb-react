@@ -1,11 +1,15 @@
+/* ✅ 先載入顏色系統 */
+@import './styles/colors.css';
+@import './styles/Typography.css';
+
 :root {
   font-family: Inter, system-ui, Avenir, Helvetica, Arial, sans-serif;
   line-height: 1.5;
   font-weight: 400;
 
   color-scheme: light dark;
-  color: rgba(255, 255, 255, 0.87);
-  background-color: #242424;
+  color: var(--text-color, #F6FBFC);
+  background-color: var(--primary-color); /* 背景套品牌色 */
 
   font-synthesis: none;
   text-rendering: optimizeLegibility;
@@ -14,18 +18,20 @@
 }
 
 a {
-  font-weight: 500;
-  color: #646cff;
-  text-decoration: inherit;
+  color: var(--secondary-color-xlight); /* #F6FBFC */
+  text-decoration: none;
+  font-weight: bold;
+  font-size: 14px;
+  font-family: 'LXGW WenKai TC', serif;
 }
+
 a:hover {
-  color: #535bf2;
+  color: var(--accent-color); /* #FF6F19 或自定 */
 }
+
 
 body {
   margin: 0;
-  /* display: flex; */
-  place-items: center;
   min-width: 320px;
   min-height: 100vh;
 }
@@ -66,3 +72,4 @@ button:focus-visible {
     background-color: #f9f9f9;
   }
 }
+

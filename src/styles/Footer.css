@@ -1,15 +1,94 @@
-/* src/styles/Footer.css */
 .footer {
-    background-color: #f8f8f8;
-    padding: 2rem;
-    text-align: center;
-    font-size: 0.95rem;
-    color: #555;
-    border-top: 1px solid #ddd;
+  font-family: 'LXGW WenKai TC', serif;
+  color: var(--secondary-color-xlight);
+  background-color: var(--primary-color);
+}
+
+.footer-top {
+  display: flex;
+  justify-content: space-between;
+  padding: 60px 100px;
+  flex-wrap: wrap;
+  gap: 40px;
+}
+
+.footer-left {
+  flex: 1;
+  min-width: 280px;
+}
+
+.footer-logo {
+  font-family: 'Piazzolla', serif;
+  font-size: 1.8rem;
+  font-weight: bold;
+  margin-bottom: 20px;
+  color: white;
+}
+
+.footer-logo-img {
+  height: 40px;
+  object-fit: contain;
+  margin-bottom: 20px;
+}
+
+.footer-left p {
+  margin: 6px 0;
+  font-size: 0.95rem;
+  color: var(--secondary-color-xlight);
+}
+
+.footer-right {
+  flex: 2;
+  min-width: 400px;
+}
+
+.footer-links-grid {
+  display: grid;
+  grid-template-columns: repeat(5, auto);
+  row-gap: 12px;
+  column-gap: 48px;
+  color: var(--secondary-color-xlight);
+  font-family: 'LXGW WenKai TC', serif;
+  font-weight: bold;
+  font-size: 14px;
+  justify-content: start;
+}
+
+.footer-links-grid a {
+  text-decoration: none;
+  color: var(--secondary-color-xlight);
+}
+
+.footer-links-grid a:hover {
+  color: var(--accent-color);
+}
+
+.footer-bottom {
+  background-color: var(--secondary-color);
+  text-align: center;
+  padding: 20px;
+  font-size: 13px;
+  color: var(--primary-color);
+}
+
+@media (max-width: 768px) {
+  .footer-top {
+    flex-direction: column;
+    padding: 40px 20px;
   }
-  
-  .footer-content p {
-    margin: 0.3rem 0;
-    line-height: 1.6;
+
+  .footer-links-grid {
+    grid-template-columns: repeat(2, max-content);
+    justify-content: center;
+    row-gap: 14px;
+    column-gap: 32px;
   }
-  
+
+  .footer-bottom {
+    font-size: 12px;
+  }
+}
+
+
+
+

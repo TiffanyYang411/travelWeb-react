@@ -1,5 +1,6 @@
 // src/pages/About.jsx
 import '../styles/About.css';
+import '../styles/Typography.css';
 
 function About() {
   return (

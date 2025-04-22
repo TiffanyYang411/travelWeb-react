@@ -15,3 +15,16 @@ function Testimonial() {
 }
 
 export default Testimonial; // ✅ 最重要的一行
+
+// src/data/testimonials.js
+export const testimonials = [
+  {
+    name: 'Sabrina',
+    comment: '這趟旅程完全改變我對旅遊的想像！超棒的行程安排！',
+  },
+  {
+    name: 'Kevin',
+    comment: '和家人一起留下難忘回憶，每個細節都很用心。',
+  },
+  // ...其他測試資料
+];

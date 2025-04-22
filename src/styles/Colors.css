@@ -1,0 +1,16 @@
+:root {
+    /* 主色 Primary */
+    --primary-color: #142E3F;
+  
+    /* 輔助色 Secondary */
+    --secondary-color-dark: #142E3F;
+    --secondary-color-light: #DCE8ED;
+    --secondary-color-xlight: #F6FBFC;
+  
+    /* 強調色 Accent */
+    --accent-color: #FF6F19;
+  
+    /* 功能色 Function */
+    --functional-color: #FF0000;
+  }
+  
