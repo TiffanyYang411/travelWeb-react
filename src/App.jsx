@@ -5,7 +5,7 @@ import Home from './pages/Home';
 import ExploreStyle from './pages/ExploreStyle';
 import MyTrip from './pages/MyTrip';
 import About from './pages/About'; // ← 確保這些有引入
-import Faq from './pages/Faq';
+import Faq from './pages/FAQ';
 import ScrollToTop from './components/ScrollToTop'; // ← 新增這一行
 import './App.css';
 

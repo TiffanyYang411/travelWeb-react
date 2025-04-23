@@ -24,7 +24,7 @@ html, body, #root {
 /* 全站字體與主色設定 */
 body {
   font-family: 'Piazzolla', 'LXGW WenKai TC', serif;
-  color: #142E3F;
+  /* color: #142E3F; */
   background-color: #fff;
   line-height: 1.6;
 }

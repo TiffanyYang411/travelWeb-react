@@ -4,12 +4,6 @@ import '../styles/Home.css';
 import { travelStyles } from '../data/travelStyles';
 import { testimonials } from '../data/testimonials';
 import { whyUsItems } from '../data/whyUs';
-import '../styles/Typography.css';
-
-const bannerImages = [
-  '/images/slide1.jpg',
-  '/images/slide2.jpg',
-];
 
 const quoteSvgs = [
   `${import.meta.env.BASE_URL}images/banner-quote-1.svg`,
@@ -17,63 +11,45 @@ const quoteSvgs = [
 ];
 
 function Home() {
+  const [ready, setReady] = useState(false);
   const [expanded, setExpanded] = useState(false);
-  const [currentSlide, setCurrentSlide] = useState(0);
   const [currentQuote, setCurrentQuote] = useState(0);
 
   useEffect(() => {
+    const quoteInTimer = setTimeout(() => setReady(true), 200);
     const expandTimer = setTimeout(() => {
       setExpanded(true);
       setCurrentQuote(1);
     }, 4000);
 
-    const slideTimer = setInterval(() => {
-      setCurrentSlide((prev) => (prev + 1) % bannerImages.length);
-    }, 6000);
-
     return () => {
+      clearTimeout(quoteInTimer);
       clearTimeout(expandTimer);
-      clearInterval(slideTimer);
     };
   }, []);
 
   return (
     <div className="home-page">
-      {/* ✅ 改寫 Banner 區塊 */}
-      <section className={`hero-section ${expanded ? 'expanded' : ''}`}>
-        <div
-          className="hero-background"
-          style={{ backgroundImage: `url(${bannerImages[currentSlide]})` }}
-        />
+      {/* ✅ Hero Banner 區塊 */}
+      <section className={`hero-section ${ready ? 'ready' : ''} ${expanded ? 'expanded' : ''}`}>
+        <div className="hero-scene">
+          <img
+            src="/travelWeb-react/images/slide1.jpg"
+            alt="風景圖"
+            className="fullscreen-img"
+          />
 
-        {/* ✅ 測試這一段路徑是否正確顯示 quote SVG */}
-        <img
-          src={`${import.meta.env.BASE_URL}images/banner-quote-1.svg`}
-          alt="測試直接引入 quote1"
-          style={{
-            position: 'absolute',
-            top: '20px',
-            left: '20px',
-            width: '300px',
-            zIndex: 5,
-          }}
-        />
+          <div className="hero-window-frame" />
 
-        {/* 原本的動態語錄圖片 */}
-        <img
-          src={quoteSvgs[currentQuote]}
-          alt="語錄"
-          className={`hero-quote ${expanded ? 'quote-expanded' : ''}`}
-        />
-
-        <img
-          src="/images/window-frame-large.png"
-          alt="窗戶邊框"
-          className="window-frame-top"
-        />
+          <img
+            src={quoteSvgs[currentQuote]}
+            alt="語錄"
+            className={`hero-quote ${expanded ? 'quote-expanded' : ''}`}
+          />
+        </div>
       </section>
 
-      {/* TravelStyles 區塊 */}
+      {/* 可選：其餘區塊不變 */}
       <section className="section style-section">
         <h2>探索你的旅行風格</h2>
         <div className="style-grid">
@@ -87,16 +63,6 @@ function Home() {
         </div>
       </section>
 
-      {/* ExploreCall 區塊 */}
-      <section className="section explore-section">
-        <div className="explore-call">
-          <h2>還不知道適合你的旅程？</h2>
-          <p>透過風格探索問答，找出你的命定旅程</p>
-          <button className="explore-btn">開始探索</button>
-        </div>
-      </section>
-
-      {/* Testimonial 區塊 */}
       <section className="section testimonial-section">
         <h2>旅人回饋</h2>
         <div className="testimonial-grid">
@@ -109,7 +75,6 @@ function Home() {
         </div>
       </section>
 
-      {/* WhyUs 區塊 */}
       <section className="section whyus-section">
         <h2>為什麼選擇 Élan Journeys？</h2>
         <div className="whyus-grid">
@@ -122,13 +87,15 @@ function Home() {
           ))}
         </div>
       </section>
-
-      {/* ✅ 用來測試畫面撐高，確保 footer-bottom 顯示 */}
-      <div style={{ height: '1200px', background: '#f0f0f0' }}></div>
     </div>
   );
 }
 
 export default Home;
+
+
+
+
+
 
 
