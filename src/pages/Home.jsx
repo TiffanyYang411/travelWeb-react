@@ -122,9 +122,13 @@ function Home() {
           ))}
         </div>
       </section>
-    </div >
+
+      {/* ✅ 用來測試畫面撐高，確保 footer-bottom 顯示 */}
+      <div style={{ height: '1200px', background: '#f0f0f0' }}></div>
+    </div>
   );
 }
 
 export default Home;
+
 

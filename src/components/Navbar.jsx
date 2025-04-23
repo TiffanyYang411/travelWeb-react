@@ -10,7 +10,6 @@ function Navbar() {
   const location = useLocation(); // 取得目前路徑
 
   const navLinks = [
-    { name: '首頁', path: '/' },
     { name: '探索旅遊風格', path: '/explore' },
     { name: '我的行程', path: '/my-trip' },
     { name: '關於我們', path: '/about' },
@@ -24,20 +23,20 @@ function Navbar() {
         <img src={logo} alt="Élan Journeys Logo" className="logo-img" />
       </Link>
 
-
-      <ul className="navbar-links">
-        {navLinks.map((link) => (
-          <li
-            key={link.path}
-            className={location.pathname === link.path ? 'active' : ''}
-          >
-            {/* ✅ 修改：為每個連結加上中文字體 class */}
-            <Link to={link.path} className="text-zh-bold-16">
-              {link.name}
-            </Link>
-          </li>
-        ))}
-      </ul>
+      <div className="navbar-center">
+        <ul className="navbar-links">
+          {navLinks.map((link) => (
+            <li
+              key={link.path}
+              className={location.pathname === link.path ? 'active' : ''}
+            >
+              <Link to={link.path} className="text-zh-bold-16">
+                {link.name}
+              </Link>
+            </li>
+          ))}
+        </ul>
+      </div>
 
       <div className="navbar-icons">
         <Link to="/cart" className="icon-link" title="購物車">
@@ -52,5 +51,6 @@ function Navbar() {
 }
 
 export default Navbar;
+
 
 

@@ -1,11 +1,26 @@
-#root {
+/* 全域高度設定，讓 footer 能夠貼底 */
+html, body, #root {
+  height: 100%;
+  margin: 0;
+}
+
+/* 撐開頁面容器 */
+.app-container {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+}
+
+/* 中間主要區域可延伸佔滿高度 */
+.main-content {
+  flex: 1;
+  padding: 2rem;
   max-width: 1280px;
   margin: 0 auto;
-  padding: 2rem;
   text-align: center;
 }
 
-/* 全站字體配置 */
+/* 全站字體與主色設定 */
 body {
   font-family: 'Piazzolla', 'LXGW WenKai TC', serif;
   color: #142E3F;
@@ -13,6 +28,7 @@ body {
   line-height: 1.6;
 }
 
+/* Logo 樣式 */
 .logo {
   height: 6em;
   padding: 1.5em;
@@ -32,7 +48,6 @@ body {
   from {
     transform: rotate(0deg);
   }
-
   to {
     transform: rotate(360deg);
   }
@@ -44,10 +59,12 @@ body {
   }
 }
 
+/* 卡片樣式 */
 .card {
   padding: 2em;
 }
 
+/* 文件提示樣式 */
 .read-the-docs {
   color: #888;
 }
