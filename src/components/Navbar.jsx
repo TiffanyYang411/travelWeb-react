@@ -3,7 +3,7 @@ import { Link, useLocation } from 'react-router-dom';
 import '../styles/Navbar.css'; // 引入 CSS 樣式檔案
 import cartIcon from '../images/cart-icon-logout.svg';
 import userIcon from '../images/user-icon.svg';
-import '../styles/Typography.css'; // ✅ 新增：引入字體樣式檔案
+import '../styles/Typography.css'; // 引入字體樣式檔案
 import logo from '../images/logo.svg';
 
 function Navbar() {

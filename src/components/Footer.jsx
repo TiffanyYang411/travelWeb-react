@@ -1,8 +1,11 @@
 // src/components/Footer.jsx
+import { Link, useLocation } from 'react-router-dom';
 import '../styles/Footer.css';
 import footerLogo from '../images/Logo-footer.svg';
 
 function Footer() {
+  const location = useLocation();
+
   return (
     <footer className="footer">
       <div className="footer-top">
@@ -17,14 +20,14 @@ function Footer() {
         <div className="footer-right">
           <div className="footer-links-grid">
             {/* 第一列 */}
-            <div style={{ gridColumn: '1', gridRow: '1' }}><a href="/">首頁</a></div>
-            <div style={{ gridColumn: '2', gridRow: '1' }}><a href="/my-trip">我的行程</a></div>
-            <div style={{ gridColumn: '3', gridRow: '1' }}><a href="/explore">旅遊風格</a></div>
-            <div style={{ gridColumn: '4', gridRow: '1' }}><a href="/about">關於我們</a></div>
-            <div style={{ gridColumn: '5', gridRow: '1' }}><a href="/faq">常見問題</a></div>
+            <div style={{ gridColumn: '1', gridRow: '1' }}><Link to="/">首頁</Link></div>
+            <div style={{ gridColumn: '2', gridRow: '1' }}><Link to="/my-trip">我的行程</Link></div>
+            <div style={{ gridColumn: '3', gridRow: '1' }}><Link to="/explore">旅遊風格</Link></div>
+            <div style={{ gridColumn: '4', gridRow: '1' }}><Link to="/about">關於我們</Link></div>
+            <div style={{ gridColumn: '5', gridRow: '1' }}><Link to="/faq">常見問題</Link></div>
 
             {/* 第二列 */}
-            <div style={{ gridColumn: '1', gridRow: '2' }}><a href="/login">會員登入</a></div>
+            <div style={{ gridColumn: '1', gridRow: '2' }}><Link to="/login">會員登入</Link></div>
             <div style={{ gridColumn: '2', gridRow: '2' }}><a href="#">歷史行程</a></div>
             <div style={{ gridColumn: '3', gridRow: '2' }}><a href="#">極致戶外探險</a></div>
 
@@ -52,6 +55,8 @@ function Footer() {
 }
 
 export default Footer;
+
+
 
 
 
