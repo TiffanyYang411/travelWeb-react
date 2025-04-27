@@ -50,8 +50,8 @@
   display: grid;
   grid-template-columns: repeat(5, max-content);
   grid-template-rows: repeat(6, auto);
-  column-gap: 48px;
-  row-gap: 10px;
+  column-gap: 50px;
+  row-gap: 13px;
   text-align: left;
   font-family: 'LXGW WenKai TC', serif;
   font-weight: bold;

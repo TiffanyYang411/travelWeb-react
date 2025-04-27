@@ -3,13 +3,25 @@
 @import './styles/Typography.css';
 
 :root {
+  /* 字型設定 */
   font-family: Inter, system-ui, Avenir, Helvetica, Arial, sans-serif;
   line-height: 1.5;
   font-weight: 400;
 
+  /* 品牌主色設定 */
+  --primary-color: #142E3F; /* 主色（深藍） */
+  --secondary-color: #DCE8ED; /* 輔色（淺藍） */
+  --accent-color: #FF6F19; /* 強調色（亮橘） */
+  --error-color: #FF0000; /* 功能錯誤色 */
+
+  /* 字色設定 */
+  --text-color: #142E3F; /* 預設字色用深藍 */
+  --background-color: #F6FBFC; /* 預設背景淺藍白 */
+
+  /* 額外原本就有的設定 */
   color-scheme: light dark;
-  color: var(--text-color, #F6FBFC);
-  background-color: var(--primary-color); /* 背景套品牌色 */
+  color: var(--text-color);
+  background-color: var(--background-color);
 
   font-synthesis: none;
   text-rendering: optimizeLegibility;

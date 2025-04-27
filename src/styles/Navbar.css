@@ -8,7 +8,7 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
-  background-color: rgba(20, 46, 63, 0.3); /* ✅ 深藍 + 玻璃感 */
+  background-color: rgba(20, 46, 63, 0.3); /* ✅ 深藍玻璃感 */
   backdrop-filter: blur(12px);
   -webkit-backdrop-filter: blur(12px);
   height: 50px;
@@ -16,31 +16,35 @@
   padding: 13px 0;
 }
 
+/* 左側 Logo */
 .navbar-logo {
-  font-size: 2.0rem;
+  font-size: 2rem;
   font-weight: bold;
   color: #333;
   margin-left: 45px; /* ✅ Logo 離左側距離 */
 }
 
 .logo-img {
-  height: 24px; /* ✅ 減去上下 padding 讓總高仍為 50px */
+  width: 165px;
+  height: 30px;
   object-fit: contain;
-  cursor: pointer;
+  display: block;
 }
 
+/* 中間導覽列 */
 .navbar-center {
   flex: 1;
   display: flex;
   justify-content: flex-end;
-  margin-right: 2rem;
+  margin-right: 30px; /* ✅ 調整跟購物車之間30px */
 }
 
 .navbar-links {
   list-style: none;
   display: flex;
-  gap: 48px; /* ✅ 導覽列字之間間隔 */
+  gap: 48px; /* ✅ 導覽連結間距 */
   margin: 0;
+  padding: 0;
   font-family: 'LXGW WenKai TC', serif;
   font-weight: bold;
   font-size: 16px;
@@ -51,7 +55,7 @@
   text-decoration: none;
   color: var(--secondary-color-xlight);
   transition: color 0.3s ease;
-  line-height: 24px; /* ✅ 配合上下間距對齊 */
+  line-height: 24px;
 }
 
 .navbar-links li a::after {
@@ -86,30 +90,34 @@
   transform: scaleX(1);
 }
 
+/* 右側 icon 區 */
 .navbar-icons {
   display: flex;
   align-items: center;
-  gap: 27px; /* ✅ icon 間距 */
-  margin-left: 40px; /* ✅ 購物車 icon 離常見問題距離 */
-  margin-right: 116px; /* ✅ 會員 icon 離最右側距離 */
-  padding: 9px 0; /* ✅ icon 上下各 9px 間距 */
+  gap: 30px; /* ✅ 購物車 icon跟會員icon 中間間隔30px */
+  margin-right: 116px; /* ✅ 會員icon 距最右側116px */
+  padding: 9px 0;
 }
 
+/* 單個 icon 的連結 */
 .icon-link {
   display: flex;
   align-items: center;
   cursor: pointer;
 }
 
+/* icon 圖片 */
 .nav-icon {
-  width: 48px;
-  height: 48px;
+  width: 30px;
+  height: 30px;
   transition: opacity 0.3s ease;
 }
 
 .nav-icon:hover {
   opacity: 0.7;
 }
+
+
 
 
 

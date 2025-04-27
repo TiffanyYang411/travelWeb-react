@@ -1,9 +1,11 @@
 // src/pages/Home.jsx
+
 import React, { useEffect, useState } from 'react';
 import '../styles/Home.css';
-import { travelStyles } from '../data/travelStyles';
-import { testimonials } from '../data/testimonials';
-import { whyUsItems } from '../data/whyUs';
+import '../styles/Typography.css'; // ✅ 引入字型設定
+import TravelStyles from '../components/TravelStyles';
+import WhyUs from '../components/WhyUs';
+import Testimonial from '../components/Testimonial';
 
 const quoteSvgs = [
   `${import.meta.env.BASE_URL}images/banner-quote-1.svg`,
@@ -33,8 +35,8 @@ function Home() {
       setTimeout(() => {
         setCurrentSlide((prev) => (prev + 1) % slideImages.length);
         setTransitioning(false);
-      }, 300); // 快速 slide 切換動畫結束後才切換圖片
-    }, 6000); // 每張圖停留 6 秒
+      }, 300);
+    }, 6000);
 
     return () => {
       clearTimeout(quoteInTimer);
@@ -56,17 +58,12 @@ function Home() {
               className={`fullscreen-img ${index === 0 ? 'slide-one' : ''} ${index === currentSlide ? 'active' : 'inactive'}`}
             />
           ))}
-
           <div className="hero-window-frame" />
-
-          {/* quote1 - 初始語錄 */}
           <img
             src={quoteSvgs[0]}
             alt="語錄1"
             className={`hero-quote ${ready && !expanded ? 'visible' : ''}`}
           />
-
-          {/* quote2 - 放大後出現 */}
           <img
             src={quoteSvgs[1]}
             alt="語錄2"
@@ -75,49 +72,18 @@ function Home() {
         </div>
       </section>
 
-      {/* 其餘區塊 */}
-      <section className="section style-section">
-        <h2>探索你的旅行風格</h2>
-        <div className="style-grid">
-          {travelStyles.map((style, index) => (
-            <div className="style-card" key={index}>
-              <img src={style.image} alt={style.title} />
-              <h3>{style.title}</h3>
-              <p>{style.description}</p>
-            </div>
-          ))}
-        </div>
-      </section>
+      {/* ✅ 探索你的旅行風格區塊 */}
+      <TravelStyles />
 
-      <section className="section testimonial-section">
-        <h2>旅人回饋</h2>
-        <div className="testimonial-grid">
-          {testimonials.map((item, index) => (
-            <div className="testimonial-card" key={index}>
-              <p>"{item.comment}"</p>
-              <span>— {item.name}</span>
-            </div>
-          ))}
-        </div>
-      </section>
+      {/* ✅ 為什麼選擇我們區塊 + 客戶評價區塊 */}
+      <WhyUs />
 
-      <section className="section whyus-section">
-        <h2>為什麼選擇 Élan Journeys？</h2>
-        <div className="whyus-grid">
-          {whyUsItems.map((item, index) => (
-            <div className="whyus-card" key={index}>
-              <img src={item.icon} alt={item.title} />
-              <h3>{item.title}</h3>
-              <p>{item.description}</p>
-            </div>
-          ))}
-        </div>
-      </section>
     </div>
   );
 }
 
 export default Home;
+
 
 
 

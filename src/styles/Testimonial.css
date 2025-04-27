@@ -1,18 +1,90 @@
-.testimonial {
-    background-color: #f0f4f8;
-    padding: 3rem 2rem;
-    text-align: center;
-  }
-  
-  .testimonial blockquote {
-    font-size: 1.2rem;
-    font-style: italic;
-    margin: 0 auto 1rem;
-    max-width: 600px;
-  }
-  
-  .testimonial .user-name {
-    font-weight: bold;
-    color: #444;
-  }
-  
+/* 背景設定 */
+.testimonial-section {
+  width: 100%;
+  height: 800px; /* 跟前面設計接起來 */
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  padding-top: 200px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  position: relative;
+  overflow: hidden;
+}
+
+/* 標題設定 */
+.testimonial-header {
+  text-align: center;
+  margin-bottom: 60px;
+}
+
+.testimonial-header .en-title-32 {
+  font-size: 32px;
+  color: #ffffff;
+  margin-bottom: 8px;
+  line-height: 1.6;
+  letter-spacing: 0.06em;
+}
+
+.testimonial-header .zh-title-32 {
+  font-size: 28px;
+  color: #ffffff;
+  line-height: 1.5;
+  letter-spacing: 0.05em;
+}
+
+/* 留言滑動區 */
+.testimonial-slider {
+  position: relative;
+  width: 600px;
+  height: 300px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+/* 每一個留言 */
+.testimonial-item {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%) scale(0.95);
+  width: 100%;
+  padding: 30px;
+  background: rgba(255, 255, 255, 0.2);
+  backdrop-filter: blur(10px);
+  border-radius: 20px;
+  opacity: 0;
+  transition: all 1s ease;
+  text-align: center;
+  color: #ffffff;
+  font-size: 18px;
+}
+
+/* 中間清晰 */
+.testimonial-item.active {
+  opacity: 1;
+  transform: translateY(-50%) scale(1);
+  background: rgba(255, 255, 255, 0.3);
+  backdrop-filter: blur(5px);
+}
+
+/* 上面模糊 */
+.testimonial-item.above {
+  opacity: 0.3;
+  transform: translateY(-120%) scale(0.9);
+}
+
+/* 下面模糊 */
+.testimonial-item.below {
+  opacity: 0.3;
+  transform: translateY(20%) scale(0.9);
+}
+
+/* 使用者名字 */
+.user-name {
+  margin-top: 20px;
+  font-weight: bold;
+  font-size: 16px;
+}

@@ -1,6 +1,10 @@
 // src/components/Footer.jsx
+
+// src/components/Footer.jsx
+
 import { Link, useLocation } from 'react-router-dom';
 import '../styles/Footer.css';
+import '../styles/Typography.css'; // ✅ 引入字型設定
 import footerLogo from '../images/Logo-footer.svg';
 
 function Footer() {
@@ -8,53 +12,84 @@ function Footer() {
 
   return (
     <footer className="footer">
+      {/* 上層 深藍區 */}
       <div className="footer-top">
         <div className="footer-left">
           <div className="footer-logo">
             <img src={footerLogo} alt="ÉLAN Journeys Logo" className="footer-logo-img" />
           </div>
-          <p>地址：台北市信義松仁路100號</p>
-          <p>電話號碼：123-456-7890　信箱：example@gmail.com</p>
+          <p className="zh-text-14">地址：台北市信義松仁路100號</p>
+          <p className="zh-text-14">電話號碼：123-456-7890　信箱：example@gmail.com</p>
         </div>
 
         <div className="footer-right">
           <div className="footer-links-grid">
             {/* 第一列 */}
-            <div style={{ gridColumn: '1', gridRow: '1' }}><Link to="/">首頁</Link></div>
-            <div style={{ gridColumn: '2', gridRow: '1' }}><Link to="/my-trip">我的行程</Link></div>
-            <div style={{ gridColumn: '3', gridRow: '1' }}><Link to="/explore">旅遊風格</Link></div>
-            <div style={{ gridColumn: '4', gridRow: '1' }}><Link to="/about">關於我們</Link></div>
-            <div style={{ gridColumn: '5', gridRow: '1' }}><Link to="/faq">常見問題</Link></div>
+            <div className="footer-link-item" style={{ gridColumn: '1', gridRow: '1' }}>
+              <Link to="/" className="zh-text-14">首頁</Link>
+            </div>
+            <div className="footer-link-item" style={{ gridColumn: '2', gridRow: '1' }}>
+              <Link to="/my-trip" className="zh-text-14">我的行程</Link>
+            </div>
+            <div className="footer-link-item" style={{ gridColumn: '3', gridRow: '1' }}>
+              <Link to="/explore" className="zh-text-14">旅遊風格</Link>
+            </div>
+            <div className="footer-link-item" style={{ gridColumn: '4', gridRow: '1' }}>
+              <Link to="/about" className="zh-text-14">關於我們</Link>
+            </div>
+            <div className="footer-link-item" style={{ gridColumn: '5', gridRow: '1' }}>
+              <Link to="/faq" className="zh-text-14">常見問題</Link>
+            </div>
 
             {/* 第二列 */}
-            <div style={{ gridColumn: '1', gridRow: '2' }}><Link to="/login">會員登入</Link></div>
-            <div style={{ gridColumn: '2', gridRow: '2' }}><a href="#">歷史行程</a></div>
-            <div style={{ gridColumn: '3', gridRow: '2' }}><a href="#">極致戶外探險</a></div>
+            <div className="footer-link-item" style={{ gridColumn: '1', gridRow: '2' }}>
+              <Link to="/login" className="zh-text-14">會員登入</Link>
+            </div>
+            <div className="footer-link-item" style={{ gridColumn: '2', gridRow: '2' }}>
+              <a href="#" className="zh-text-14">歷史行程</a>
+            </div>
+            <div className="footer-link-item" style={{ gridColumn: '3', gridRow: '2' }}>
+              <a href="#" className="zh-text-14">極致戶外探險</a>
+            </div>
 
             {/* 第三列 */}
-            <div style={{ gridColumn: '2', gridRow: '3' }}><a href="#">現在出發</a></div>
-            <div style={{ gridColumn: '3', gridRow: '3' }}><a href="#">米其林美食巡禮</a></div>
+            <div className="footer-link-item" style={{ gridColumn: '2', gridRow: '3' }}>
+              <a href="#" className="zh-text-14">現在出發</a>
+            </div>
+            <div className="footer-link-item" style={{ gridColumn: '3', gridRow: '3' }}>
+              <a href="#" className="zh-text-14">米其林美食巡禮</a>
+            </div>
 
             {/* 第四列 */}
-            <div style={{ gridColumn: '3', gridRow: '4' }}><a href="#">頂級奢華度假</a></div>
+            <div className="footer-link-item" style={{ gridColumn: '3', gridRow: '4' }}>
+              <a href="#" className="zh-text-14">頂級奢華度假</a>
+            </div>
 
             {/* 第五列 */}
-            <div style={{ gridColumn: '3', gridRow: '5' }}><a href="#">深度文化之旅</a></div>
+            <div className="footer-link-item" style={{ gridColumn: '3', gridRow: '5' }}>
+              <a href="#" className="zh-text-14">深度文化之旅</a>
+            </div>
 
             {/* 第六列 */}
-            <div style={{ gridColumn: '3', gridRow: '6' }}><a href="#">北歐療癒假期</a></div>
+            <div className="footer-link-item" style={{ gridColumn: '3', gridRow: '6' }}>
+              <a href="#" className="zh-text-14">北歐療癒假期</a>
+            </div>
           </div>
         </div>
       </div>
 
+      {/* 最下層 淺藍版權區 */}
       <div className="footer-bottom">
-        © 2025 by VIP Global (Taiwan). All rights reserved.
+        <p className="en-title-16">© 2025 by VIP Global (Taiwan). All rights reserved.</p>
       </div>
     </footer>
   );
 }
 
 export default Footer;
+
+
+
 
 
 

@@ -1,20 +1,25 @@
 // src/data/whyUs.js
 
 export const whyUsItems = [
-    {
-      icon: '/images/react.svg',
-      title: '北歐專精',
-      description: '我們只專注於北歐市場，深度了解當地文化與旅遊特色。',
-    },
-    {
-      icon: '/images/cart-icon-logout.svg',
-      title: '客製化行程',
-      description: '依據你的風格與需求，打造獨一無二的高端旅程。',
-    },
-    {
-      icon: '/images/user-icon.svg',
-      title: '專屬旅遊顧問',
-      description: '從前期規劃到返程，每一步都由專屬顧問貼心協助。',
-    },
-  ];
+  {
+    title: '專屬策劃師',
+    description: `我們的每位客戶都擁有專屬策劃師為你<br />推薦符合個人品味的旅行風格`,
+    image: `${import.meta.env.BASE_URL}images/whyus-planner.jpg`,
+  },
+  {
+    title: '高端客製化',
+    description: `不必迎合他人節奏<br />在這趟旅途中，您只需隨心所欲<br />我們替您實現所有對高端旅行的想像`,
+    image1: `${import.meta.env.BASE_URL}images/whyus-custom1.jpg`,
+    image2: `${import.meta.env.BASE_URL}images/whyus-custom2.jpg`,
+  },
+  {
+    title: '專業服務',
+    description: `全程專業團隊支援，確保每一細節都無憂無慮。`, // ❌不用任何<br />，維持一行
+    image: `${import.meta.env.BASE_URL}images/whyus-service.jpg`,
+  },
+];
+
+
+
+
   

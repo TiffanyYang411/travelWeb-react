@@ -1,3 +1,5 @@
+/* src/styles/Home.css */
+
 /* 全域設定 */
 .home-page {
   font-family: 'Piazzolla', serif;
@@ -48,7 +50,7 @@
 }
 
 .fullscreen-img.slide-one.active {
-  transform: translateX(70px); /* ✅ Slide1 向右偏移，數值你可微調 */
+  transform: translateX(70px);
   opacity: 1;
   z-index: 2;
 }
@@ -113,108 +115,8 @@
   transform: translateY(0);
 }
 
-/* Banner 文字按鈕（備用） */
-.banner h1 {
-  font-size: 3rem;
-  color: white;
-  margin-bottom: 1rem;
-}
-
-.banner p {
-  font-size: 1.25rem;
-  color: #f6fbfc;
-}
-
-.banner-btn {
-  background-color: #FF6F19;
-  color: white;
-  border: none;
-  padding: 12px 24px;
-  font-size: 1rem;
-  border-radius: 8px;
-  margin-top: 20px;
-  cursor: pointer;
-  transition: background-color 0.3s ease;
-}
-
-.banner-btn:hover {
-  background-color: #e6600f;
-}
-
-/* TravelStyles 區塊 */
-.style-section h2 {
-  text-align: center;
-  font-size: 2rem;
-  margin-bottom: 40px;
-}
-
-.style-grid {
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: center;
-  gap: 40px;
-}
-
-.style-card {
-  width: 280px;
-  background-color: #F6FBFC;
-  border-radius: 16px;
-  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.05);
-  padding: 20px;
-  text-align: center;
-  transition: transform 0.3s ease;
-}
-
-.style-card:hover {
-  transform: translateY(-5px);
-}
-
-.style-card img {
-  width: 100%;
-  border-radius: 12px;
-  margin-bottom: 15px;
-}
-
-.style-card h3 {
-  font-size: 1.2rem;
-  margin-bottom: 10px;
-}
-
-/* Explore Call 區塊 */
-.explore-call {
-  background-color: #DCE8ED;
-  padding: 60px 40px;
-  border-radius: 16px;
-  text-align: center;
-}
-
-.explore-call h2 {
-  font-size: 2rem;
-  margin-bottom: 1rem;
-}
-
-.explore-call p {
-  font-size: 1.1rem;
-  margin-bottom: 1.5rem;
-}
-
-.explore-btn {
-  background-color: #142E3F;
-  color: white;
-  padding: 12px 24px;
-  border: none;
-  font-size: 1rem;
-  border-radius: 8px;
-  cursor: pointer;
-  transition: background-color 0.3s ease;
-}
-
-.explore-btn:hover {
-  background-color: #0f202b;
-}
-
 /* Testimonial 區塊 */
-testimonial-section h2 {
+.testimonial-section h2 {
   text-align: center;
   font-size: 2rem;
   margin-bottom: 40px;
@@ -242,42 +144,6 @@ testimonial-section h2 {
   font-weight: bold;
 }
 
-/* Why Us 區塊 */
-.whyus-section h2 {
-  text-align: center;
-  font-size: 2rem;
-  margin-bottom: 40px;
-}
-
-.whyus-grid {
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: center;
-  gap: 40px;
-}
-
-.whyus-card {
-  background-color: #fff;
-  width: 280px;
-  padding: 20px;
-  text-align: center;
-  border-radius: 16px;
-  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.05);
-}
-
-.whyus-card img {
-  width: 60px;
-  margin-bottom: 15px;
-}
-
-.whyus-card h3 {
-  font-size: 1.25rem;
-  margin-bottom: 10px;
-}
-
-.hero-debug {
-  display: none;
-}
 
 
 

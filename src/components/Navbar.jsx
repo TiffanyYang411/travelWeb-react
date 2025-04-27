@@ -1,9 +1,11 @@
 // src/components/Navbar.jsx
+// src/components/Navbar.jsx
+
 import { Link, useLocation } from 'react-router-dom';
-import '../styles/Navbar.css'; // 引入 CSS 樣式檔案
+import '../styles/Navbar.css'; // 引入 CSS 樣式
+import '../styles/Typography.css'; // 引入字體樣式
 import cartIcon from '../images/cart-icon-logout.svg';
 import userIcon from '../images/user-icon.svg';
-import '../styles/Typography.css'; // 引入字體樣式檔案
 import logo from '../images/logo.svg';
 
 function Navbar() {
@@ -18,11 +20,12 @@ function Navbar() {
 
   return (
     <nav className="navbar">
-      {/* 使用圖片作為 Logo */}
+      {/* Logo */}
       <Link to="/" className="navbar-logo">
         <img src={logo} alt="Élan Journeys Logo" className="logo-img" />
       </Link>
 
+      {/* 中間導覽列 */}
       <div className="navbar-center">
         <ul className="navbar-links">
           {navLinks.map((link) => (
@@ -30,7 +33,7 @@ function Navbar() {
               key={link.path}
               className={location.pathname === link.path ? 'active' : ''}
             >
-              <Link to={link.path} className="text-zh-bold-16">
+              <Link to={link.path} className="zh-text-16">
                 {link.name}
               </Link>
             </li>
@@ -38,6 +41,7 @@ function Navbar() {
         </ul>
       </div>
 
+      {/* 右側購物車＋登入 */}
       <div className="navbar-icons">
         <Link to="/cart" className="icon-link" title="購物車">
           <img src={cartIcon} alt="Cart Icon" className="nav-icon" />
@@ -51,6 +55,7 @@ function Navbar() {
 }
 
 export default Navbar;
+
 
 
 
