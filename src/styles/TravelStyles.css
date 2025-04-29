@@ -1,8 +1,13 @@
 /* src/styles/TravelStyles.css */
 
+/* src/styles/TravelStyles.css */
+
+@import './Colors.css';
+@import './Typography.css';
+
 .travel-style-section {
   position: relative;
-  width: 100vw; /* ✅ 整個視窗寬 */
+  width: 100vw;
   height: 100vh;
   background-size: cover;
   background-position: center;
@@ -11,7 +16,7 @@
   display: flex;
   align-items: center;
   box-sizing: border-box;
-  padding: 0; /* ✅ 外層不留白 */
+  padding: 0;
 }
 
 .overlay {
@@ -24,7 +29,6 @@
   z-index: 1;
 }
 
-/* 左側文字區 */
 .travel-style-text {
   position: relative;
   z-index: 2;
@@ -46,14 +50,14 @@
   display: flex;
   align-items: center;
   justify-content: space-between;
-  padding: 0 80px; /* ✅ 左右留白80px */
+  padding: 0 80px;
   width: 100%;
   height: 100%;
   box-sizing: border-box;
 }
 
 .explore-btn {
-  background-color: #FF6F19;
+  background-color: var(--accent-color);
   color: white;
   border: none;
   padding: 12px 24px;
@@ -67,14 +71,12 @@
   background-color: #e6600f;
 }
 
-/* 右側滑動區 */
 .travel-style-slider {
   position: relative;
   z-index: 2;
   width: 800px;
 }
 
-/* 卡片外框 */
 .style-card-wrapper {
   width: 250px;
   height: 350px;
@@ -105,7 +107,6 @@
   100% { transform: scale(1.08); }
 }
 
-/* 圖片本體 */
 .style-card-image-wrapper {
   width: 100%;
   height: 100%;
@@ -119,7 +120,6 @@
   display: block;
 }
 
-/* 卡片內標題 */
 .style-card-title {
   position: absolute;
   bottom: 20px;
@@ -134,7 +134,6 @@
   z-index: 2;
 }
 
-/* 被選到的漸層遮罩 */
 .gradient-overlay {
   position: absolute;
   top: 0;
@@ -146,6 +145,7 @@
   border-radius: 16px;
   z-index: 1;
 }
+
 
 
 

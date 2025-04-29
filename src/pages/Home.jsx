@@ -2,7 +2,7 @@
 
 import React, { useEffect, useState } from 'react';
 import '../styles/Home.css';
-import '../styles/Typography.css'; // ✅ 引入字型設定
+import '../styles/Typography.css';
 import TravelStyles from '../components/TravelStyles';
 import WhyUs from '../components/WhyUs';
 import Testimonial from '../components/Testimonial';
@@ -75,14 +75,19 @@ function Home() {
       {/* ✅ 探索你的旅行風格區塊 */}
       <TravelStyles />
 
-      {/* ✅ 為什麼選擇我們區塊 + 客戶評價區塊 */}
+      {/* ✅ 為什麼選擇我們區塊 */}
       <WhyUs />
 
+      {/* ✅ 客戶評價區塊，獨立出來但延續極光背景 */}
+      <section className="testimonial-wrapper">
+        <Testimonial />
+      </section>
     </div>
   );
 }
 
 export default Home;
+
 
 
 

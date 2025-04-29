@@ -1,36 +1,22 @@
 // src/components/Testimonial.jsx
 
-import { useState, useEffect } from 'react';
-import '../styles/Testimonial.css';
 import { testimonials } from '../data/testimonials';
+import '../styles/Testimonial.css';
 
 function Testimonial() {
-  const [activeIndex, setActiveIndex] = useState(0);
-
-  useEffect(() => {
-    const interval = setInterval(() => {
-      setActiveIndex((prevIndex) => (prevIndex + 1) % testimonials.length);
-    }, 5000); // 每5秒切一個
-
-    return () => clearInterval(interval);
-  }, []);
-
   return (
     <section className="testimonial-section">
+      <div className="testimonial-overlay"></div>  {/* ✅ 黑色半透明層 */}
       <div className="testimonial-header">
         <h2 className="en-title-32">What Our Clients Say</h2>
         <h2 className="zh-title-32">客戶評價</h2>
       </div>
-      <div className="testimonial-slider">
+
+      <div className="testimonial-slider-outer">
         {testimonials.map((item, index) => (
-          <div
-            key={index}
-            className={`testimonial-item ${
-              index === activeIndex ? 'active' : index < activeIndex ? 'above' : 'below'
-            }`}
-          >
-            <blockquote>{item.comment}</blockquote>
-            <p className="user-name">— {item.name}・{item.title}</p>
+          <div className="testimonial-item-slide" key={index}>
+            <img src={item.image} alt={`client-${index}`} className="testimonial-avatar" />
+            <p className="zh-text-14">{item.comment}</p>
           </div>
         ))}
       </div>
@@ -39,6 +25,12 @@ function Testimonial() {
 }
 
 export default Testimonial;
+
+
+
+
+
+
 
 
 

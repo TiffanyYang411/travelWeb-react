@@ -1,11 +1,18 @@
 /* src/styles/Home.css */
 
 /* 全域設定 */
+/* === Home 全域樣式 === */
 .home-page {
   font-family: 'Piazzolla', serif;
   color: #142E3F;
   background-color: transparent;
   line-height: 1.6;
+  
+}
+
+.home-page section {
+  margin: 0;
+  padding: 0;
 }
 
 .section {
@@ -14,7 +21,7 @@
   margin: 0 auto;
 }
 
-/* Banner 區塊（動畫版） */
+/* === Banner 區塊（動畫版） === */
 .hero-section {
   position: relative;
   height: 100vh;
@@ -79,7 +86,7 @@
 }
 
 .hero-section.expanded .hero-window-frame {
-  transform: scale(3.6);
+  transform: scale(3.5) translate(-7px, -10px);
 }
 
 .hero-quote {
@@ -115,7 +122,18 @@
   transform: translateY(0);
 }
 
-/* Testimonial 區塊 */
+/* === Testimonial 視覺背景包裝區塊（與 WhyUs 極光銜接） === */
+.testimonial-wrapper {
+  background-image: url('/images/testimonial-bg.jpg');
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: center ; /* ↑再往上對齊 whyUs 的底部 */
+  padding: 180px 0;
+  position: relative;
+  z-index: 1;
+}
+
+/* === Testimonial 內容樣式（如需） === */
 .testimonial-section h2 {
   text-align: center;
   font-size: 2rem;
@@ -143,6 +161,7 @@
   font-style: normal;
   font-weight: bold;
 }
+
 
 
 

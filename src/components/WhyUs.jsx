@@ -7,13 +7,10 @@
 // WhyUs.jsx
 import '../styles/WhyUs.css';
 import '../styles/Typography.css';
-import { useEffect, useState } from 'react';
+import { useEffect } from 'react';
 import { whyUsItems } from '../data/whyUs';
-import { testimonials } from '../data/testimonials';
 
 function WhyUs() {
-  const [currentIndex, setCurrentIndex] = useState(0);
-
   useEffect(() => {
     const observer = new IntersectionObserver((entries) => {
       entries.forEach(entry => {
@@ -31,22 +28,12 @@ function WhyUs() {
     };
   }, []);
 
-  useEffect(() => {
-    const timer = setInterval(() => {
-      setCurrentIndex(prev => (prev + 1) % testimonials.length);
-    }, 4000);
-
-    return () => clearInterval(timer);
-  }, []);
-
-  const getPrevIndex = () => (currentIndex - 1 + testimonials.length) % testimonials.length;
-  const getNextIndex = () => (currentIndex + 1) % testimonials.length;
-
   return (
     <section
       className="whyus-section"
       style={{ backgroundImage: `url(${import.meta.env.BASE_URL}images/whyus-bg.jpg)` }}
     >
+      <div className="whyus-overlay"></div> {/* ✅ 新增這層遮罩 */}
       <div className="whyus-container">
 
         {/* 最上方標題 */}
@@ -56,7 +43,6 @@ function WhyUs() {
         </div>
 
         <div className="whyus-content">
-
           {/* 專屬策劃師 */}
           <div className="whyus-item">
             <img src={whyUsItems[0].image} alt={whyUsItems[0].title} className="whyus-large-img fade-in delay-0" />
@@ -86,52 +72,15 @@ function WhyUs() {
               <p className="zh-text-20 one-line">{whyUsItems[2].description}</p>
             </div>
           </div>
-
-          {/* 客戶評價標題（獨立出來） */}
-          <div className="testimonial-title fade-in delay-1">
-            <h2 className="en-title-32">What Our Clients Say</h2>
-            <h2 className="zh-title-32">客戶評價</h2>
-          </div>
-
-          {/* 客戶評價輪播 */}
-          <div className="testimonial-slider-container">
-            <div className="testimonial-slider">
-              <div className="testimonial-track">
-                <div className="testimonial-card above">
-                  <img
-                    src={`${import.meta.env.BASE_URL}${testimonials[getPrevIndex()].image}`}
-                    alt="Previous Person"
-                    className="testimonial-avatar"
-                  />
-                  <p className="testimonial-comment">{testimonials[getPrevIndex()].comment}</p>
-                </div>
-                <div className="testimonial-card center">
-                  <img
-                    src={`${import.meta.env.BASE_URL}${testimonials[currentIndex].image}`}
-                    alt="Current Person"
-                    className="testimonial-avatar"
-                  />
-                  <p className="testimonial-comment">{testimonials[currentIndex].comment}</p>
-                </div>
-                <div className="testimonial-card below">
-                  <img
-                    src={`${import.meta.env.BASE_URL}${testimonials[getNextIndex()].image}`}
-                    alt="Next Person"
-                    className="testimonial-avatar"
-                  />
-                  <p className="testimonial-comment">{testimonials[getNextIndex()].comment}</p>
-                </div>
-              </div>
-            </div>
-          </div>
-
         </div>
+
       </div>
     </section>
   );
 }
 
 export default WhyUs;
+
 
 
 

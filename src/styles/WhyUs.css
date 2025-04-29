@@ -25,21 +25,32 @@
 
 /* === 為什麼選擇我們區塊（維持不動）=== */
 .whyus-section {
+  position: relative; /* ✅ 必要：讓遮罩定位用 */
   width: 100%;
   min-height: 2280px;
   padding: 100px 0;
   background-size: cover;
-  background-position: top center;
+  background-position: center; 
   background-repeat: no-repeat;
   background-image: url('/images/whyus-bg.jpg');
 }
-.whyus-container {
+
+.whyus-overlay {
+  position: absolute;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.2); /* ✅ 黑色30%透明 */
+  z-index: 1;
+}
+
+.en-title-32 { top: 0; }.whyus-container {
+  position: relative; /* ✅ 必須relative才能設z-index */
   max-width: 1200px;
   margin: 0 auto;
   padding: 0 20px;
   display: flex;
   flex-direction: column;
   align-items: center;
+  z-index: 2; /* ✅ 把內容壓到黑色遮罩上面 */
 }
 
 .whyus-header {
@@ -53,14 +64,14 @@
 }
 .whyus-header .en-title-32 {
   position: absolute;
-  top: 0;
+  top: 150px;
   right: 180px;
   line-height: 1.6;
   letter-spacing: 0.06em;
 }
 .whyus-header .zh-title-32 {
   position: absolute;
-  top: 62px;
+  top: 250px;
   right: 58px;
   line-height: 1.5;
   letter-spacing: 0.05em;
@@ -80,9 +91,9 @@
   width: 100%;
   display: flex;
   flex-direction: column;
-  gap: 120px;
+  gap: 300px;
+  justify-content: space-between; 
 }
-
 .whyus-item {
   display: flex;
   align-items: center;
@@ -103,7 +114,8 @@
   margin-top: -60px;
 }
 .whyus-item.service-text-adjust .whyus-text {
-  transform: translateX(80px);
+  transform: translateX(50px);
+  margin-top: 50px;
 }
 .whyus-item.service-text-adjust h3 {
   transform: translateX(30px);
@@ -117,16 +129,18 @@
   object-fit: cover;
   border-radius: 16px;
   box-shadow: 0 4px 20px rgba(0,0,0,0.2);
-  transform: translateX(-70px);
+  transform: translateX(300px);
+  margin-top: 150px;
 }
 .whyus-item.service-text-adjust .whyus-large-img {
-  margin-top: -80px;
+  margin-top:-70px;
 }
 .overlap-images {
   position: relative;
   width: 400px;
   height: 500px;
   transform: translateX(150px);
+  transform: translateY(10px);
 }
 .top-img, .bottom-img {
   width: 300px;
@@ -154,6 +168,8 @@
   flex-direction: column;
   align-items: center;
   text-align: center;
+  margin-top: 120px;
+  margin-left: 20px;
 }
 .whyus-text h3 {
   margin-bottom: 16px;

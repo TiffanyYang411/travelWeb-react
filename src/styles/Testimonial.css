@@ -1,7 +1,20 @@
 /* 背景設定 */
+
+/* === Testimonial 區塊（動畫改為輪播式滾動）=== */
+/* === Testimonial 區塊完整樣式 === */
+
+/* === Testimonial 區塊完整樣式 === */
+
+/* === Testimonial 區塊完整樣式 === */
+
+/* === Testimonial 區塊完整樣式 === */
+
+/* === Testimonial 區塊完整樣式（重構）=== */
+
 .testimonial-section {
   width: 100%;
-  height: 800px; /* 跟前面設計接起來 */
+  min-height: 800px;
+  background-image: url('/images/testimonial-bg.jpg');
   background-size: cover;
   background-position: center;
   background-repeat: no-repeat;
@@ -13,10 +26,18 @@
   overflow: hidden;
 }
 
-/* 標題設定 */
 .testimonial-header {
   text-align: center;
   margin-bottom: 60px;
+  position: absolute;
+  top: 10%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  z-index: 5;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
 }
 
 .testimonial-header .en-title-32 {
@@ -34,57 +55,104 @@
   letter-spacing: 0.05em;
 }
 
-/* 留言滑動區 */
-.testimonial-slider {
-  position: relative;
-  width: 600px;
-  height: 300px;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-}
-
-/* 每一個留言 */
-.testimonial-item {
-  position: absolute;
-  top: 50%;
-  transform: translateY(-50%) scale(0.95);
+.testimonial-slider-outer {
   width: 100%;
-  padding: 30px;
-  background: rgba(255, 255, 255, 0.2);
-  backdrop-filter: blur(10px);
-  border-radius: 20px;
-  opacity: 0;
-  transition: all 1s ease;
-  text-align: center;
-  color: #ffffff;
-  font-size: 18px;
+  height: 600px; /* 3 張卡片 + 2 間距 */
+  position: relative;
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+  align-items: center;
+  overflow: hidden;
+  margin-top: 220px; /* 或者越大越下 */
 }
 
-/* 中間清晰 */
-.testimonial-item.active {
-  opacity: 1;
-  transform: translateY(-50%) scale(1);
-  background: rgba(255, 255, 255, 0.3);
-  backdrop-filter: blur(5px);
-}
-
-/* 上面模糊 */
-.testimonial-item.above {
-  opacity: 0.3;
-  transform: translateY(-120%) scale(0.9);
-}
-
-/* 下面模糊 */
-.testimonial-item.below {
-  opacity: 0.3;
-  transform: translateY(20%) scale(0.9);
-}
-
-/* 使用者名字 */
-.user-name {
-  margin-top: 20px;
-  font-weight: bold;
+.testimonial-item-slide {
+  display: flex;
+  align-items: center;
+  position: absolute;
+  width: 700px;
+  height: 150px;
+  padding: 20px 30px;
+  background: var(--secondary-color-xlight);
+  border-radius: 5px;
+  color: var(--secondary-color-dark);
   font-size: 16px;
+  text-align: left;
+  gap: 20px;
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
+  will-change: transform, opacity;
+  animation: carousel-animate-vertical 27s linear infinite;
+  z-index: 2;
+  margin: 0 auto;
+  left: 0;
+  right: 0;
 }
+
+.testimonial-item-slide:nth-child(1) { animation-delay: 0s; }
+.testimonial-item-slide:nth-child(2) { animation-delay: 3s; }
+.testimonial-item-slide:nth-child(3) { animation-delay: 6s; }
+.testimonial-item-slide:nth-child(4) { animation-delay: 9s; }
+.testimonial-item-slide:nth-child(5) { animation-delay: 12s; }
+.testimonial-item-slide:nth-child(6) { animation-delay: 15s; }
+
+.testimonial-avatar {
+  width: 100px;
+  height: 100px;
+  border-radius: 50%;
+  object-fit: cover;
+  flex-shrink: 0;
+  border: 3px solid #fff;
+  box-shadow: 0 0 8px rgba(0,0,0,0.15);
+  z-index: 3;
+}
+
+.user-name {
+  margin-top: 10px;
+  font-weight: bold;
+  font-size: 14px;
+  color: var(--secondary-color-dark);
+}
+
+@keyframes carousel-animate-vertical {
+  0% {
+    transform: translateY(100%) scale(0.5);
+    opacity: 0;
+    visibility: hidden;
+  }
+  3% {
+    transform: translateY(100%) scale(0.7);
+    opacity: 0.4;
+    visibility: visible;
+  }
+  15% {
+    transform: translateY(0) scale(1);
+    opacity: 1;
+    visibility: visible;
+  }
+  27% {
+    transform: translateY(-100%) scale(0.7);
+    opacity: 0.4;
+    visibility: visible;
+  }
+  30% {
+    transform: translateY(-100%) scale(0.5);
+    opacity: 0;
+    visibility: hidden;
+  }
+  100% {
+    transform: translateY(-100%) scale(0.5);
+    opacity: 0;
+    visibility: hidden;
+  }
+}
+
+
+
+
+
+
+
+
+
+

@@ -52,7 +52,7 @@ function TravelStyles() {
             speed={800}
           >
             {travelStyles.map((item, index) => (
-              <SwiperSlide key={item.id}>
+              <SwiperSlide key={item.id} style={{ width: '250px' }}>
                 <div
                   className={`style-card-wrapper ${selectedIndex === index ? 'active' : ''}`}
                   onClick={() => setSelectedIndex(index)}
