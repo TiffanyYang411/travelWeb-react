@@ -1,0 +1,61 @@
+@import './Colors.css';
+@import './Typography.css';
+
+.explore-trip-card-container {
+  display: flex;
+  overflow-x: auto;
+  scroll-snap-type: x mandatory;
+  padding: 20px 0;
+  gap: 24px;
+}
+
+.explore-trip-card {
+  flex: 0 0 auto;
+  width: 260px;
+  scroll-snap-align: start;
+  background-color: var(--secondary-color-xlight);
+  border-radius: 8px;
+  overflow: hidden;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  cursor: pointer;
+  transition: transform 0.3s ease;
+}
+
+.explore-trip-card:hover {
+  transform: translateY(-4px);
+}
+
+.explore-trip-card img {
+  width: 100%;
+  height: 160px;
+  object-fit: cover;
+}
+
+.trip-card-info {
+  background-color: #fff;
+  padding: 12px;
+  text-align: center;
+}
+
+.trip-card-title {
+  font-family: var(--font-zh);
+  font-size: 15px;
+  font-weight: bold;
+  color: var(--primary-color);
+}
+
+.scroll-up-indicator {
+  text-align: center;
+  margin-top: -10px;
+}
+
+.scroll-up-indicator img {
+  width: 32px;
+  height: 32px;
+  animation: bounce-up 1.5s infinite;
+}
+
+@keyframes bounce-up {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-6px); }
+}
