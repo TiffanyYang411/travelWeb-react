@@ -5,42 +5,67 @@
 
 .explore-style {
   color: #fff;
-  padding: 40px 0;
+  padding: 0;
 }
 
-/* Explore 頁專用 Swiper 樣式 */
-.explore-swiper-wrapper {
-  margin: 40px auto;
+.explore-style-header {
+  text-align: center;
+  margin-bottom: 40px;
   padding: 0 20px;
-  max-width: 1100px;
+}
+
+.explore-swiper-wrapper {
+  position: relative;
+  width: 100vw;
+  height: 100vh;
+  overflow: hidden;
 }
 
 .explore-style-card {
-  width: 160px;
-  height: 100px;
-  border-radius: 8px;
-  overflow: hidden;
+  width: 100%;
+  height: 100%;
   cursor: pointer;
-  transition: transform 0.3s ease, opacity 0.3s;
-  opacity: 0.6;
   text-align: center;
   display: flex;
   flex-direction: column;
   justify-content: flex-end;
   position: relative;
-}
-
-.explore-style-card.active {
-  opacity: 1;
-  transform: scale(1.1);
+  transition: transform 0.3s ease;
 }
 
 .explore-style-card img {
   width: 100%;
   height: 100%;
   object-fit: cover;
-  border-radius: 8px;
+  object-position: center;
   display: block;
+}
+
+.explore-style-overlay {
+  position: absolute;
+  bottom: 43%;
+  left: 50%;
+  transform: translateX(-50%);
+  text-align: center;
+  color: #F6FBFC;
+  z-index: 2;
+  padding: 50px 20px;
+  width: 100%;
+}
+
+.explore-style-overlay h2 {
+  font-size: 48px;
+  font-weight: bold;
+  margin: 0 0 12px;
+  line-height: 1.3;
+}
+
+.explore-style-overlay p {
+  font-size: 24px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  margin: 0;
 }
 
 .explore-style-card p {
@@ -49,47 +74,165 @@
   left: 50%;
   transform: translateX(-50%);
   color: #fff;
-  font-size: 16px;
+  font-size: 24px;
   font-weight: bold;
   font-family: var(--font-zh);
   margin: 0;
   z-index: 2;
 }
 
+.swiper-arrow {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  font-size: 32px;
+  color: #fff;
+  background-color: rgba(20, 46, 63, 0.5);
+  padding: 10px;
+  border-radius: 50%;
+  cursor: pointer;
+  z-index: 10;
+  user-select: none;
+  transition: background-color 0.3s;
+}
+
+.swiper-arrow:hover {
+  background-color: rgba(20, 46, 63, 0.8);
+}
+
+.explore-swiper-prev {
+  left: 20px;
+}
+
+.explore-swiper-next {
+  right: 20px;
+}
+
 .scroll-up-indicator {
-  margin-top: 20px;
+  position: absolute;
+  bottom: 30px;
+  left: 50%;
+  transform: translateX(-50%);
   text-align: center;
+  z-index: 3;
+  width: 24px;
+  height: 64px;
 }
 
-.scroll-up-indicator img {
-  width: 36px;
-  animation: bounce 1.5s infinite;
+.chevron {
+  position: absolute;
+  width: 28px;
+  height: 8px;
+  opacity: 0;
+  transform: translateX(-50%) scale3d(0.5, 0.5, 0.5);
+  animation: chevron-move 3s ease-out infinite;
+  left: 50%;
 }
 
-@keyframes bounce {
-  0%, 100% { transform: translateY(0); }
-  50% { transform: translateY(-8px); }
+.chevron:first-child {
+  animation-delay: 1s;
 }
 
-/* Explore 頁旅程卡片容器 */
+.chevron:nth-child(2) {
+  animation-delay: 2s;
+}
+
+.chevron:nth-child(3) {
+  animation-delay: 3s;
+}
+
+.chevron::before,
+.chevron::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  height: 100%;
+  width: 50%;
+  background: #fff;
+}
+
+.chevron::before {
+  left: 0;
+  transform: skewY(30deg);
+}
+
+.chevron::after {
+  right: 0;
+  transform: skewY(-30deg);
+}
+
+@keyframes chevron-move {
+  25% {
+    opacity: 1;
+  }
+  33% {
+    opacity: 1;
+    transform: translate(-50%, 30px) scale3d(1, 1, 1);
+  }
+  67% {
+    opacity: 1;
+    transform: translate(-50%, 40px) scale3d(1, 1, 1);
+  }
+  100% {
+    opacity: 0;
+    transform: translate(-50%, 55px) scale3d(0.5, 0.5, 0.5);
+  }
+}
+
+.explore-trip-card-wrapper {
+  width: 100vw;
+  overflow-x: auto;
+  background-color: var(--primary-color);
+  display: flex;
+  justify-content: center;
+  padding: 75px 0;
+  min-height: 300px; /* 調高顯示空間 */
+}
+
 .explore-trip-card-container {
   display: flex;
   flex-wrap: nowrap;
-  overflow-x: auto;
-  gap: 24px;
-  padding: 40px 20px;
-  margin: 0 auto;
-  max-width: 1100px;
-  scroll-snap-type: x mandatory;
+  justify-content: space-evenly;
+  width: 100%;
+  padding: 0 60px;
+  box-sizing: border-box;
+  gap: 60px; /* 控制卡片間距 */
 }
 
 .explore-trip-card-container::-webkit-scrollbar {
   display: none;
 }
 
-/* Explore 頁旅程卡片元件樣式請於 ExploreTripCard.css 控管 */
+.explore-trip-card-wrapper.hidden {
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.6s ease;
+}
 
-/* 詳細行程區塊 */
+.explore-trip-card-wrapper.visible {
+  opacity: 1;
+  pointer-events: auto;
+  transition: opacity 0.6s ease;
+}
+
+/* ExploreTripCard 基礎動畫 */
+.explore-trip-card {
+  opacity: 0;
+  transform: translateY(40px);
+  transition: opacity 0.6s ease, transform 0.6s ease;
+}
+
+/* 顯示時觸發 */
+.explore-trip-card.show {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* 卡片依序進場延遲樣式（可視情況加到 className） */
+.explore-trip-card.delay-1 { transition-delay: 0.1s; }
+.explore-trip-card.delay-2 { transition-delay: 0.2s; }
+.explore-trip-card.delay-3 { transition-delay: 0.3s; }
+
 .trip-detail {
   background: #fff;
   color: var(--primary-color);
@@ -174,6 +317,9 @@
 .add-btn:hover {
   background-color: #e65d00;
 }
+
+
+
 
 
 

@@ -1,9 +1,9 @@
 import '../styles/ExploreTripCard.css';
 
-function ExploreTripCard({ trip, onClick, isActive }) {
+function ExploreTripCard({ trip, onClick, isActive, className = '' }) {
   return (
     <div
-      className={`explore-trip-card ${isActive ? 'active' : ''}`}
+      className={`explore-trip-card ${isActive ? 'active' : ''} ${className}`}
       onClick={onClick}
     >
       <img src={trip.bannerImage} alt={trip.title} />
@@ -16,3 +16,4 @@ function ExploreTripCard({ trip, onClick, isActive }) {
 }
 
 export default ExploreTripCard;
+

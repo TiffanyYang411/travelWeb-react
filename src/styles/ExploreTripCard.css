@@ -18,8 +18,22 @@
   overflow: hidden;
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
   cursor: pointer;
-  transition: transform 0.3s ease;
+  transition: transform 0.3s ease, opacity 0.6s ease;
+  opacity: 0;
+  transform: translateY(40px);
 }
+
+.explore-trip-card.show {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.explore-trip-card.delay-0 { transition-delay: 0s; }
+.explore-trip-card.delay-1 { transition-delay: 0.1s; }
+.explore-trip-card.delay-2 { transition-delay: 0.2s; }
+.explore-trip-card.delay-3 { transition-delay: 0.3s; }
+.explore-trip-card.delay-4 { transition-delay: 0.4s; }
+.explore-trip-card.delay-5 { transition-delay: 0.5s; }
 
 .explore-trip-card:hover {
   transform: translateY(-4px);
@@ -59,3 +73,4 @@
   0%, 100% { transform: translateY(0); }
   50% { transform: translateY(-6px); }
 }
+
