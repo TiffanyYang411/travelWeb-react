@@ -6,7 +6,7 @@ function ScrollToTop() {
   const { pathname } = useLocation();
 
   useEffect(() => {
-    window.scrollTo({ top: 0, behavior: 'auto' }); // 可改成 'smooth' 即時跳轉
+    window.scrollTo({ top: 0, left: 0, behavior: 'auto' }); // 可改成 'smooth' 即時跳轉
   }, [pathname]);
 
   return null;

@@ -4,15 +4,15 @@ import Footer from './components/Footer';
 import Home from './pages/Home';
 import ExploreStyle from './pages/ExploreStyle';
 import MyTrip from './pages/MyTrip';
-import About from './pages/About'; // ← 確保這些有引入
+import About from './pages/About'; // ✅ 已引入
 import Faq from './pages/FAQ';
-import ScrollToTop from './components/ScrollToTop'; // ← 新增這一行
+import ScrollToTop from './components/ScrollToTop';
 import './App.css';
 
 function App() {
   return (
     <div className="app-container">
-      <ScrollToTop /> {/* ← 加在最上層 */}
+      <ScrollToTop />
       <Navbar />
 
       <main className="main-content">
@@ -20,6 +20,7 @@ function App() {
           <Route path="/" element={<Home />} />
           <Route path="/explore" element={<ExploreStyle />} />
           <Route path="/mytrip" element={<MyTrip />} />
+          <Route path="/about" element={<About />} /> {/* ✅ 新增這行 */}
         </Routes>
       </main>
 
@@ -29,3 +30,4 @@ function App() {
 }
 
 export default App;
+

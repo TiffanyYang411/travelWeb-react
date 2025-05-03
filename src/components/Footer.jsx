@@ -1,7 +1,5 @@
 // src/components/Footer.jsx
 
-// src/components/Footer.jsx
-
 import { Link, useLocation } from 'react-router-dom';
 import '../styles/Footer.css';
 import '../styles/Typography.css'; // ✅ 引入字型設定
@@ -9,9 +7,10 @@ import footerLogo from '../images/Logo-footer.svg';
 
 function Footer() {
   const location = useLocation();
+  const isAboutPage = location.pathname === "/about"; // ✅ 判斷是否為 About 頁
 
   return (
-    <footer className="footer">
+    <footer className={`footer ${isAboutPage ? "footer-about-bg" : ""}`}>
       {/* 上層 深藍區 */}
       <div className="footer-top">
         <div className="footer-left">
@@ -87,6 +86,7 @@ function Footer() {
 }
 
 export default Footer;
+
 
 
 

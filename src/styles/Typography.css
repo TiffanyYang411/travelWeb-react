@@ -41,7 +41,7 @@
   letter-spacing: 5%;
 }
 
-.zh-text-20 {
+h-text-20.z {
   font-family: var(--font-zh);
   font-size: 20px;
   font-weight: bold;
@@ -57,12 +57,12 @@
   letter-spacing: 5%;
 }
 
-.zh-text-14 {
+.zh-text-16-regular {
   font-family: var(--font-zh);
-  font-size: 14px;
-  font-weight: bold;
-  line-height: 1.5;
-  letter-spacing: 5%;
+  font-size: 16px;
+  font-weight: normal;
+  line-height: 2.2;
+  letter-spacing: 10%;
 }
 
 /* 英文標題與內文 */
@@ -72,6 +72,29 @@
   font-weight: bold;
   line-height: 1.6;
   letter-spacing: 6%;
+}
+
+.en-title-24 {
+  font-family: var(--font-en);
+  font-size: 24px;
+  font-weight: bold;
+  line-height: 1.6;
+  letter-spacing: 6%;
+}
+
+.en-title-20 {
+  font-family: var(--font-en);
+  font-size: 20px;
+  font-weight: bold;
+  line-height: 1.6;
+  letter-spacing: 6%;
+}
+
+.en-title-20-bold {
+  font-size: 20px;
+  font-weight: bold;
+  line-height: 150%;
+  letter-spacing: 5%;
 }
 
 .en-text-16 {
@@ -117,4 +140,3 @@
   max-width: 360px;
   white-space: normal;
 }
-
