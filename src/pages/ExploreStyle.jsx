@@ -5,7 +5,9 @@ import { travelStyles } from '../data/travelStyles';
 import { tripData } from '../data/tripData';
 import '../styles/ExploreStyle.css';
 import '../styles/Typography.css';
+import '../styles/TripDetailVertical.css';
 import ExploreTripCard from '../components/ExploreTripCard';
+import TripDetailSection from '../components/TripDetailSection';
 import { Swiper, SwiperSlide } from 'swiper/react';
 import { Navigation } from 'swiper/modules';
 import 'swiper/css/navigation';
@@ -23,18 +25,37 @@ function ExploreStyle() {
 
   const [activeTripIndex, setActiveTripIndex] = useState(null);
   const activeTrip = filteredTrips[activeTripIndex];
+  const isTripValid = activeTrip && Array.isArray(activeTrip.itinerary) && activeTrip.itinerary.length > 0;
 
   const [showTripCards, setShowTripCards] = useState(false);
+  const [hasInteracted, setHasInteracted] = useState(false);
+  const [isLoading, setIsLoading] = useState(true);
+
   const tripCardRef = useRef(null);
   const swiperRef = useRef(null);
+  const tripDetailRef = useRef(null);
   const lastScrollY = useRef(0);
+  const isScrollingToDetail = useRef(false); // 防止動畫打架
 
   useEffect(() => {
-    window.scrollTo({ top: 0, behavior: 'smooth' });
-  }, [selectedStyleIndex]);
+    const timeout = setTimeout(() => {
+      swiperRef.current?.scrollIntoView({ behavior: 'auto', block: 'start' });
+    }, 100);
+
+    const release = setTimeout(() => {
+      setIsLoading(false);
+    }, 1800);
+
+    return () => {
+      clearTimeout(timeout);
+      clearTimeout(release);
+    };
+  }, []);
 
   useEffect(() => {
     const handleScroll = () => {
+      if (!hasInteracted) setHasInteracted(true);
+
       const currentY = window.scrollY;
       const direction = currentY > lastScrollY.current ? 'down' : 'up';
       lastScrollY.current = currentY;
@@ -51,101 +72,136 @@ function ExploreStyle() {
 
     window.addEventListener('scroll', handleScroll);
     return () => window.removeEventListener('scroll', handleScroll);
+  }, [hasInteracted]);
+
+  const handleTripClick = (index) => {
+    setActiveTripIndex(index);
+    isScrollingToDetail.current = true;
+    setTimeout(() => {
+      tripDetailRef.current?.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      setTimeout(() => {
+        isScrollingToDetail.current = false;
+      }, 1000);
+    }, 50);
+  };
+
+  useEffect(() => {
+    const handleScrollUpToCards = () => {
+      if (isScrollingToDetail.current) return;
+      const detailTop = tripDetailRef.current?.getBoundingClientRect().top;
+      const cardTop = tripCardRef.current?.getBoundingClientRect().top;
+
+      if (
+        detailTop !== undefined &&
+        detailTop > window.innerHeight * 0.4 &&
+        cardTop < 0
+      ) {
+        tripCardRef.current?.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      }
+    };
+
+    window.addEventListener('scroll', handleScrollUpToCards);
+    return () => window.removeEventListener('scroll', handleScrollUpToCards);
   }, []);
 
   useEffect(() => {
-    if (showTripCards && tripCardRef.current) {
+    if (hasInteracted && showTripCards && tripCardRef.current) {
       tripCardRef.current.scrollIntoView({ behavior: 'smooth', block: 'start' });
     }
-  }, [showTripCards]);
+  }, [showTripCards, hasInteracted]);
 
   return (
-    <section className="explore-style">
-      {/* 上方風格切換 Swiper 區塊 */}
-      <div ref={swiperRef} className="explore-swiper-wrapper">
-        <Swiper
-          slidesPerView={1}
-          spaceBetween={0}
-          grabCursor={true}
-          loop={true}
-          modules={[Navigation]}
-          speed={800}
-          centeredSlides={true}
-          onSlideChange={(swiper) => {
-            setSelectedStyleIndex(swiper.realIndex);
-            setActiveTripIndex(null);
-          }}
-          navigation={{
-            nextEl: '.explore-swiper-next',
-            prevEl: '.explore-swiper-prev',
-          }}
-        >
-          {travelStyles.map((style, index) => (
-            <SwiperSlide key={style.id} style={{ width: '100vw', height: '100vh' }}>
-              <div className={`explore-style-card ${selectedStyleIndex === index ? 'active' : ''}`}>
-                <img src={style.exploreImage} alt={style.title} />
-                <div className="explore-style-overlay">
-                  <h2 className="zh-title-48">{style.title}</h2>
-                  <p className="zh-text-24">{style.description}</p>
-                </div>
-                <div className="scroll-up-indicator">
-                  <div className="chevron"></div>
-                  <div className="chevron"></div>
-                  <div className="chevron"></div>
-                </div>
-              </div>
-            </SwiperSlide>
-          ))}
-        </Swiper>
-
-        {/* 左右箭頭按鈕 */}
-        <div className="explore-swiper-prev swiper-arrow">‹</div>
-        <div className="explore-swiper-next swiper-arrow">›</div>
-      </div>
-
-      {/* 卡片橫向滑動清單 */}
-      <div ref={tripCardRef} className={`explore-trip-card-wrapper ${showTripCards ? 'visible' : 'hidden'}`}>
-        <div className="explore-trip-card-container">
-          {filteredTrips.map((trip, index) => (
-            <ExploreTripCard
-              key={trip.id}
-              trip={trip}
-              onClick={() => setActiveTripIndex(index)}
-              isActive={index === activeTripIndex}
-              className={`explore-trip-card ${showTripCards ? 'show delay-' + index : ''}`}
-            />
-          ))}
-        </div>
-      </div>
-
-      {/* 展開旅程詳細區塊 */}
-      {activeTrip && (
-        <div className="trip-detail">
-          <h2>{activeTrip.title}・{activeTrip.days}</h2>
-          <p className="price">NT${activeTrip.price.toLocaleString()}／人</p>
-          <p className="highlight">行程亮點：{activeTrip.highlights.join('、')}</p>
-          <img className="trip-main-img" src={activeTrip.banner} alt="旅程圖片" />
-
-          <div className="itinerary-wrapper">
-            {activeTrip.itinerary.map((day, idx) => (
-              <div key={idx} className="itinerary-day">
-                <div className="itinerary-day-label">{day.day}</div>
-                <div className="itinerary-text">
-                  <p>{day.desc}</p>
-                  <img src={day.image} alt={`Day ${day.day}`} />
-                </div>
-              </div>
-            ))}
-          </div>
-
-          <button className="add-btn">加入行程</button>
+    <>
+      {isLoading && (
+        <div className="loading-overlay">
+          <div className="mask top-mask" />
+          <div className="mask bottom-mask" />
+          <img
+            className="loading-logo"
+            src={`${import.meta.env.BASE_URL}images/logo.svg`}
+            alt="ÉLAN Journeys Logo"
+          />
+          <div className="loading-slogan">Where your Nordic dream begins…</div>
         </div>
       )}
-    </section>
+
+      <section className="explore-style">
+        <div ref={swiperRef} className="explore-swiper-wrapper">
+          <Swiper
+            slidesPerView={1}
+            spaceBetween={0}
+            grabCursor={true}
+            loop={true}
+            modules={[Navigation]}
+            speed={800}
+            centeredSlides={true}
+            initialSlide={selectedStyleIndex}
+            onSlideChange={(swiper) => {
+              setSelectedStyleIndex(swiper.realIndex);
+              setActiveTripIndex(null);
+            }}
+            navigation={{
+              nextEl: '.explore-swiper-next',
+              prevEl: '.explore-swiper-prev',
+            }}
+          >
+            {travelStyles.map((style, index) => (
+              <SwiperSlide key={style.id} style={{ width: '100vw', height: '100vh' }}>
+                <div className={`explore-style-card ${selectedStyleIndex === index ? 'active' : ''}`}>
+                  <img src={style.exploreImage} alt={style.title} />
+                  <div className="explore-style-overlay">
+                    <h2 className="zh-title-48">{style.title}</h2>
+                    <p className="zh-text-24">{style.description}</p>
+                  </div>
+                  <div className="scroll-up-indicator">
+                    <div className="chevron"></div>
+                    <div className="chevron"></div>
+                    <div className="chevron"></div>
+                  </div>
+                </div>
+              </SwiperSlide>
+            ))}
+          </Swiper>
+
+          <div className="explore-swiper-prev swiper-arrow">‹</div>
+          <div className="explore-swiper-next swiper-arrow">›</div>
+        </div>
+
+        <div ref={tripCardRef} className={`explore-trip-card-wrapper ${showTripCards ? 'visible' : 'hidden'}`}>
+          <div className="explore-trip-card-container">
+            {filteredTrips.map((trip, index) => (
+              <ExploreTripCard
+                key={trip.id}
+                trip={trip}
+                onClick={() => handleTripClick(index)}
+                isActive={index === activeTripIndex}
+                delayIndex={showTripCards ? index : undefined}
+              />
+            ))}
+          </div>
+        </div>
+
+        {isTripValid && (
+          <div ref={tripDetailRef}>
+            <TripDetailSection trip={activeTrip} />
+          </div>
+        )}
+      </section>
+    </>
   );
 }
 
 export default ExploreStyle;
+
+
+
+
+
+
+
+
+
+
 
 
 

@@ -5,22 +5,23 @@
   display: flex;
   overflow-x: auto;
   scroll-snap-type: x mandatory;
-  padding: 20px 0;
-  gap: 24px;
+  padding: 60px 60px;
+  gap: 20px;
 }
 
 .explore-trip-card {
   flex: 0 0 auto;
   width: 260px;
+  height: 180px;
   scroll-snap-align: start;
-  background-color: var(--secondary-color-xlight);
   border-radius: 8px;
   overflow: hidden;
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
   cursor: pointer;
-  transition: transform 0.3s ease, opacity 0.6s ease;
+  transition: transform 0.6s ease, opacity 0.6s ease;
   opacity: 0;
   transform: translateY(40px);
+  position: relative;
 }
 
 .explore-trip-card.show {
@@ -39,23 +40,72 @@
   transform: translateY(-4px);
 }
 
-.explore-trip-card img {
+.trip-card-image {
+  position: relative;
   width: 100%;
-  height: 160px;
+  height: 100%;
+}
+
+.trip-card-image img {
+  width: 100%;
+  height: 100%;
   object-fit: cover;
+  display: block;
 }
 
-.trip-card-info {
-  background-color: #fff;
-  padding: 12px;
+/* 深色遮罩＋文字層 */
+.trip-card-overlay {
+  position: absolute;
+  inset: 0;
+  background-color: rgba(20, 30, 40, 0.4);
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
   text-align: center;
+  transition: all 0.3s ease;
+  padding: 10px;
 }
 
-.trip-card-title {
+/* 預設：標題顯示 */
+.explore-trip-title,
+.trip-days {
   font-family: var(--font-zh);
-  font-size: 15px;
+  font-size: 14pt !important;
   font-weight: bold;
-  color: var(--primary-color);
+  line-height: 1.4;
+  letter-spacing: 5%;
+  margin: 0;
+  color: white;
+  transition: opacity 0.3s ease;
+}
+
+.explore-trip-title {
+  opacity: 1;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: normal;
+  margin-bottom: -40px !important;
+}
+
+
+.trip-days {
+  opacity: 0;
+  font-size: 13pt;
+  font-weight: 500;
+  white-space: nowrap;
+}
+
+/* Hover 切換內容 */
+.explore-trip-card:hover .explore-trip-title {
+  opacity: 0;
+}
+
+.explore-trip-card:hover .trip-days {
+  opacity: 1;
 }
 
 .scroll-up-indicator {

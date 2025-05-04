@@ -1,0 +1,6 @@
+/* src/styles/Layout.css */
+.main-content {
+  padding: 40px 20px;
+  min-height: calc(100vh - 160px); /* 避免內容太少時 Footer 貼在中間 */
+  box-sizing: border-box;
+}

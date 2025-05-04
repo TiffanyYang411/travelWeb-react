@@ -1,19 +1,29 @@
 import '../styles/ExploreTripCard.css';
 
-function ExploreTripCard({ trip, onClick, isActive, className = '' }) {
+function ExploreTripCard({ trip, onClick, isActive, delayIndex }) {
+  const classes = [
+    'explore-trip-card',
+    isActive ? 'active' : '',
+    'show',
+    delayIndex !== undefined ? `delay-${delayIndex}` : ''
+  ].join(' ');
+
   return (
-    <div
-      className={`explore-trip-card ${isActive ? 'active' : ''} ${className}`}
-      onClick={onClick}
-    >
-      <img src={trip.bannerImage} alt={trip.title} />
-      <div className="trip-card-info">
-        <h3 className="trip-card-title">{trip.title}</h3>
-        <p className="trip-card-days">{trip.days}</p>
+    <div className={classes} onClick={onClick}>
+      <div className="trip-card-image">
+        <img src={trip.bannerImage} alt={trip.title} />
+        <div className="trip-card-overlay">
+          <p className="explore-trip-title">{trip.title}</p>
+          <p className="trip-days">{trip.days}</p>
+        </div>
       </div>
     </div>
   );
 }
 
 export default ExploreTripCard;
+
+
+
+
 

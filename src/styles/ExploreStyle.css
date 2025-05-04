@@ -185,8 +185,8 @@
   background-color: var(--primary-color);
   display: flex;
   justify-content: center;
-  padding: 75px 0;
-  min-height: 300px; /* 調高顯示空間 */
+  padding: 100px 0 0 0;
+  min-height: 300px;
 }
 
 .explore-trip-card-container {
@@ -196,7 +196,7 @@
   width: 100%;
   padding: 0 60px;
   box-sizing: border-box;
-  gap: 60px; /* 控制卡片間距 */
+  gap: 60px;
 }
 
 .explore-trip-card-container::-webkit-scrollbar {
@@ -215,20 +215,17 @@
   transition: opacity 0.6s ease;
 }
 
-/* ExploreTripCard 基礎動畫 */
 .explore-trip-card {
   opacity: 0;
   transform: translateY(40px);
   transition: opacity 0.6s ease, transform 0.6s ease;
 }
 
-/* 顯示時觸發 */
 .explore-trip-card.show {
   opacity: 1;
   transform: translateY(0);
 }
 
-/* 卡片依序進場延遲樣式（可視情況加到 className） */
 .explore-trip-card.delay-1 { transition-delay: 0.1s; }
 .explore-trip-card.delay-2 { transition-delay: 0.2s; }
 .explore-trip-card.delay-3 { transition-delay: 0.3s; }
@@ -317,6 +314,161 @@
 .add-btn:hover {
   background-color: #e65d00;
 }
+
+/* 遮罩開場動畫（強化版本） */
+@import './Colors.css';
+@import './Typography.css';
+
+/* 遮罩開場動畫（強化版本） */
+@import './Colors.css';
+@import './Typography.css';
+
+/* 遮罩開場動畫（強化版本） */
+@import './Colors.css';
+@import './Typography.css';
+
+/* 遮罩開場動畫（強化版本） */
+@import './Colors.css';
+@import './Typography.css';
+
+/* 遮罩開場動畫（強化版本） */
+@import './Colors.css';
+@import './Typography.css';
+
+/* 遮罩開場動畫（強化版本） */
+.loading-overlay {
+  position: fixed;
+  inset: 0;
+  background-color: transparent; /* 讓底下 swiper 可見 */
+  z-index: 9999;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  pointer-events: none;
+  animation: overlayFadeOut 0.5s ease-out 2.4s forwards;
+}
+
+@keyframes overlayFadeOut {
+  to {
+    opacity: 0;
+    visibility: hidden;
+  }
+}
+
+/* 雙遮罩斜角區塊（增加陰影 + 空間感） */
+.mask {
+  position: absolute;
+  width: 180%;
+  height: 180%;
+  background: linear-gradient(to bottom right, #7395A6 70%, #5d7e91);
+  z-index: 10000;
+  transform-origin: center;
+  box-shadow: 0 0 60px rgba(0, 0, 0, 0.05);
+  transition: transform 2.4s ease;
+}
+
+.top-mask {
+  top: 0;
+  left: -40%;
+  transform: rotate(45deg) translateY(0);
+  animation: maskTopOpen 2.4s ease-in-out forwards;
+}
+
+.bottom-mask {
+  bottom: 0;
+  right: -40%;
+  transform: rotate(-45deg) translateY(0);
+  animation: maskBottomOpen 2.4s ease-in-out forwards;
+}
+
+@keyframes maskTopOpen {
+  0% {
+    transform: rotate(45deg) translateY(0);
+  }
+  100% {
+    transform: rotate(45deg) translateY(-220vh);
+  }
+}
+
+@keyframes maskBottomOpen {
+  0% {
+    transform: rotate(-45deg) translateY(0);
+  }
+  100% {
+    transform: rotate(-45deg) translateY(220vh);
+  }
+}
+
+/* Logo 中央淡入 + 緩慢向右滑出（提前動畫） */
+.loading-logo {
+  position: absolute;
+  width: 240px;
+  z-index: 10001;
+  opacity: 0;
+  animation: logoSlideOut 1.5s ease-out forwards 0.1s;
+}
+
+@keyframes logoSlideOut {
+  0% {
+    opacity: 0;
+    transform: translateX(0) scale(0.8);
+  }
+  20% {
+    opacity: 1;
+    transform: translateX(0) scale(1.1);
+  }
+  60% {
+    opacity: 1;
+    transform: translateX(0) scale(1);
+  }
+  100% {
+    opacity: 0;
+    transform: translateX(200px) scale(1);
+  }
+}
+
+/* Slogan 淡入 + 跟著斜角往右上飄走 */
+.loading-slogan {
+  position: absolute;
+  top: calc(100% + 40px);
+  font-size: 20px;
+  color: #ffffffcc;
+  z-index: 10001;
+  opacity: 0;
+  font-family: var(--font-en);
+  animation: sloganFloatOut 2.4s ease-out forwards 0.4s;
+}
+
+@keyframes sloganFloatOut {
+  0% {
+    opacity: 0;
+    transform: translate(0, 0);
+  }
+  20% {
+    opacity: 1;
+  }
+  60% {
+    opacity: 1;
+    transform: translate(30px, -20px);
+  }
+  100% {
+    opacity: 0;
+    transform: translate(120px, -120vh);
+  }
+}
+
+.trip-detail.hidden {
+  pointer-events: none;
+}
+.trip-detail.visible {
+  pointer-events: auto;
+}
+
+
+
+
 
 
 

@@ -45,10 +45,10 @@ function Footer() {
               <Link to="/login" className="zh-text-14">會員登入</Link>
             </div>
             <div className="footer-link-item" style={{ gridColumn: '2', gridRow: '2' }}>
-              <a href="#" className="zh-text-14">歷史行程</a>
+              <Link to="/my-trip?tab=history" className="zh-text-14">歷史行程</Link>
             </div>
             <div className="footer-link-item" style={{ gridColumn: '3', gridRow: '2' }}>
-              <a href="#" className="zh-text-14">極致戶外探險</a>
+              <Link to="/explore?style=1" className="zh-text-14">極致戶外探險</Link>
             </div>
 
             {/* 第三列 */}
@@ -56,22 +56,22 @@ function Footer() {
               <a href="#" className="zh-text-14">現在出發</a>
             </div>
             <div className="footer-link-item" style={{ gridColumn: '3', gridRow: '3' }}>
-              <a href="#" className="zh-text-14">米其林美食巡禮</a>
+              <Link to="/explore?style=2" className="zh-text-14">米其林美食巡禮</Link>
             </div>
 
             {/* 第四列 */}
             <div className="footer-link-item" style={{ gridColumn: '3', gridRow: '4' }}>
-              <a href="#" className="zh-text-14">頂級奢華度假</a>
+              <Link to="/explore?style=3" className="zh-text-14">頂級奢華度假</Link>
             </div>
 
             {/* 第五列 */}
             <div className="footer-link-item" style={{ gridColumn: '3', gridRow: '5' }}>
-              <a href="#" className="zh-text-14">深度文化之旅</a>
+              <Link to="/explore?style=4" className="zh-text-14">深度文化之旅</Link>
             </div>
 
             {/* 第六列 */}
             <div className="footer-link-item" style={{ gridColumn: '3', gridRow: '6' }}>
-              <a href="#" className="zh-text-14">北歐療癒假期</a>
+              <Link to="/explore?style=5" className="zh-text-14">北歐療癒假期</Link>
             </div>
           </div>
         </div>

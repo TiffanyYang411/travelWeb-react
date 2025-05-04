@@ -1,0 +1,7 @@
+/* 建議放在 src/index.css 或 styles/Layout.css 裡 */
+.main-content {
+    padding: 40px 20px;
+    min-height: calc(100vh - 160px); /* 扣除 Navbar + Footer 高度 */
+    box-sizing: border-box;
+  }
+  
