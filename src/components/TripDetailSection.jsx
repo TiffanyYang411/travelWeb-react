@@ -7,8 +7,8 @@ function TripDetailSection({ trip }) {
 
   const parsedDays = Array.isArray(trip?.itinerary)
     ? trip.itinerary
-        .filter(day => day?.desc && typeof day.desc === 'string')
-        .map(parseDayDetailSafe)
+      .filter(day => day?.desc && typeof day.desc === 'string')
+      .map(parseDayDetailSafe)
     : [];
 
   const currentDay = parsedDays[currentDayIndex] || {};
@@ -36,7 +36,10 @@ function TripDetailSection({ trip }) {
       <div className="trip-header">
         <h2 className="trip-vertical-title zh-title-36">{trip.title}・{trip.days}</h2>
         <p className="trip-price zh-title-28">NT${trip.price?.toLocaleString()}／人</p>
-        <p className="trip-highlight zh-text-20">行程亮點：{trip.highlights?.join('、')}</p>
+        <p className="trip-highlight zh-text-20">
+          行程亮點：{trip.highlights?.filter(Boolean).join('、')}
+        </p>
+
       </div>
 
       <div className="trip-detail-main-layout">

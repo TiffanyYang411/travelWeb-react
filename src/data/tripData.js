@@ -35,7 +35,8 @@ export const tripData = [
             "image": "./images/tripData/trip101-day4.jpg"
           }
         ],
-        "banner": "./images/tripData/trip101-banner.jpg"
+        "banner": "./images/tripData/trip101-banner.jpg",
+        "bannerImage": "./images/tripData/trip101-thumb.jpg"
       },
       {
         "id": 102,
@@ -70,7 +71,8 @@ export const tripData = [
             "image": "./images/tripData/trip102-day4.jpg"
           }
         ],
-        "banner": "./images/tripData/trip102-banner.jpg"
+        "banner": "./images/tripData/trip102-banner.jpg",
+        "bannerImage": "./images/tripData/trip102-thumb.jpg"
       },
       {
         "id": 103,
@@ -105,7 +107,8 @@ export const tripData = [
             "image": "./images/tripData/trip103-day4.jpg"
           }
         ],
-        "banner": "./images/tripData/trip103-banner.jpg"
+        "banner": "./images/tripData/trip103-banner.jpg",
+        "bannerImage": "./images/tripData/trip103-thumb.jpg"
       },
       {
         "id": 104,
@@ -140,7 +143,8 @@ export const tripData = [
             "image": null
           }
         ],
-        "banner": "./images/tripData/trip104-banner.jpg"
+        "banner": "./images/tripData/trip104-banner.jpg",
+        "bannerImage": "./images/tripData/trip104-thumb.jpg"
       },
       {
         "id": 105,
@@ -175,7 +179,8 @@ export const tripData = [
             "image": "./images/tripData/trip105-day4.jpg"
           }
         ],
-        "banner": "./images/tripData/trip105-banner.jpg"
+        "banner": "./images/tripData/trip105-banner.jpg",
+        "bannerImage": "./images/tripData/trip105-thumb.jpg"
       }
     ]
   },
@@ -187,11 +192,11 @@ export const tripData = [
         "title": "丹麥哥本哈根米其林星級餐廳巡禮",
         "days": "3 天 2 夜",
         "price": 50000,
-        "bannerImage": "./images/tripData/trip201-thumb.jpg", 
+        "bannerImage": "./images/tripData/trip201-thumb.jpg",
         "highlights": [
           "品嚐 noma 新北歐料理",
           "餐廳Geranium三星晚宴",
-          "餐廳Geranium三星晚宴",
+          "Torvehallerne美食市場",
           null
         ],
         "itinerary": [
@@ -251,7 +256,8 @@ export const tripData = [
             "image": null
           }
         ],
-        "banner": "./images/tripData/trip202-banner.jpg"
+        "banner": "./images/tripData/trip202-banner.jpg",
+        "bannerImage": "./images/tripData/trip202-thumb.jpg"
       },
       {
         "id": 203,
@@ -286,7 +292,8 @@ export const tripData = [
             "image": null
           }
         ],
-        "banner": "./images/tripData/trip203-banner.jpg"
+        "banner": "./images/tripData/trip203-banner.jpg",
+        "bannerImage": "./images/tripData/trip203-thumb.jpg"
       },
       {
         "id": 204,
@@ -321,7 +328,8 @@ export const tripData = [
             "image": "./images/tripData/trip204-day4.jpg"
           }
         ],
-        "banner": "./images/tripData/trip204-banner.jpg"
+        "banner": "./images/tripData/trip204-banner.jpg",
+        "bannerImage": "./images/tripData/trip204-thumb.jpg"
       },
       {
         "id": 205,
@@ -356,7 +364,8 @@ export const tripData = [
             "image": null
           }
         ],
-        "banner": "./images/tripData/trip205-banner.jpg"
+        "banner": "./images/tripData/trip205-banner.jpg",
+        "bannerImage": "./images/tripData/trip205-thumb.jpg"
       }
     ]
   },
@@ -396,7 +405,8 @@ export const tripData = [
             "image": null
           }
         ],
-        "banner": "./images/tripData/trip301-banner.jpg"
+        "banner": "./images/tripData/trip301-banner.jpg",
+        "bannerImage": "./images/tripData/trip301-thumb.jpg"
       },
       {
         "id": 302,
@@ -431,7 +441,8 @@ export const tripData = [
             "image": null
           }
         ],
-        "banner": "./images/tripData/trip302-banner.jpg"
+        "banner": "./images/tripData/trip302-banner.jpg",
+        "bannerImage": "./images/tripData/trip302-thumb.jpg"
       },
       {
         "id": 303,
@@ -466,7 +477,8 @@ export const tripData = [
             "image": "./images/tripData/trip303-day4.jpg"
           }
         ],
-        "banner": "./images/tripData/trip303-banner.jpg"
+        "banner": "./images/tripData/trip303-banner.jpg",
+        "bannerImage": "./images/tripData/trip303-thumb.jpg"
       },
       {
         "id": 304,
@@ -501,7 +513,8 @@ export const tripData = [
             "image": "./images/tripData/trip304-day4.jpg"
           }
         ],
-        "banner": "./images/tripData/trip304-banner.jpg"
+        "banner": "./images/tripData/trip304-banner.jpg",
+        "bannerImage": "./images/tripData/trip304-thumb.jpg"
       },
       {
         "id": 305,
@@ -536,7 +549,8 @@ export const tripData = [
             "image": null
           }
         ],
-        "banner": "./images/tripData/trip305-banner.jpg"
+        "banner": "./images/tripData/trip305-banner.jpg",
+        "bannerImage": "./images/tripData/trip305-thumb.jpg"
       }
     ]
   },
@@ -576,7 +590,8 @@ export const tripData = [
             "image": null
           }
         ],
-        "banner": "./images/tripData/trip401-banner.jpg"
+        "banner": "./images/tripData/trip401-banner.jpg",
+        "bannerImage": "./images/tripData/trip401-thumb.jpg"
       },
       {
         "id": 402,
@@ -611,7 +626,8 @@ export const tripData = [
             "image": null
           }
         ],
-        "banner": "./images/tripData/trip402-banner.jpg"
+        "banner": "./images/tripData/trip402-banner.jpg",
+        "bannerImage": "./images/tripData/trip402-thumb.jpg"
       },
       {
         "id": 403,
@@ -646,7 +662,8 @@ export const tripData = [
             "image": null
           }
         ],
-        "banner": "./images/tripData/trip403-banner.jpg"
+        "banner": "./images/tripData/trip403-banner.jpg",
+        "bannerImage": "./images/tripData/trip403-thumb.jpg"
       },
       {
         "id": 404,
@@ -681,7 +698,8 @@ export const tripData = [
             "image": null
           }
         ],
-        "banner": "./images/tripData/trip404-banner.jpg"
+        "banner": "./images/tripData/trip404-banner.jpg",
+        "bannerImage": "./images/tripData/trip404-thumb.jpg"
       },
       {
         "id": 405,
@@ -716,7 +734,8 @@ export const tripData = [
             "image": null
           }
         ],
-        "banner": "./images/tripData/trip405-banner.jpg"
+        "banner": "./images/tripData/trip405-banner.jpg",
+        "bannerImage": "./images/tripData/trip405-thumb.jpg"
       }
     ]
   },
@@ -756,7 +775,8 @@ export const tripData = [
             "image": "./images/tripData/trip501-day4.jpg"
           }
         ],
-        "banner": "./images/tripData/trip501-banner.jpg"
+        "banner": "./images/tripData/trip501-banner.jpg",
+        "bannerImage": "./images/tripData/trip501-thumb.jpg"
       },
       {
         "id": 502,
@@ -791,7 +811,8 @@ export const tripData = [
             "image": null
           }
         ],
-        "banner": "./images/tripData/trip502-banner.jpg"
+        "banner": "./images/tripData/trip502-banner.jpg",
+        "bannerImage": "./images/tripData/trip502-thumb.jpg"
       },
       {
         "id": 503,
@@ -826,7 +847,8 @@ export const tripData = [
             "image": null
           }
         ],
-        "banner": "./images/tripData/trip503-banner.jpg"
+        "banner": "./images/tripData/trip503-banner.jpg",
+        "bannerImage": "./images/tripData/trip503-thumb.jpg"
       },
       {
         "id": 504,
@@ -861,7 +883,8 @@ export const tripData = [
             "image": null
           }
         ],
-        "banner": "./images/tripData/trip504-banner.jpg"
+        "banner": "./images/tripData/trip504-banner.jpg",
+        "bannerImage": "./images/tripData/trip504-thumb.jpg"
       },
       {
         "id": 505,
@@ -896,7 +919,8 @@ export const tripData = [
             "image": null
           }
         ],
-        "banner": "./images/tripData/trip505-banner.jpg"
+        "banner": "./images/tripData/trip505-banner.jpg",
+        "bannerImage": "./images/tripData/trip505-thumb.jpg"
       }
     ]
   }
