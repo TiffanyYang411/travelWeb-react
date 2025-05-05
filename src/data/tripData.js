@@ -509,8 +509,8 @@ export const tripData = [
           },
           {
             "day": "Day 4",
-            "desc": "AN",
-            "image": "./images/tripData/trip304-day4.jpg"
+            "desc": null,
+            "image": null
           }
         ],
         "banner": "./images/tripData/trip304-banner.jpg",
