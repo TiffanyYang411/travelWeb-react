@@ -1,7 +1,7 @@
 // src/components/Navbar.jsx
 
 import { Link, useLocation, useNavigate } from 'react-router-dom';
-import { useEffect, useState } from 'react';
+import { useEffect, useState, useRef } from 'react';
 import '../styles/Navbar.css';
 import '../styles/Typography.css';
 import cartIcon from '../images/cart-icon-logout.svg';
@@ -9,15 +9,19 @@ import userIcon from '../images/user-icon.svg';
 import logoutIcon from '../images/Logout-icon.svg';
 import logo from '../images/logo.svg';
 import { isLoggedIn, getUserName, logout } from '../utils/auth';
-import { getTripCount } from '../utils/tripUtils'; // ✅ 導入行程數
+import { getTripCount } from '../utils/tripUtils';
+import CartDropdown from './CartDropdown';
 
 function Navbar() {
   const location = useLocation();
   const navigate = useNavigate();
+  const cartRef = useRef(null);
 
   const [loggedIn, setLoggedIn] = useState(false);
   const [userName, setUserName] = useState('');
   const [tripCount, setTripCount] = useState(0);
+  const [showCartDropdown, setShowCartDropdown] = useState(false);
+  const [cartPinned, setCartPinned] = useState(false);
 
   useEffect(() => {
     const loginStatus = isLoggedIn();
@@ -27,6 +31,49 @@ function Navbar() {
       setTripCount(getTripCount());
     }
   }, [location]);
+
+  useEffect(() => {
+    const updateTripCount = () => {
+      if (isLoggedIn()) {
+        setTripCount(getTripCount());
+      }
+    };
+    window.addEventListener("tripCountChanged", updateTripCount);
+    return () => window.removeEventListener("tripCountChanged", updateTripCount);
+  }, []);
+
+  useEffect(() => {
+    const handleClickOutside = (e) => {
+      if (cartRef.current && !cartRef.current.contains(e.target)) {
+        setCartPinned(false);
+        setShowCartDropdown(false);
+      }
+    };
+    if (cartPinned) {
+      document.addEventListener('mousedown', handleClickOutside);
+    } else {
+      document.removeEventListener('mousedown', handleClickOutside);
+    }
+    return () => document.removeEventListener('mousedown', handleClickOutside);
+  }, [cartPinned]);
+
+  // ✅ 新增：按 Esc 鍵關閉購物車內容
+  useEffect(() => {
+    const handleEscKey = (e) => {
+      if (e.key === 'Escape') {
+        setCartPinned(false);
+        setShowCartDropdown(false);
+      }
+    };
+    document.addEventListener('keydown', handleEscKey);
+    return () => document.removeEventListener('keydown', handleEscKey);
+  }, []);
+
+  const handleCartClick = () => {
+    const nextPinned = !cartPinned;
+    setCartPinned(nextPinned);
+    setShowCartDropdown(nextPinned);
+  };
 
   const handleLogout = () => {
     logout();
@@ -62,13 +109,24 @@ function Navbar() {
       </div>
 
       <div className="navbar-icons">
-        <div className="cart-container" style={{ position: 'relative' }}>
-          <Link to="/my-trip" className="icon-link" title="購物車">
+        <div
+          className="cart-container"
+          style={{ position: 'relative' }}
+          ref={cartRef}
+          onMouseEnter={() => !cartPinned && setShowCartDropdown(true)}
+          onMouseLeave={() => !cartPinned && setShowCartDropdown(false)}
+        >
+          <div className="icon-link" title="購物車" onClick={handleCartClick} style={{ cursor: 'pointer' }}>
             <img src={cartIcon} alt="Cart Icon" className="nav-icon" />
             {loggedIn && tripCount > 0 && (
               <span className="cart-dot">{tripCount}</span>
             )}
-          </Link>
+          </div>
+          {loggedIn && showCartDropdown && (
+            <div className="cart-dropdown-wrapper">
+              <CartDropdown />
+            </div>
+          )}
         </div>
 
         {!loggedIn ? (
@@ -98,6 +156,10 @@ function Navbar() {
 }
 
 export default Navbar;
+
+
+
+
 
 
 

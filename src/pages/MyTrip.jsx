@@ -1,24 +1,14 @@
 // MyTrip.jsx
-import { useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import '../styles/MyTrip.css';
 import '../styles/Typography.css';
-import { isLoggedIn } from '../utils/auth';
 
 function MyTrip() {
   const navigate = useNavigate();
-  const loggedIn = isLoggedIn();
 
   const handleStartTrip = () => {
-    if (!loggedIn) {
-      // ✅ 修正回跳位置，去除 BASE_URL 部分
-      const base = import.meta.env.BASE_URL.replace(/\/$/, '');
-      const path = window.location.pathname.replace(base, '') + window.location.search;
-      sessionStorage.setItem('returnTo', path);
-      navigate('/login');
-    } else {
-      navigate('/explore?style=1'); // 預設導向極致戶外探險
-    }
+    // ✅ 不檢查登入狀態，直接導向探索旅遊風格頁（讓 TripDetail 決定是否登入）
+    navigate('/explore?style=1');
   };
 
   return (
@@ -29,7 +19,7 @@ function MyTrip() {
           旅程的篇章尚未開始書寫，<br />
           現在，就是您與北歐邂逅的最佳時刻。
         </p>
-        <button className="start-trip-btn zh-text-18" onClick={handleStartTrip}>
+        <button className="mytrip-start-trip-btn zh-text-18" onClick={handleStartTrip}>
           立即開啟您的專屬行程 ➔
         </button>
       </div>
@@ -38,6 +28,7 @@ function MyTrip() {
 }
 
 export default MyTrip;
+
 
 
 

@@ -1,9 +1,13 @@
 import { useState, useEffect, useRef } from 'react';
+import { useNavigate } from 'react-router-dom';
+import { isLoggedIn } from '../utils/auth';
+import { addTripToUser } from '../utils/tripUtils';
 import '../styles/TripDetailVertical.css';
 
 function TripDetailSection({ trip }) {
   const [currentDayIndex, setCurrentDayIndex] = useState(0);
-  const daySelectionRef = useRef(null); // ✅ 專屬區域
+  const daySelectionRef = useRef(null);
+  const navigate = useNavigate();
 
   const parsedDays = Array.isArray(trip?.itinerary)
     ? trip.itinerary
@@ -15,7 +19,7 @@ function TripDetailSection({ trip }) {
 
   useEffect(() => {
     const handleWheel = (e) => {
-      e.preventDefault(); // 避免畫面跟著捲動
+      e.preventDefault();
       if (e.deltaY > 30 && currentDayIndex < parsedDays.length - 1) {
         setCurrentDayIndex((i) => i + 1);
       } else if (e.deltaY < -30 && currentDayIndex > 0) {
@@ -31,6 +35,22 @@ function TripDetailSection({ trip }) {
     };
   }, [currentDayIndex, parsedDays.length]);
 
+  const handleAddTrip = () => {
+    console.log('📌 點擊加入行程按鈕');
+    if (!isLoggedIn()) {
+      console.log('🔒 尚未登入，導向登入頁');
+      sessionStorage.setItem("returnTo", window.location.pathname);
+      navigate("/login");
+    } else {
+      console.log('✅ 已登入，加入行程');
+      addTripToUser(trip);
+      alert("已加入行程！");
+
+      // ✅ 新增這行：通知其他元件 trip 數量已變
+      window.dispatchEvent(new Event("tripCountChanged"));
+    }
+  };
+
   return (
     <div className="trip-detail-vertical">
       <div className="trip-header">
@@ -39,14 +59,13 @@ function TripDetailSection({ trip }) {
         <p className="trip-highlight zh-text-20">
           行程亮點：{trip.highlights?.filter(Boolean).join('、')}
         </p>
-
       </div>
 
       <div className="trip-detail-main-layout">
         <div className="trip-layout-image">
           <div className="trip-image-box">
             <img src={currentDay.image} alt={`Image for ${currentDay.day}`} />
-            <button className="add-btn">加入行程</button>
+            <button className="add-trip-btn-vertical" onClick={handleAddTrip}>加入行程</button>
           </div>
         </div>
 
@@ -65,7 +84,7 @@ function TripDetailSection({ trip }) {
         </div>
 
         <div className="trip-layout-content">
-          <div className="trip-day-selection-box" ref={daySelectionRef}> {/* ✅ 綁定區域 */}
+          <div className="trip-day-selection-box" ref={daySelectionRef}>
             <div className="trip-day-content">
               <div className="day-title zh-title-24">{currentDay.title}</div>
               {currentDay.sections?.map((section, idx) => (
@@ -134,10 +153,11 @@ function convertToChineseNumber(num) {
   if (num <= 10) return chineseNums[num - 1];
   if (num <= 19) return '十' + chineseNums[num - 11];
   if (num === 20) return '二十';
-  return num; // fallback
+  return num;
 }
 
 export default TripDetailSection;
+
 
 
 

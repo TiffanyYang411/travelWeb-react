@@ -1,5 +1,40 @@
 export function getTripCount() {
-    const trips = JSON.parse(localStorage.getItem('myTrips')) || [];
-    return trips.length;
+  const currentUser = localStorage.getItem('currentUser');
+  if (!currentUser) return 0;
+  const trips = JSON.parse(localStorage.getItem(`user_${currentUser}_trips`)) || [];
+  return trips.length;
+}
+
+export function getUserTrips() {
+  const currentUser = localStorage.getItem('currentUser');
+  if (!currentUser) return [];
+  return JSON.parse(localStorage.getItem(`user_${currentUser}_trips`)) || [];
+}
+
+export function addTripToUser(trip) {
+  const currentUser = localStorage.getItem('currentUser');
+  if (!currentUser) return;
+  const key = `user_${currentUser}_trips`;
+  const existingTrips = JSON.parse(localStorage.getItem(key)) || [];
+
+  const exists = existingTrips.some(t => t.id === trip.id);
+  if (!exists) {
+    existingTrips.push(trip);
+    localStorage.setItem(key, JSON.stringify(existingTrips));
+    window.dispatchEvent(new Event("tripCountChanged")); // ✅ 新增：通知 Navbar 更新
   }
+}
+
+export function removeTripFromUser(tripId) {
+  const currentUser = localStorage.getItem('currentUser');
+  if (!currentUser) return;
+  const key = `user_${currentUser}_trips`;
+  const trips = JSON.parse(localStorage.getItem(key)) || [];
+  const updated = trips.filter(t => t.id !== tripId);
+  localStorage.setItem(key, JSON.stringify(updated));
+  window.dispatchEvent(new Event("tripCountChanged")); // ✅ 新增：通知 Navbar 更新
+}
+
+
+
   

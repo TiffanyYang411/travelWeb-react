@@ -218,4 +218,20 @@
     color: var(--secondary-color-xlight);
   }
   
+  .add-trip-btn-vertical {
+    font-family: var(--font-zh);
+    padding: 12px 32px;
+    font-size: 18px;
+    font-weight: bold;
+    border: none;
+    border-radius: 8px;
+    background-color: var(--accent-color);
+    color: white;
+    cursor: pointer;
+    transition: background 0.3s ease;
+  }
+  
+  .add-trip-btn-vertical:hover {
+    background-color: #e85d00;
+  }
   

@@ -69,3 +69,17 @@
     margin-top: 20px;
   }
   
+  .add-trip-btn {
+    display: inline-block;
+    padding: 12px 24px;
+    background-color: #FF6F19;
+    color: white;
+    border: none;
+    border-radius: 6px;
+    font-size: 1rem;
+    cursor: pointer;
+    margin-bottom: 20px;
+    z-index: 100;
+    position: relative;
+  }
+  

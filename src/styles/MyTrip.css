@@ -36,20 +36,20 @@
   margin-bottom: 24px;
 }
 
-/* 內文：Bold 20pt, 行高150%, 字距5% */
+/* 內文：Bold 16pt, 行高150%, 字距5% */
 .mytrip-empty-container p {
-  font-size: 20pt;
+  font-size: 16pt;
   font-weight: bold;
   line-height: 1.5;
-  letter-spacing: 0.05em;
+  letter-spacing: 0.1em;
   color: var(--secondary-color-xlight);
   margin-bottom: 48px;
   white-space: pre-line;
 }
 
 /* 按鈕樣式 */
-.start-trip-btn {
-  font-size: 20pt;
+.mytrip-start-trip-btn {
+  font-size: 16pt;
   font-weight: bold;
   line-height: 1.5;
   letter-spacing: 0.05em;
@@ -62,7 +62,7 @@
   transition: background-color 0.3s ease;
 }
 
-.start-trip-btn:hover {
+.mytrip-start-trip-btn:hover {
   background-color: var(--functional-color);
 }
 

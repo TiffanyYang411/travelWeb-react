@@ -1,0 +1,92 @@
+/* CartDropdown.css */
+.cart-dropdown {
+    position: absolute;
+    right: 0;
+    top: 40px;
+    width: 300px;
+    background-color: #F6FBFC;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    z-index: 1000;
+    padding: 16px;
+  }
+  
+  .cart-dropdown h4 {
+    font-size: 1rem;
+    margin-bottom: 10px;
+    color: #142E3F;
+  }
+  
+  .cart-dropdown .cart-items {
+    max-height: 240px;
+    overflow-y: auto;
+  }
+  
+  .cart-item {
+    display: flex;
+    align-items: flex-start;
+    gap: 10px;
+    margin-bottom: 12px;
+    border-bottom: 1px solid #eee;
+    padding-bottom: 8px;
+  }
+  
+  .trip-thumb {
+    width: 60px;
+    height: 40px;
+    object-fit: cover;
+    border-radius: 4px;
+    flex-shrink: 0;
+  }
+  
+  .trip-info {
+    flex-grow: 1;
+    display: flex;
+    flex-direction: column;
+    font-size: 0.85rem;
+    color: #142E3F;
+  }
+  
+  .trip-title {
+    font-weight: bold;
+    margin-bottom: 4px;
+  }
+  
+  .trip-days,
+  .trip-price {
+    font-size: 0.8rem;
+    color: #666;
+  }
+  
+  .remove-btn {
+    background: none;
+    border: none;
+    color: #ff0000;
+    font-size: 1.2rem;
+    cursor: pointer;
+    align-self: flex-start;
+  }
+  
+  .cart-start-trip-btn {
+    
+    display: block;
+    width: 100%;
+    margin-top: 12px;
+    padding: 8px 0;
+    text-align: center;
+    background-color: #FF6F19;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    font-size: 1rem;
+    cursor: pointer;
+  }
+  
+  .cart-empty {
+    text-align: center;
+    color: #999;
+    font-size: 0.9rem;
+  }
+  
+  

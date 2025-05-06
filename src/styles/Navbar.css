@@ -119,15 +119,15 @@
 
 .cart-dot {
   position: absolute;
-  top: 18px;
-  right: 310px;
+  top: -6px;
+  right: -6px;
   background-color: red;
   color: #ffffff;
-  font-size: 12px;
+  font-size: 10px;
   font-weight: bold;
   border-radius: 50%;
-  width: 14px;
-  height: 14px;
+  width: 15px;
+  height: 15px;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -157,7 +157,81 @@
   padding-left: 200px;
 }
 
+.cart-dropdown {
+  position: absolute;
+  top: 100%;
+  right: 0;
+  width: 300px;
+  background-color: #fff;
+  border: 1px solid #ccc;
+  border-radius: 12px;
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.15);
+  z-index: 999;
+  padding: 16px;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
 
+.cart-trip-card {
+  background-color: #f9f9f9;
+  padding: 12px;
+  border-radius: 8px;
+  font-size: 14px;
+  position: relative;
+}
+
+.cart-trip-card-title {
+  font-weight: bold;
+  margin-bottom: 4px;
+}
+
+.cart-trip-card-days {
+  color: #666;
+  font-size: 13px;
+}
+
+.cart-remove-btn {
+  position: absolute;
+  top: 8px;
+  right: 8px;
+  background: none;
+  border: none;
+  font-size: 16px;
+  color: #aaa;
+  cursor: pointer;
+}
+
+.cart-remove-btn:hover {
+  color: red;
+}
+
+.cart-start-btn {
+  margin-top: 8px;
+  background-color: #FF6F19;
+  color: white;
+  padding: 10px 16px;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  text-align: center;
+  font-size: 16px;
+}
+
+.cart-start-btn:hover {
+  background-color: #e55e10;
+}
+
+.cart-container {
+  position: relative;
+}
+
+.cart-dropdown-wrapper {
+  position: absolute;
+  top: 100%;
+  right: 0;
+  z-index: 1000;
+}
 
 
 
