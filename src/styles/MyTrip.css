@@ -1,67 +1,70 @@
 :root {
-    --primary-color: #142E3F;
-    --secondary-color-xlight: #F6FBFC;
-    --functional-color: #FF0000;
-  }
-  
-  /* 整頁與 footer 占滿視窗高度 */
-  body, html {
-    height: 100%;
-    margin: 0;
-    padding: 0;
-  }
-  
-  .mytrip-empty-container {
-    min-height: calc(100vh - 200px); /* 扣掉 footer 高度 */
-    background-color: var(--primary-color);
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    text-align: center;
-    padding: 80px 20px;
-    color: var(--secondary-color-xlight);
-    box-sizing: border-box;
-  }
-  
-  /* 標題：中文 Bold 36pt, 行高150%, 字距5% */
-  .mytrip-empty-container h2 {
-    font-size: 36pt;
-    font-weight: bold;
-    line-height: 1.5;
-    letter-spacing: 5%;
-    color: var(--secondary-color-xlight);
-    margin-bottom: 24px;
-  }
-  
-  /* 內文：中文 Bold 20pt, 行高150%, 字距5% */
-  .mytrip-empty-container p {
-    font-size: 20pt;
-    font-weight: bold;
-    line-height: 1.5;
-    letter-spacing: 5%;
-    color: var(--secondary-color-xlight);
-    margin-bottom: 48px;
-    white-space: pre-line;
-  }
-  
-  /* 按鈕：Bold 20pt, 行高150%, 字距5% */
-  .start-trip-btn {
-    font-size: 20pt;
-    font-weight: bold;
-    line-height: 1.5;
-    letter-spacing: 5%;
-    background-color: var(--accent-color);
-    color: var(--secondary-color-xlight);
-    border: none;
-    border-radius: 8px;
-    padding: 14px 32px;
-    cursor: pointer;
-    transition: background-color 0.3s ease;
-  }
-  
-  .start-trip-btn:hover {
-    background-color: #cc0000;
-  }
+  --primary-color: #142E3F;
+  --secondary-color-xlight: #F6FBFC;
+  --functional-color: #FF0000;
+}
+
+/* ✅ 僅限 MyTrip 頁面使用，避免影響其他頁面 */
+.mytrip-page-wrapper {
+  min-height: 100vh;
+  background-color: var(--primary-color);
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+/* ✅ 內容容器 */
+.mytrip-empty-container {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  padding: 80px 20px;
+  box-sizing: border-box;
+  color: var(--secondary-color-xlight);
+}
+
+/* 標題：Bold 36pt, 行高150%, 字距5% */
+.mytrip-empty-container h2 {
+  font-size: 36pt;
+  font-weight: bold;
+  line-height: 1.5;
+  letter-spacing: 0.05em;
+  color: var(--secondary-color-xlight);
+  margin-bottom: 24px;
+}
+
+/* 內文：Bold 20pt, 行高150%, 字距5% */
+.mytrip-empty-container p {
+  font-size: 20pt;
+  font-weight: bold;
+  line-height: 1.5;
+  letter-spacing: 0.05em;
+  color: var(--secondary-color-xlight);
+  margin-bottom: 48px;
+  white-space: pre-line;
+}
+
+/* 按鈕樣式 */
+.start-trip-btn {
+  font-size: 20pt;
+  font-weight: bold;
+  line-height: 1.5;
+  letter-spacing: 0.05em;
+  background-color: var(--accent-color);
+  color: var(--secondary-color-xlight);
+  border: none;
+  border-radius: 8px;
+  padding: 14px 32px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.start-trip-btn:hover {
+  background-color: var(--functional-color);
+}
+
   
   

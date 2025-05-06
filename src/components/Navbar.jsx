@@ -1,5 +1,4 @@
 // src/components/Navbar.jsx
-// src/components/Navbar.jsx
 
 import { Link, useLocation, useNavigate } from 'react-router-dom';
 import { useEffect, useState } from 'react';
@@ -18,21 +17,20 @@ function Navbar() {
 
   const [loggedIn, setLoggedIn] = useState(false);
   const [userName, setUserName] = useState('');
-  const [tripCount, setTripCount] = useState(0); // ✅ 紅點數字 state
+  const [tripCount, setTripCount] = useState(0);
 
   useEffect(() => {
     const loginStatus = isLoggedIn();
     setLoggedIn(loginStatus);
     if (loginStatus) {
       setUserName(getUserName());
-      setTripCount(getTripCount()); // 有登入時才顯示紅點
+      setTripCount(getTripCount());
     }
-  }, [location]); // 每次路徑變化都重新檢查
+  }, [location]);
 
   const handleLogout = () => {
     logout();
     setLoggedIn(false);
-    // ✅ 正確導回 baseURL（不會出錯）
     window.location.href = import.meta.env.BASE_URL;
   };
 
@@ -49,31 +47,21 @@ function Navbar() {
 
   return (
     <nav className="navbar">
-      {/* Logo */}
       <Link to="/" className="navbar-logo">
         <img src={logo} alt="Élan Journeys Logo" className="logo-img" />
       </Link>
 
-      {/* 中間導覽列 */}
       <div className={`navbar-center ${loggedIn ? 'shift-right' : ''}`}>
-
         <ul className="navbar-links">
           {navLinks.map((link) => (
-            <li
-              key={link.path}
-              className={location.pathname === link.path ? 'active' : ''}
-            >
-              <Link to={link.path} className="zh-text-16">
-                {link.name}
-              </Link>
+            <li key={link.path} className={location.pathname === link.path ? 'active' : ''}>
+              <Link to={link.path} className="zh-text-16">{link.name}</Link>
             </li>
           ))}
         </ul>
       </div>
 
-      {/* 右側：購物車＋會員狀態 */}
       <div className="navbar-icons">
-        {/* 購物車區塊（含紅點） */}
         <div className="cart-container" style={{ position: 'relative' }}>
           <Link to="/my-trip" className="icon-link" title="購物車">
             <img src={cartIcon} alt="Cart Icon" className="nav-icon" />
@@ -83,11 +71,18 @@ function Navbar() {
           </Link>
         </div>
 
-        {/* 登入／登入後資訊 */}
         {!loggedIn ? (
-          <Link to="/login" className="icon-link" title="會員登入">
+          <div
+            className="icon-link"
+            title="會員登入"
+            onClick={() => {
+              sessionStorage.setItem("returnTo", location.pathname + location.search);
+              navigate("/login");
+            }}
+            style={{ cursor: 'pointer' }}
+          >
             <img src={userIcon} alt="User Icon" className="nav-icon" />
-          </Link>
+          </div>
         ) : (
           <div className="user-info zh-text-16">
             <img src={userIcon} alt="User Icon" className="nav-icon" />
@@ -103,6 +98,7 @@ function Navbar() {
 }
 
 export default Navbar;
+
 
 
 

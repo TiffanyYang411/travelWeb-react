@@ -466,6 +466,51 @@
   pointer-events: auto;
 }
 
+/* === 水感滑動遮罩效果 === */
+.explore-style-card::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(circle at var(--x, 50%) var(--y, 50%), rgba(255, 255, 255, 0.1) 0%, transparent 30%);
+  pointer-events: none;
+  z-index: 1;
+  transition: background 0.2s ease;
+}
+
+.explore-style-card:hover::before {
+  background: radial-gradient(circle at var(--x, 50%) var(--y, 50%), rgba(255, 255, 255, 0.2) 0%, transparent 40%);
+}
+
+.explore-style-card::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(circle at var(--x, 50%) var(--y, 50%), rgba(255,255,255,0.1) 0%, transparent 45%);
+  pointer-events: none;
+  border-radius: inherit;
+  transition: background 0.15s ease-out;
+  mix-blend-mode: screen;
+}
+
+/* Ripple 擴散動畫效果 */
+.ripple-effect {
+  position: absolute;
+  width: 120px;
+  height: 120px;
+  background: rgba(255, 255, 255, 0.3);
+  border-radius: 50%;
+  transform: scale(0);
+  animation: rippleExpand 0.6s ease-out forwards;
+  pointer-events: none;
+  z-index: 5;
+}
+
+@keyframes rippleExpand {
+  to {
+    transform: scale(4);
+    opacity: 0;
+  }
+}
 
 
 

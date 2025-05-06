@@ -15,14 +15,20 @@ function Login() {
   const handleLogin = (e) => {
     e.preventDefault();
 
-    // ✅ 執行假登入（任意帳密都可）
-    const userName = login(usernameInput); // 隨機產生 USERXXX 名稱
+    login(usernameInput); // 執行假登入
 
-    // ✅ 取得預設回跳頁面
-    const redirectPath = sessionStorage.getItem('redirectAfterLogin') || '/';
-    sessionStorage.removeItem('redirectAfterLogin'); // 用完即清
+    let returnTo = sessionStorage.getItem('returnTo');
+    sessionStorage.removeItem('returnTo');
 
-    navigate(redirectPath);
+    if (!returnTo || returnTo === '/login') {
+      returnTo = '/';
+    }
+
+    // ✅ 補上 basename
+    const base = import.meta.env.BASE_URL.replace(/\/$/, '');
+    const fullPath = base + returnTo;
+
+    window.location.href = fullPath; // 強制導回，避免 Router basename 不一致問題
   };
 
   return (
@@ -66,6 +72,11 @@ function Login() {
 }
 
 export default Login;
+
+
+
+
+
 
 
 

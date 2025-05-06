@@ -34,7 +34,7 @@ function Footer() {
               <Link to="/my-trip" className="zh-text-14">我的行程</Link>
             </div>
             <div className="footer-link-item" style={{ gridColumn: '3', gridRow: '1' }}>
-              <Link to="/explore" className="zh-text-14">旅遊風格</Link>
+              <Link to="/explore" className="zh-text-14">探索旅遊風格</Link>
             </div>
             <div className="footer-link-item" style={{ gridColumn: '4', gridRow: '1' }}>
               <Link to="/about" className="zh-text-14">關於我們</Link>

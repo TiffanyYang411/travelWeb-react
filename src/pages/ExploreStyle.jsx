@@ -1,5 +1,5 @@
 // src/pages/ExploreStyle.jsx
-import { useSearchParams } from 'react-router-dom';
+import { useSearchParams, useNavigate } from 'react-router-dom';
 import { useState, useEffect, useRef } from 'react';
 import { travelStyles } from '../data/travelStyles';
 import { tripData } from '../data/tripData';
@@ -14,6 +14,7 @@ import 'swiper/css/navigation';
 import 'swiper/css';
 
 function ExploreStyle() {
+  const navigate = useNavigate();
   const [searchParams] = useSearchParams();
   const styleParam = parseInt(searchParams.get('style'));
   const initialIndex = travelStyles.findIndex(style => style.id === styleParam);
@@ -35,7 +36,16 @@ function ExploreStyle() {
   const swiperRef = useRef(null);
   const tripDetailRef = useRef(null);
   const lastScrollY = useRef(0);
-  const isScrollingToDetail = useRef(false); // 防止動畫打架
+  const isScrollingToDetail = useRef(false);
+
+  useEffect(() => {
+    const newStyleParam = parseInt(searchParams.get('style'));
+    const newIndex = travelStyles.findIndex(style => style.id === newStyleParam);
+    if (newIndex !== -1 && newIndex !== selectedStyleIndex) {
+      setSelectedStyleIndex(newIndex);
+      setActiveTripIndex(null);
+    }
+  }, [searchParams]);
 
   useEffect(() => {
     const timeout = setTimeout(() => {
@@ -53,21 +63,29 @@ function ExploreStyle() {
   }, []);
 
   useEffect(() => {
+    let throttleTimeout = null;
     const handleScroll = () => {
-      if (!hasInteracted) setHasInteracted(true);
+      if (throttleTimeout) return;
 
-      const currentY = window.scrollY;
-      const direction = currentY > lastScrollY.current ? 'down' : 'up';
-      lastScrollY.current = currentY;
+      throttleTimeout = setTimeout(() => {
+        if (!hasInteracted) setHasInteracted(true);
+        const currentY = window.scrollY;
+        const direction = currentY > lastScrollY.current ? 'down' : 'up';
+        lastScrollY.current = currentY;
+        const midpoint = window.innerHeight * 0.5;
 
-      const midpoint = window.innerHeight * 0.5;
+        if (direction === 'down' && currentY > midpoint) {
+          setShowTripCards(true);
+        } else if (direction === 'up' && currentY < midpoint && !isScrollingToDetail.current) {
+          setShowTripCards(false);
+          window.scrollTo({
+            top: swiperRef.current.offsetTop,
+            behavior: 'smooth'
+          });
+        }
 
-      if (direction === 'down' && currentY > midpoint) {
-        setShowTripCards(true);
-      } else if (direction === 'up' && currentY < midpoint) {
-        setShowTripCards(false);
-        swiperRef.current?.scrollIntoView({ behavior: 'smooth', block: 'start' });
-      }
+        throttleTimeout = null;
+      }, 300);
     };
 
     window.addEventListener('scroll', handleScroll);
@@ -76,13 +94,34 @@ function ExploreStyle() {
 
   const handleTripClick = (index) => {
     setActiveTripIndex(index);
-    isScrollingToDetail.current = true;
+    setShowTripCards(true);
     setTimeout(() => {
-      tripDetailRef.current?.scrollIntoView({ behavior: 'smooth', block: 'start' });
-      setTimeout(() => {
+      scrollToTripDetail();
+    }, 100);
+  };
+
+  const scrollToTripDetail = () => {
+    isScrollingToDetail.current = true;
+    const startY = window.scrollY;
+    const endY = tripDetailRef.current.offsetTop;
+    const duration = 800;
+    const startTime = performance.now();
+
+    const scroll = (now) => {
+      const elapsed = now - startTime;
+      const progress = Math.min(elapsed / duration, 1);
+      const ease = easeInOutQuart(progress);
+      const currentY = startY + (endY - startY) * ease;
+      window.scrollTo(0, currentY);
+
+      if (progress < 1) {
+        requestAnimationFrame(scroll);
+      } else {
         isScrollingToDetail.current = false;
-      }, 1000);
-    }, 50);
+      }
+    };
+
+    requestAnimationFrame(scroll);
   };
 
   useEffect(() => {
@@ -90,16 +129,13 @@ function ExploreStyle() {
       if (isScrollingToDetail.current) return;
       const detailTop = tripDetailRef.current?.getBoundingClientRect().top;
       const cardTop = tripCardRef.current?.getBoundingClientRect().top;
-
-      if (
-        detailTop !== undefined &&
-        detailTop > window.innerHeight * 0.4 &&
-        cardTop < 0
-      ) {
-        tripCardRef.current?.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      if (detailTop !== undefined && detailTop > window.innerHeight * 0.4 && cardTop < 0) {
+        window.scrollTo({
+          top: tripCardRef.current.offsetTop,
+          behavior: 'smooth'
+        });
       }
     };
-
     window.addEventListener('scroll', handleScrollUpToCards);
     return () => window.removeEventListener('scroll', handleScrollUpToCards);
   }, []);
@@ -112,14 +148,12 @@ function ExploreStyle() {
 
   const handleAddToTrip = (tripId) => {
     const isLoggedIn = localStorage.getItem("isLoggedIn");
-
     if (!isLoggedIn) {
       sessionStorage.setItem("pendingTripId", tripId);
       sessionStorage.setItem("returnTo", window.location.pathname + window.location.search);
       navigate("/login");
     } else {
-      // 執行加入行程邏輯
-      addTripToCart(tripId); // 你自己的函式
+      addTripToCart(tripId);
     }
   };
 
@@ -160,7 +194,26 @@ function ExploreStyle() {
           >
             {travelStyles.map((style, index) => (
               <SwiperSlide key={style.id} style={{ width: '100vw', height: '100vh' }}>
-                <div className={`explore-style-card ${selectedStyleIndex === index ? 'active' : ''}`}>
+                <div
+                  className={`explore-style-card ${selectedStyleIndex === index ? 'active' : ''}`}
+                  onClick={(e) => {
+                    const ripple = document.createElement('span');
+                    ripple.className = 'ripple-effect';
+                    ripple.style.left = `${e.clientX - e.currentTarget.getBoundingClientRect().left - 50}px`;
+                    ripple.style.top = `${e.clientY - e.currentTarget.getBoundingClientRect().top - 50}px`;
+                    ripple.style.width = '100px';
+                    ripple.style.height = '100px';
+                    e.currentTarget.appendChild(ripple);
+                    setTimeout(() => ripple.remove(), 600);
+                  }}
+                  onMouseMove={(e) => {
+                    const rect = e.currentTarget.getBoundingClientRect();
+                    const x = ((e.clientX - rect.left) / rect.width) * 100;
+                    const y = ((e.clientY - rect.top) / rect.height) * 100;
+                    e.currentTarget.style.setProperty('--x', `${x}%`);
+                    e.currentTarget.style.setProperty('--y', `${y}%`);
+                  }}
+                >
                   <img src={style.exploreImage} alt={style.title} />
                   <div className="explore-style-overlay">
                     <h2 className="zh-title-48">{style.title}</h2>
@@ -204,7 +257,16 @@ function ExploreStyle() {
   );
 }
 
+function easeInOutQuart(x) {
+  return x < 0.5
+    ? 8 * x * x * x * x
+    : 1 - Math.pow(-2 * x + 2, 4) / 2;
+}
+
 export default ExploreStyle;
+
+
+
 
 
 
