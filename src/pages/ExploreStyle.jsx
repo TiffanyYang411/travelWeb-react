@@ -110,6 +110,19 @@ function ExploreStyle() {
     }
   }, [showTripCards, hasInteracted]);
 
+  const handleAddToTrip = (tripId) => {
+    const isLoggedIn = localStorage.getItem("isLoggedIn");
+
+    if (!isLoggedIn) {
+      sessionStorage.setItem("pendingTripId", tripId);
+      sessionStorage.setItem("returnTo", window.location.pathname + window.location.search);
+      navigate("/login");
+    } else {
+      // 執行加入行程邏輯
+      addTripToCart(tripId); // 你自己的函式
+    }
+  };
+
   return (
     <>
       {isLoading && (

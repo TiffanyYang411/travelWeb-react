@@ -1,13 +1,16 @@
 // src/components/Footer.jsx
 
-import { Link, useLocation } from 'react-router-dom';
+import { Link, useLocation, useNavigate } from 'react-router-dom';
 import '../styles/Footer.css';
-import '../styles/Typography.css'; // ✅ 引入字型設定
+import '../styles/Typography.css';
 import footerLogo from '../images/Logo-footer.svg';
+import { isLoggedIn, logout } from '../utils/auth'; // ✅ 登入判斷與登出
 
 function Footer() {
   const location = useLocation();
-  const isAboutPage = location.pathname === "/about"; // ✅ 判斷是否為 About 頁
+  const navigate = useNavigate();
+  const isAboutPage = location.pathname === "/about";
+  const loggedIn = isLoggedIn();
 
   return (
     <footer className={`footer ${isAboutPage ? "footer-about-bg" : ""}`}>
@@ -42,34 +45,47 @@ function Footer() {
 
             {/* 第二列 */}
             <div className="footer-link-item" style={{ gridColumn: '1', gridRow: '2' }}>
-              <Link to="/login" className="zh-text-14">會員登入</Link>
-            </div>
-            <div className="footer-link-item" style={{ gridColumn: '2', gridRow: '2' }}>
-              <Link to="/my-trip?tab=history" className="zh-text-14">歷史行程</Link>
-            </div>
-            <div className="footer-link-item" style={{ gridColumn: '3', gridRow: '2' }}>
-              <Link to="/explore?style=1" className="zh-text-14">極致戶外探險</Link>
+              {loggedIn ? (
+                <span
+                  className="zh-text-14"
+                  style={{ cursor: 'pointer', color: 'white' }}
+                  onClick={() => {
+                    logout();
+                    navigate(`${import.meta.env.BASE_URL}`); // ✅ 改成正確 base path
+                    window.location.href = import.meta.env.BASE_URL;
+                  }}
+                >
+                  會員登出
+                </span>
+              ) : (
+                <Link to="/login" className="zh-text-14">會員登入</Link>
+              )}
             </div>
 
-            {/* 第三列 */}
-            <div className="footer-link-item" style={{ gridColumn: '2', gridRow: '3' }}>
-              <a href="#" className="zh-text-14">現在出發</a>
+            {loggedIn && (
+              <>
+                <div className="footer-link-item" style={{ gridColumn: '2', gridRow: '2' }}>
+                  <Link to="/past-trips" className="zh-text-14">歷史行程</Link>
+                </div>
+                <div className="footer-link-item" style={{ gridColumn: '2', gridRow: '3' }}>
+                  <Link to="/upcoming-trips" className="zh-text-14">即將出發</Link>
+                </div>
+              </>
+            )}
+
+            {/* 探索風格列（固定） */}
+            <div className="footer-link-item" style={{ gridColumn: '3', gridRow: '2' }}>
+              <Link to="/explore?style=1" className="zh-text-14">極致戶外探險</Link>
             </div>
             <div className="footer-link-item" style={{ gridColumn: '3', gridRow: '3' }}>
               <Link to="/explore?style=2" className="zh-text-14">米其林美食巡禮</Link>
             </div>
-
-            {/* 第四列 */}
             <div className="footer-link-item" style={{ gridColumn: '3', gridRow: '4' }}>
               <Link to="/explore?style=3" className="zh-text-14">頂級奢華度假</Link>
             </div>
-
-            {/* 第五列 */}
             <div className="footer-link-item" style={{ gridColumn: '3', gridRow: '5' }}>
               <Link to="/explore?style=4" className="zh-text-14">深度文化之旅</Link>
             </div>
-
-            {/* 第六列 */}
             <div className="footer-link-item" style={{ gridColumn: '3', gridRow: '6' }}>
               <Link to="/explore?style=5" className="zh-text-14">北歐療癒假期</Link>
             </div>

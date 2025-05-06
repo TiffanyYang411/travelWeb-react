@@ -94,8 +94,8 @@
 .navbar-icons {
   display: flex;
   align-items: center;
-  gap: 30px; /* ✅ 購物車 icon跟會員icon 中間間隔30px */
-  margin-right: 116px; /* ✅ 會員icon 距最右側116px */
+  gap: 30px; /* ✅ 購物車 icon 跟會員 icon 間距 */
+  margin-right: 116px; /* ✅ 會員區右側對齊 */
   padding: 9px 0;
 }
 
@@ -117,7 +117,45 @@
   opacity: 0.7;
 }
 
+.cart-dot {
+  position: absolute;
+  top: 18px;
+  right: 310px;
+  background-color: red;
+  color: #ffffff;
+  font-size: 12px;
+  font-weight: bold;
+  border-radius: 50%;
+  width: 14px;
+  height: 14px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
 
+.user-info {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem; /* ✅ icon、名稱、登出 icon 間距加大 */
+}
+
+.user-info span {
+  color: var(--secondary-color-xlight); /* ✅ 使用者名稱為輔助色 */
+}
+
+.logout-btn {
+  background: none;
+  border: none;
+  padding: 0;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  margin-left: 2rem; /* ✅ 加這一行讓它往右移一點 */
+}
+
+.navbar-center.shift-right {
+  padding-left: 200px;
+}
 
 
 

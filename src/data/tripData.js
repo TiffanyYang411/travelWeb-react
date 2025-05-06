@@ -821,7 +821,7 @@ export const tripData = [
         "price": 47000,
         "highlights": [
           "深度森林療癒",
-          "慢活飲食課程\"",
+          "慢活飲食課程",
           "自然冥想",
           null
         ],
