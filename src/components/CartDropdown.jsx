@@ -31,24 +31,26 @@ function CartDropdown() {
           <div className="cart-items">
             {trips.map((trip) => (
               <div className="cart-item" key={trip.id}>
-                <img src={trip.banner} alt={trip.title} className="trip-thumb" />
-                <div className="trip-info">
-                  <span className="trip-title">{trip.title}</span>
-                  <span className="trip-days">{trip.days}</span>
-                  <span className="trip-price">NT${trip.price.toLocaleString()}</span>
+                <img src={trip.bannerImage} alt={trip.title} />
+                <div className="cart-item-overlay">
+                  <p className="cart-trip-title">{trip.title}</p>
+                  <p className="cart-trip-days">{trip.days}</p>
                 </div>
                 <button
-                  className="remove-btn"
+                  className="cart-remove-btn"
                   onClick={() => handleRemove(trip.id)}
                 >
-                  −
+                  <span className="minus-icon"></span>
                 </button>
               </div>
             ))}
           </div>
-          <button className="cart-start-trip-btn" onClick={handleStartTrip}>
-            開始行程
-          </button>
+          {/* ✅ 這裡是新增的外層容器 */}
+          <div className="cart-start-trip-container">
+            <button className="cart-start-trip-btn" onClick={handleStartTrip}>
+              開始行程
+            </button>
+          </div>
         </>
       )}
     </div>
@@ -56,3 +58,4 @@ function CartDropdown() {
 }
 
 export default CartDropdown;
+

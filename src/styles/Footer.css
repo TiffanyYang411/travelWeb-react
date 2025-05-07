@@ -109,14 +109,14 @@
 }
 
 .footer-about-bg {
-  background-image: url("/images/about/about-footer.jpg");
+  background-image: url("./images/about/about-footer.jpg");
   background-size: cover;
   background-position: center;
   background-repeat: no-repeat;
 }
 
 .footer.footer-about-bg {
-  background-image: url("/images/about/about-footer.jpg");
+  background-image: url("./images/about/about-footer.jpg");
   background-size: cover;
   background-position: center;
   background-repeat: no-repeat;

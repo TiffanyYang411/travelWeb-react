@@ -1,92 +1,162 @@
 /* CartDropdown.css */
 .cart-dropdown {
-    position: absolute;
-    right: 0;
-    top: 40px;
-    width: 300px;
-    background-color: #F6FBFC;
-    border: 1px solid #ccc;
-    border-radius: 8px;
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
-    z-index: 1000;
-    padding: 16px;
-  }
-  
-  .cart-dropdown h4 {
-    font-size: 1rem;
-    margin-bottom: 10px;
-    color: #142E3F;
-  }
-  
-  .cart-dropdown .cart-items {
-    max-height: 240px;
-    overflow-y: auto;
-  }
-  
-  .cart-item {
-    display: flex;
-    align-items: flex-start;
-    gap: 10px;
-    margin-bottom: 12px;
-    border-bottom: 1px solid #eee;
-    padding-bottom: 8px;
-  }
-  
-  .trip-thumb {
-    width: 60px;
-    height: 40px;
-    object-fit: cover;
-    border-radius: 4px;
-    flex-shrink: 0;
-  }
-  
-  .trip-info {
-    flex-grow: 1;
-    display: flex;
-    flex-direction: column;
-    font-size: 0.85rem;
-    color: #142E3F;
-  }
-  
-  .trip-title {
-    font-weight: bold;
-    margin-bottom: 4px;
-  }
-  
-  .trip-days,
-  .trip-price {
-    font-size: 0.8rem;
-    color: #666;
-  }
-  
-  .remove-btn {
-    background: none;
-    border: none;
-    color: #ff0000;
-    font-size: 1.2rem;
-    cursor: pointer;
-    align-self: flex-start;
-  }
-  
-  .cart-start-trip-btn {
-    
-    display: block;
-    width: 100%;
-    margin-top: 12px;
-    padding: 8px 0;
-    text-align: center;
-    background-color: #FF6F19;
-    color: white;
-    border: none;
-    border-radius: 4px;
-    font-size: 1rem;
-    cursor: pointer;
-  }
-  
-  .cart-empty {
-    text-align: center;
-    color: #999;
-    font-size: 0.9rem;
-  }
+  position: absolute;
+  top: 30px;
+  right: -96px;
+  width: 180px;
+  padding: 20px;
+  background: rgba(255, 255, 255, 0.6);
+  backdrop-filter: blur(80px);
+  -webkit-backdrop-filter: blur(80px);
+  border-radius: 20px;
+  border: 1px solid rgba(255, 255, 255, 0.3);
+  border-top: none;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
+  color: #000;
+  z-index: 999;
+}
+
+/* 尖角三角形 */
+.cart-dropdown::before {
+  content: "";
+  position: absolute;
+  top: -30px;
+  right: 95px;
+  width: 30px;
+  height: 30px;
+  background: rgba(255, 255, 255, 0.6);
+  backdrop-filter: blur(80px);
+  -webkit-backdrop-filter: blur(80px);
+  clip-path: path('M0 30 L13 10 Q15 5 17 10 L30 30 Z');
+  z-index: 0;
+}
+
+.cart-dropdown h4 {
+  font-size: 1rem;
+  margin-bottom: 10px;
+  color: #142E3F;
+}
+
+.cart-dropdown .cart-items {
+  max-height: 240px;
+  overflow-y: scroll;
+  scrollbar-width: none; /* Firefox 隱藏 */
+}
+
+.cart-dropdown .cart-items::-webkit-scrollbar {
+  display: none; /* Chrome 隱藏 */
+}
+
+/* ✅ 卡片樣式：縮小版旅遊卡片 */
+.cart-item {
+  position: relative;
+  width: 100%;
+  aspect-ratio: 4 / 2.6;
+  border-radius: 16px;
+  overflow: hidden; /* ✅ 不要改這個！ */
+  margin-bottom: 16px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+  cursor: default;
+}
+
+.cart-item img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+/* ✅ 遮罩與文字層 */
+.cart-item-overlay {
+  position: absolute;
+  inset: 0;
+  background: rgba(20, 30, 40, 0.4);
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: center;
+  padding: 30px 6px 6px;
+  gap: 0px;
+  text-align: center;
+}
+
+.cart-trip-title {
+  font-family: var(--font-zh);
+  font-size: 12pt;
+  font-weight: bold;
+  color: white;
+  margin: 0;
+  line-height: 1.4;
+  text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.4);
+}
+
+.cart-trip-days {
+  font-family: var(--font-zh);
+  font-size: 13pt;
+  font-weight: 500;
+  color: white;
+  margin-top: 4px;
+  text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.4);
+}
+
+/* ✅ 右上角減號按鈕 */
+.cart-remove-btn {
+  position: absolute;
+  top: 0px;
+  right: 0px;
+  z-index: 10; /* ✅ 加這行 */
+  background: white;
+  width: 28px;
+  height: 28px;
+  border-radius: 50%;
+  border: none;
+  padding: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.3);
+  cursor: pointer;
+  transition: background 0.2s ease;
+}
+
+.cart-remove-btn:hover {
+  background: #ffe5e5;
+}
+
+/* ✅ 純 CSS 做出的紅色橫線減號 */
+.minus-icon {
+  width: 12px;
+  height: 2px;
+  background-color: red;
+  border-radius: 1px;
+}
+
+.cart-start-trip-container {
+  text-align: center; /* ✅ 讓裡面的按鈕置中 */
+  margin-top: 12px;
+}
+
+.cart-start-trip-btn {
+  font-family: var(--font-zh);
+  display: inline-block;        /* ✅ 改成 inline-block */
+  width: fit-content;            /* ✅ 讓寬度依內容自動縮放 */
+  margin-top: 12px auto 0;
+  padding: 8px 20px;             /* ✅ 調整內距大小 */
+  text-align: center;
+  background-color: var(--primary-color);
+  color: white;
+  border: none;
+  border-radius: 10px;
+  font-size: 1rem;
+  cursor: pointer;
+}
+
+.cart-empty {
+  font-family: var(--font-zh);
+  text-align: center;
+  color: #999;
+  font-size: 14px;
+}
+
   
   
