@@ -111,7 +111,7 @@ function About() {
             <h2 className="en-title-24">WHY ÉLAN JOURNEYS</h2>
             <h3 className="en-title-20">Because your journey should be as unique as your story.</h3>
             <p className="zh-text-16-regular">
-              在 ÉLAN JOURNEYS，我們相信 —— 每一段旅程，應如藝術般被構思、如詩般被體驗。不論您身處世界哪個角落，我們所追求的，不僅是帶您抵達目的地，更是為您開啟一段內在與外在的探索。
+              在 ÉLAN JOURNEYS，我們相信 —— 每段旅程，應如藝術般被構思、如詩般被體驗。不論您身處世界哪個角落，我們追求的，不僅是帶您抵達目的地，更是為您開啟一段內在與外在的探索。
             </p>
             <p className="zh-text-16-regular">
               這是一個為高端旅人而生的品牌，專注於設計真正客製化、全然獨一無二的旅遊體驗。我們深知，每一位旅者都是一個世界，而您值得一段只屬於自己的旅程。

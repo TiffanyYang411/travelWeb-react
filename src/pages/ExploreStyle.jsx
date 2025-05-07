@@ -34,6 +34,7 @@ function ExploreStyle() {
 
   const tripCardRef = useRef(null);
   const swiperRef = useRef(null);
+  const swiperInstanceRef = useRef(null); // ✅ 新增：抓取 Swiper 實例
   const tripDetailRef = useRef(null);
   const lastScrollY = useRef(0);
   const isScrollingToDetail = useRef(false);
@@ -146,11 +147,33 @@ function ExploreStyle() {
     }
   }, [showTripCards, hasInteracted]);
 
+  // ✅ 新增：selectedStyleIndex 改變時，主動切換 Swiper slide
+  useEffect(() => {
+    const timeout = setTimeout(() => {
+      if (swiperInstanceRef.current) {
+        swiperInstanceRef.current.slideToLoop(selectedStyleIndex, 300);
+      }
+    }, 100); // 延遲 100ms 等待 Swiper 初始化完成
+
+    return () => clearTimeout(timeout);
+  }, [selectedStyleIndex]);
+
+
   const handleAddToTrip = (tripId) => {
     const isLoggedIn = localStorage.getItem("isLoggedIn");
+
     if (!isLoggedIn) {
       sessionStorage.setItem("pendingTripId", tripId);
-      sessionStorage.setItem("returnTo", window.location.pathname + window.location.search);
+      sessionStorage.setItem("justLoggedIn", "true");
+
+      const fullPath = window.location.pathname + window.location.search;
+      const base = import.meta.env.BASE_URL.replace(/\/$/, '');
+      const purePath = fullPath.startsWith(base)
+        ? fullPath.slice(base.length)
+        : fullPath;
+
+      console.log('[✅ returnTo 即將設定]', purePath);
+      sessionStorage.setItem("returnTo", purePath);
       navigate("/login");
     } else {
       addTripToCart(tripId);
@@ -186,6 +209,9 @@ function ExploreStyle() {
             onSlideChange={(swiper) => {
               setSelectedStyleIndex(swiper.realIndex);
               setActiveTripIndex(null);
+            }}
+            onSwiper={(swiper) => {
+              swiperInstanceRef.current = swiper; // ✅ 建立 swiper 實例參照
             }}
             navigation={{
               nextEl: '.explore-swiper-next',
@@ -264,6 +290,7 @@ function easeInOutQuart(x) {
 }
 
 export default ExploreStyle;
+
 
 
 

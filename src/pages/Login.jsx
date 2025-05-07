@@ -24,11 +24,13 @@ function Login() {
       returnTo = '/';
     }
 
-    // ✅ 補上 basename
-    const base = import.meta.env.BASE_URL.replace(/\/$/, '');
-    const fullPath = base + returnTo;
-
-    window.location.href = fullPath; // 強制導回，避免 Router basename 不一致問題
+    // ✅ 改用 navigate，避免 reload 導致 returnTo 失效或跳錯頁
+  navigate(returnTo, { replace: true });
+  console.log('[🟢 returnTo 讀取]', returnTo);
+  console.log("🟢 location.pathname =", window.location.pathname);
+  console.log("🟢 BASE_URL =", import.meta.env.BASE_URL);
+  console.log("🟢 navigate target =", returnTo);
+  
   };
 
   return (

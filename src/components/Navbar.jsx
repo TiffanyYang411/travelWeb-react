@@ -57,7 +57,6 @@ function Navbar() {
     return () => document.removeEventListener('mousedown', handleClickOutside);
   }, [cartPinned]);
 
-  // ✅ 新增：按 Esc 鍵關閉購物車內容
   useEffect(() => {
     const handleEscKey = (e) => {
       if (e.key === 'Escape') {
@@ -144,7 +143,9 @@ function Navbar() {
         ) : (
           <div className="user-info zh-text-16">
             <img src={userIcon} alt="User Icon" className="nav-icon" />
-            <span style={{ color: '#F6FBFC' }}>{userName}</span>
+            <span style={{ color: '#F6FBFC', maxWidth: '100px', whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis', display: 'inline-block' }} title={userName}>
+              {userName}
+            </span>
             <button onClick={handleLogout} className="logout-btn" title="登出">
               <img src={logoutIcon} alt="Logout Icon" className="nav-icon" />
             </button>
@@ -156,6 +157,7 @@ function Navbar() {
 }
 
 export default Navbar;
+
 
 
 

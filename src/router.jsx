@@ -1,6 +1,6 @@
 // src/router.jsx
 
-import { createBrowserRouter } from 'react-router-dom';
+import { createBrowserRouter, Navigate } from 'react-router-dom';
 import Layout from './components/Layout';
 import Home from './pages/Home';
 import ExploreStyle from './pages/ExploreStyle';
@@ -22,21 +22,24 @@ const router = createBrowserRouter(
         { path: 'about', element: <About /> },
         { path: 'faq', element: <FAQ /> },
         { path: 'trip/:styleId/:tripId', element: <TripDetail /> },
-        { path: 'past-trips', element: <MyTrip /> }, // 可依照你需要配置
-        { path: 'upcoming-trips', element: <MyTrip /> }, // 同上
-        { path: '*', element: <Home /> }, // ✅ 加這行
+        { path: 'past-trips', element: <MyTrip /> },
+        { path: 'upcoming-trips', element: <MyTrip /> },
       ],
     },
     {
       path: '/login',
       element: <Login />,
     },
+    {
+      path: '*',
+      element: <Navigate to="/explore" replace />,
+    },
   ],
   {
-    // ✅ 這裡才是放 basename 的正確位置
     basename: '/travelWeb-react',
   }
 );
 
 export default router;
+
 

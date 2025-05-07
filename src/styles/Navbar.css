@@ -141,6 +141,7 @@
 
 .user-info span {
   color: var(--secondary-color-xlight); /* ✅ 使用者名稱為輔助色 */
+  max-width: 100px;
 }
 
 .logout-btn {
