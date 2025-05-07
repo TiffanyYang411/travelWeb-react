@@ -47,46 +47,53 @@ function Home() {
 
   return (
     <div className="home-page">
-      {/* ✅ Hero Banner 區塊 */}
-      <section className={`hero-section ${ready ? 'ready' : ''} ${expanded ? 'expanded' : ''}`}>
-        <div className="hero-scene">
-          {slideImages.map((src, index) => (
+    
+        {/* Hero Banner 區塊 */}
+        <section className={`hero-section ${ready ? 'ready' : ''} ${expanded ? 'expanded' : ''}`}>
+          <div className="hero-scene">
+            {slideImages.map((src, index) => (
+              <img
+                key={index}
+                src={src}
+                alt={`slide${index + 1}`}
+                className={`fullscreen-img ${index === 0 ? 'slide-one' : ''} ${index === currentSlide ? 'active' : 'inactive'}`}
+              />
+            ))}
+            <div className="hero-window-frame" />
             <img
-              key={index}
-              src={src}
-              alt={`slide${index + 1}`}
-              className={`fullscreen-img ${index === 0 ? 'slide-one' : ''} ${index === currentSlide ? 'active' : 'inactive'}`}
+              src={quoteSvgs[0]}
+              alt="語錄1"
+              className={`hero-quote ${ready && !expanded ? 'visible' : ''}`}
             />
-          ))}
-          <div className="hero-window-frame" />
-          <img
-            src={quoteSvgs[0]}
-            alt="語錄1"
-            className={`hero-quote ${ready && !expanded ? 'visible' : ''}`}
-          />
-          <img
-            src={quoteSvgs[1]}
-            alt="語錄2"
-            className={`hero-quote quote-expanded ${expanded ? 'visible' : ''}`}
-          />
-        </div>
-      </section>
+            <img
+              src={quoteSvgs[1]}
+              alt="語錄2"
+              className={`hero-quote quote-expanded ${expanded ? 'visible' : ''}`}
+            />
+          </div>
+        </section>
 
-      {/* ✅ 探索你的旅行風格區塊 */}
-      <TravelStyles />
+        {/* 探索你的旅行風格區塊 */}
+        <section className="travel-style-section">
+          <TravelStyles />
+        </section>
 
-      {/* ✅ 為什麼選擇我們區塊 */}
-      <WhyUs />
+        {/* 為什麼選擇我們區塊（此區不吸附） */}
+        <section className="why-us-section">
+          <WhyUs />
+        </section>
 
-      {/* ✅ 客戶評價區塊，獨立出來但延續極光背景 */}
-      <section className="testimonial-wrapper">
-        <Testimonial />
-      </section>
+        {/* 客戶評價區塊 */}
+        <section className="testimonial-wrapper">
+          <Testimonial />
+        </section>
+      
     </div>
   );
 }
 
 export default Home;
+
 
 
 

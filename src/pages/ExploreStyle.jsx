@@ -240,7 +240,11 @@ function ExploreStyle() {
                     e.currentTarget.style.setProperty('--y', `${y}%`);
                   }}
                 >
-                  <img src={style.exploreImage} alt={style.title} />
+                  <div className="image-container">
+                    <img src={style.exploreImage} alt={style.title} />
+                    <div className="image-overlay"></div>
+                  </div>
+
                   <div className="explore-style-overlay">
                     <h2 className="zh-title-48">{style.title}</h2>
                     <p className="zh-text-24">{style.description}</p>

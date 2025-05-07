@@ -32,7 +32,7 @@
 .travel-style-text {
   position: relative;
   z-index: 2;
-  max-width: 480px;
+  max-width: 1000px;
   color: white;
   margin-left: 80px;
   margin-top: -40px;
@@ -43,7 +43,7 @@
 }
 
 .travel-style-text p {
-  margin-bottom: 30px;
+  margin-bottom: 40px;
 }
 
 .travel-style-content {

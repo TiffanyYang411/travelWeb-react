@@ -122,21 +122,3 @@ h-text-20.z {
   letter-spacing: 6%;
   text-align: center;
 }
-
-/* WhyUs文字區塊基礎 */
-.whyus-text {
-  max-width: 400px;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  text-align: center;
-}
-
-.whyus-text h3 {
-  margin-bottom: 16px;
-}
-
-.whyus-text p {
-  max-width: 360px;
-  white-space: normal;
-}
