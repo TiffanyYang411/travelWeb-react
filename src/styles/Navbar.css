@@ -8,7 +8,7 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
-  background-color: rgba(20, 46, 63, 0.3); /* ✅ 深藍玻璃感 */
+  background-color: rgba(20, 46, 63, 0.3);
   backdrop-filter: blur(12px);
   -webkit-backdrop-filter: blur(12px);
   height: 50px;
@@ -21,7 +21,7 @@
   font-size: 2rem;
   font-weight: bold;
   color: #333;
-  margin-left: 45px; /* ✅ Logo 離左側距離 */
+  margin-left: 45px;
 }
 
 .logo-img {
@@ -36,13 +36,17 @@
   flex: 1;
   display: flex;
   justify-content: flex-end;
-  margin-right: 30px; /* ✅ 調整跟購物車之間30px */
+  margin-right: 30px;
+}
+
+.navbar-center.shift-right {
+  padding-left: 200px;
 }
 
 .navbar-links {
   list-style: none;
   display: flex;
-  gap: 48px; /* ✅ 導覽連結間距 */
+  gap: 48px;
   margin: 0;
   padding: 0;
   font-family: 'LXGW WenKai TC', serif;
@@ -94,8 +98,8 @@
 .navbar-icons {
   display: flex;
   align-items: center;
-  gap: 30px; /* ✅ 購物車 icon 跟會員 icon 間距 */
-  margin-right: 116px; /* ✅ 會員區右側對齊 */
+  gap: 30px;
+  margin-right: 116px;
   padding: 9px 0;
 }
 
@@ -106,7 +110,6 @@
   cursor: pointer;
 }
 
-/* icon 圖片 */
 .nav-icon {
   width: 30px;
   height: 30px;
@@ -117,6 +120,7 @@
   opacity: 0.7;
 }
 
+/* 購物車紅點 */
 .cart-dot {
   position: absolute;
   top: -6px;
@@ -133,15 +137,19 @@
   justify-content: center;
 }
 
+/* 使用者資訊 */
 .user-info {
   display: flex;
   align-items: center;
-  gap: 0.5rem; /* ✅ icon、名稱、登出 icon 間距加大 */
+  gap: 0.5rem;
 }
 
 .user-info span {
-  color: var(--secondary-color-xlight); /* ✅ 使用者名稱為輔助色 */
+  color: var(--secondary-color-xlight);
   max-width: 100px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 
 .logout-btn {
@@ -151,88 +159,26 @@
   cursor: pointer;
   display: flex;
   align-items: center;
-  margin-left: 2rem; /* ✅ 加這一行讓它往右移一點 */
+  margin-left: 2rem;
 }
 
-.navbar-center.shift-right {
-  padding-left: 200px;
-}
-
-.cart-dropdown {
-  position: absolute;
-  top: 100%;
-  right: 0;
-  width: 300px;
-  background-color: #fff;
-  border: 1px solid #ccc;
-  border-radius: 12px;
-  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.15);
-  z-index: 999;
-  padding: 16px;
-  display: flex;
-  flex-direction: column;
-  gap: 12px;
-}
-
-.cart-trip-card {
-  background-color: #f9f9f9;
-  padding: 12px;
-  border-radius: 8px;
-  font-size: 14px;
-  position: relative;
-}
-
-.cart-trip-card-title {
-  font-weight: bold;
-  margin-bottom: 4px;
-}
-
-.cart-trip-card-days {
-  color: #666;
-  font-size: 13px;
-}
-
-.cart-remove-btn {
-  position: absolute;
-  top: 8px;
-  right: 8px;
-  background: none;
-  border: none;
-  font-size: 16px;
-  color: #aaa;
-  cursor: pointer;
-}
-
-.cart-remove-btn:hover {
-  color: red;
-}
-
-.cart-start-btn {
-  margin-top: 8px;
-  background-color: #FF6F19;
-  color: white;
-  padding: 10px 16px;
-  border: none;
-  border-radius: 8px;
-  cursor: pointer;
-  text-align: center;
-  font-size: 16px;
-}
-
-.cart-start-btn:hover {
-  background-color: #e55e10;
-}
-
+/* 購物車容器 */
 .cart-container {
   position: relative;
 }
 
+/* 購物車內容包覆層 */
 .cart-dropdown-wrapper {
   position: absolute;
   top: 100%;
   right: 0;
+  overflow: visible;
   z-index: 1000;
 }
+
+
+
+
 
 
 

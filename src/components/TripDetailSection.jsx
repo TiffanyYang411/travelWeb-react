@@ -1,3 +1,4 @@
+// TripDetailSection.jsx
 import { useState, useEffect, useRef } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { isLoggedIn } from '../utils/auth';
@@ -6,6 +7,7 @@ import '../styles/TripDetailVertical.css';
 
 function TripDetailSection({ trip }) {
   const [currentDayIndex, setCurrentDayIndex] = useState(0);
+  const [showAddMessage, setShowAddMessage] = useState(false); // ✅ 新增這行
   const daySelectionRef = useRef(null);
   const navigate = useNavigate();
 
@@ -44,10 +46,15 @@ function TripDetailSection({ trip }) {
     } else {
       console.log('✅ 已登入，加入行程');
       addTripToUser(trip);
-      alert("已加入行程！");
 
-      // ✅ 新增這行：通知其他元件 trip 數量已變
-      window.dispatchEvent(new Event("tripCountChanged"));
+      window.dispatchEvent(new CustomEvent("tripCountChanged"));
+      window.dispatchEvent(new CustomEvent("tripAdded"));
+
+      // ✅ 顯示提示字，1.5秒後自動消失
+      setShowAddMessage(true);
+      setTimeout(() => {
+        setShowAddMessage(false);
+      }, 1500);
     }
   };
 
@@ -101,6 +108,11 @@ function TripDetailSection({ trip }) {
           </div>
         </div>
       </div>
+
+      {/* ✅ 提示文字，跟著TripDetailSection畫面走 */}
+      {showAddMessage && (
+        <div className="add-message">已加入行程！</div>
+      )}
     </div>
   );
 }
@@ -157,6 +169,7 @@ function convertToChineseNumber(num) {
 }
 
 export default TripDetailSection;
+
 
 
 

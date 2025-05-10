@@ -1,4 +1,37 @@
 /* CartDropdown.css */
+
+.cart-dropdown-wrapper {
+  animation: cartFadeSlideIn 0.4s ease forwards;
+  transform-origin: top center; /* ✅ 讓小三角形跟框同步動畫 */
+}
+
+.cart-dropdown-wrapper.closing {
+  animation: cartFadeSlideOut 0.4s ease forwards;
+}
+
+@keyframes cartFadeSlideIn {
+  0% {
+    opacity: 0;
+    transform: translateY(-20px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes cartFadeSlideOut {
+  0% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+  100% {
+    opacity: 0;
+    transform: translateY(-20px);
+  }
+}
+
+/* === 購物車主體區 === */
 .cart-dropdown {
   position: absolute;
   top: 30px;
@@ -16,7 +49,7 @@
   z-index: 999;
 }
 
-/* 尖角三角形 */
+/* === 小三角形區 === */
 .cart-dropdown::before {
   content: "";
   position: absolute;
@@ -31,6 +64,7 @@
   z-index: 0;
 }
 
+/* === 裡面內容不動 === */
 .cart-dropdown h4 {
   font-size: 1rem;
   margin-bottom: 10px;
@@ -40,20 +74,19 @@
 .cart-dropdown .cart-items {
   max-height: 240px;
   overflow-y: scroll;
-  scrollbar-width: none; /* Firefox 隱藏 */
+  scrollbar-width: none;
 }
 
 .cart-dropdown .cart-items::-webkit-scrollbar {
-  display: none; /* Chrome 隱藏 */
+  display: none;
 }
 
-/* ✅ 卡片樣式：縮小版旅遊卡片 */
 .cart-item {
   position: relative;
   width: 100%;
   aspect-ratio: 4 / 2.6;
   border-radius: 16px;
-  overflow: hidden; /* ✅ 不要改這個！ */
+  overflow: hidden;
   margin-bottom: 16px;
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
   cursor: default;
@@ -66,7 +99,6 @@
   display: block;
 }
 
-/* ✅ 遮罩與文字層 */
 .cart-item-overlay {
   position: absolute;
   inset: 0;
@@ -99,12 +131,11 @@
   text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.4);
 }
 
-/* ✅ 右上角減號按鈕 */
 .cart-remove-btn {
   position: absolute;
   top: 0px;
   right: 0px;
-  z-index: 10; /* ✅ 加這行 */
+  z-index: 10;
   background: white;
   width: 28px;
   height: 28px;
@@ -123,7 +154,6 @@
   background: #ffe5e5;
 }
 
-/* ✅ 純 CSS 做出的紅色橫線減號 */
 .minus-icon {
   width: 12px;
   height: 2px;
@@ -132,16 +162,16 @@
 }
 
 .cart-start-trip-container {
-  text-align: center; /* ✅ 讓裡面的按鈕置中 */
+  text-align: center;
   margin-top: 12px;
 }
 
 .cart-start-trip-btn {
   font-family: var(--font-zh);
-  display: inline-block;        /* ✅ 改成 inline-block */
-  width: fit-content;            /* ✅ 讓寬度依內容自動縮放 */
+  display: inline-block;
+  width: fit-content;
   margin-top: 12px auto 0;
-  padding: 8px 20px;             /* ✅ 調整內距大小 */
+  padding: 8px 20px;
   text-align: center;
   background-color: var(--primary-color);
   color: white;
@@ -158,5 +188,8 @@
   font-size: 14px;
 }
 
-  
+
+
+
+
   

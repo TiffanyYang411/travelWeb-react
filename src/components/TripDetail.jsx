@@ -1,5 +1,7 @@
 // TripDetail.jsx 控制不顯示的行程內容
-import React from "react";
+// TripDetail.jsx
+// TripDetail.jsx
+import React, { useState } from "react"; // ✅ 要加useState
 import { useParams, useNavigate } from "react-router-dom";
 import { tripData } from "../data/tripData";
 import { isLoggedIn } from "../utils/auth";
@@ -9,6 +11,8 @@ import "../styles/TripDetail.css";
 export default function TripDetail() {
   const { styleId, tripId } = useParams();
   const navigate = useNavigate();
+
+  const [showAddMessage, setShowAddMessage] = useState(false); // ✅ 新增這行
 
   const style = tripData.find((style) => style.styleId === parseInt(styleId));
   const trip = style?.trips.find((trip) => trip.id === parseInt(tripId));
@@ -20,26 +24,31 @@ export default function TripDetail() {
   const handleAddTrip = () => {
     console.log("🧪 點擊加入行程按鈕");
     console.log("🔒 isLoggedIn() =", isLoggedIn());
-  
+
     if (!isLoggedIn()) {
       console.log("⚠️ 未登入，導向登入頁");
-  
       const fullPath = window.location.pathname + window.location.search;
       const base = import.meta.env.BASE_URL.replace(/\/$/, '');
-      const purePath = fullPath.startsWith(base)
+      const purePath = fullPath.startsWith(base.length)
         ? fullPath.slice(base.length)
         : fullPath;
-  
       console.log("🟢 returnTo 寫入", purePath);
       sessionStorage.setItem("returnTo", purePath);
       navigate("/login");
     } else {
       console.log("✅ 已登入，執行 addTripToUser()");
       addTripToUser(trip);
-      alert("已加入行程！");
+
+      window.dispatchEvent(new CustomEvent("tripCountChanged"));
+      window.dispatchEvent(new CustomEvent("tripAdded"));
+
+      // ✅ 顯示提示字
+      setShowAddMessage(true);
+      setTimeout(() => {
+        setShowAddMessage(false);
+      }, 1500);
     }
   };
-  
 
   return (
     <div className="trip-detail">
@@ -86,9 +95,31 @@ export default function TripDetail() {
               </div>
             ))}
       </div>
+
+
     </div>
   );
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 

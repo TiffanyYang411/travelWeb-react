@@ -1,5 +1,6 @@
 // src/components/Navbar.jsx
 
+// Navbar.jsx
 import { Link, useLocation, useNavigate } from 'react-router-dom';
 import { useEffect, useState, useRef } from 'react';
 import '../styles/Navbar.css';
@@ -22,6 +23,7 @@ function Navbar() {
   const [tripCount, setTripCount] = useState(0);
   const [showCartDropdown, setShowCartDropdown] = useState(false);
   const [cartPinned, setCartPinned] = useState(false);
+  const [showAddMessage, setShowAddMessage] = useState(false);
 
   useEffect(() => {
     const loginStatus = isLoggedIn();
@@ -54,7 +56,7 @@ function Navbar() {
     } else {
       document.removeEventListener('mousedown', handleClickOutside);
     }
-    return () => document.removeEventListener('mousedown', handleClickOutside);
+    return () => window.removeEventListener('mousedown', handleClickOutside);
   }, [cartPinned]);
 
   useEffect(() => {
@@ -66,6 +68,21 @@ function Navbar() {
     };
     document.addEventListener('keydown', handleEscKey);
     return () => document.removeEventListener('keydown', handleEscKey);
+  }, []);
+
+  useEffect(() => {
+    const handleTripAdded = () => {
+      setShowCartDropdown(true);
+      setShowAddMessage(true);
+
+      setTimeout(() => {
+        setShowCartDropdown(false);
+        setShowAddMessage(false);
+      }, 1500);
+    };
+
+    window.addEventListener("tripAdded", handleTripAdded);
+    return () => window.removeEventListener("tripAdded", handleTripAdded);
   }, []);
 
   const handleCartClick = () => {
@@ -92,67 +109,70 @@ function Navbar() {
   ];
 
   return (
-    <nav className="navbar">
-      <Link to="/" className="navbar-logo">
-        <img src={logo} alt="Élan Journeys Logo" className="logo-img" />
-      </Link>
+    <>
+      <nav className="navbar">
+        <Link to="/" className="navbar-logo">
+          <img src={logo} alt="Élan Journeys Logo" className="logo-img" />
+        </Link>
 
-      <div className={`navbar-center ${loggedIn ? 'shift-right' : ''}`}>
-        <ul className="navbar-links">
-          {navLinks.map((link) => (
-            <li key={link.path} className={location.pathname === link.path ? 'active' : ''}>
-              <Link to={link.path} className="zh-text-16">{link.name}</Link>
-            </li>
-          ))}
-        </ul>
-      </div>
+        <div className={`navbar-center ${loggedIn ? 'shift-right' : ''}`}>
+          <ul className="navbar-links">
+            {navLinks.map((link) => (
+              <li key={link.path} className={location.pathname === link.path ? 'active' : ''}>
+                <Link to={link.path} className="zh-text-16">{link.name}</Link>
+              </li>
+            ))}
+          </ul>
+        </div>
 
-      <div className="navbar-icons">
-        <div
-          className="cart-container"
-          style={{ position: 'relative' }}
-          ref={cartRef}
-          onMouseEnter={() => !cartPinned && setShowCartDropdown(true)}
-          onMouseLeave={() => !cartPinned && setShowCartDropdown(false)}
-        >
-          <div className="icon-link" title="購物車" onClick={handleCartClick} style={{ cursor: 'pointer' }}>
-            <img src={cartIcon} alt="Cart Icon" className="nav-icon" />
-            {loggedIn && tripCount > 0 && (
-              <span className="cart-dot">{tripCount}</span>
+        <div className="navbar-icons">
+          <div
+            className="cart-container"
+            style={{ position: 'relative' }}
+            ref={cartRef}
+            onMouseEnter={() => !cartPinned && setShowCartDropdown(true)}
+            onMouseLeave={() => !cartPinned && setShowCartDropdown(false)}
+          >
+            <div className="icon-link" title="購物車" onClick={handleCartClick} style={{ cursor: 'pointer' }}>
+              <img src={cartIcon} alt="Cart Icon" className="nav-icon" />
+              {loggedIn && tripCount > 0 && (
+                <span className="cart-dot">{tripCount}</span>
+              )}
+            </div>
+
+            {loggedIn && showCartDropdown && (
+              <div className="cart-dropdown-wrapper">
+                <CartDropdown />
+              </div>
             )}
           </div>
-          {loggedIn && showCartDropdown && (
-            <div className="cart-dropdown-wrapper">
-              <CartDropdown />
+
+          {!loggedIn ? (
+            <div
+              className="icon-link"
+              title="會員登入"
+              onClick={() => {
+                sessionStorage.setItem("returnTo", location.pathname + location.search);
+                navigate("/login");
+              }}
+              style={{ cursor: 'pointer' }}
+            >
+              <img src={userIcon} alt="User Icon" className="nav-icon" />
+            </div>
+          ) : (
+            <div className="user-info zh-text-16">
+              <img src={userIcon} alt="User Icon" className="nav-icon" />
+              <span style={{ color: '#F6FBFC', maxWidth: '100px', whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis', display: 'inline-block' }} title={userName}>
+                {userName}
+              </span>
+              <button onClick={handleLogout} className="logout-btn" title="登出">
+                <img src={logoutIcon} alt="Logout Icon" className="nav-icon" />
+              </button>
             </div>
           )}
         </div>
-
-        {!loggedIn ? (
-          <div
-            className="icon-link"
-            title="會員登入"
-            onClick={() => {
-              sessionStorage.setItem("returnTo", location.pathname + location.search);
-              navigate("/login");
-            }}
-            style={{ cursor: 'pointer' }}
-          >
-            <img src={userIcon} alt="User Icon" className="nav-icon" />
-          </div>
-        ) : (
-          <div className="user-info zh-text-16">
-            <img src={userIcon} alt="User Icon" className="nav-icon" />
-            <span style={{ color: '#F6FBFC', maxWidth: '100px', whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis', display: 'inline-block' }} title={userName}>
-              {userName}
-            </span>
-            <button onClick={handleLogout} className="logout-btn" title="登出">
-              <img src={logoutIcon} alt="Logout Icon" className="nav-icon" />
-            </button>
-          </div>
-        )}
-      </div>
-    </nav>
+      </nav>
+    </>
   );
 }
 

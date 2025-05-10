@@ -1,237 +1,277 @@
 /* TripDetailVertical.css */
 
 .trip-detail-vertical {
-    padding: 70px 40px;
-    max-width: 1440px;
-    margin: 0 auto;
-    color: #fff;
-    background-color: #142E3F;
-    font-family: 'Piazzolla', serif;
+  padding: 70px 40px;
+  max-width: 1440px;
+  margin: 0 auto;
+  color: #fff;
+  background-color: #142E3F;
+  font-family: 'Piazzolla', serif;
+}
+
+.trip-header {
+  margin-bottom: 32px;
+}
+
+.trip-vertical-title {
+  font-size: 32px !important;
+  font-weight: bold;
+  margin-bottom: 12px;
+}
+
+.trip-price {
+  font-size: 24px;
+  font-weight: 600;
+  margin-bottom: 12px;
+}
+
+.trip-highlight {
+  font-size: 18px;
+  color: #DCE8ED;
+}
+
+.trip-detail-main-layout {
+  display: flex;
+  gap: 48px;
+  align-items: flex-start;
+  justify-content: center;
+}
+
+.trip-layout-image {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.trip-layout-switch {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  margin-left: -24px;
+}
+
+.trip-layout-content {
+  flex: 1;
+}
+
+.trip-image-box {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  /* 讓按鈕靠右 */
+  position: relative;
+}
+
+.trip-image-box img {
+  max-width: 100%;
+  max-height: 500px;
+  border-radius: 12px;
+  object-fit: cover;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+  margin-bottom: 20px;
+}
+
+.add-btn {
+  padding: 12px 32px;
+  background-color: var(--accent-color);
+  color: white;
+  font-size: 18px;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: background 0.3s;
+}
+
+.add-btn:hover {
+  background-color: #e85d00;
+}
+
+.trip-day-selection-box {
+  background-color: var(--secondary-color-light);
+  padding: 30px;
+  border-radius: 12px;
+  color: var(--primary-color);
+}
+
+.day-nav {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  height: 400px;
+  padding: 12px 0;
+}
+
+.day-btn {
+  background: none;
+  border: none;
+  outline: none;
+  cursor: pointer;
+  font-family: var(--font-zh);
+  font-weight: 400;
+  font-size: 16px;
+  color: var(--secondary-color-xlight);
+  padding-left: 28px;
+  position: relative;
+  transition: all 0.3s ease;
+}
+
+.day-btn .star {
+  position: absolute;
+  left: 0;
+  color: var(--secondary-color-xlight);
+  font-size: 14px;
+}
+
+.day-btn.active {
+  color: var(--accent-color);
+  font-size: 20px;
+  font-weight: bold;
+  background: none;
+}
+
+.day-btn.active .star {
+  color: var(--accent-color);
+  font-size: 16px;
+}
+
+.trip-day-content .day-title {
+  font-size: 22px;
+  font-weight: bold;
+  margin-bottom: 16px;
+}
+
+.time-section {
+  margin-bottom: 24px;
+}
+
+.time-section h4 {
+  font-size: 24px;
+  font-weight: bold;
+  color: var(--primary-color);
+  margin-bottom: 10px;
+  font-family: var(--font-zh);
+  line-height: 1.5;
+  letter-spacing: 5%;
+}
+
+.time-section ul {
+  list-style: disc;
+  padding-left: 20px;
+  line-height: 1.8;
+}
+
+.time-section li {
+  font-size: 16px;
+  font-weight: bold;
+  font-family: var(--font-zh);
+  color: var(--primary-color);
+  line-height: 1.5;
+  letter-spacing: 5%;
+  margin-bottom: 6px;
+}
+
+.day-btn:focus {
+  outline: none;
+  box-shadow: none;
+}
+
+.trip-vertical-title {
+  font-size: 32px;
+  font-family: var(--font-zh);
+  font-weight: bold;
+  line-height: 1.5;
+  letter-spacing: 5%;
+  color: var(--secondary-color-xlight);
+}
+
+.trip-price {
+  display: flex;
+  align-items: baseline;
+  gap: 8px;
+  color: var(--secondary-color-xlight);
+}
+
+.trip-price .price-num {
+  font-family: var(--font-en);
+  font-size: 32px;
+  font-weight: bold;
+  line-height: 1.6;
+  letter-spacing: 6%;
+}
+
+.trip-price .price-unit {
+  font-family: var(--font-zh);
+  font-size: 24px;
+  font-weight: bold;
+  line-height: 1.5;
+  letter-spacing: 5%;
+}
+
+.trip-highlight {
+  font-size: 20px;
+  font-family: var(--font-zh);
+  font-weight: bold;
+  line-height: 1.5;
+  letter-spacing: 5%;
+  color: var(--secondary-color-xlight);
+}
+
+.add-trip-btn-vertical {
+  font-family: var(--font-zh);
+  padding: 12px 32px;
+  font-size: 18px;
+  font-weight: bold;
+  border: none;
+  border-radius: 8px;
+  background-color: var(--accent-color);
+  color: white;
+  cursor: pointer;
+  transition: background 0.3s ease;
+}
+
+.add-trip-btn-vertical:hover {
+  background-color: #e85d00;
+}
+
+.add-message {
+  font-family: var(--font-zh);
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background: var(--secondary-color-dark);
+  color: var(--secondary-color-xlight);
+  padding: 18px 30px;
+  border-radius: 10px;
+  font-size: 18px;
+  font-weight: bold;
+  /* box-shadow: 0 4px 16px rgba(0, 0, 0, 0.1); */
+  z-index: 2000;
+  animation: fadeInOut 2s forwards;
+}
+
+/* 動畫效果也順便更柔和一點 */
+@keyframes fadeInOut {
+  0% {
+    opacity: 0;
+    transform: translate(-50%, -60%);
   }
-  
-  .trip-header {
-    margin-bottom: 32px;
+
+  10% {
+    opacity: 1;
+    transform: translate(-50%, -50%);
   }
-  
-  .trip-vertical-title{
-    font-size: 32px !important;
-    font-weight: bold;
-    margin-bottom: 12px;
+
+  90% {
+    opacity: 1;
+    transform: translate(-50%, -50%);
   }
-  
-  .trip-price {
-    font-size: 24px;
-    font-weight: 600;
-    margin-bottom: 12px;
+
+  100% {
+    opacity: 0;
+    transform: translate(-50%, -60%);
   }
-  
-  .trip-highlight {
-    font-size: 18px;
-    color: #DCE8ED;
-  }
-  
-  .trip-detail-main-layout {
-    display: flex;
-    gap: 48px;
-    align-items: flex-start;
-    justify-content: center;
-  }
-  
-  .trip-layout-image {
-    flex: 1;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-  }
-  
-  .trip-layout-switch {
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    margin-left: -24px;
-  }
-  
-  .trip-layout-content {
-    flex: 1;
-  }
-  
-  .trip-image-box {
-    flex: 1;
-    display: flex;
-    flex-direction: column;
-    align-items: flex-end; /* 讓按鈕靠右 */
-    position: relative;
-  }
-  
-  .trip-image-box img {
-    max-width: 100%;
-    max-height: 500px;
-    border-radius: 12px;
-    object-fit: cover;
-    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
-    margin-bottom: 20px;
-  }
-  
-  .add-btn {
-    padding: 12px 32px;
-    background-color: var(--accent-color);
-    color: white;
-    font-size: 18px;
-    border: none;
-    border-radius: 8px;
-    cursor: pointer;
-    transition: background 0.3s;
-  }
-  
-  .add-btn:hover {
-    background-color: #e85d00;
-  }
-  
-  .trip-day-selection-box {
-    background-color: var(--secondary-color-light);
-    padding: 30px;
-    border-radius: 12px;
-    color: var(--primary-color);
-  }
-  
-  .day-nav {
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between;
-    height: 400px;
-    padding: 12px 0;
-  }
-  
-  .day-btn {
-    background: none;
-    border: none;
-    outline: none;
-    cursor: pointer;
-    font-family: var(--font-zh);
-    font-weight: 400;
-    font-size: 16px;
-    color: var(--secondary-color-xlight);
-    padding-left: 28px;
-    position: relative;
-    transition: all 0.3s ease;
-  }
-  
-  .day-btn .star {
-    position: absolute;
-    left: 0;
-    color: var(--secondary-color-xlight);
-    font-size: 14px;
-  }
-  
-  .day-btn.active {
-    color: var(--accent-color);
-    font-size: 20px;
-    font-weight: bold;
-    background: none;
-  }
-  
-  .day-btn.active .star {
-    color: var(--accent-color);
-    font-size: 16px;
-  }
-  
-  .trip-day-content .day-title {
-    font-size: 22px;
-    font-weight: bold;
-    margin-bottom: 16px;
-  }
-  
-  .time-section {
-    margin-bottom: 24px;
-  }
-  
-  .time-section h4 {
-    font-size: 24px;
-    font-weight: bold;
-    color: var(--primary-color);
-    margin-bottom: 10px;
-    font-family: var(--font-zh);
-    line-height: 1.5;
-    letter-spacing: 5%;
-  }
-  
-  .time-section ul {
-    list-style: disc;
-    padding-left: 20px;
-    line-height: 1.8;
-  }
-  
-  .time-section li {
-    font-size: 16px;
-    font-weight: bold;
-    font-family: var(--font-zh);
-    color: var(--primary-color);
-    line-height: 1.5;
-    letter-spacing: 5%;
-    margin-bottom: 6px;
-  }
-  
-  .day-btn:focus {
-    outline: none;
-    box-shadow: none;
-  }
-  
-  .trip-vertical-title {
-    font-size: 32px;
-    font-family: var(--font-zh);
-    font-weight: bold;
-    line-height: 1.5;
-    letter-spacing: 5%;
-    color: var(--secondary-color-xlight);
-  }
-  
-  .trip-price {
-    display: flex;
-    align-items: baseline;
-    gap: 8px;
-    color: var(--secondary-color-xlight);
-  }
-  
-  .trip-price .price-num {
-    font-family: var(--font-en);
-    font-size: 32px;
-    font-weight: bold;
-    line-height: 1.6;
-    letter-spacing: 6%;
-  }
-  
-  .trip-price .price-unit {
-    font-family: var(--font-zh);
-    font-size: 24px;
-    font-weight: bold;
-    line-height: 1.5;
-    letter-spacing: 5%;
-  }
-  
-  .trip-highlight {
-    font-size: 20px;
-    font-family: var(--font-zh);
-    font-weight: bold;
-    line-height: 1.5;
-    letter-spacing: 5%;
-    color: var(--secondary-color-xlight);
-  }
-  
-  .add-trip-btn-vertical {
-    font-family: var(--font-zh);
-    padding: 12px 32px;
-    font-size: 18px;
-    font-weight: bold;
-    border: none;
-    border-radius: 8px;
-    background-color: var(--accent-color);
-    color: white;
-    cursor: pointer;
-    transition: background 0.3s ease;
-  }
-  
-  .add-trip-btn-vertical:hover {
-    background-color: #e85d00;
-  }
-  
+}

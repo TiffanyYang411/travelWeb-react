@@ -1,3 +1,5 @@
+const tripChangeListeners = [];
+
 export function getTripCount() {
   const currentUser = localStorage.getItem('currentUser');
   if (!currentUser) return 0;
@@ -21,7 +23,8 @@ export function addTripToUser(trip) {
   if (!exists) {
     existingTrips.push(trip);
     localStorage.setItem(key, JSON.stringify(existingTrips));
-    window.dispatchEvent(new Event("tripCountChanged")); // ✅ 新增：通知 Navbar 更新
+    window.dispatchEvent(new Event("tripCountChanged")); // ✅ 通知購物車
+    triggerTripChange(); // ✅ 通知我的行程
   }
 }
 
@@ -32,8 +35,26 @@ export function removeTripFromUser(tripId) {
   const trips = JSON.parse(localStorage.getItem(key)) || [];
   const updated = trips.filter(t => t.id !== tripId);
   localStorage.setItem(key, JSON.stringify(updated));
-  window.dispatchEvent(new Event("tripCountChanged")); // ✅ 新增：通知 Navbar 更新
+  window.dispatchEvent(new Event("tripCountChanged")); // ✅ 通知購物車
+  triggerTripChange(); // ✅ 通知我的行程
 }
+
+// ✅ 加上訂閱變動功能
+export function subscribeTripChanges(callback) {
+  tripChangeListeners.push(callback);
+}
+
+export function unsubscribeTripChanges(callback) {
+  const index = tripChangeListeners.indexOf(callback);
+  if (index > -1) {
+    tripChangeListeners.splice(index, 1);
+  }
+}
+
+function triggerTripChange() {
+  tripChangeListeners.forEach(fn => fn());
+}
+
 
 
 
