@@ -1,6 +1,5 @@
-// src/router.jsx
-
-import { createBrowserRouter, Navigate } from 'react-router-dom';
+// src/import { createBrowserRouter, Navigate } from 'react-router-dom';
+import { createBrowserRouter, Navigate } from 'react-router-dom'; // ✅ 要加這行！
 import Layout from './components/Layout';
 import Home from './pages/Home';
 import ExploreStyle from './pages/ExploreStyle';
@@ -9,6 +8,8 @@ import About from './pages/About';
 import FAQ from './pages/FAQ';
 import Login from './pages/Login';
 import TripDetail from "./components/TripDetail";
+import TripCustomization from './pages/TripCustomization';
+
 
 const router = createBrowserRouter(
   [
@@ -24,6 +25,7 @@ const router = createBrowserRouter(
         { path: 'trip/:styleId/:tripId', element: <TripDetail /> },
         { path: 'past-trips', element: <MyTrip /> },
         { path: 'upcoming-trips', element: <MyTrip /> },
+        { path: 'trip-customization', element: <TripCustomization /> }, // ✅ 正式加這一條
       ],
     },
     {
@@ -41,5 +43,3 @@ const router = createBrowserRouter(
 );
 
 export default router;
-
-

@@ -33,10 +33,37 @@ function MyTrip() {
   const [startDate, setStartDate] = useState(new Date());
   const [endDate, setEndDate] = useState(null);
   const [totalPrice, setTotalPrice] = useState(0);
+  const [showNextStepMessage, setShowNextStepMessage] = useState(false);
 
   useEffect(() => {
-    loadTrips();
-    const handleTripChange = () => loadTrips();
+    const savedPeopleCounts = JSON.parse(sessionStorage.getItem('savedPeopleCounts'));
+    const savedCustomPeopleCounts = JSON.parse(sessionStorage.getItem('savedCustomPeopleCounts'));
+    const savedStartDate = sessionStorage.getItem('savedStartDate');
+    const savedEndDate = sessionStorage.getItem('savedEndDate');
+
+    const tripList = getUserTrips();
+    setTrips(tripList);
+
+    if (savedPeopleCounts && savedCustomPeopleCounts && savedStartDate) {
+      setPeopleCounts(savedPeopleCounts);
+      setCustomPeopleCounts(savedCustomPeopleCounts);
+      setStartDate(new Date(savedStartDate));
+      if (savedEndDate) {
+        setEndDate(new Date(savedEndDate));
+      }
+    } else {
+      const defaultCounts = {};
+      tripList.forEach(trip => {
+        defaultCounts[trip.id] = '';
+      });
+      setPeopleCounts(defaultCounts);
+      setCustomPeopleCounts({});
+      setTotalPrice(0);
+    }
+
+    const handleTripChange = () => {
+      loadTrips();
+    };
     subscribeTripChanges(handleTripChange);
     return () => unsubscribeTripChanges(handleTripChange);
   }, []);
@@ -101,7 +128,38 @@ function MyTrip() {
 
   const handleNext = () => {
     if (!canProceed()) return;
-    alert('前往下一步！');
+
+    // ✅ 先保存目前人數與日期設定
+    sessionStorage.setItem('savedPeopleCounts', JSON.stringify(peopleCounts));
+    sessionStorage.setItem('savedCustomPeopleCounts', JSON.stringify(customPeopleCounts));
+    sessionStorage.setItem('savedStartDate', startDate.toISOString());
+    if (endDate) {
+      sessionStorage.setItem('savedEndDate', endDate.toISOString());
+    } else {
+      sessionStorage.removeItem('savedEndDate');
+    }
+
+    // ✅ 再存 confirmed 資料
+    sessionStorage.setItem('confirmedTrips', JSON.stringify(trips));
+    sessionStorage.setItem('confirmedStartDate', startDate.toISOString().split('T')[0]);
+    if (endDate) {
+      sessionStorage.setItem('confirmedEndDate', endDate.toISOString().split('T')[0]);
+    } else {
+      sessionStorage.removeItem('confirmedEndDate');
+    }
+    const totalPeopleCount = Object.values(peopleCounts).reduce((sum, count) => {
+      if (count === 'custom') {
+        return sum + parseInt(customPeopleCounts[Object.keys(customPeopleCounts).find(key => key in peopleCounts)] || 0, 10);
+      }
+      return sum + (parseInt(count, 10) || 0);
+    }, 0);
+    sessionStorage.setItem('confirmedTotalPeople', totalPeopleCount);
+    sessionStorage.setItem('confirmedTotalPrice', totalPrice);
+
+    setShowNextStepMessage(true);
+    setTimeout(() => {
+      navigate('/trip-customization');
+    }, 1000);
   };
 
   const handleAddTrip = () => {
@@ -109,7 +167,7 @@ function MyTrip() {
   };
 
   const canProceed = () => {
-    if (!startDate) return false;
+    if (!startDate || !endDate) return false;
     for (const trip of trips) {
       const count = peopleCounts[trip.id];
       if (!count) return false;
@@ -134,13 +192,18 @@ function MyTrip() {
 
   return (
     <div className="mytrip-page-wrapper fade-in">
+      {showNextStepMessage && (
+        <div className="next-step-message">
+          前往下一步！
+        </div>
+      )}
       <h2 className="zh-title-36 mytrip-page-title">你的專屬旅程</h2>
       <div className="mytrip-main">
         <div className="mytrip-calendar-wrapper">
           <div className="mytrip-calendar">
             <Calendar
               onChange={handleDateChange}
-              value={startDate && endDate ? [startDate, new Date(endDate.getTime() + 86400000)] : startDate}
+              value={startDate && endDate ? [startDate, endDate] : startDate}
               selectRange={false}
               next2Label={null}
               prev2Label={null}
@@ -148,13 +211,10 @@ function MyTrip() {
               formatMonthYear={(locale, date) => `${date.getFullYear()}年${date.getMonth() + 1}月`}
               formatShortWeekday={(locale, date) => ['SUN', 'MON', 'TUE', 'WED', 'THU', 'FRI', 'SAT'][date.getDay()]}
             />
-
-
           </div>
         </div>
 
         <div className="mytrip-info-container slide-up">
-          {/* 上方標題列 */}
           <div className="mytrip-header-row">
             <div>行程</div>
             <div>天數</div>
@@ -169,7 +229,9 @@ function MyTrip() {
                   <img src={trip.bannerImage || trip.banner} alt={trip.title} className="mytrip-thumb" />
                   <div className="mytrip-left-text">
                     <h3 className="zh-title-24">{trip.title}</h3>
-                    <p className="zh-text-18">{trip.highlights ? trip.highlights.join('、') : ''}</p>
+                    <p className="zh-text-18">
+                      {trip.highlights ? trip.highlights.filter(Boolean).join('、') : ''}
+                    </p>
                   </div>
                 </div>
                 <div className="mytrip-card-right">
@@ -203,12 +265,10 @@ function MyTrip() {
             ))}
           </div>
 
-          {/* ➕新增按鈕 */}
           <div className="add-mytrip-btn" onClick={handleAddTrip}>➕</div>
 
-          {/* 小結 */}
           <div className="mytrip-summary">
-            <p>日期：{startDate ? formatDateToZh(startDate) : '請選擇'} ～ {endDate ? formatDateToZh(endDate) : '待計算'}</p>
+            <p>日期：{startDate ? formatDateToZh(startDate) : '請選擇'}—{' '}{endDate ? formatDateToZh(endDate) : '待計算'}</p>
             <p>價格：<strong>NT${totalPrice.toLocaleString()}</strong></p>
             <button
               className={`next-step-btn zh-text-18 ${canProceed() ? '' : 'disabled'}`}
@@ -225,6 +285,8 @@ function MyTrip() {
 }
 
 export default MyTrip;
+
+
 
 
 

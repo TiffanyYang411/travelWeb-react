@@ -1,8 +1,22 @@
 /* CartDropdown.css */
 
 .cart-dropdown-wrapper {
+  position: absolute;
   animation: cartFadeSlideIn 0.4s ease forwards;
-  transform-origin: top center; /* ✅ 讓小三角形跟框同步動畫 */
+  transform-origin: top center;
+  top: 30px; /* ⬅️ 直接改成 30px (不要top:100%) */
+  right: -96px; /* ⬅️ 直接跟你購物車展開的地方一樣 */
+  width: 180px; /* ⬅️ 一定要設定寬度，跟cart-dropdown一樣寬 */
+  pointer-events: none;
+}
+
+.cart-dropdown-wrapper.fade-in,
+.cart-dropdown-wrapper.fade-out {
+  pointer-events: auto;
+}
+
+.cart-container {
+  position: relative;
 }
 
 .cart-dropdown-wrapper.closing {
@@ -14,6 +28,7 @@
     opacity: 0;
     transform: translateY(-20px);
   }
+
   100% {
     opacity: 1;
     transform: translateY(0);
@@ -25,6 +40,7 @@
     opacity: 1;
     transform: translateY(0);
   }
+
   100% {
     opacity: 0;
     transform: translateY(-20px);
@@ -34,8 +50,8 @@
 /* === 購物車主體區 === */
 .cart-dropdown {
   position: absolute;
-  top: 30px;
-  right: -96px;
+  top: 0px;
+  right: 95px;
   width: 180px;
   padding: 20px;
   background: rgba(255, 255, 255, 0.6);
@@ -47,6 +63,8 @@
   box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
   color: #000;
   z-index: 999;
+  /* ✅ 這行是關鍵，讓 dropdown 本身可以被點擊、被滑動 */
+  pointer-events: auto;
 }
 
 /* === 小三角形區 === */
@@ -187,9 +205,3 @@
   color: #999;
   font-size: 14px;
 }
-
-
-
-
-
-  
