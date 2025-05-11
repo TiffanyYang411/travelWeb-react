@@ -1,5 +1,5 @@
 import { useNavigate } from 'react-router-dom';
-import '../styles/TripCustomization.css'; // ✅ 你現在用 TripCustomization.css
+import '../styles/TripCustomization.css';
 
 function TripSummaryBar({ trips, startDate, endDate, totalPeople, totalPrice }) {
   const navigate = useNavigate();
@@ -13,10 +13,14 @@ function TripSummaryBar({ trips, startDate, endDate, totalPeople, totalPrice }) 
       <div className="tripcustom-summary-trips">
         {trips.map((trip, index) => (
           <div key={index} className="tripcustom-summary-item">
-            <img src={trip.bannerImage || trip.banner} alt={trip.title} />
-            <div className="tripcustom-summary-texts">
-              <div className="tripcustom-summary-days">{trip.days || ''}</div>
-              <div className="tripcustom-summary-title">{trip.title}</div>
+            <div className="tripcustom-summary-image-wrapper">
+              <img src={trip.bannerImage || trip.banner} alt={trip.title} />
+              <div className="tripcustom-summary-overlay">
+                <div className="tripcustom-summary-text">
+                  <div className="tripcustom-summary-days">{trip.days || ''}</div> {/* 幾天幾夜放上面 */}
+                  <div className="tripcustom-summary-title">{trip.title}</div>   {/* 標題放下面 */}
+                </div>
+              </div>
             </div>
           </div>
         ))}
@@ -44,6 +48,10 @@ function TripSummaryBar({ trips, startDate, endDate, totalPeople, totalPrice }) 
 }
 
 export default TripSummaryBar;
+
+
+
+
 
 
 

@@ -1,116 +1,317 @@
+:root {
+    --secondary-color-dark: #234b5e;
+    --secondary-color-dark-rgb: 35, 75, 94;
+    --primary-color: #142E3F;
+    /* ✅ 這是你設定的主要主色 */
+}
+
+/* ✅ 字體統一 */
+.tripcustom-summary-bar,
+.tripcustom-summary-trips,
+.tripcustom-summary-item,
+.tripcustom-summary-image-wrapper,
+.tripcustom-summary-overlay,
+.tripcustom-summary-text,
+.tripcustom-summary-info,
+.tripcustom-info-column,
+.tripcustom-edit-trip-btn {
+    font-family: var(--font-zh);
+    font-weight: bold;
+}
+
+/* ✅ 下面保持你的原設定 */
 .tripcustom-summary-bar {
-  background-color: #f6fbfc;
-  border-radius: 16px;
-  padding: 16px 24px;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  margin: 80px auto 40px;
-  width: 90%;
-  max-width: 1200px;
+    background-color: #f6fbfc;
+    border-radius: 16px;
+    padding: 20px 24px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin: 100px auto 10px;
+    width: 100%;
+    max-width: 1200px;
+    height: 110px;
 }
 
 .tripcustom-summary-trips {
-  display: flex;
-  gap: 16px;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 12px;
+    width: 620px;
+    max-height: 100%;
+    overflow-y: auto;
+    overflow-x: hidden;
+    padding-right: 8px;
+    scroll-behavior: smooth;
 }
 
+.tripcustom-summary-trips::-webkit-scrollbar {
+    height: 6px;
+}
+
+.tripcustom-summary-trips::-webkit-scrollbar-thumb {
+    background-color: rgba(var(--secondary-color-dark-rgb), 0.5);
+    border-radius: 6px;
+}
+
+.tripcustom-summary-trips::-webkit-scrollbar-track {
+    background-color: transparent;
+}
+
+.tripcustom-summary-trips::-webkit-scrollbar-thumb:hover,
+.tripcustom-summary-trips:hover::-webkit-scrollbar-thumb {
+    background-color: rgba(var(--secondary-color-dark-rgb), 0.7);
+}
+
+/* 行程卡片 */
 .tripcustom-summary-item {
-  background-color: white;
-  border-radius: 12px;
-  overflow: hidden;
-  width: 160px; /* ✅ 卡片寬度調整 */
-  height: 150px; /* ✅ 卡片高度調整 */
-  text-align: center;
-  box-shadow: 0 4px 8px rgba(0,0,0,0.1);
-  position: relative;
-  display: flex;
-  flex-direction: column;
+    background-color: transparent;
+    border-radius: 12px;
+    overflow: hidden;
+    width: 140px;
+    height: 110px;
+    text-align: center;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    position: relative;
+    flex-shrink: 0;
 }
 
 .tripcustom-summary-item img {
-  width: 100%;
-  height: 100px; /* ✅ 圖片高度 */
-  object-fit: cover;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
 }
 
-.tripcustom-summary-texts {
-  background: #666; /* ✅ 字的底色 */
-  color: white;
-  flex-grow: 1;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  padding: 4px 8px;
-  font-size: 12px;
+.tripcustom-summary-image-wrapper {
+    width: 100%;
+    height: 100%;
+    position: relative;
+}
+
+.tripcustom-summary-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.5);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 3px;
+    box-sizing: border-box;
+}
+
+.tripcustom-summary-text {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
 }
 
 .tripcustom-summary-days {
-  font-size: 12px;
-  font-weight: bold;
-  margin-bottom: 4px;
+    font-size: 14px;
+    font-weight: bold;
+    color: white;
+    margin-bottom: 4px;
 }
 
 .tripcustom-summary-title {
-  font-size: 12px;
-  line-height: 1.4;
-  word-break: break-word;
+    font-size: 14px;
+    font-weight: bold;
+    color: white;
+    line-height: 1.4;
+    padding: 0 4px;
 }
 
+/* 右側行程資訊區 */
 .tripcustom-summary-info {
-  display: flex;
-  align-items: center;
-  gap: 24px;
+    display: flex;
+    align-items: stretch;
+    gap: 0;
 }
 
 .tripcustom-info-column {
-  display: flex;
-  flex-direction: column;
-  align-items: flex-start;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 0 25px;
+    position: relative;
 }
 
+/* 中間分隔線 */
+.tripcustom-info-column:not(:last-of-type)::after {
+    content: "";
+    position: absolute;
+    right: 0;
+    top: 0%;
+    bottom: 0%;
+    width: 1.8px;
+    background-color: #234b5e;
+}
+
+/* ✅ 日期、人數、價格 標題的字體、顏色 */
 .tripcustom-info-label {
-  font-size: 14px;
-  color: #666;
+    font-size: 18px;
+    /* ✅ 字體 20px */
+    font-weight: bold;
+    color: var(--primary-color);
+    /* ✅ 主色 */
+    margin-bottom: 4px;
 }
 
+/* ✅ 日期、人數、價格 數值 */
 .tripcustom-info-value {
-  font-size: 16px;
-  font-weight: bold;
-  margin-top: 4px;
+    font-size: 16px;
+    font-weight: bold;
+    margin-top: 4px;
+    white-space: pre-line;
+    text-align: center;
 }
 
 .tripcustom-edit-trip-btn {
-  background-color: #ff6f19;
-  color: white;
-  padding: 8px 16px;
-  border: none;
-  border-radius: 8px;
-  cursor: pointer;
-  font-size: 16px;
+    background-color: #ff6f19;
+    color: white;
+    padding: 6px 16px;
+    height: 36px;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    font-size: 16px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-top: 8px;
 }
 
-/* 🔥 tripcustom-intro 保留 */
+/* 🔥 tripcustom-intro 改版 */
 .tripcustom-intro {
-  text-align: center;
-  margin-top: 60px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 60px;
+    /* 左右距離 */
+    margin: 80px auto 60px;
+    max-width: 1200px;
+}
+
+.tripcustom-intro-left {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    position: relative;
+}
+
+.tripcustom-intro-left img:first-child {
+    width: 300px;
+    height: auto;
+    border-radius: 16px;
+}
+
+.tripcustom-intro-left img:last-child {
+    width: 290px;
+    height: auto;
+    border-radius: 16px;
+    position: absolute;
+    bottom: -40px;
+    left: 60px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+.tripcustom-intro-right {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    max-width: 400px;
+    color: white;
+    text-align: left;
+    padding-left: 100px;
+    /* ✅ ✅ 加這行，往右推 */
 }
 
 .tripcustom-highlight {
-  color: #FF6F19;
+    color: #FF6F19;
+    font-size: 32px;
+    font-family: var(--font-zh);
+    font-weight: bold;
+    margin-bottom: 24px;
+}
+
+.tripcustom-intro-text {
+    font-size: 16px;
+    font-family: var(--font-zh);
+    font-weight: normal;
+    line-height: 1.8;
+    color: #ffffff;
+    margin-bottom: 32px;
 }
 
 .tripcustom-next-step-btn {
-  margin-top: 24px;
-  background-color: #ff6f19;
-  color: white;
-  padding: 12px 32px;
-  border: none;
-  border-radius: 8px;
-  font-size: 18px;
-  cursor: pointer;
+    margin-top: 24px;
+    background-color: #ff6f19;
+    color: white;
+    padding: 12px 32px;
+    border: none;
+    border-radius: 8px;
+    font-size: 18px;
+    font-family: var(--font-zh);
+    font-weight: bold;
+    cursor: pointer;
+    align-self: flex-end;
+    margin-left: 0;
 }
 
+.tripcustom-intro-wrapper {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 0px;
+    /* 兩邊間距 */
+    margin-top: 60px;
+}
 
+.tripcustom-intro-left {
+      position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  padding-left: 100px; /* ✅ 加這行，整組圖片往右推 */
+}
 
+.intro-img-main {
+    width: 100%;
+    border-radius: 10px;
+    position: relative;
+    /* ✅ 讓它可以自己移動 */
+    left: -150px;
+    /* ✅ 往左移20px，可自己調 */
+    top: -80px;
+    /* ✅ 往上移20px，可自己調 */
+}
 
+.intro-img-sub {
+    position: absolute;
+    width: 240px;
+    bottom: -40px;
+    left: 40px;
+    border-radius: 10px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+    /* ✅ 小圖浮起效果 */
+}
+
+.tripcustom-intro-right {
+    max-width: 440px;
+    text-align: left;
+}
+
+.tripcustom-intro-right h2 {
+    margin-bottom: 24px;
+}
+
+.tripcustom-intro-right p {
+    margin-bottom: 24px;
+}
