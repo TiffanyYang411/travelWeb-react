@@ -197,7 +197,7 @@
     align-items: center;
     gap: 60px;
     /* 左右距離 */
-    margin: 60px auto 60px;
+    margin: 60px auto 150px;
     max-width: 1200px;
 }
 
@@ -324,18 +324,26 @@
     display: flex;
     flex-direction: column;
     align-items: center;
-    padding: 60px 20px;
+    padding: 30px 20px 140px;
+    /* 🔥 原本是上下60px，現在下方多給 120px */
 }
 
 /* ✨ 每個步驟的白色卡片 */
 .tripcustom-question-card {
     background-color: #f6fbfc;
     border-radius: 16px;
-    padding: 40px 30px;
+    padding: 24px 30px 40px;
+    /* ✅ 上24px 左右30px 下40px */
     width: 100%;
     max-width: 700px;
     box-shadow: 0px 4px 20px rgba(0, 0, 0, 0.1);
     text-align: center;
+    display: flex;
+    /* ✅ 加 */
+    flex-direction: column;
+    /* ✅ 加 */
+    align-items: center;
+    /* ✅ 加：置中排列 */
 }
 
 /* ✨ 問題標題 */
@@ -345,15 +353,73 @@
     font-weight: bold;
     line-height: 1.5;
     letter-spacing: 5%;
-    margin-bottom: 30px;
+    margin-bottom: 20px;
     color: #142e3f;
 }
 
 /* ✨ 是/否選項按鈕區 */
+/* 是/否選項外層 */
 .tripcustom-options {
     display: flex;
     justify-content: center;
-    gap: 40px;
+    align-items: center;
+    gap: 60px;
+    /* 是/否之間的間距 */
+    margin-top: 30px;
+}
+
+/* 單一個選項 (圓圈 + 文字) */
+.tripcustom-option-item {
+    display: flex;
+    align-items: center;
+    cursor: pointer;
+    gap: 8px;
+    /* 小圓圈與文字之間的間距 */
+    transition: all 0.3s ease;
+    color: #142E3F;
+    /* ✅ 預設是深藍色 */
+}
+
+.tripcustom-option-item.active {
+    color: #ff6f19;
+    /* ✅ 選到時整個item變橘色，包括文字 */
+}
+
+/* 是/否選項文字設定 */
+.tripcustom-option-item .zh-title-32 {
+    color: #142E3F;
+    /* 預設是深藍色 */
+    transition: all 0.3s ease;
+}
+
+/* 選到時（active）文字也變橘色 */
+.tripcustom-option-item.active .zh-title-32 {
+    color: #ff6f19;
+}
+
+/* 小圓圈樣式 */
+.option-circle {
+    width: 24px;
+    height: 24px;
+    border-radius: 50%;
+    background-color: #ffffff;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.2);
+    /* 有陰影 */
+    transition: all 0.3s ease;
+}
+
+/* 當被選取時（橘色） */
+.tripcustom-option-item.active .option-circle {
+    background-color: #ff6f19;
+    /* 橘色 */
+    box-shadow: none;
+    /* 移除陰影 */
+}
+
+/* 是/否文字樣式，由Typography.css裡的 .zh-title-32控制 */
+
+.tripcustom-option-item:hover .option-circle {
+    transform: scale(1.1);
 }
 
 /* ✨ 是/否按鈕樣式 */
@@ -377,34 +443,74 @@
     color: #ffffff;
 }
 
-/* ✨ 特殊需求的輸入區 */
+/* === Textarea 跟 input 一樣效果 === */
 .tripcustom-textarea {
+    margin-top: 14px;
+    /* ✅ 控制下移距離，想更多就改大一點 */
     width: 100%;
+    max-width: 100%;
+    box-sizing: border-box;
     height: 120px;
-    padding: 16px;
+    padding: 14px 18px;
+    font-family: var(--font-zh);
     font-size: 16px;
+    font-weight: bold;
+    color: var(--primary-color);
+    background-color: #dce8ed;
+    border: none;
     border-radius: 12px;
-    border: 1px solid #ccc;
     resize: none;
+    box-shadow: none;
+    transition: all 0.3s ease;
 }
 
-/* ✨ 姓名/Email/電話欄位 */
+/* textarea 聚焦 */
+.tripcustom-textarea:focus {
+    outline: none;
+    box-shadow: 0 0 0 3px rgba(255, 111, 25, 0.3);
+}
+
+/* textarea hover */
+.tripcustom-textarea:hover {
+    box-shadow: 0 0 0 2px rgba(255, 111, 25, 0.15);
+}
+
+/* === 原本的 input 也加 hover 淡光暈 === */
 .tripcustom-input {
     width: 100%;
-    padding: 12px;
+    max-width: 360px;
+    /* ✅ 新增這行，限制最大寬度 */
+    box-sizing: border-box;
+    padding: 12px 12px;
+    font-family: var(--font-zh);
     font-size: 16px;
-    margin-bottom: 20px;
+    font-weight: bold;
+    color: var(--primary-color);
+    background-color: #dce8ed;
+    border: none;
     border-radius: 12px;
-    border: 1px solid #ccc;
+    transition: all 0.3s ease;
+}
+
+/* input 聚焦 */
+.tripcustom-input:focus {
+    outline: none;
+    box-shadow: 0 0 0 3px rgba(255, 111, 25, 0.3);
+}
+
+/* input hover */
+.tripcustom-input:hover {
+    box-shadow: 0 0 0 2px rgba(255, 111, 25, 0.15);
 }
 
 /* ✨ 下一步按鈕的區塊（靠右） */
 .tripcustom-next-step-btn-wrapper {
     display: flex;
-    justify-content: flex-end;
+    justify-content: center;
+    /* ✅ 按鈕水平置中 */
     width: 100%;
     max-width: 700px;
-    margin-top: 30px;
+    margin-top: 16px;
 }
 
 /* ✨ 下一步按鈕 */
@@ -412,9 +518,9 @@
     background-color: #ff6f19;
     color: #ffffff;
     border: none;
-    padding: 14px 36px;
+    padding: 12px 26px;
     font-size: 18px;
-    border-radius: 30px;
+    border-radius: 8px;
     cursor: pointer;
     transition: background-color 0.3s ease;
 }
@@ -424,87 +530,249 @@
 }
 
 .tripcustom-stepper {
-  display: flex;
-  justify-content: space-between; /* ✅ 改成space-between，不是center */
-  align-items: center;
-  margin: 40px auto 30px;
-  max-width: 700px; /* ✅ 跟白卡片一致 */
-  width: 100%;
-  position: relative;
+    display: flex;
+    justify-content: space-between;
+    /* ✅ 改成space-between，不是center */
+    align-items: center;
+    margin: 40px auto 30px;
+    max-width: 700px;
+    /* ✅ 跟白卡片一致 */
+    width: 100%;
+    position: relative;
 }
 
 /* 單一個步驟Item */
 .stepper-item {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  position: relative;
-  flex: 1; /* ✅ 每個步驟平均分配寬度 */
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    position: relative;
+    flex: 1;
+    /* ✅ 每個步驟平均分配寬度 */
+    cursor: pointer; /* ✅ 新增這行，hover變成手型 */
 }
 
 /* 每個圓圈 */
 .stepper-circle {
-  width: 20px;
-  height: 20px;
-  border-radius: 50%;
-  background-color: #ffffff;
-  border: 2px solid #ffffff;
-  position: relative;
-  z-index: 1;
+    width: 20px;
+    height: 20px;
+    border-radius: 50%;
+    background-color: #ffffff;
+    border: 2px solid #ffffff;
+    position: relative;
+    z-index: 1;
 }
 
 /* 中間小黑點 */
 .stepper-circle::after {
-  content: '';
-  width: 6px;
-  height: 6px;
-  background-color: #142e3f;
-  border-radius: 50%;
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
+    content: '';
+    width: 6px;
+    height: 6px;
+    background-color: #142e3f;
+    border-radius: 50%;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
 }
 
 /* 當前步驟橘色 */
 .stepper-circle.active {
-  background-color: #ff6f19;
-  border: 2px solid #ff6f19;
+    background-color: #ff6f19;
+    border: 2px solid #ff6f19;
 }
 
 /* 虛線 */
 .stepper-line {
-  position: absolute;
-  top: 10px;
-  left: 50%;
-  right: -50%;
-  height: 2px;
-  background-image: repeating-linear-gradient(
-    to right,
-    #ffffff,
-    #ffffff 4px,
-    transparent 4px,
-    transparent 8px
-  );
-  background-size: 8px 2px;
-  background-repeat: repeat-x;
-  z-index: 0;
+    position: absolute;
+    top: 10px;
+    left: 50%;
+    right: -50%;
+    height: 2px;
+    background-image: repeating-linear-gradient(to right,
+            #ffffff,
+            #ffffff 4px,
+            transparent 4px,
+            transparent 8px);
+    background-size: 8px 2px;
+    background-repeat: repeat-x;
+    z-index: 0;
 }
 
 /* 下方步驟文字 */
 .stepper-label {
-  margin-top: 12px;
-  font-family: var(--font-zh);
-  font-size: 14px;
-  font-weight: bold;
-  line-height: 1.5;
-  letter-spacing: 5%;
-  color: #ffffff;
-  white-space: nowrap;
-  text-align: center;
+    margin-top: 12px;
+    font-family: var(--font-zh);
+    font-size: 14px;
+    font-weight: bold;
+    line-height: 1.5;
+    letter-spacing: 5%;
+    color: #ffffff;
+    white-space: nowrap;
+    text-align: center;
 }
 
 /* ✨ 進度條下面的間距（可自由調整） */
 .tripcustom-stepper-spacer {
-  height: 5px; /* ✅ 這裡調整你想要的距離，例如 30px、40px、50px */
+    height: 5px;
+    /* ✅ 這裡調整你想要的距離，例如 30px、40px、50px */
+}
+
+.tripcustom-input-group {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+    align-items: center;
+    /* ✅ 讓每個input-row置中！ */
+    margin-top: 20px;
+}
+
+.tripcustom-input-row {
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    /* ✅ 讓標籤跟輸入框 垂直置中 */
+    gap: 6px;
+    width: auto;
+    min-width: 500px;
+    /* ✅ 自己控制每列最小寬度 */
+}
+
+.tripcustom-input-label {
+    display: flex;
+    /* ✅ 讓文字可以被均勻分配 */
+    justify-content: center;
+    /* ✅ 新增這行！讓字在自己100px內置中 */
+    align-items: center;
+    /* ✅ 垂直置中 */
+    width: 60px;
+    /* ✅ 固定標題寬度 */
+    font-size: 16px;
+    font-family: var(--font-zh);
+    font-weight: bold;
+    color: var(--primary-color);
+    white-space: nowrap;
+    /* ✅ 防止換行 */
+}
+
+
+/* 讓標題跟填寫欄位之間間距變小 */
+.tripcustom-question-card h2 {
+    margin-bottom: 16px;
+    /* ✅ 調小原本太大的標題底部距離 */
+}
+
+.tripcustom-label-wrapper {
+    display: flex;
+    align-items: center;
+    gap: 4px;
+    /* 標題文字和冒號的距離 */
+    width: 120px;
+    /* ✅ 整組的總寬度自己調整，100px也可以 */
+    justify-content: flex-end;
+    /* ✅ 讓冒號對齊到右邊 */
+}
+
+.tripcustom-input-label {
+    width: 60px;
+    /* ✅ 標題區塊寬度 */
+    text-align: center;
+    /* ✅ 標題文字置中 */
+    font-size: 16px;
+    font-family: var(--font-zh);
+    font-weight: bold;
+    color: var(--primary-color);
+    white-space: nowrap;
+}
+
+.tripcustom-input-colon {
+    font-size: 16px;
+    font-family: var(--font-zh);
+    font-weight: bold;
+    color: var(--primary-color);
+}
+
+/* ✅ 包含國碼+電話的總外框 */
+.tripcustom-phone-full-wrapper {
+    display: flex;
+    align-items: center;
+    background-color: #dce8ed;
+    border-radius: 12px;
+    overflow: hidden;
+    width: 100%;
+    height: 44px;
+    border: 2px solid transparent; /* ✅起始透明，hover與focus時好加效果 */
+    transition: all 0.3s ease;
+}
+
+/* ✅ hover整塊 */
+.tripcustom-phone-full-wrapper:hover {
+  box-shadow: 0 0 0 2px rgba(255, 111, 25, 0.15);
+}
+
+/* ✅ focus時加 Email 同色光暈 */
+.tripcustom-phone-full-wrapper:focus-within {
+     outline: none;
+    box-shadow: 0 0 0 3px rgba(255, 111, 25, 0.3);
+}
+
+/* ✅ 國碼選單 */
+.tripcustom-phone-select {
+    width: 120px;
+    padding: 10px;
+    font-size: 16px;
+    border: none; /* ✅移除國碼下拉原生邊框 */
+    outline: none; /* ✅點選後不要藍圈 */
+    background-color: transparent; /* ✅跟外框統一底色 */
+    color: var(--primary-color);
+    font-family: var(--font-zh);
+    font-weight: bold;
+    appearance: none;
+    text-align: center;
+}
+
+/* ✅ 電話號碼輸入框 */
+.tripcustom-phone-input {
+    flex: 1;
+    padding: 10px;
+    font-size: 16px;
+    border: none; /* ✅移除電話input自己的框線 */
+    outline: none; /* ✅點選後不要藍圈 */
+    background-color: transparent; /* ✅跟外框統一底色 */
+    color: var(--primary-color);
+    font-family: var(--font-zh);
+}
+
+/* ✅ 調整input的繼承設定 */
+.tripcustom-input.phone-input {
+    flex: 1;
+}
+
+/* ✅ 最外層包住的長寬 */
+.tripcustom-phone-outer-wrapper {
+    width: 360px;
+    display: flex;
+    align-items: center;
+}
+
+/* ✅ 只針對電話號碼的input（不影響其他input） */
+.tripcustom-phone-full-wrapper .tripcustom-input.phone-input {
+    background-color: transparent; /* ✅ 改成透明，跟外層一致 */
+    border: none; /* ✅ 移除殘留邊框 */
+    box-shadow: none; /* ✅ 保證沒有陰影 */
+    outline: none; /* ✅ 移除點擊藍框 */
+    border-radius: 0; /* ✅ 不要自己額外圓角 */
+}
+
+.tripcustom-phone-select {
+  width: 100px; /* 國碼選單寬度（略小） */
+  padding: 0px;
+  text-align: center;
+  border: none;
+  background-color: #dce8ed;
+  color: var(--primary-color);
+  font-family: var(--font-zh);
+  font-weight: bold;
+  appearance: none;
+  margin-right: -10px; /* ✅ 加這個！微小間距 */
 }
