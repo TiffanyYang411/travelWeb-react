@@ -1,11 +1,12 @@
-import { useEffect, useState } from 'react'; // ✅ 正確import
-import { useNavigate } from 'react-router-dom';
+import { useEffect, useState } from 'react';
+import { useNavigate, useLocation } from 'react-router-dom'; // ✨ 多加 useLocation
 import { getUserTrips } from '../utils/tripUtils';
 import '../styles/TripCustomization.css';
-import TripSummaryBar from '../components/TripSummaryBar'; // ✅ 叫的是正確的新版
+import TripSummaryBar from '../components/TripSummaryBar';
 
 function TripCustomization() {
     const navigate = useNavigate();
+    const location = useLocation(); // ✨ 加這行
     const [trips, setTrips] = useState([]);
     const [startDate, setStartDate] = useState('');
     const [endDate, setEndDate] = useState('');
@@ -24,7 +25,7 @@ function TripCustomization() {
         setEndDate(storedEndDate);
         setTotalPeople(storedTotalPeople);
         setTotalPrice(storedTotalPrice);
-    }, []);
+    }, [location.pathname]); // ✨ 只改這行：location.pathname，每次路徑有改時重新讀
 
     const handleNextStep = () => {
         navigate('/trip-customization/question1');
@@ -39,15 +40,12 @@ function TripCustomization() {
                 totalPeople={totalPeople}
                 totalPrice={totalPrice}
             />
-
-            {/* 🔥 排版調整版 */}
             <div className="tripcustom-intro">
                 <div className="tripcustom-intro-wrapper">
                     <div className="tripcustom-intro-left">
                         <img src={`${import.meta.env.BASE_URL}images/tripcustom-intro-1.jpg`} alt="北歐景1" className="intro-img-main" />
                         <img src={`${import.meta.env.BASE_URL}images/tripcustom-intro-2.jpg`} alt="北歐景2" className="intro-img-sub" />
                     </div>
-
                     <div className="tripcustom-intro-right">
                         <h2 className="zh-title-36 tripcustom-highlight">即將為您客製化需求</h2>
                         <p className="zh-text-24">
@@ -64,6 +62,8 @@ function TripCustomization() {
 }
 
 export default TripCustomization;
+
+
 
 
 

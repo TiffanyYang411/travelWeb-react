@@ -25,6 +25,13 @@ function formatDateToZh(date) {
   return `${year}/${month}/${day}（${weekday}）`;
 }
 
+function formatDateYYYYMMDD(date) {
+  const year = date.getFullYear();
+  const month = `${date.getMonth() + 1}`.padStart(2, '0');
+  const day = `${date.getDate()}`.padStart(2, '0');
+  return `${year}-${month}-${day}`;
+}
+
 function MyTrip() {
   const navigate = useNavigate();
   const [trips, setTrips] = useState([]);
@@ -34,6 +41,37 @@ function MyTrip() {
   const [endDate, setEndDate] = useState(null);
   const [totalPrice, setTotalPrice] = useState(0);
   const [showNextStepMessage, setShowNextStepMessage] = useState(false);
+  const [deletingTripId, setDeletingTripId] = useState(null);
+
+  const calculateTotal = (counts, customs, tripArray = trips) => {
+    let total = 0;
+    tripArray.forEach(trip => {
+      let count = counts[trip.id];
+      if (count === 'custom') {
+        count = parseInt(customs[trip.id], 10) || 0;
+      } else {
+        count = parseInt(count, 10) || 0;
+      }
+      total += trip.price * count;
+    });
+    setTotalPrice(total);
+  };
+
+  const recalculateEndDate = (currentStartDate, tripArray) => {
+    if (!currentStartDate || tripArray.length === 0) {
+      setEndDate(null);
+      return;
+    }
+    let totalDays = 0;
+    tripArray.forEach(trip => {
+      if (trip && trip.days) {
+        totalDays += extractDays(trip.days);
+      }
+    });
+    const newEnd = new Date(currentStartDate);
+    newEnd.setDate(newEnd.getDate() + totalDays - 1);
+    setEndDate(newEnd);
+  };
 
   useEffect(() => {
     const savedPeopleCounts = JSON.parse(sessionStorage.getItem('savedPeopleCounts'));
@@ -43,6 +81,7 @@ function MyTrip() {
 
     const tripList = getUserTrips();
     setTrips(tripList);
+    recalculateEndDate(savedStartDate ? new Date(savedStartDate) : new Date(), tripList);
 
     if (savedPeopleCounts && savedCustomPeopleCounts && savedStartDate) {
       setPeopleCounts(savedPeopleCounts);
@@ -51,6 +90,7 @@ function MyTrip() {
       if (savedEndDate) {
         setEndDate(new Date(savedEndDate));
       }
+      calculateTotal(savedPeopleCounts, savedCustomPeopleCounts, tripList);
     } else {
       const defaultCounts = {};
       tripList.forEach(trip => {
@@ -68,6 +108,20 @@ function MyTrip() {
     return () => unsubscribeTripChanges(handleTripChange);
   }, []);
 
+  useEffect(() => {
+    if (trips.length > 0 && startDate) {
+      let totalDays = 0;
+      trips.forEach(trip => {
+        totalDays += extractDays(trip.days);
+      });
+      const newEndDate = new Date(startDate);
+      newEndDate.setDate(newEndDate.getDate() + totalDays - 1);
+      setEndDate(newEndDate);
+      sessionStorage.setItem('savedStartDate', formatDateYYYYMMDD(startDate));
+      sessionStorage.setItem('savedEndDate', formatDateYYYYMMDD(newEndDate));
+    }
+  }, [trips, startDate]);
+
   const loadTrips = () => {
     const tripList = getUserTrips();
     setTrips(tripList);
@@ -78,21 +132,28 @@ function MyTrip() {
     });
     setPeopleCounts(defaultCounts);
     setCustomPeopleCounts({});
-    setTotalPrice(0);
-  };
+    calculateTotal(defaultCounts, {}, tripList);
 
-  const calculateTotal = (counts, customs) => {
-    let total = 0;
-    trips.forEach(trip => {
-      let count = counts[trip.id];
-      if (count === 'custom') {
-        count = parseInt(customs[trip.id], 10) || 0;
-      } else {
-        count = parseInt(count, 10) || 0;
-      }
-      total += trip.price * count;
-    });
-    setTotalPrice(total);
+    if (tripList.length > 0) {
+      let totalDays = 0;
+      tripList.forEach(trip => {
+        totalDays += extractDays(trip.days);
+      });
+
+      // 🔥 要重新用最新 trips 計算新的 endDate
+      const newEndDate = new Date(startDate);
+      newEndDate.setDate(newEndDate.getDate() + totalDays - 1);
+
+      setEndDate(newEndDate); // ✅ 正確更新 endDate
+      // 🚫 不要再 setStartDate(prev => new Date(prev))，保持原本 startDate，不要亂改！
+
+      // ✅ 同步更新 sessionStorage（記得用 formatDateYYYYMMDD() 避免偷吃一天）
+      sessionStorage.setItem('savedStartDate', formatDateYYYYMMDD(startDate));
+      sessionStorage.setItem('savedEndDate', formatDateYYYYMMDD(newEndDate));
+    } else {
+      setEndDate(null);
+      sessionStorage.removeItem('savedEndDate');
+    }
   };
 
   const handlePeopleChange = (tripId, value) => {
@@ -108,7 +169,23 @@ function MyTrip() {
   };
 
   const handleRemoveTrip = (tripId) => {
-    removeTripFromUser(tripId);
+    setDeletingTripId(tripId);
+    setTimeout(() => {
+      removeTripFromUser(tripId);
+      const updatedTrips = getUserTrips();
+      setTrips(updatedTrips);
+      const newPeopleCounts = { ...peopleCounts };
+      const newCustomPeopleCounts = { ...customPeopleCounts };
+      delete newPeopleCounts[tripId];
+      delete newCustomPeopleCounts[tripId];
+      setPeopleCounts(newPeopleCounts);
+      setCustomPeopleCounts(newCustomPeopleCounts);
+      sessionStorage.setItem('savedPeopleCounts', JSON.stringify(newPeopleCounts));
+      sessionStorage.setItem('savedCustomPeopleCounts', JSON.stringify(newCustomPeopleCounts));
+      recalculateEndDate(startDate, updatedTrips);
+      calculateTotal(newPeopleCounts, newCustomPeopleCounts, updatedTrips);
+      setDeletingTripId(null);
+    }, 300);
   };
 
   const handleDateChange = (date) => {
@@ -123,27 +200,27 @@ function MyTrip() {
       const end = new Date(date);
       end.setDate(end.getDate() + totalDays - 1);
       setEndDate(end);
+      sessionStorage.setItem('savedStartDate', formatDateYYYYMMDD(date));
+      sessionStorage.setItem('savedEndDate', formatDateYYYYMMDD(end));
     }
   };
 
   const handleNext = () => {
     if (!canProceed()) return;
 
-    // ✅ 先保存目前人數與日期設定
     sessionStorage.setItem('savedPeopleCounts', JSON.stringify(peopleCounts));
     sessionStorage.setItem('savedCustomPeopleCounts', JSON.stringify(customPeopleCounts));
-    sessionStorage.setItem('savedStartDate', startDate.toISOString());
+    sessionStorage.setItem('savedStartDate', formatDateYYYYMMDD(startDate));
     if (endDate) {
-      sessionStorage.setItem('savedEndDate', endDate.toISOString());
+      sessionStorage.setItem('savedEndDate', formatDateYYYYMMDD(endDate));
     } else {
       sessionStorage.removeItem('savedEndDate');
     }
 
-    // ✅ 再存 confirmed 資料
     sessionStorage.setItem('confirmedTrips', JSON.stringify(trips));
-    sessionStorage.setItem('confirmedStartDate', startDate.toISOString().split('T')[0]);
+    sessionStorage.setItem('confirmedStartDate', formatDateYYYYMMDD(startDate));
     if (endDate) {
-      sessionStorage.setItem('confirmedEndDate', endDate.toISOString().split('T')[0]);
+      sessionStorage.setItem('confirmedEndDate', formatDateYYYYMMDD(endDate));
     } else {
       sessionStorage.removeItem('confirmedEndDate');
     }
@@ -182,9 +259,7 @@ function MyTrip() {
         <div className="mytrip-empty-container">
           <h2 className="zh-title-36">您的專屬旅程</h2>
           <p className="zh-text-20">旅程的篇章尚未開始書寫，{"\n"}現在，就是您與北歐邂逅的最佳時刻。</p>
-          <button className="mytrip-start-trip-btn zh-text-18" onClick={handleAddTrip}>
-            立即開啟您的專屬行程 ➔
-          </button>
+          <button className="mytrip-start-trip-btn zh-text-18" onClick={handleAddTrip}>立即開啟您的專屬行程 ➔</button>
         </div>
       </div>
     );
@@ -224,7 +299,7 @@ function MyTrip() {
 
           <div className="mytrip-list">
             {trips.map((trip) => (
-              <div key={trip.id} className="mytrip-item">
+              <div key={trip.id} className={`mytrip-item ${deletingTripId === trip.id ? 'deleting' : ''}`}>
                 <div className="mytrip-card-left">
                   <img src={trip.bannerImage || trip.banner} alt={trip.title} className="mytrip-thumb" />
                   <div className="mytrip-left-text">
@@ -285,6 +360,7 @@ function MyTrip() {
 }
 
 export default MyTrip;
+
 
 
 
