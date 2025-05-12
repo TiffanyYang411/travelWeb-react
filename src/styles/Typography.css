@@ -57,6 +57,14 @@ h-text-20.z {
   letter-spacing: 5%;
 }
 
+.zh-text-14 {
+  font-family: var(--font-zh);
+  font-size: 14px;
+  font-weight: bold;
+  line-height: 1.5;
+  letter-spacing: 5%;
+}
+
 .zh-text-16-regular {
   font-family: var(--font-zh);
   font-size: 16px;
