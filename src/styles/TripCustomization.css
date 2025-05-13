@@ -332,8 +332,8 @@
 .tripcustom-question-card {
     background-color: #f6fbfc;
     border-radius: 16px;
-    padding: 24px 30px 40px;
-    /* ✅ 上24px 左右30px 下40px */
+    padding: 20px 26px 25px;
+    /* ✅ 上20px 左右26px 下25px */
     width: 100%;
     max-width: 700px;
     box-shadow: 0px 4px 20px rgba(0, 0, 0, 0.1);

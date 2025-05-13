@@ -80,8 +80,16 @@ function MyTrip() {
     const savedEndDate = sessionStorage.getItem('savedEndDate');
 
     const tripList = getUserTrips();
-    setTrips(tripList);
-    recalculateEndDate(savedStartDate ? new Date(savedStartDate) : new Date(), tripList);
+setTrips(tripList);
+if (savedStartDate) {
+  setStartDate(new Date(savedStartDate));
+  recalculateEndDate(new Date(savedStartDate), tripList);
+} else {
+  setStartDate(null); // ⭐ 沒有選過日期 ➔ 保持空白
+  setEndDate(null);
+}
+
+
 
     if (savedPeopleCounts && savedCustomPeopleCounts && savedStartDate) {
       setPeopleCounts(savedPeopleCounts);
@@ -109,18 +117,24 @@ function MyTrip() {
   }, []);
 
   useEffect(() => {
-    if (trips.length > 0 && startDate) {
-      let totalDays = 0;
-      trips.forEach(trip => {
-        totalDays += extractDays(trip.days);
-      });
-      const newEndDate = new Date(startDate);
-      newEndDate.setDate(newEndDate.getDate() + totalDays - 1);
-      setEndDate(newEndDate);
-      sessionStorage.setItem('savedStartDate', formatDateYYYYMMDD(startDate));
-      sessionStorage.setItem('savedEndDate', formatDateYYYYMMDD(newEndDate));
-    }
-  }, [trips, startDate]);
+  if (trips.length > 0 && startDate) {
+    let totalDays = 0;
+    trips.forEach(trip => {
+      totalDays += extractDays(trip.days);
+    });
+    const newEndDate = new Date(startDate);
+    newEndDate.setDate(newEndDate.getDate() + totalDays - 1);
+    setEndDate(newEndDate);
+    sessionStorage.setItem('savedStartDate', formatDateYYYYMMDD(startDate));
+    sessionStorage.setItem('savedEndDate', formatDateYYYYMMDD(newEndDate));
+  } else {
+    // 如果 startDate 是 null，也同步清空 endDate
+    setEndDate(null);
+    sessionStorage.removeItem('savedStartDate');
+    sessionStorage.removeItem('savedEndDate');
+  }
+}, [trips, startDate]);
+
 
   const loadTrips = () => {
     const tripList = getUserTrips();
@@ -189,7 +203,15 @@ function MyTrip() {
   };
 
   const handleDateChange = (date) => {
+    if (!date) return;
+
+    if (Array.isArray(date)) {
+      // 避免意外傳進來陣列
+      date = date[0];
+    }
+
     setStartDate(date);
+
     if (trips.length > 0) {
       let totalDays = 0;
       trips.forEach(trip => {
@@ -200,6 +222,8 @@ function MyTrip() {
       const end = new Date(date);
       end.setDate(end.getDate() + totalDays - 1);
       setEndDate(end);
+
+      // ✅ 使用者有手動點選，才存 sessionStorage
       sessionStorage.setItem('savedStartDate', formatDateYYYYMMDD(date));
       sessionStorage.setItem('savedEndDate', formatDateYYYYMMDD(end));
     }

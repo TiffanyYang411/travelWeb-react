@@ -162,19 +162,6 @@
   margin-left: 2rem;
 }
 
-/* 購物車容器 */
-.cart-container {
-  position: relative;
-}
-
-/* 購物車內容包覆層 */
-.cart-dropdown-wrapper {
-  position: absolute;
-  top: 100%;
-  right: 0;
-  overflow: visible;
-  z-index: 1000;
-}
 
 
 
