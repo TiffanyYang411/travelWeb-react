@@ -177,6 +177,7 @@ function ExploreStyle() {
       navigate("/login");
     } else {
       addTripToCart(tripId);
+      window.dispatchEvent(new Event('openCartDropdown')); // ✅ 加這行：通知 Navbar 打開購物車
     }
   };
 

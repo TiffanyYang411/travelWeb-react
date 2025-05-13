@@ -69,6 +69,19 @@ function Navbar() {
     return () => document.removeEventListener('keydown', handleEscKey);
   }, []);
 
+  useEffect(() => {
+    const handleOpenCart = () => {
+      setCartPinned(false);
+      setShowCartDropdown(true);
+      setTimeout(() => {
+        setShowCartDropdown(false);
+      }, 1500);
+    };
+
+    window.addEventListener('openCartDropdown', handleOpenCart);
+    return () => window.removeEventListener('openCartDropdown', handleOpenCart);
+  }, []);
+
   const handleCartClick = () => {
     const nextPinned = !cartPinned;
     setCartPinned(nextPinned);
@@ -110,8 +123,7 @@ function Navbar() {
 
       <div className="navbar-icons">
         <div
-          className="cart-container"
-          style={{ position: 'relative' }}
+          className="cart-container" // ✅ 這裡結構不動，但css會控制 hover範圍
           ref={cartRef}
           onMouseEnter={() => !cartPinned && setShowCartDropdown(true)}
           onMouseLeave={() => !cartPinned && setShowCartDropdown(false)}
@@ -164,6 +176,7 @@ function Navbar() {
 }
 
 export default Navbar;
+
 
 
 

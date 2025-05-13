@@ -159,7 +159,7 @@
   font-family: var(--font-zh);
   display: grid;
   /* grid-template-columns: 3.1fr 0.65fr 0.9fr 0.3fr 0.3fr; */
-  grid-template-columns: 3fr 1fr 1.25fr 0.4fr 0.5fr;
+  grid-template-columns: 3fr 0.9fr 1.3fr 0.4fr 0.5fr;
   align-items: center;
   font-size: 20px;
   font-weight: bold;
@@ -426,7 +426,7 @@
   color: var(--primary-color);
   /* ✅文字主色 */
   font-size: 18px;
-  padding: 8px 24px 8px 0;
+  padding: 8px 24px 8px 20px;
   /* ✅ 上下留8px，右邊留24px空間放箭頭 */
   background-image: url('./images/arrow-down.svg');
   /* ✅自訂下拉箭頭圖片（路徑自己調整） */

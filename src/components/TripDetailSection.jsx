@@ -38,25 +38,29 @@ function TripDetailSection({ trip }) {
   }, [currentDayIndex, parsedDays.length]);
 
   const handleAddTrip = () => {
-    console.log('📌 點擊加入行程按鈕');
-    if (!isLoggedIn()) {
-      console.log('🔒 尚未登入，導向登入頁');
-      sessionStorage.setItem("returnTo", window.location.pathname);
-      navigate("/login");
-    } else {
-      console.log('✅ 已登入，加入行程');
-      addTripToUser(trip);
+  console.log('📌 點擊加入行程按鈕');
+  if (!isLoggedIn()) {
+    console.log('🔒 尚未登入，導向登入頁');
+    sessionStorage.setItem("returnTo", window.location.pathname);
+    navigate("/login");
+  } else {
+    console.log('✅ 已登入，加入行程');
+    addTripToUser(trip);
 
-      window.dispatchEvent(new CustomEvent("tripCountChanged"));
-      window.dispatchEvent(new CustomEvent("tripAdded"));
+    window.dispatchEvent(new CustomEvent("tripCountChanged"));
+    window.dispatchEvent(new CustomEvent("tripAdded"));
 
-      // ✅ 顯示提示字，1.5秒後自動消失
-      setShowAddMessage(true);
-      setTimeout(() => {
-        setShowAddMessage(false);
-      }, 1500);
-    }
-  };
+    // ✅ 顯示提示字，1.5秒後自動消失
+    setShowAddMessage(true);
+    setTimeout(() => {
+      setShowAddMessage(false);
+    }, 1500);
+
+    window.dispatchEvent(new Event('openCartDropdown'));
+
+  }
+};
+
 
   return (
     <div className="trip-detail-vertical">

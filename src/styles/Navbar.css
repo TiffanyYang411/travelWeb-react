@@ -98,17 +98,21 @@
 .navbar-icons {
   display: flex;
   align-items: center;
-  gap: 30px;
+  gap: 0px;
   margin-right: 116px;
   padding: 9px 0;
 }
 
 /* 單個 icon 的連結 */
 .icon-link {
+  position: relative;
+  width: 48px;  /* icon的尺寸 */
+  height: 48px;
   display: flex;
   align-items: center;
-  cursor: pointer;
+  justify-content: center;
 }
+
 
 .nav-icon {
   width: 30px;
@@ -123,7 +127,7 @@
 /* 購物車紅點 */
 .cart-dot {
   position: absolute;
-  top: -6px;
+  top: 4px;
   right: -6px;
   background-color: red;
   color: #ffffff;

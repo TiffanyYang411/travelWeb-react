@@ -1,55 +1,58 @@
 /* CartDropdown.css */
 
-.cart-dropdown-wrapper {
-  position: absolute;
-  top: 30px;
-  right: 0px;
-  width: 180px;
-  pointer-events: none;  
-}
-
-.cart-dropdown-wrapper.fade-in,
-.cart-dropdown-wrapper.fade-out {
-  pointer-events: auto;
-}
-
 .cart-container {
   position: relative;
+  width: 60px;   /* 稍微大一點，容納hover範圍 */
+  height: 80px;
+  display: flex; /* ✅ 加這行 */
+  align-items: center; /* ✅ 置中對齊 */
+  justify-content: center; /* ✅ 置中對齊 */
 }
 
-/* === 購物車主體區 === */
-.cart-dropdown {
+
+.cart-dropdown-wrapper {
   position: absolute;
-  top: -85px;
-  right: -95px;
+  top: 10px; /* 往下接 */
+  left: -125px; /* ✅ 用left置中 */
+  transform: translateX(-50%); /* ✅ 水平置中 */
   width: 180px;
+  pointer-events: auto;
+  z-index: 999;
+}
+
+
+.cart-dropdown {
+  position: relative;
+  width: 100%;
   padding: 20px;
+  margin-top: 0;
   background: rgba(255, 255, 255, 0.6);
   backdrop-filter: blur(80px);
   -webkit-backdrop-filter: blur(80px);
   border-radius: 20px;
   border: 1px solid rgba(255, 255, 255, 0.3);
-  border-top: none;
+  border-top: none; /* ✅ 加這個 */
   box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
   color: #000;
-  z-index: 999;
   pointer-events: auto;
 }
 
-/* === 小三角形區 === */
 .cart-dropdown::before {
   content: "";
   position: absolute;
-  top: -30px;
-  right: 95px;
+  top: -9px; /* ✅ 小三角形貼更近 */
+  left: 43%;
+  transform: translateX(-45%);
+  transform: translateY(-70%);
   width: 30px;
   height: 30px;
   background: rgba(255, 255, 255, 0.6);
   backdrop-filter: blur(80px);
-  -webkit-backdrop-filter: blur(80px);
   clip-path: path('M0 30 L13 10 Q15 5 17 10 L30 30 Z');
   z-index: 0;
 }
+
+
 
 /* === 裡面內容不動 === */
 .cart-dropdown h4 {
