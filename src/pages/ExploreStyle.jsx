@@ -1,5 +1,5 @@
 // src/pages/ExploreStyle.jsx
-import { useSearchParams, useNavigate } from 'react-router-dom';
+import { useSearchParams, useNavigate, useLocation } from 'react-router-dom';
 import { useState, useEffect, useRef } from 'react';
 import { travelStyles } from '../data/travelStyles';
 import { tripData } from '../data/tripData';
@@ -15,6 +15,7 @@ import 'swiper/css';
 
 function ExploreStyle() {
   const navigate = useNavigate();
+  const location = useLocation();
   const [searchParams] = useSearchParams();
   const styleParam = parseInt(searchParams.get('style'));
   const initialIndex = travelStyles.findIndex(style => style.id === styleParam);
@@ -34,7 +35,7 @@ function ExploreStyle() {
 
   const tripCardRef = useRef(null);
   const swiperRef = useRef(null);
-  const swiperInstanceRef = useRef(null); // ✅ 新增：抓取 Swiper 實例
+  const swiperInstanceRef = useRef(null);
   const tripDetailRef = useRef(null);
   const lastScrollY = useRef(0);
   const isScrollingToDetail = useRef(false);
@@ -64,34 +65,51 @@ function ExploreStyle() {
   }, []);
 
   useEffect(() => {
-    let throttleTimeout = null;
-    const handleScroll = () => {
-      if (throttleTimeout) return;
+  let triggered = false;
 
-      throttleTimeout = setTimeout(() => {
-        if (!hasInteracted) setHasInteracted(true);
-        const currentY = window.scrollY;
-        const direction = currentY > lastScrollY.current ? 'down' : 'up';
-        lastScrollY.current = currentY;
-        const midpoint = window.innerHeight * 0.5;
+  const handleScroll = () => {
+    if (triggered) return;
 
-        if (direction === 'down' && currentY > midpoint) {
-          setShowTripCards(true);
-        } else if (direction === 'up' && currentY < midpoint && !isScrollingToDetail.current) {
-          setShowTripCards(false);
-          window.scrollTo({
-            top: swiperRef.current.offsetTop,
-            behavior: 'smooth'
-          });
-        }
+    const scrollY = window.scrollY;
+    const windowHeight = window.innerHeight;
+    const swiperTop = swiperRef.current?.offsetTop || 0;
+    const tripCardTop = tripCardRef.current?.offsetTop || 0;
+    const triggerPoint = swiperTop + windowHeight * 0.4; // ⬅️ 只到40%，提早很多！
 
-        throttleTimeout = null;
-      }, 300);
-    };
+    if (!showTripCards && scrollY > triggerPoint && !isScrollingToDetail.current) {
+      triggered = true;
+      setShowTripCards(true); // ✅ 馬上出現
+      if (Math.abs(scrollY - tripCardTop) > 150) { 
+        window.scrollTo({ top: tripCardTop, behavior: 'auto' }); // ✅ 超過200px直接跳
+      } else {
+        window.scrollTo({ top: tripCardTop, behavior: 'smooth' }); // 不超過就smooth
+      }
+      setTimeout(() => {
+        triggered = false;
+      }, 150); // ⬅️ 超短解除封鎖
+    }
 
-    window.addEventListener('scroll', handleScroll);
-    return () => window.removeEventListener('scroll', handleScroll);
-  }, [hasInteracted]);
+    if (showTripCards && scrollY < triggerPoint && !isScrollingToDetail.current) {
+      triggered = true;
+      if (Math.abs(scrollY - swiperTop) > 200) {
+        window.scrollTo({ top: swiperTop, behavior: 'auto' });
+      } else {
+        window.scrollTo({ top: swiperTop, behavior: 'smooth' });
+      }
+      setTimeout(() => {
+        setShowTripCards(false);
+        setActiveTripIndex(null);
+        triggered = false;
+      }, 150);
+    }
+  };
+
+  window.addEventListener('scroll', handleScroll);
+  return () => window.removeEventListener('scroll', handleScroll);
+}, [hasInteracted, showTripCards]);
+
+
+
 
   const handleTripClick = (index) => {
     setActiveTripIndex(index);
@@ -126,38 +144,23 @@ function ExploreStyle() {
   };
 
   useEffect(() => {
-    const handleScrollUpToCards = () => {
-      if (isScrollingToDetail.current) return;
-      const detailTop = tripDetailRef.current?.getBoundingClientRect().top;
-      const cardTop = tripCardRef.current?.getBoundingClientRect().top;
-      if (detailTop !== undefined && detailTop > window.innerHeight * 0.4 && cardTop < 0) {
-        window.scrollTo({
-          top: tripCardRef.current.offsetTop,
-          behavior: 'smooth'
-        });
-      }
-    };
-    window.addEventListener('scroll', handleScrollUpToCards);
-    return () => window.removeEventListener('scroll', handleScrollUpToCards);
-  }, []);
-
-  useEffect(() => {
     if (hasInteracted && showTripCards && tripCardRef.current) {
       tripCardRef.current.scrollIntoView({ behavior: 'smooth', block: 'start' });
     }
   }, [showTripCards, hasInteracted]);
 
-  // ✅ 新增：selectedStyleIndex 改變時，主動切換 Swiper slide
   useEffect(() => {
     const timeout = setTimeout(() => {
       if (swiperInstanceRef.current) {
         swiperInstanceRef.current.slideToLoop(selectedStyleIndex, 300);
       }
-    }, 100); // 延遲 100ms 等待 Swiper 初始化完成
-
+    }, 100);
     return () => clearTimeout(timeout);
   }, [selectedStyleIndex]);
 
+  useEffect(() => {
+    window.scrollTo({ top: 0, left: 0, behavior: 'smooth' });
+  }, [location.search]);
 
   const handleAddToTrip = (tripId) => {
     const isLoggedIn = localStorage.getItem("isLoggedIn");
@@ -172,12 +175,11 @@ function ExploreStyle() {
         ? fullPath.slice(base.length)
         : fullPath;
 
-      console.log('[✅ returnTo 即將設定]', purePath);
       sessionStorage.setItem("returnTo", purePath);
       navigate("/login");
     } else {
       addTripToCart(tripId);
-      window.dispatchEvent(new Event('openCartDropdown')); // ✅ 加這行：通知 Navbar 打開購物車
+      window.dispatchEvent(new Event('openCartDropdown'));
     }
   };
 
@@ -212,7 +214,7 @@ function ExploreStyle() {
               setActiveTripIndex(null);
             }}
             onSwiper={(swiper) => {
-              swiperInstanceRef.current = swiper; // ✅ 建立 swiper 實例參照
+              swiperInstanceRef.current = swiper;
             }}
             navigation={{
               nextEl: '.explore-swiper-next',
@@ -223,23 +225,6 @@ function ExploreStyle() {
               <SwiperSlide key={style.id} style={{ width: '100vw', height: '100vh' }}>
                 <div
                   className={`explore-style-card ${selectedStyleIndex === index ? 'active' : ''}`}
-                  onClick={(e) => {
-                    const ripple = document.createElement('span');
-                    ripple.className = 'ripple-effect';
-                    ripple.style.left = `${e.clientX - e.currentTarget.getBoundingClientRect().left - 50}px`;
-                    ripple.style.top = `${e.clientY - e.currentTarget.getBoundingClientRect().top - 50}px`;
-                    ripple.style.width = '100px';
-                    ripple.style.height = '100px';
-                    e.currentTarget.appendChild(ripple);
-                    setTimeout(() => ripple.remove(), 600);
-                  }}
-                  onMouseMove={(e) => {
-                    const rect = e.currentTarget.getBoundingClientRect();
-                    const x = ((e.clientX - rect.left) / rect.width) * 100;
-                    const y = ((e.clientY - rect.top) / rect.height) * 100;
-                    e.currentTarget.style.setProperty('--x', `${x}%`);
-                    e.currentTarget.style.setProperty('--y', `${y}%`);
-                  }}
                 >
                   <div className="image-container">
                     <img src={style.exploreImage} alt={style.title} />
@@ -250,6 +235,7 @@ function ExploreStyle() {
                     <h2 className="zh-title-48">{style.title}</h2>
                     <p className="zh-text-24">{style.description}</p>
                   </div>
+
                   <div className="scroll-up-indicator">
                     <div className="chevron"></div>
                     <div className="chevron"></div>
@@ -263,6 +249,17 @@ function ExploreStyle() {
           <div className="explore-swiper-prev swiper-arrow">‹</div>
           <div className="explore-swiper-next swiper-arrow">›</div>
         </div>
+
+        {/* 🔥 只在showTripCards時才出現的 向上箭頭 */}
+        {showTripCards && (
+          <div className="scroll-down-indicator" onClick={() => {
+            swiperRef.current?.scrollIntoView({ behavior: 'smooth', block: 'start' });
+          }}>
+            <div className="chevron chevron-up"></div>
+            <div className="chevron chevron-up"></div>
+            <div className="chevron chevron-up"></div>
+          </div>
+        )}
 
         <div ref={tripCardRef} className={`explore-trip-card-wrapper ${showTripCards ? 'visible' : 'hidden'}`}>
           <div className="explore-trip-card-container">
@@ -295,6 +292,7 @@ function easeInOutQuart(x) {
 }
 
 export default ExploreStyle;
+
 
 
 

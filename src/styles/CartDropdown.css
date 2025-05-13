@@ -12,7 +12,7 @@
 
 .cart-dropdown-wrapper {
   position: absolute;
-  top: 10px; /* 往下接 */
+  top: 3px; /* 往下接 */
   left: -125px; /* ✅ 用left置中 */
   transform: translateX(-50%); /* ✅ 水平置中 */
   width: 180px;
