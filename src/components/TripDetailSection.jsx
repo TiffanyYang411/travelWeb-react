@@ -3,13 +3,15 @@ import { useState, useEffect, useRef } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { isLoggedIn } from '../utils/auth';
 import { addTripToUser } from '../utils/tripUtils';
+import { useTripStore } from '../store/useTripStore'; // ✅ 新增：引入 useTripStore
 import '../styles/TripDetailVertical.css';
 
 function TripDetailSection({ trip }) {
   const [currentDayIndex, setCurrentDayIndex] = useState(0);
-  const [showAddMessage, setShowAddMessage] = useState(false); // ✅ 新增這行
+  const [showAddMessage, setShowAddMessage] = useState(false);
   const daySelectionRef = useRef(null);
   const navigate = useNavigate();
+  const { pendingTrips, setPendingTrips } = useTripStore(); // ✅ 新增：取得 TripStore 的資料
 
   const parsedDays = Array.isArray(trip?.itinerary)
     ? trip.itinerary
@@ -45,19 +47,22 @@ function TripDetailSection({ trip }) {
     navigate("/login");
   } else {
     console.log('✅ 已登入，加入行程');
+
+    const alreadyExists = pendingTrips.some(t => t.tripId === trip.id);
+    if (!alreadyExists) {
+      setPendingTrips([...pendingTrips, { tripId: trip.id, peopleCount: '' }]); // ✅ 改成空白！
+    }
+
     addTripToUser(trip);
 
     window.dispatchEvent(new CustomEvent("tripCountChanged"));
     window.dispatchEvent(new CustomEvent("tripAdded"));
+    window.dispatchEvent(new Event('openCartDropdown'));
 
-    // ✅ 顯示提示字，1.5秒後自動消失
     setShowAddMessage(true);
     setTimeout(() => {
       setShowAddMessage(false);
     }, 1500);
-
-    window.dispatchEvent(new Event('openCartDropdown'));
-
   }
 };
 
@@ -113,7 +118,6 @@ function TripDetailSection({ trip }) {
         </div>
       </div>
 
-      {/* ✅ 提示文字，跟著TripDetailSection畫面走 */}
       {showAddMessage && (
         <div className="add-message">已加入行程！</div>
       )}
@@ -173,6 +177,7 @@ function convertToChineseNumber(num) {
 }
 
 export default TripDetailSection;
+
 
 
 
