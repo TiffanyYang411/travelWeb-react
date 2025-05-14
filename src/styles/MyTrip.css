@@ -428,7 +428,7 @@
   font-size: 18px;
   padding: 8px 8px 8px 20px;
   /* ✅ 上下留8px，右邊留24px空間放箭頭 */
-  background-image: url('./images/arrow-down.svg');
+  background-image: url('/images/arrow-down.svg');
   /* ✅自訂下拉箭頭圖片（路徑自己調整） */
   background-repeat: no-repeat;
   background-position: right center;
