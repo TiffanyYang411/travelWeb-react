@@ -426,7 +426,7 @@
   color: var(--primary-color);
   /* ✅文字主色 */
   font-size: 18px;
-  padding: 8px 8px 8px 32px;
+  padding: 8px 8px 8px 30px;
   /* ✅ 上下留8px，右邊留24px空間放箭頭 */
   background-image: url('/images/arrow-down.svg');
   /* ✅自訂下拉箭頭圖片（路徑自己調整） */
