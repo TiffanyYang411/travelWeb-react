@@ -239,7 +239,7 @@
 
 .people-select select {
   width: 100%;
-  padding: 8px 32px 8px 12px;
+  padding: 8px 8px 8px 12px;
   /* ✅ 右邊留更多空間給箭頭 */
   border-radius: 6px;
   /* border: 1px solid var(--primary-color); */
@@ -426,7 +426,7 @@
   color: var(--primary-color);
   /* ✅文字主色 */
   font-size: 18px;
-  padding: 8px 24px 8px 20px;
+  padding: 8px 8px 8px 20px;
   /* ✅ 上下留8px，右邊留24px空間放箭頭 */
   background-image: url('./images/arrow-down.svg');
   /* ✅自訂下拉箭頭圖片（路徑自己調整） */
