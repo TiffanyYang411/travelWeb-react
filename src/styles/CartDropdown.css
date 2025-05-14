@@ -40,7 +40,7 @@
 .cart-dropdown::before {
   content: "";
   position: absolute;
-  top: -9px; /* ✅ 小三角形貼更近 */
+  top: -8.7px; /* ✅ 小三角形貼更近 */
   left: 43%;
   transform: translateX(-45%);
   transform: translateY(-70%);
