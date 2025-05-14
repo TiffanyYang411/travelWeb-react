@@ -80,14 +80,14 @@ function MyTrip() {
     const savedEndDate = sessionStorage.getItem('savedEndDate');
 
     const tripList = getUserTrips();
-setTrips(tripList);
-if (savedStartDate) {
-  setStartDate(new Date(savedStartDate));
-  recalculateEndDate(new Date(savedStartDate), tripList);
-} else {
-  setStartDate(null); // ⭐ 沒有選過日期 ➔ 保持空白
-  setEndDate(null);
-}
+    setTrips(tripList);
+    if (savedStartDate) {
+      setStartDate(new Date(savedStartDate));
+      recalculateEndDate(new Date(savedStartDate), tripList);
+    } else {
+      setStartDate(null); // ⭐ 沒有選過日期 ➔ 保持空白
+      setEndDate(null);
+    }
 
 
 
@@ -117,23 +117,23 @@ if (savedStartDate) {
   }, []);
 
   useEffect(() => {
-  if (trips.length > 0 && startDate) {
-    let totalDays = 0;
-    trips.forEach(trip => {
-      totalDays += extractDays(trip.days);
-    });
-    const newEndDate = new Date(startDate);
-    newEndDate.setDate(newEndDate.getDate() + totalDays - 1);
-    setEndDate(newEndDate);
-    sessionStorage.setItem('savedStartDate', formatDateYYYYMMDD(startDate));
-    sessionStorage.setItem('savedEndDate', formatDateYYYYMMDD(newEndDate));
-  } else {
-    // 如果 startDate 是 null，也同步清空 endDate
-    setEndDate(null);
-    sessionStorage.removeItem('savedStartDate');
-    sessionStorage.removeItem('savedEndDate');
-  }
-}, [trips, startDate]);
+    if (trips.length > 0 && startDate) {
+      let totalDays = 0;
+      trips.forEach(trip => {
+        totalDays += extractDays(trip.days);
+      });
+      const newEndDate = new Date(startDate);
+      newEndDate.setDate(newEndDate.getDate() + totalDays - 1);
+      setEndDate(newEndDate);
+      sessionStorage.setItem('savedStartDate', formatDateYYYYMMDD(startDate));
+      sessionStorage.setItem('savedEndDate', formatDateYYYYMMDD(newEndDate));
+    } else {
+      // 如果 startDate 是 null，也同步清空 endDate
+      setEndDate(null);
+      sessionStorage.removeItem('savedStartDate');
+      sessionStorage.removeItem('savedEndDate');
+    }
+  }, [trips, startDate]);
 
 
   const loadTrips = () => {
@@ -180,6 +180,22 @@ if (savedStartDate) {
     const newCustoms = { ...customPeopleCounts, [tripId]: value };
     setCustomPeopleCounts(newCustoms);
     calculateTotal(peopleCounts, newCustoms);
+  };
+
+  const handleSelectChange = (tripId, value) => {
+    const newCounts = { ...peopleCounts, [tripId]: value };
+
+    const newCustoms = { ...customPeopleCounts };
+    if (value !== 'custom') {
+      delete newCustoms[tripId]; // 🔥 只要不是 "custom"，就清除
+    }
+
+    setPeopleCounts(newCounts);
+    setCustomPeopleCounts(newCustoms);
+    calculateTotal(newCounts, newCustoms);
+
+    sessionStorage.setItem('savedPeopleCounts', JSON.stringify(newCounts));
+    sessionStorage.setItem('savedCustomPeopleCounts', JSON.stringify(newCustoms));
   };
 
   const handleRemoveTrip = (tripId) => {
@@ -354,8 +370,15 @@ if (savedStartDate) {
                         placeholder="請輸入人數"
                         value={customPeopleCounts[trip.id] || ''}
                         onChange={(e) => handleCustomPeopleChange(trip.id, e.target.value)}
+                        onBlur={(e) => {
+                          const inputVal = parseInt(e.target.value, 10);
+                          if (!isNaN(inputVal) && inputVal <= 10) {
+                            handleSelectChange(trip.id, inputVal);
+                          }
+                        }}
                         className="custom-people-input"
                       />
+
                     )}
                   </div>
                   <button className="remove-btn" onClick={() => handleRemoveTrip(trip.id)}>❌</button>

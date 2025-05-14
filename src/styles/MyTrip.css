@@ -248,12 +248,25 @@
 }
 
 .custom-people-input {
-  margin-top: 8px;
-  width: 90%;
-  padding: 6px 10px;
-  font-size: 14px;
-  border-radius: 6px;
-  border: 1px solid var(--primary-color);
+  width: 80px; /* 可以依照版型調整 */
+  height: 30px;
+  padding: 5px 10px;
+  font-size: 16px;
+  font-family: var(--font-zh); /* ✅ 走你的主字型 */
+  color: #142E3F; /* ✅ 打字進去的字的顏色 */
+  background-color: rgba(255, 255, 255, 0.8); /* 淡白色背景 */
+  border: 1px solid rgba(20, 30, 40, 0.4); /* 深藍灰色的邊框 */
+  border-radius: 12px; /* ✅ 圓角一點 */
+  outline: none;
+  text-align: center; /* 文字置中 */
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* 輕微陰影，提升立體感 */
+}
+
+.custom-people-input::placeholder {
+  color: #999; /* ✅ 提示字顏色：灰灰的 */
+  font-family: var(--font-zh);
+  font-size: 12px;
+  opacity: 1; /* 有些瀏覽器會預設透明，強制讓它清楚可見 */
 }
 
 /* 刪除按鈕 */
