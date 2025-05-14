@@ -7,6 +7,8 @@ import TravelStyles from '../components/TravelStyles';
 import WhyUs from '../components/WhyUs';
 import Testimonial from '../components/Testimonial';
 
+const windowFrameImg = `${import.meta.env.BASE_URL}images/window-frame-large.png`;
+
 const quoteSvgs = [
   `${import.meta.env.BASE_URL}images/banner-quote-1.svg`,
   `${import.meta.env.BASE_URL}images/banner-quote-2.svg`,
@@ -47,47 +49,52 @@ function Home() {
 
   return (
     <div className="home-page">
-    
-        {/* Hero Banner 區塊 */}
-        <section className={`hero-section ${ready ? 'ready' : ''} ${expanded ? 'expanded' : ''}`}>
-          <div className="hero-scene">
-            {slideImages.map((src, index) => (
-              <img
-                key={index}
-                src={src}
-                alt={`slide${index + 1}`}
-                className={`fullscreen-img ${index === 0 ? 'slide-one' : ''} ${index === currentSlide ? 'active' : 'inactive'}`}
-              />
-            ))}
-            <div className="hero-window-frame" />
+
+      {/* Hero Banner 區塊 */}
+      <section className={`hero-section ${ready ? 'ready' : ''} ${expanded ? 'expanded' : ''}`}>
+        <div className="hero-scene">
+          {slideImages.map((src, index) => (
             <img
-              src={quoteSvgs[0]}
-              alt="語錄1"
-              className={`hero-quote ${ready && !expanded ? 'visible' : ''}`}
+              key={index}
+              src={src}
+              alt={`slide${index + 1}`}
+              className={`fullscreen-img ${index === 0 ? 'slide-one' : ''} ${index === currentSlide ? 'active' : 'inactive'}`}
             />
-            <img
-              src={quoteSvgs[1]}
-              alt="語錄2"
-              className={`hero-quote quote-expanded ${expanded ? 'visible' : ''}`}
-            />
-          </div>
-        </section>
+          ))}
+          <img
+            src={windowFrameImg}
+            alt="窗框"
+            className="hero-window-frame"
+          />
 
-        {/* 探索你的旅行風格區塊 */}
-        <section className="travel-style-section">
-          <TravelStyles />
-        </section>
+          <img
+            src={quoteSvgs[0]}
+            alt="語錄1"
+            className={`hero-quote ${ready && !expanded ? 'visible' : ''}`}
+          />
+          <img
+            src={quoteSvgs[1]}
+            alt="語錄2"
+            className={`hero-quote quote-expanded ${expanded ? 'visible' : ''}`}
+          />
+        </div>
+      </section>
 
-        {/* 為什麼選擇我們區塊（此區不吸附） */}
-        <section className="why-us-section">
-          <WhyUs />
-        </section>
+      {/* 探索你的旅行風格區塊 */}
+      <section className="travel-style-section">
+        <TravelStyles />
+      </section>
 
-        {/* 客戶評價區塊 */}
-        <section className="testimonial-wrapper">
-          <Testimonial />
-        </section>
-      
+      {/* 為什麼選擇我們區塊（此區不吸附） */}
+      <section className="why-us-section">
+        <WhyUs />
+      </section>
+
+      {/* 客戶評價區塊 */}
+      <section className="testimonial-wrapper">
+        <Testimonial />
+      </section>
+
     </div>
   );
 }

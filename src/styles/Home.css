@@ -74,10 +74,7 @@
   left: 0;
   width: 100vw;
   height: 100vh;
-  background-image: url('./images/window-frame-large.png');
-  background-size: cover;
-  background-repeat: no-repeat;
-  background-position: center;
+  object-fit: cover;
   z-index: 3;
   pointer-events: none;
   transition: transform 4s ease-in-out;
