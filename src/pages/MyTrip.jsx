@@ -1,7 +1,4 @@
-// === 完整修正版 MyTrip.jsx (含動畫版) ===
-// === 完整修正版 MyTrip.jsx (含動畫、正確 handleNext) ===
-// === 新版 MyTrip.jsx ===
-// MyTrip.jsx
+// ✅ MyTrip.jsx
 import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { Calendar } from 'react-calendar';
@@ -10,6 +7,7 @@ import '../styles/MyTrip.css';
 import '../styles/Typography.css';
 import { useTripStore } from '../store/useTripStore';
 import { findTripById } from '../utils/findTripById';
+import { removeTripFromUser } from '../utils/tripUtils';
 
 function formatDateToZh(date) {
   const days = ['日', '一', '二', '三', '四', '五', '六'];
@@ -33,22 +31,45 @@ function MyTrip() {
     setTotalPrice,
   } = useTripStore();
 
-  const [customPeopleCounts, setCustomPeopleCounts] = useState({});
+  const [editingTripId, setEditingTripId] = useState(null);
+  const [editingPeople, setEditingPeople] = useState({});
+
+  useEffect(() => {
+  const updateFromSession = () => {
+    const stored = JSON.parse(sessionStorage.getItem('userTrips')) || [];
+    setPendingTrips(stored);
+  };
+
+  updateFromSession();
+
+  const handleConfirmedTripsChanged = () => {
+    updateFromSession();
+  };
+
+  window.addEventListener('confirmedTripsChanged', handleConfirmedTripsChanged);
+
+  return () => {
+    window.removeEventListener('confirmedTripsChanged', handleConfirmedTripsChanged);
+  };
+}, [setPendingTrips]);
+
 
   useEffect(() => {
     calculateTotal();
     recalculateEndDate(startDate, pendingTrips);
-  }, [pendingTrips, startDate, customPeopleCounts]);
+
+    // ✅ pendingTrips一有變化，就存到sessionStorage
+    sessionStorage.setItem('userTrips', JSON.stringify(pendingTrips));
+  }, [pendingTrips, startDate]);
 
   const calculateTotal = () => {
     let total = 0;
     pendingTrips.forEach((trip) => {
       const tripDetail = findTripById(trip.tripId);
       if (tripDetail) {
-        const people = trip.peopleCount === 'custom'
-          ? parseInt(customPeopleCounts[trip.tripId], 10) || 0
-          : trip.peopleCount || 0;
-        total += tripDetail.price * people;
+        const people = trip.peopleCount;
+        const validPeople = (!people || isNaN(people)) ? 0 : parseInt(people, 10);
+        total += tripDetail.price * validPeople;
       }
     });
     setTotalPrice(total);
@@ -61,70 +82,108 @@ function MyTrip() {
     }
     let totalDays = 0;
     tripArray.forEach(trip => {
-      const people = trip.peopleCount === 'custom'
-        ? parseInt(customPeopleCounts[trip.tripId], 10)
-        : trip.peopleCount;
-
-      if (people && people > 0) {
-        const tripDetail = findTripById(trip.tripId);
-        if (tripDetail) {
-          const match = tripDetail.days.match(/(\d+)天/);
-          const days = match ? parseInt(match[1], 10) : 0;
-          totalDays += days;
-        }
+      const tripDetail = findTripById(trip.tripId);
+      if (tripDetail) {
+        const match = tripDetail.days?.match(/(\d+)\s*天/);
+        const days = match ? parseInt(match[1], 10) : 0;
+        totalDays += days;
       }
     });
-    if (totalDays > 0) {
-      const newEnd = new Date(currentStartDate);
-      newEnd.setDate(newEnd.getDate() + totalDays - 1);
-      setEndDate(newEnd);
-    } else {
-      setEndDate(null);
-    }
+    const newEnd = new Date(currentStartDate);
+    newEnd.setDate(newEnd.getDate() + totalDays - 1);
+    setEndDate(newEnd);
   };
 
   const handlePeopleChange = (tripId, value) => {
-    const updatedTrips = pendingTrips.map(trip => {
-      if (trip.tripId === tripId) {
-        return { ...trip, peopleCount: value === 'custom' ? 'custom' : parseInt(value, 10) || 0 };
-      }
-      return trip;
-    });
-    setPendingTrips(updatedTrips);
-    recalculateEndDate(startDate, updatedTrips); // 🔥 選完人數馬上重新算！
+    if (value === 'custom') {
+      const updatedTrips = pendingTrips.map(trip => {
+        if (trip.tripId === tripId) {
+          return { ...trip, peopleCount: 11 };
+        }
+        return trip;
+      });
+      setPendingTrips(updatedTrips);
+      setEditingTripId(tripId);
+    } else {
+      const updatedTrips = pendingTrips.map(trip => {
+        if (trip.tripId === tripId) {
+          return { ...trip, peopleCount: parseInt(value, 10) };
+        }
+        return trip;
+      });
+      setPendingTrips(updatedTrips);
+      setEditingTripId(null);
+    }
+    calculateTotal();
   };
 
   const handleCustomPeopleChange = (tripId, value) => {
-    setCustomPeopleCounts(prev => ({
+    setEditingPeople(prev => ({
       ...prev,
-      [tripId]: value
+      [tripId]: value,
     }));
-    recalculateEndDate(startDate, pendingTrips); // 🔥 自訂輸入人數後也重新算！
   };
+
+  const handleCustomBlur = (tripId, value) => {
+    const num = parseInt(value, 10);
+    if (!isNaN(num)) {
+      if (num <= 10) {
+        // <=10 的話，直接更新 peopleCount，同時清空 editingPeople
+        const updatedTrips = pendingTrips.map(trip => {
+          if (trip.tripId === tripId) {
+            return { ...trip, peopleCount: num };
+          }
+          return trip;
+        });
+        setPendingTrips(updatedTrips);
+        setEditingPeople(prev => {
+          const newEditing = { ...prev };
+          delete newEditing[tripId];
+          return newEditing;
+        });
+      } else {
+        // >10，正常更新到 peopleCount，保留 input
+        const updatedTrips = pendingTrips.map(trip => {
+          if (trip.tripId === tripId) {
+            return { ...trip, peopleCount: num };
+          }
+          return trip;
+        });
+        setPendingTrips(updatedTrips);
+      }
+      calculateTotal();
+    }
+  };
+
+
+
+
 
   const handleRemoveTrip = (tripId) => {
     const updatedTrips = pendingTrips.filter(trip => trip.tripId !== tripId);
-    const updatedCustomPeopleCounts = { ...customPeopleCounts };
-    delete updatedCustomPeopleCounts[tripId];
     setPendingTrips(updatedTrips);
-    setCustomPeopleCounts(updatedCustomPeopleCounts);
-    recalculateEndDate(startDate, updatedTrips); // 🔥 移除行程後也重新算！
+    removeTripFromUser(tripId);
+    window.dispatchEvent(new Event("tripCountChanged"));
+    calculateTotal();
+    recalculateEndDate(startDate, updatedTrips);
   };
 
   const handleDateChange = (date) => {
-    if (Array.isArray(date)) {
-      date = date[0];
-    }
+    if (Array.isArray(date)) date = date[0];
     setStartDate(date);
-    recalculateEndDate(date, pendingTrips); // 🔥 起日一選馬上算
-  };
-
-  const handleAddTrip = () => {
-    navigate('/explore');
+    recalculateEndDate(date, pendingTrips);
   };
 
   const handleNext = () => {
     if (!canProceed()) return;
+
+    // 🔥跳頁前，把 pendingTrips 存到 sessionStorage
+    sessionStorage.setItem('confirmedTrips', JSON.stringify(pendingTrips));
+    sessionStorage.setItem('confirmedStartDate', startDate);
+    sessionStorage.setItem('confirmedEndDate', endDate);
+    sessionStorage.setItem('confirmedTotalPeople', pendingTrips.reduce((sum, trip) => sum + (parseInt(trip.peopleCount) || 0), 0));
+    sessionStorage.setItem('confirmedTotalPrice', totalPrice);
+
     navigate('/trip-customization');
   };
 
@@ -132,10 +191,9 @@ function MyTrip() {
     if (!startDate || !endDate) return false;
     if (pendingTrips.length === 0) return false;
     return pendingTrips.every(trip => {
-      const people = trip.peopleCount === 'custom'
-        ? parseInt(customPeopleCounts[trip.tripId], 10)
-        : trip.peopleCount;
-      return people && people > 0;
+      const count = trip.peopleCount;
+      if (!count || isNaN(count) || parseInt(count, 10) <= 0) return false;
+      return true;
     });
   };
 
@@ -144,8 +202,8 @@ function MyTrip() {
       <div className="mytrip-page-wrapper fade-in">
         <div className="mytrip-empty-container">
           <h2 className="zh-title-36">您的專屬旅程</h2>
-          <p className="zh-text-20">旅程的篇章尚未開始書寫，{"\n"}現在，就是您與北歐邂逅的最佳時刻。</p>
-          <button className="mytrip-start-trip-btn zh-text-18" onClick={handleAddTrip}>
+          <p className="zh-text-20">旅程的篇章尚未開始書寫，<br />現在，就是您與北歐邂逅的最佳時刻。</p>
+          <button className="mytrip-start-trip-btn zh-text-18" onClick={() => navigate('/explore')}>
             立即開啟您的專屬行程 ➔
           </button>
         </div>
@@ -200,26 +258,32 @@ function MyTrip() {
                     <div>NT$ {tripDetail.price.toLocaleString()}</div>
                     <div className="people-select">
                       <select
-                        value={trip.peopleCount || ''}
+                        value={editingPeople[trip.tripId] !== undefined
+                          ? (parseInt(editingPeople[trip.tripId], 10) > 10 ? 'custom' : editingPeople[trip.tripId])
+                          : (parseInt(trip.peopleCount, 10) > 10 ? 'custom' : trip.peopleCount || '')}
                         onChange={(e) => handlePeopleChange(trip.tripId, e.target.value)}
                       >
+
                         <option value="">請選擇</option>
                         {[...Array(10)].map((_, i) => (
                           <option key={i + 1} value={i + 1}>{i + 1} 位</option>
                         ))}
                         <option value="custom">10位以上</option>
                       </select>
-
-                      {trip.peopleCount === 'custom' && (
+                      {(editingPeople[trip.tripId] !== undefined || parseInt(trip.peopleCount, 10) > 10) && (
                         <input
                           type="number"
                           min="11"
-                          placeholder="請輸入人數"
-                          value={customPeopleCounts[trip.tripId] || ''}
+                          value={editingPeople[trip.tripId] !== undefined
+                            ? editingPeople[trip.tripId]
+                            : trip.peopleCount?.toString() || ''}
                           onChange={(e) => handleCustomPeopleChange(trip.tripId, e.target.value)}
+                          onBlur={(e) => handleCustomBlur(trip.tripId, e.target.value)}
                           className="custom-people-input"
                         />
                       )}
+
+
                     </div>
                     <button className="remove-btn" onClick={() => handleRemoveTrip(trip.tripId)}>❌</button>
                   </div>
@@ -228,11 +292,15 @@ function MyTrip() {
             })}
           </div>
 
-          <div className="add-mytrip-btn" onClick={handleAddTrip}>➕</div>
+          <div className="mytrip-add-trip-wrapper">
+            <button className="mytrip-add-btn" onClick={() => navigate('/explore')}>
+              ＋
+            </button>
+          </div>
 
           <div className="mytrip-summary">
-            <p>日期：{startDate ? formatDateToZh(startDate) : '請選擇'}—{' '}{endDate ? formatDateToZh(endDate) : '待計算'}</p>
-            <p>價格：<strong>NT${totalPrice.toLocaleString()}</strong></p>
+            <p>日期：{startDate ? formatDateToZh(startDate) : '請選擇'} — {endDate ? formatDateToZh(endDate) : '待計算'}</p>
+            <p>價格：<strong>NT${isNaN(totalPrice) ? 0 : totalPrice.toLocaleString()}</strong></p>
             <button
               className={`next-step-btn zh-text-18 ${canProceed() ? '' : 'disabled'}`}
               onClick={handleNext}
@@ -248,6 +316,13 @@ function MyTrip() {
 }
 
 export default MyTrip;
+
+
+
+
+
+
+
 
 
 

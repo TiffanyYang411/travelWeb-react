@@ -1,5 +1,16 @@
 import { useNavigate } from 'react-router-dom';
+import { findTripById } from '../utils/findTripById';
 import '../styles/TripCustomization.css';
+
+// ✅ 這裡新增一個 formatDate 函式
+function formatDate(dateString) {
+  if (!dateString) return '';
+  const date = new Date(dateString);
+  const year = date.getFullYear();
+  const month = (date.getMonth() + 1).toString().padStart(2, '0');
+  const day = date.getDate().toString().padStart(2, '0');
+  return `${year}/${month}/${day}`;
+}
 
 function TripSummaryBar({ trips, startDate, endDate, totalPeople, totalPrice }) {
   const navigate = useNavigate();
@@ -8,10 +19,16 @@ function TripSummaryBar({ trips, startDate, endDate, totalPeople, totalPrice }) 
     navigate('/my-trip');
   };
 
+  // 用 findTripById 把 confirmedTrips 裡的 tripId 轉成完整 trip資料
+  const enrichedTrips = trips.map(trip => {
+    const detail = findTripById(trip.tripId);
+    return detail ? { ...detail } : null;
+  }).filter(Boolean); // 過濾掉找不到的
+
   return (
     <div className="tripcustom-summary-bar">
       <div className="tripcustom-summary-trips">
-        {trips.map((trip, index) => (
+        {enrichedTrips.map((trip, index) => (
           <div key={index} className="tripcustom-summary-item">
             <div className="tripcustom-summary-image-wrapper">
               <img src={trip.bannerImage || trip.banner} alt={trip.title} />
@@ -29,7 +46,9 @@ function TripSummaryBar({ trips, startDate, endDate, totalPeople, totalPrice }) 
       <div className="tripcustom-summary-info">
         <div className="tripcustom-info-column">
           <div className="tripcustom-info-label">日期</div>
-          <div className="tripcustom-info-value">{startDate} - {endDate}</div>
+          <div className="tripcustom-info-value">
+            {formatDate(startDate)} - {formatDate(endDate)}
+          </div>
         </div>
         <div className="tripcustom-info-column">
           <div className="tripcustom-info-label">人數</div>
@@ -48,6 +67,8 @@ function TripSummaryBar({ trips, startDate, endDate, totalPeople, totalPrice }) 
 }
 
 export default TripSummaryBar;
+
+
 
 
 

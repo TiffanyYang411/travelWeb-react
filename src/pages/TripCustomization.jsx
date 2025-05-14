@@ -2,6 +2,7 @@ import { useEffect, useState } from 'react';
 import { useNavigate, useLocation } from 'react-router-dom';
 import { getUserTrips } from '../utils/tripUtils';
 import '../styles/TripCustomization.css';
+import { useTripStore } from '../store/useTripStore'; // ✅ 一定要有！
 import TripSummaryBar from '../components/TripSummaryBar';
 
 function TripCustomization() {
@@ -12,6 +13,7 @@ function TripCustomization() {
     const [endDate, setEndDate] = useState('');
     const [totalPeople, setTotalPeople] = useState(0);
     const [totalPrice, setTotalPrice] = useState(0);
+    const { setPendingTrips } = useTripStore(); // ✅ 加這行！
 
     const [step, setStep] = useState(0);
     const [options, setOptions] = useState({});
@@ -31,19 +33,51 @@ function TripCustomization() {
         '+33': '法國'
     };
 
-    useEffect(() => {
-        const storedTrips = JSON.parse(sessionStorage.getItem('confirmedTrips')) || [];
-        const storedStartDate = sessionStorage.getItem('confirmedStartDate') || '';
-        const storedEndDate = sessionStorage.getItem('confirmedEndDate') || '';
-        const storedTotalPeople = parseInt(sessionStorage.getItem('confirmedTotalPeople'), 10) || 0;
-        const storedTotalPrice = parseInt(sessionStorage.getItem('confirmedTotalPrice'), 10) || 0;
+    // 🔥這裡是改過的useEffect
+  useEffect(() => {
+    const updateFromSessionStorage = () => {
+      const storedTrips = JSON.parse(sessionStorage.getItem('confirmedTrips')) || [];
+      const storedStartDate = sessionStorage.getItem('confirmedStartDate') || '';
+      const storedEndDate = sessionStorage.getItem('confirmedEndDate') || '';
+      const storedTotalPeople = parseInt(sessionStorage.getItem('confirmedTotalPeople'), 10) || 0;
+      const storedTotalPrice = parseInt(sessionStorage.getItem('confirmedTotalPrice'), 10) || 0;
 
+      if (storedTrips.length === 0) {
+        // ✅ 如果刪光行程：
+        setTrips([]);
+        setStartDate('');
+        setEndDate('');
+        setTotalPeople(0);
+        setTotalPrice(0);
+        setPendingTrips([]); // ✅ ✅ ✅ 同時清掉global pendingTrips
+        navigate('/my-trip'); // ✅ 然後跳轉回我的行程頁
+      } else {
+        // ✅ 正常有資料
         setTrips(storedTrips);
         setStartDate(storedStartDate);
         setEndDate(storedEndDate);
         setTotalPeople(storedTotalPeople);
         setTotalPrice(storedTotalPrice);
-    }, [location.pathname]);
+      }
+    };
+
+    updateFromSessionStorage();
+
+    const handleConfirmedTripsChanged = () => {
+      updateFromSessionStorage();
+    };
+
+    window.addEventListener('confirmedTripsChanged', handleConfirmedTripsChanged);
+
+    return () => {
+      window.removeEventListener('confirmedTripsChanged', handleConfirmedTripsChanged);
+    };
+  }, [navigate, setPendingTrips]);
+ // ✅ 注意：useEffect要加 navigate 依賴，不然React會警告
+
+
+
+
 
     const validateEmail = (email) => {
         const regex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
@@ -90,24 +124,24 @@ function TripCustomization() {
     };
 
     const handleCustomCountryCodeInput = (e) => {
-    const value = e.target.value;
-    const country = countryCodeMap[value] || '';
+        const value = e.target.value;
+        const country = countryCodeMap[value] || '';
 
-    setCustomCountryCode(value);
+        setCustomCountryCode(value);
 
-    if (country) {
-        // ✅ 如果輸入符合已知國碼，回到選單並顯示國家名稱
-        setIsCustomCountry(false);
-        setPhoneCountryCode(`${value} ${country}`);
-    } else if (value === '') {
-        // ✅ 清空也回到預設台灣
-        setIsCustomCountry(false);
-        setPhoneCountryCode('+886 台灣');
-    } else {
-        // ✅ 不符合時，保持手動輸入
-        setPhoneCountryCode(value);
-    }
-};
+        if (country) {
+            // ✅ 如果輸入符合已知國碼，回到選單並顯示國家名稱
+            setIsCustomCountry(false);
+            setPhoneCountryCode(`${value} ${country}`);
+        } else if (value === '') {
+            // ✅ 清空也回到預設台灣
+            setIsCustomCountry(false);
+            setPhoneCountryCode('+886 台灣');
+        } else {
+            // ✅ 不符合時，保持手動輸入
+            setPhoneCountryCode(value);
+        }
+    };
 
 
 
