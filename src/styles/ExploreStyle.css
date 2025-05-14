@@ -535,7 +535,7 @@
 
 .scroll-down-indicator {
   position: relative;
-  margin-top: 200px; /* ✅ 新增！讓向上箭頭往下推一點 */
+  margin-top: 150px; /* ✅ 新增！讓向上箭頭往下推一點 */
   width: 24px;
   height: 64px;
   margin-left: auto;

@@ -159,7 +159,7 @@
   font-family: var(--font-zh);
   display: grid;
   /* grid-template-columns: 3.1fr 0.65fr 0.9fr 0.3fr 0.3fr; */
-  grid-template-columns: 3fr 0.9fr 1.3fr 0.4fr 0.5fr;
+  grid-template-columns: 3fr 0.9fr 1.4fr 0.5fr 0.5fr;
   align-items: center;
   font-size: 20px;
   font-weight: bold;
@@ -182,7 +182,7 @@
 .mytrip-item {
   display: grid;
   /* grid-template-columns: 3fr 0.7fr 0.8fr 0.3fr 0.3fr; */
-  grid-template-columns: 3fr 1fr 1.2fr 0.5fr 0.5fr;
+  grid-template-columns: 3fr 1fr 1.2fr 0.6fr 0.5fr;
   align-items: center;
   padding: 10px 5px 10px 5px;
   border-bottom: 2px solid var(--primary-color);
