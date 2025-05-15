@@ -7,7 +7,8 @@ import '../styles/MyTrip.css';
 import '../styles/Typography.css';
 import { useTripStore } from '../store/useTripStore';
 import { findTripById } from '../utils/findTripById';
-import { removeTripFromUser } from '../utils/tripUtils';
+import { getUserTrips, removeTripFromUser } from '../utils/tripUtils';
+
 
 function formatDateToZh(date) {
   const days = ['日', '一', '二', '三', '四', '五', '六'];
@@ -36,22 +37,31 @@ function MyTrip() {
 
   useEffect(() => {
   const updateFromSession = () => {
-    const stored = JSON.parse(sessionStorage.getItem('userTrips')) || [];
-    setPendingTrips(stored);
-  };
+  const stored = getUserTrips() || [];
+  setPendingTrips(
+    stored.map(trip => ({
+      tripId: trip.id, // 🔥 把 id 轉成 tripId，符合 MyTrip 用的資料結構
+      peopleCount: trip.peopleCount || 0,
+    }))
+  );
+};
+
 
   updateFromSession();
 
-  const handleConfirmedTripsChanged = () => {
+  const handleTripChange = () => {
     updateFromSession();
   };
 
-  window.addEventListener('confirmedTripsChanged', handleConfirmedTripsChanged);
+  window.addEventListener('confirmedTripsChanged', handleTripChange);
+  window.addEventListener('tripCountChanged', handleTripChange);
 
   return () => {
-    window.removeEventListener('confirmedTripsChanged', handleConfirmedTripsChanged);
+    window.removeEventListener('confirmedTripsChanged', handleTripChange);
+    window.removeEventListener('tripCountChanged', handleTripChange);
   };
 }, [setPendingTrips]);
+
 
 
   useEffect(() => {
