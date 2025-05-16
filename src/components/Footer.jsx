@@ -35,15 +35,15 @@ function Footer() {
             </div>
             <div className="footer-link-item" style={{ gridColumn: '3', gridRow: '1' }}>
               <span
-                className="zh-text-14"
-                style={{ cursor: 'pointer' }}
-                onClick={() => {
-                  navigate('/explore?style=1');
-                  window.scrollTo({ top: 0, left: 0, behavior: 'smooth' });
-                }}
-              >
-                探索旅遊風格
-              </span>
+  className="zh-text-14"
+  style={{ cursor: 'pointer' }}
+  onClick={() => {
+    sessionStorage.setItem('scrollToTop', 'true'); // ✅ 加這一行
+    navigate('/explore?style=1');
+  }}
+>
+  探索旅遊風格
+</span>
             </div>
 
             <div className="footer-link-item" style={{ gridColumn: '4', gridRow: '1' }}>

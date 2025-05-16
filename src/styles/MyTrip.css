@@ -159,7 +159,7 @@
   font-family: var(--font-zh);
   display: grid;
   /* grid-template-columns: 3.1fr 0.65fr 0.9fr 0.3fr 0.3fr; */
-  grid-template-columns: 3fr 0.9fr 1.25fr 0.6fr 0.5fr;
+  grid-template-columns: 3fr 1.2fr 1.5fr 1.1fr 0.1fr;
   align-items: center;
   font-size: 20px;
   font-weight: bold;
@@ -180,9 +180,10 @@
 
 /* 單一行程 */
 .mytrip-item {
+    position: relative;
   display: grid;
   /* grid-template-columns: 3fr 0.7fr 0.8fr 0.3fr 0.3fr; */
-  grid-template-columns: 3fr 1fr 1.2fr 0.6fr 0.5fr;
+  grid-template-columns: 3fr 1.3fr 1.35fr 0.8fr 0.6fr;
   align-items: center;
   padding: 10px 5px 10px 5px;
   border-bottom: 2px solid var(--primary-color);
@@ -239,7 +240,7 @@
 
 .people-select select {
   width: 100%;
-  padding: 8px 8px 8px 12px;
+  padding: 8px 32px 8px 20px;
   /* ✅ 右邊留更多空間給箭頭 */
   border-radius: 6px;
   /* border: 1px solid var(--primary-color); */
@@ -442,7 +443,7 @@
   color: var(--primary-color);
   /* ✅文字主色 */
   font-size: 18px;
-  padding: 8px 8px 8px 8px;
+  padding: 8px 32px 8px 20px;
   /* ✅ 上下留8px，右邊留24px空間放箭頭 */
   background-image: url('/images/arrow-down.svg');
   /* ✅自訂下拉箭頭圖片（路徑自己調整） */
@@ -556,6 +557,40 @@ select::-ms-expand {
   outline: none;
 }
 
+.circle-btn {
+  background: white;
+  width: 28px;
+  height: 28px;
+  border-radius: 50%;
+  border: none;
+  padding: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+  font-size: 25px;
+  cursor: pointer;
+  transition: background 0.2s ease;
+}
+
+.circle-btn:hover {
+  background: #f0f0f0;
+}
+
+/* ❌ 紅色 */
+.delete-btn {
+  position: absolute;
+  right: 25px;
+  top: 50%;
+  transform: translateY(-50%);
+  z-index: 1;
+  color: #FF0000;
+}
+
+/* ➕ 橘色（你的品牌色） */
+.add-btn {
+  color: #FF6F19;
+}
 
 
 

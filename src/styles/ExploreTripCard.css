@@ -11,8 +11,8 @@
 
 .explore-trip-card {
   flex: 0 0 auto;
-  width: 260px;
-  height: 180px;
+  width: 280px;
+  height: 200px;
   scroll-snap-align: start;
   border-radius: 8px;
   overflow: hidden;
@@ -44,6 +44,8 @@
   position: relative;
   width: 100%;
   height: 100%;
+  overflow: hidden;
+  border-radius: 12px;
 }
 
 .trip-card-image img {
@@ -51,6 +53,7 @@
   height: 100%;
   object-fit: cover;
   display: block;
+  border-radius: 12px;
 }
 
 /* 深色遮罩＋文字層 */
@@ -70,14 +73,17 @@
 /* 預設：標題顯示 */
 .explore-trip-title,
 .trip-days {
+  font-size: 18px;
+  font-weight: 500;
+  white-space: nowrap;
   font-family: var(--font-zh);
-  font-size: 14pt !important;
-  font-weight: bold;
   line-height: 1.4;
-  letter-spacing: 5%;
+  letter-spacing: 0.5px;
   margin: 0;
   color: white;
-  transition: opacity 0.3s ease;
+  text-shadow: 0 2px 4px rgba(0, 0, 0, 0.5);
+  max-width: 90%;     /* ✅ 不要太小，也不要設死數字 */
+  padding: 0 8px;     /* ✅ 留一點 padding 防止貼邊 */
 }
 
 .explore-trip-title {
@@ -87,16 +93,24 @@
   -webkit-box-orient: vertical;
   overflow: hidden;
   text-overflow: ellipsis;
-  white-space: normal;
-  margin-bottom: -40px !important;
+  white-space: nowrap;         /* ❗不允許換行 */
+  max-width: 280px;            /* ✅ 可視卡片寬度調整 */
+  margin-bottom: 0px !important;
 }
 
+.trip-card-mask {
+  position: absolute;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.4); /* 遮罩顏色 */
+  transition: opacity 0.3s ease;
+  z-index: 1;
+}
 
-.trip-days {
+/* 被點擊或 hover 時移除遮罩 */
+.explore-trip-card.active .trip-card-mask,
+.explore-trip-card:hover .trip-card-mask {
   opacity: 0;
-  font-size: 13pt;
-  font-weight: 500;
-  white-space: nowrap;
+  pointer-events: none;
 }
 
 /* Hover 切換內容 */
@@ -122,5 +136,58 @@
 @keyframes bounce-up {
   0%, 100% { transform: translateY(0); }
   50% { transform: translateY(-6px); }
+}
+
+.trip-card-image {
+  position: relative;
+  overflow: hidden;
+  border-radius: 12px;
+}
+
+.trip-card-info,
+.trip-card-hover {
+   position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  text-align: center;
+  color: white;
+  z-index: 2;
+  transition: opacity 0.3s ease;
+  text-shadow: 0 2px 6px rgba(0, 0, 0, 0.5);
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.trip-card-info {
+  opacity: 1;
+  pointer-events: auto;
+}
+
+.trip-card-hover {
+  opacity: 0;
+  pointer-events: none;
+  font-weight: 600;
+  font-size: 18px;
+}
+
+/* Hover 切換顯示邏輯 */
+.explore-trip-card:hover .trip-card-info {
+  opacity: 0;
+  pointer-events: none;
+}
+
+.explore-trip-card:hover .trip-card-hover {
+  opacity: 1;
+  pointer-events: auto;
+}
+
+.trip-hover-text {
+  font-size: 18px;
+  font-weight: 600;
+  letter-spacing: 0.5px;
+  font-family: var(--font-zh);
+  text-shadow: 0 2px 6px rgba(0, 0, 0, 3); /* ✅ 加深背景對比 */
 }
 

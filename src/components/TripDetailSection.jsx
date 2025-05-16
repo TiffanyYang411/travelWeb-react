@@ -9,9 +9,11 @@ import '../styles/TripDetailVertical.css';
 function TripDetailSection({ trip }) {
   const [currentDayIndex, setCurrentDayIndex] = useState(0);
   const [showAddMessage, setShowAddMessage] = useState(false);
+  const [showImageButton, setShowImageButton] = useState(true);
+  const [imageFadeKey, setImageFadeKey] = useState(0); // ✅ 新增：獨立圖片動畫控制
   const daySelectionRef = useRef(null);
   const navigate = useNavigate();
-  const { pendingTrips, setPendingTrips } = useTripStore(); // ✅ 新增：取得 TripStore 的資料
+  const { pendingTrips, setPendingTrips } = useTripStore();
 
   const parsedDays = Array.isArray(trip?.itinerary)
     ? trip.itinerary
@@ -40,38 +42,46 @@ function TripDetailSection({ trip }) {
   }, [currentDayIndex, parsedDays.length]);
 
   const handleAddTrip = () => {
-  console.log('📌 點擊加入行程按鈕');
-  if (!isLoggedIn()) {
-    console.log('🔒 尚未登入，導向登入頁');
-    sessionStorage.setItem("returnTo", window.location.pathname);
-    navigate("/login");
-  } else {
-    console.log('✅ 已登入，加入行程');
+    console.log('📌 點擊加入行程按鈕');
+    if (!isLoggedIn()) {
+      console.log('🔒 尚未登入，導向登入頁');
+      sessionStorage.setItem("returnTo", window.location.pathname);
+      navigate("/login");
+    } else {
+      console.log('✅ 已登入，加入行程');
 
-    const alreadyExists = pendingTrips.some(t => t.tripId === trip.id);
-    if (!alreadyExists) {
-      setPendingTrips([...pendingTrips, { tripId: trip.id, peopleCount: '' }]); // ✅ 改成空白！
+      const alreadyExists = pendingTrips.some(t => t.tripId === trip.id);
+      if (!alreadyExists) {
+        setPendingTrips([...pendingTrips, { tripId: trip.id, peopleCount: '' }]);
+      }
+
+      addTripToUser(trip);
+      window.dispatchEvent(new CustomEvent("tripCountChanged"));
+      window.dispatchEvent(new CustomEvent("tripAdded"));
+      window.dispatchEvent(new Event('openCartDropdown'));
+
+      setShowAddMessage(true);
+      setTimeout(() => {
+        setShowAddMessage(false);
+      }, 1500);
     }
+  };
 
-    addTripToUser(trip);
-
-    window.dispatchEvent(new CustomEvent("tripCountChanged"));
-    window.dispatchEvent(new CustomEvent("tripAdded"));
-    window.dispatchEvent(new Event('openCartDropdown'));
-
-    setShowAddMessage(true);
+  const handleDayClick = (i) => {
+    if (i === currentDayIndex) return;
+    setShowImageButton(false);
+    setCurrentDayIndex(i);
+    setImageFadeKey(prev => prev + 1); // ✅ 更新動畫 key
     setTimeout(() => {
-      setShowAddMessage(false);
-    }, 1500);
-  }
-};
-
+      setShowImageButton(true);
+    }, 400);
+  };
 
   return (
     <div className="trip-detail-vertical">
       <div className="trip-header">
         <h2 className="trip-vertical-title zh-title-36">{trip.title}・{trip.days}</h2>
-        <p className="trip-price zh-title-28">NT${trip.price?.toLocaleString()}／人</p>
+        <p className="trip-price zh-title-28">NT$ {trip.price?.toLocaleString()}／人</p>
         <p className="trip-highlight zh-text-20">
           行程亮點：{trip.highlights?.filter(Boolean).join('、')}
         </p>
@@ -79,29 +89,45 @@ function TripDetailSection({ trip }) {
 
       <div className="trip-detail-main-layout">
         <div className="trip-layout-image">
+          {/* ✅ 圖片獨立動畫區塊 */}
           <div className="trip-image-box">
-            <img src={currentDay.image} alt={`Image for ${currentDay.day}`} />
-            <button className="add-trip-btn-vertical" onClick={handleAddTrip}>加入行程</button>
+            <div className="trip-image-wrapper">
+              <img
+                key={currentDayIndex}
+                className="trip-image-fade"
+                src={currentDay.image}
+                alt={`Image for ${currentDay.day}`}
+              />
+            </div>
+          </div>
+
+          {/* ✅ 獨立的按鈕區塊，不與圖片共享動畫 */}
+          <div className="trip-button-wrapper">
+            <button className="add-trip-btn-vertical" onClick={handleAddTrip}>
+              加入行程
+            </button>
           </div>
         </div>
+
 
         <div className="trip-layout-switch">
           <div className="day-nav">
             {parsedDays.map((d, i) => (
-              <button
-                key={i}
-                className={i === currentDayIndex ? 'day-btn active' : 'day-btn'}
-                onClick={() => setCurrentDayIndex(i)}
-              >
-                <span className="star">✦</span>{`第${convertToChineseNumber(i + 1)}天`}
-              </button>
+              <div key={i} className="day-slot">
+                <button
+                  className={i === currentDayIndex ? 'day-btn active' : 'day-btn'}
+                  onClick={() => handleDayClick(i)}
+                >
+                  <span className="star">✦</span>{`第${convertToChineseNumber(i + 1)}天`}
+                </button>
+              </div>
             ))}
           </div>
         </div>
 
         <div className="trip-layout-content">
           <div className="trip-day-selection-box" ref={daySelectionRef}>
-            <div className="trip-day-content">
+            <div key={currentDayIndex} className="trip-day-content fade-fade">
               <div className="day-title zh-title-24">{currentDay.title}</div>
               {currentDay.sections?.map((section, idx) => (
                 <div key={idx} className="time-section">
@@ -177,6 +203,7 @@ function convertToChineseNumber(num) {
 }
 
 export default TripDetailSection;
+
 
 
 

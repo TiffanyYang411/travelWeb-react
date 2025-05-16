@@ -295,7 +295,8 @@ function MyTrip() {
 
 
                     </div>
-                    <button className="remove-btn" onClick={() => handleRemoveTrip(trip.tripId)}>❌</button>
+                    <button className="circle-btn delete-btn" onClick={() => handleRemoveTrip(trip.tripId)}>✕</button>
+
                   </div>
                 </div>
               );
@@ -303,14 +304,15 @@ function MyTrip() {
           </div>
 
           <div className="mytrip-add-trip-wrapper">
-            <button className="mytrip-add-btn" onClick={() => navigate('/explore')}>
-              ＋
-            </button>
+            <button className="circle-btn add-btn" onClick={() => navigate('/explore')}>
+  ＋
+</button>
+
           </div>
 
           <div className="mytrip-summary">
             <p>日期：{startDate ? formatDateToZh(startDate) : '請選擇'} — {endDate ? formatDateToZh(endDate) : '待計算'}</p>
-            <p>價格：<strong>NT${isNaN(totalPrice) ? 0 : totalPrice.toLocaleString()}</strong></p>
+            <p>價格：<strong>NT$ {isNaN(totalPrice) ? 0 : totalPrice.toLocaleString()}</strong></p>
             <button
               className={`next-step-btn zh-text-18 ${canProceed() ? '' : 'disabled'}`}
               onClick={handleNext}

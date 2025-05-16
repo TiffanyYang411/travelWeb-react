@@ -12,6 +12,7 @@ import { Navigation, EffectFade, Autoplay } from 'swiper/modules';
 import 'swiper/css/navigation';
 import 'swiper/css/effect-fade';
 import 'swiper/css';
+import logo from '../images/Logo.svg';
 
 function ExploreStyle() {
   const navigate = useNavigate();
@@ -30,9 +31,10 @@ function ExploreStyle() {
   const activeTrip = selectedTrips[activeTripIndex];
   const isTripValid = activeTrip && Array.isArray(activeTrip.itinerary) && activeTrip.itinerary.length > 0;
 
-  const [showTripCards, setShowTripCards] = useState(false);
+  const [showTripCards, setShowTripCards] = useState(true);
   const [hasInteracted, setHasInteracted] = useState(false);
   const [isLoading, setIsLoading] = useState(true);
+  const [hideOverlay, setHideOverlay] = useState(false);
   const [loadedImages, setLoadedImages] = useState({});
 
   const tripCardRef = useRef(null);
@@ -42,23 +44,48 @@ function ExploreStyle() {
   const isScrollingToDetail = useRef(false);
 
   useEffect(() => {
+    const shouldScrollToTop = sessionStorage.getItem('scrollToTop') === 'true';
+
+    if (shouldScrollToTop) {
+      setTimeout(() => {
+        swiperRef.current?.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        sessionStorage.removeItem('scrollToTop');
+      }, 100);
+    } else {
+      setTimeout(() => {
+        tripCardRef.current?.scrollIntoView({ behavior: 'auto', block: 'start' });
+      }, 10);
+    }
+
     const timeout = setTimeout(() => {
-      swiperRef.current?.scrollIntoView({ behavior: 'auto', block: 'start' });
-    }, 100);
-
-    const release = setTimeout(() => {
+      const overlay = document.querySelector('.loading-overlay');
+      if (overlay) {
+        overlay.classList.add('fade-out');
+      }
+      setTimeout(() => setHideOverlay(true), 800);
       setIsLoading(false);
-    }, 1800);
+    }, 1400);
 
-    return () => {
-      clearTimeout(timeout);
-      clearTimeout(release);
-    };
-  }, []);
+    return () => clearTimeout(timeout);
+  }, [location.search]);
 
   useEffect(() => {
-    window.scrollTo({ top: 0, left: 0, behavior: 'smooth' });
-  }, [location.search]);
+    const styleParam = parseInt(searchParams.get('style'));
+    const matchedStyle = travelStyles.find(style => style.id === styleParam);
+    if (matchedStyle) {
+      setSelectedStyleId(matchedStyle.id);
+      setActiveTripIndex(null);
+      setShowTripCards(true);
+    }
+  }, [searchParams]);
+
+  useEffect(() => {
+    if (showTripCards && tripCardRef.current) {
+      setTimeout(() => {
+        tripCardRef.current?.scrollIntoView({ behavior: 'auto', block: 'start' });
+      }, 30);
+    }
+  }, [showTripCards]);
 
   const handleTripClick = (index) => {
     setActiveTripIndex(index);
@@ -115,16 +142,16 @@ function ExploreStyle() {
 
   return (
     <>
-      {isLoading && (
-        <div className="loading-overlay">
-          <div className="mask top-mask" />
-          <div className="mask bottom-mask" />
+      {!hideOverlay && (
+        <div className="loading-overlay elegant">
+          <div className="starfield"></div>
+          <div className="spinner elegant" style={{ borderTopColor: 'var(--secondary-color-xlight)' }}></div>
           <img
-            className="loading-logo"
-            src={`${import.meta.env.BASE_URL}images/logo.svg`}
+            className="loading-logo bounce"
+            src={logo}
             alt="ÉLAN Journeys Logo"
           />
-          <div className="loading-slogan">Where your Nordic dream begins…</div>
+          <div className="loading-slogan fade-in-up-delay">Where your Nordic dream begins…</div>
         </div>
       )}
 
@@ -227,30 +254,6 @@ function easeInOutQuart(x) {
 }
 
 export default ExploreStyle;
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 

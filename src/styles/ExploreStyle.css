@@ -214,12 +214,15 @@
   opacity: 0;
   pointer-events: none;
   /* transition: opacity 0.6s ease; */
+  display: none;
 }
 
 .explore-trip-card-wrapper.visible {
   opacity: 1;
   pointer-events: auto;
   /* transition: opacity 0.6s ease; */
+display: flex; /* or grid */
+  flex-direction: column;
 }
 
 .explore-trip-card {
@@ -366,13 +369,18 @@
   animation: overlayFadeOut 0.5s ease-out 2.4s forwards;
 }
 
-@keyframes overlayFadeOut {
-  to {
+
+
+@keyframes fadeInOverlay {
+  0% {
     opacity: 0;
-    visibility: hidden;
+    background: rgba(0,0,0,0);
+  }
+  100% {
+    opacity: 1;
+    background: linear-gradient(to bottom, rgba(0,0,0,0.1), rgba(0,0,0,0.7));
   }
 }
-
 /* 雙遮罩斜角區塊（增加陰影 + 空間感） */
 .mask {
   position: absolute;
@@ -659,32 +667,88 @@
 .trip-style-tabs {
   display: flex;
   justify-content: center;
-  gap: 16px;
-  margin: 48px 0 24px;
+  gap: 30px;
+  margin: 120px 0 50px;
   flex-wrap: wrap;
 }
 
 .trip-style-tab {
-  background: transparent;
-  color: white;
-  border: 2px solid white;
-  padding: 10px 20px;
+  position: relative;
+  background: rgba(255, 255, 255, 0.05);
+  color: #ffffff;
+  border: 1.5px solid rgba(255, 255, 255, 0.2);
+  padding: 16px 26px;
+  width: 220px; /* ✅ 固定寬度 */
   border-radius: 999px;
+  font-size: 20px;
+  font-weight: bold;
+  letter-spacing: 0.5px;
+  font-family: var(--font-zh);
   cursor: pointer;
-  transition: all 0.3s ease;
-}
-
-.trip-style-tab.active {
-  background-color: white;
-  color: #142E3F;
-  /* 你的主色調 */
+  transition: all 0.3s ease-in-out;
+  backdrop-filter: blur(6px);
+  box-shadow: 0 0 0px rgba(255, 255, 255, 0.3);
+  animation: glowPulse 4s ease-in-out infinite;
+  z-index: 0;
 }
 
 .trip-style-tab:hover {
-  background-color: #DCE8ED;
-  /* 輔助色 */
-  color: #142E3F;
+  color: #ffffff;
+  border-color: rgba(255, 255, 255, 0.4);
+  box-shadow:
+    0 0 6px rgba(255, 255, 255, 0.25),
+    0 0 12px rgba(255, 255, 255, 0.15),
+    0 0 20px rgba(255, 255, 255, 0.08);
+  animation: glowPulseStrong 2.5s ease-in-out infinite;
+  transform: translateY(-2px);
 }
+
+.trip-style-tab.active {
+  background: linear-gradient(135deg, #ffffff, #dce8ed);
+  color: #142E3F;
+  font-weight: 600;
+  border-color: transparent;
+  box-shadow:
+    0 0 12px rgba(255, 255, 255, 0.25),
+    0 0 20px rgba(255, 255, 255, 0.15),
+    0 0 32px rgba(255, 255, 255, 0.1);
+  animation: none;
+}
+
+
+@keyframes glowPulse {
+  0% {
+    box-shadow: 0 0 0px rgba(255, 255, 255, 0.2);
+  }
+  50% {
+    box-shadow:
+      0 0 6px rgba(255, 255, 255, 0.3),
+      0 0 10px rgba(255, 255, 255, 0.15);
+  }
+  100% {
+    box-shadow: 0 0 0px rgba(255, 255, 255, 0.2);
+  }
+}
+
+@keyframes glowPulseStrong {
+  0% {
+    box-shadow:
+      0 0 6px rgba(255, 255, 255, 0.25),
+      0 0 14px rgba(255, 255, 255, 0.1);
+  }
+  50% {
+    box-shadow:
+      0 0 10px rgba(255, 255, 255, 0.3),
+      0 0 24px rgba(255, 255, 255, 0.15),
+      0 0 36px rgba(255, 255, 255, 0.1);
+  }
+  100% {
+    box-shadow:
+      0 0 6px rgba(255, 255, 255, 0.25),
+      0 0 14px rgba(255, 255, 255, 0.1);
+  }
+}
+
 
 .explore-style-card .image-overlay {
   background: linear-gradient(to bottom, rgba(20, 46, 63, 0.3), rgba(20, 46, 63, 0.7));
@@ -702,7 +766,7 @@
 .swiper-slide .scroll-up-indicator {
   opacity: 0;
   /* ✅ 輕微下滑感 */
-  transition: opacity 1.2s cubic-bezier(0.25, 0.1, 0.25, 1),
+  transition: opacity 3s cubic-bezier(0.25, 0.1, 0.25, 1),
   transform 2.5s cubic-bezier(0.25, 0.1, 0.25, 1);
   transition-delay: 0.3s;
   /* ⬅️ 延遲 0.1 秒進場，配合背景淡入 */
@@ -756,7 +820,7 @@
   background-repeat: no-repeat;
   opacity: 0;
   transform: scale(1.05);
-  transition: opacity 1.6s ease-in-out, transform 1.6s ease-in-out;
+  transition: opacity 4s ease-in-out, transform 4s ease-in-out;
   z-index: 0;
 }
 
@@ -805,4 +869,310 @@
 
 .swiper-slide-active .image-background {
   opacity: 1;
+}
+
+.loading-overlay.new-style {
+  position: fixed;
+  inset: 0;
+  background: linear-gradient(135deg, #142E3F, #5d7e91);
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  z-index: 9999;
+  animation: fadeOutOverlay 0.8s ease 2.4s forwards;
+}
+
+@keyframes fadeOutOverlay {
+  to {
+    opacity: 0;
+    visibility: hidden;
+  }
+}
+
+.spinner {
+  width: 60px;
+  height: 60px;
+  border: 6px solid rgba(255,255,255,0.2);
+  border-top: 6px solid #ffffff;
+  border-radius: 50%;
+  animation: spin 1.2s linear infinite;
+  margin-bottom: 20px;
+}
+
+@keyframes spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+.fade-in-up {
+  opacity: 0;
+  transform: translateY(20px);
+  animation: fadeUp 1s ease-out forwards 0.3s;
+}
+
+.fade-in-up-delay {
+  opacity: 0;
+  transform: translateY(30px);
+  animation: fadeUp 1s ease-out forwards 0.8s;
+  font-size: 20px;
+  color: #fff;
+  margin-top: 16px;
+  font-family: var(--font-en);
+}
+
+@keyframes fadeUp {
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* 高級金色光暈背景 */
+.loading-overlay.gold-glow {
+  position: fixed;
+  inset: 0;
+  background: radial-gradient(circle at center, #fff8e1 0%, #f5e7b4 40%, #e5c57a 70%, #a88e4a 100%);
+  z-index: 9999;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  animation: fadeOutOverlay 0.6s ease-out forwards 1.6s;
+}
+
+/* 中央金色 loading spinner */
+.spinner.gold {
+  width: 64px;
+  height: 64px;
+  border: 6px solid rgba(255, 223, 150, 0.4);
+  border-top: 6px solid #d4af37;
+  border-radius: 50%;
+  animation: spin 1s linear infinite, pulseGlow 2s ease-in-out infinite;
+  margin-bottom: 24px;
+}
+
+/* Logo 與 slogan 動畫 */
+.loading-logo.fade-in-up {
+  animation: fadeInUp 1s ease-out forwards;
+}
+
+.loading-slogan.fade-in-up-delay {
+  animation: fadeInUp 1s ease-out forwards 0.4s;
+  font-size: 20px;
+  color: #4a3c1a;
+  font-family: var(--font-en);
+  margin-top: 12px;
+  opacity: 0;
+}
+
+/* 關鍵動畫 */
+@keyframes spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+@keyframes pulseGlow {
+  0%, 100% {
+    box-shadow: 0 0 8px rgba(255, 215, 0, 0.3);
+  }
+  50% {
+    box-shadow: 0 0 20px rgba(255, 215, 0, 0.6);
+  }
+}
+
+@keyframes fadeInUp {
+  from {
+    transform: translateY(20px);
+    opacity: 0;
+  }
+  to {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}
+
+@keyframes fadeOutOverlay {
+  to {
+    opacity: 0;
+    visibility: hidden;
+    pointer-events: none;
+  }
+}
+
+/* ✅ 遮罩整體區塊 */
+.loading-overlay.elegant {
+  position: fixed;
+  inset: 0;
+  background: linear-gradient(to bottom, #142E3F, #1E3A4C);
+  z-index: 9999;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  pointer-events: none;
+  animation: fadeOutOverlay 0.5s ease-out 1.6s forwards;
+  transition: opacity 0.4s ease-out;
+}
+
+/* ✅ Spinner 優雅旋轉效果 */
+.spinner.elegant {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 60px;
+  height: 60px;
+  border: 6px solid rgba(255, 255, 255, 0.2);
+  border-top: 6px solid var(--secondary-color-xlight); /* 使用網站主色 */
+  border-radius: 50%;
+  animation: spin 1.4s linear infinite, pulseWhite 2s ease-in-out infinite;
+  transform: translate(-50%, -50%);
+  z-index: 10001;
+}
+
+@keyframes spin {
+  to {
+    transform: translate(-50%, -50%) rotate(360deg);
+  }
+}
+
+/* 替代 pulseGlow → 用淡白光暈效果 */
+@keyframes pulseWhite {
+  0%, 100% {
+    box-shadow: 0 0 12px rgba(246, 251, 252, 0.2);
+  }
+  50% {
+    box-shadow: 0 0 24px rgba(246, 251, 252, 0.5);
+  }
+}
+
+
+/* ✅ Logo 輕柔跳動動畫 */
+.loading-logo.bounce {
+  width: 220px;
+  animation: logoBounce 1.8s ease-in-out infinite;
+  z-index: 10001;
+}
+
+@keyframes logoBounce {
+  0%, 100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-10px);
+  }
+}
+
+/* ✅ 標語淡入上升效果 */
+.loading-slogan.fade-in-up-delay {
+  font-family: var(--font-en);
+  font-size: 18px;
+  color: #ffffffcc;
+  margin-top: 20px;
+  opacity: 0;
+  animation: fadeInUp 1s ease forwards 1s;
+  z-index: 10001;
+}
+
+@keyframes fadeInUp {
+  from {
+    transform: translateY(20px);
+    opacity: 0;
+  }
+  to {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}
+
+/* ✅ 遮罩淡出 */
+@keyframes fadeOutOverlay {
+  to {
+    opacity: 0;
+    visibility: hidden;
+    pointer-events: none;
+  }
+}
+
+.loading-overlay.fade-out {
+  animation: fadeOutOverlay 1.6s ease forwards;
+}
+
+@keyframes fadeOutOverlay {
+  from {
+    opacity: 1;
+  }
+  to {
+    opacity: 0;
+    visibility: hidden;
+    pointer-events: none;
+  }
+}
+
+
+
+/* ✨ LOGO 上下 bounce */
+.loading-logo.bounce {
+  position: absolute;
+  top: 45%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 220px;
+  height: auto;
+  animation: bounceUpDown 2s ease-in-out infinite;
+  z-index: 10001;
+  opacity: 1;
+  pointer-events: none;
+  background-color: transparent;
+}
+
+
+
+@keyframes bounceUpDown {
+  0%, 100% {
+    transform: translate(-50%, -50%) translateY(0);
+  }
+  50% {
+    transform: translate(-50%, -50%) translateY(-20px);
+  }
+}
+
+/* ✨ slogan 淡入延遲 */
+.loading-slogan.fade-in-up-delay {
+  position: absolute;
+  top: calc(50% + 80px);
+  left: 50%;
+  transform: translateX(-50%);
+  font-size: 18px;
+  color: #ffffffcc;
+  font-family: var(--font-en);
+  animation: fadeInUp 1.6s ease forwards 1.2s;
+  z-index: 10001;
+  opacity: 0;
+}
+
+@keyframes fadeInUp {
+  from {
+    transform: translateX(-50%) translateY(30px);
+    opacity: 0;
+  }
+  to {
+    transform: translateX(-50%) translateY(0);
+    opacity: 1;
+  }
+}
+
+/* ✨ 星光背景可選 */
+.starfield {
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(circle at 20% 30%, #fff2 1px, transparent 2px),
+              radial-gradient(circle at 60% 70%, #fff3 1px, transparent 2px),
+              radial-gradient(circle at 80% 20%, #fffb 1px, transparent 2px);
+  background-size: cover;
+  background-repeat: no-repeat;
+  z-index: 10000;
+  pointer-events: none;
 }

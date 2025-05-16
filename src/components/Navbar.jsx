@@ -95,7 +95,7 @@ function Navbar() {
   };
 
   const navLinks = [
-    { name: '探索旅遊風格', path: '/explore' },
+  { name: '探索旅遊風格', path: '/explore', scrollToTop: true },
     { name: '我的行程', path: '/my-trip' },
     ...(loggedIn ? [
       { name: '即將出發', path: '/upcoming-trips' },
@@ -113,12 +113,30 @@ function Navbar() {
 
       <div className={`navbar-center ${loggedIn ? 'shift-right' : ''}`}>
         <ul className="navbar-links">
-          {navLinks.map((link) => (
-            <li key={link.path} className={location.pathname === link.path ? 'active' : ''}>
-              <Link to={link.path} className="zh-text-16">{link.name}</Link>
-            </li>
-          ))}
-        </ul>
+  {navLinks.map((link) => (
+    <li
+      key={link.path}
+      className={location.pathname === link.path.split('?')[0] ? 'active' : ''}
+    >
+      {link.scrollToTop ? (
+        <Link
+          to={link.path}
+          className="zh-text-16"
+          onClick={() => {
+            sessionStorage.setItem('scrollToTop', 'true');
+          }}
+        >
+          {link.name}
+        </Link>
+      ) : (
+        <Link to={link.path} className="zh-text-16">
+          {link.name}
+        </Link>
+      )}
+    </li>
+  ))}
+</ul>
+
       </div>
 
       <div className="navbar-icons">

@@ -58,7 +58,7 @@ export default function TripDetail() {
 
       <h1 className="trip-detail-title">{trip.title}</h1>
       <p className="trip-days">{trip.days}</p>
-      <p className="trip-price">NT${trip.price.toLocaleString()}</p>
+      <p className="trip-price">NT$ {trip.price.toLocaleString()}</p>
 
       <button className="add-trip-btn zh-text-18" onClick={handleAddTrip}>
         加入行程 ➕
