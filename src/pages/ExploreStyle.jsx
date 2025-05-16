@@ -1,4 +1,3 @@
-// src/pages/ExploreStyle.jsx
 import { useSearchParams, useNavigate, useLocation } from 'react-router-dom';
 import { useState, useEffect, useRef } from 'react';
 import { travelStyles } from '../data/travelStyles';
@@ -9,8 +8,9 @@ import '../styles/TripDetailVertical.css';
 import ExploreTripCard from '../components/ExploreTripCard';
 import TripDetailSection from '../components/TripDetailSection';
 import { Swiper, SwiperSlide } from 'swiper/react';
-import { Navigation } from 'swiper/modules';
+import { Navigation, EffectFade, Autoplay } from 'swiper/modules';
 import 'swiper/css/navigation';
+import 'swiper/css/effect-fade';
 import 'swiper/css';
 
 function ExploreStyle() {
@@ -19,35 +19,27 @@ function ExploreStyle() {
   const [searchParams] = useSearchParams();
   const styleParam = parseInt(searchParams.get('style'));
   const initialIndex = travelStyles.findIndex(style => style.id === styleParam);
-  const [selectedStyleIndex, setSelectedStyleIndex] = useState(initialIndex !== -1 ? initialIndex : 0);
-  const selectedStyle = travelStyles[selectedStyleIndex];
 
-  const filteredStyleTrips = tripData.find(item => item.styleId === selectedStyle.id);
-  const filteredTrips = filteredStyleTrips ? filteredStyleTrips.trips : [];
+  const [selectedStyleId, setSelectedStyleId] = useState(
+    initialIndex !== -1 ? travelStyles[initialIndex].id : travelStyles[0].id
+  );
+
+  const selectedTrips = tripData.find(item => item.styleId === selectedStyleId)?.trips || [];
 
   const [activeTripIndex, setActiveTripIndex] = useState(null);
-  const activeTrip = filteredTrips[activeTripIndex];
+  const activeTrip = selectedTrips[activeTripIndex];
   const isTripValid = activeTrip && Array.isArray(activeTrip.itinerary) && activeTrip.itinerary.length > 0;
 
   const [showTripCards, setShowTripCards] = useState(false);
   const [hasInteracted, setHasInteracted] = useState(false);
   const [isLoading, setIsLoading] = useState(true);
+  const [loadedImages, setLoadedImages] = useState({});
 
   const tripCardRef = useRef(null);
   const swiperRef = useRef(null);
   const swiperInstanceRef = useRef(null);
   const tripDetailRef = useRef(null);
-  const lastScrollY = useRef(0);
   const isScrollingToDetail = useRef(false);
-
-  useEffect(() => {
-    const newStyleParam = parseInt(searchParams.get('style'));
-    const newIndex = travelStyles.findIndex(style => style.id === newStyleParam);
-    if (newIndex !== -1 && newIndex !== selectedStyleIndex) {
-      setSelectedStyleIndex(newIndex);
-      setActiveTripIndex(null);
-    }
-  }, [searchParams]);
 
   useEffect(() => {
     const timeout = setTimeout(() => {
@@ -65,51 +57,8 @@ function ExploreStyle() {
   }, []);
 
   useEffect(() => {
-  let triggered = false;
-
-  const handleScroll = () => {
-    if (triggered) return;
-
-    const scrollY = window.scrollY;
-    const windowHeight = window.innerHeight;
-    const swiperTop = swiperRef.current?.offsetTop || 0;
-    const tripCardTop = tripCardRef.current?.offsetTop || 0;
-    const triggerPoint = swiperTop + windowHeight * 0.4; // ⬅️ 只到40%，提早很多！
-
-    if (!showTripCards && scrollY > triggerPoint && !isScrollingToDetail.current) {
-      triggered = true;
-      setShowTripCards(true); // ✅ 馬上出現
-      if (Math.abs(scrollY - tripCardTop) > 150) { 
-        window.scrollTo({ top: tripCardTop, behavior: 'auto' }); // ✅ 超過200px直接跳
-      } else {
-        window.scrollTo({ top: tripCardTop, behavior: 'smooth' }); // 不超過就smooth
-      }
-      setTimeout(() => {
-        triggered = false;
-      }, 150); // ⬅️ 超短解除封鎖
-    }
-
-    if (showTripCards && scrollY < triggerPoint && !isScrollingToDetail.current) {
-      triggered = true;
-      if (Math.abs(scrollY - swiperTop) > 200) {
-        window.scrollTo({ top: swiperTop, behavior: 'auto' });
-      } else {
-        window.scrollTo({ top: swiperTop, behavior: 'smooth' });
-      }
-      setTimeout(() => {
-        setShowTripCards(false);
-        setActiveTripIndex(null);
-        triggered = false;
-      }, 150);
-    }
-  };
-
-  window.addEventListener('scroll', handleScroll);
-  return () => window.removeEventListener('scroll', handleScroll);
-}, [hasInteracted, showTripCards]);
-
-
-
+    window.scrollTo({ top: 0, left: 0, behavior: 'smooth' });
+  }, [location.search]);
 
   const handleTripClick = (index) => {
     setActiveTripIndex(index);
@@ -142,25 +91,6 @@ function ExploreStyle() {
 
     requestAnimationFrame(scroll);
   };
-
-  useEffect(() => {
-    if (hasInteracted && showTripCards && tripCardRef.current) {
-      tripCardRef.current.scrollIntoView({ behavior: 'smooth', block: 'start' });
-    }
-  }, [showTripCards, hasInteracted]);
-
-  useEffect(() => {
-    const timeout = setTimeout(() => {
-      if (swiperInstanceRef.current) {
-        swiperInstanceRef.current.slideToLoop(selectedStyleIndex, 300);
-      }
-    }, 100);
-    return () => clearTimeout(timeout);
-  }, [selectedStyleIndex]);
-
-  useEffect(() => {
-    window.scrollTo({ top: 0, left: 0, behavior: 'smooth' });
-  }, [location.search]);
 
   const handleAddToTrip = (tripId) => {
     const isLoggedIn = localStorage.getItem("isLoggedIn");
@@ -201,46 +131,46 @@ function ExploreStyle() {
       <section className="explore-style">
         <div ref={swiperRef} className="explore-swiper-wrapper">
           <Swiper
-            slidesPerView={1}
-            spaceBetween={0}
-            grabCursor={true}
+            modules={[Navigation, EffectFade, Autoplay]}
+            effect="fade"
+            autoplay={{ delay: 3500, disableOnInteraction: false }}
             loop={true}
-            modules={[Navigation]}
-            speed={800}
-            centeredSlides={true}
-            initialSlide={selectedStyleIndex}
-            onSlideChange={(swiper) => {
-              setSelectedStyleIndex(swiper.realIndex);
-              setActiveTripIndex(null);
-            }}
-            onSwiper={(swiper) => {
-              swiperInstanceRef.current = swiper;
-            }}
+            speed={1200}
             navigation={{
               nextEl: '.explore-swiper-next',
               prevEl: '.explore-swiper-prev',
             }}
           >
-            {travelStyles.map((style, index) => (
+            {travelStyles.map((style) => (
               <SwiperSlide key={style.id} style={{ width: '100vw', height: '100vh' }}>
-                <div
-                  className={`explore-style-card ${selectedStyleIndex === index ? 'active' : ''}`}
-                >
+                <div className="explore-style-card">
                   <div className="image-container">
-                    <img src={style.exploreImage} alt={style.title} />
+                    <div className="image-background" style={{ backgroundImage: `url(${style.exploreImage})` }} />
                     <div className="image-overlay"></div>
+                    <img
+                      src={style.exploreImage}
+                      alt=""
+                      style={{ display: 'none' }}
+                      onLoad={() =>
+                        setLoadedImages((prev) => ({ ...prev, [style.id]: true }))
+                      }
+                    />
                   </div>
 
-                  <div className="explore-style-overlay">
-                    <h2 className="zh-title-48">{style.title}</h2>
-                    <p className="zh-text-24">{style.description}</p>
-                  </div>
+                  {loadedImages[style.id] && (
+                    <div className="explore-style-overlay">
+                      <h2 className="zh-title-48">{style.title}</h2>
+                      <p className="zh-text-24">{style.description}</p>
+                    </div>
+                  )}
 
-                  <div className="scroll-up-indicator">
-                    <div className="chevron"></div>
-                    <div className="chevron"></div>
-                    <div className="chevron"></div>
-                  </div>
+                  {loadedImages[style.id] && (
+                    <div className="scroll-up-indicator">
+                      <div className="chevron"></div>
+                      <div className="chevron"></div>
+                      <div className="chevron"></div>
+                    </div>
+                  )}
                 </div>
               </SwiperSlide>
             ))}
@@ -250,20 +180,25 @@ function ExploreStyle() {
           <div className="explore-swiper-next swiper-arrow">›</div>
         </div>
 
-        {/* 🔥 只在showTripCards時才出現的 向上箭頭 */}
-        {showTripCards && (
-          <div className="scroll-down-indicator" onClick={() => {
-            swiperRef.current?.scrollIntoView({ behavior: 'smooth', block: 'start' });
-          }}>
-            <div className="chevron chevron-up"></div>
-            <div className="chevron chevron-up"></div>
-            <div className="chevron chevron-up"></div>
-          </div>
-        )}
+        <div className="trip-style-tabs">
+          {travelStyles.map(style => (
+            <button
+              key={style.id}
+              className={`trip-style-tab ${selectedStyleId === style.id ? 'active' : ''}`}
+              onClick={() => {
+                setSelectedStyleId(style.id);
+                setActiveTripIndex(null);
+                setShowTripCards(true);
+              }}
+            >
+              {style.title}
+            </button>
+          ))}
+        </div>
 
         <div ref={tripCardRef} className={`explore-trip-card-wrapper ${showTripCards ? 'visible' : 'hidden'}`}>
           <div className="explore-trip-card-container">
-            {filteredTrips.map((trip, index) => (
+            {selectedTrips.map((trip, index) => (
               <ExploreTripCard
                 key={trip.id}
                 trip={trip}
@@ -292,6 +227,7 @@ function easeInOutQuart(x) {
 }
 
 export default ExploreStyle;
+
 
 
 

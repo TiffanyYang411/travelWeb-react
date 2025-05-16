@@ -19,6 +19,8 @@
   width: 100vw;
   height: 100vh;
   overflow: hidden;
+  background-color: transparent !important;
+  /* ✅ 確保不閃出色塊 */
 }
 
 .explore-style-card {
@@ -31,6 +33,8 @@
   justify-content: flex-end;
   position: relative;
   transition: transform 0.3s ease;
+  background-color: transparent !important;
+  /* ✅ 確保背景是透明 */
 }
 
 .explore-style-card img {
@@ -93,7 +97,7 @@
   cursor: pointer;
   z-index: 10;
   user-select: none;
-  transition: background-color 0.3s;
+  /* transition: background-color 0.3s; */
 }
 
 .swiper-arrow:hover {
@@ -165,14 +169,17 @@
   25% {
     opacity: 1;
   }
+
   33% {
     opacity: 1;
     transform: translate(-50%, 30px) scale3d(1, 1, 1);
   }
+
   67% {
     opacity: 1;
     transform: translate(-50%, 40px) scale3d(1, 1, 1);
   }
+
   100% {
     opacity: 0;
     transform: translate(-50%, 55px) scale3d(0.5, 0.5, 0.5);
@@ -206,19 +213,19 @@
 .explore-trip-card-wrapper.hidden {
   opacity: 0;
   pointer-events: none;
-  transition: opacity 0.6s ease;
+  /* transition: opacity 0.6s ease; */
 }
 
 .explore-trip-card-wrapper.visible {
   opacity: 1;
   pointer-events: auto;
-  transition: opacity 0.6s ease;
+  /* transition: opacity 0.6s ease; */
 }
 
 .explore-trip-card {
   opacity: 0;
   transform: translateY(40px);
-  transition: opacity 0.6s ease, transform 0.6s ease;
+  /* transition: opacity 0.6s ease, transform 0.6s ease; */
 }
 
 .explore-trip-card.show {
@@ -226,9 +233,17 @@
   transform: translateY(0);
 }
 
-.explore-trip-card.delay-1 { transition-delay: 0.1s; }
-.explore-trip-card.delay-2 { transition-delay: 0.2s; }
-.explore-trip-card.delay-3 { transition-delay: 0.3s; }
+.explore-trip-card.delay-1 {
+  /* transition-delay: 0.1s; */
+}
+
+.explore-trip-card.delay-2 {
+  /* transition-delay: 0.2s; */
+}
+
+.explore-trip-card.delay-3 {
+  /* transition-delay: 0.3s; */
+}
 
 .trip-detail {
   background: #fff;
@@ -339,7 +354,8 @@
 .loading-overlay {
   position: fixed;
   inset: 0;
-  background-color: transparent; /* 讓底下 swiper 可見 */
+  background-color: transparent !important;
+  /* 讓底下 swiper 可見 */
   z-index: 9999;
   overflow: hidden;
   display: flex;
@@ -387,6 +403,7 @@
   0% {
     transform: rotate(45deg) translateY(0);
   }
+
   100% {
     transform: rotate(45deg) translateY(-220vh);
   }
@@ -396,6 +413,7 @@
   0% {
     transform: rotate(-45deg) translateY(0);
   }
+
   100% {
     transform: rotate(-45deg) translateY(220vh);
   }
@@ -415,14 +433,17 @@
     opacity: 0;
     transform: translateX(0) scale(0.8);
   }
+
   20% {
     opacity: 1;
     transform: translateX(0) scale(1.1);
   }
+
   60% {
     opacity: 1;
     transform: translateX(0) scale(1);
   }
+
   100% {
     opacity: 0;
     transform: translateX(200px) scale(1);
@@ -446,13 +467,16 @@
     opacity: 0;
     transform: translate(0, 0);
   }
+
   20% {
     opacity: 1;
   }
+
   60% {
     opacity: 1;
     transform: translate(30px, -20px);
   }
+
   100% {
     opacity: 0;
     transform: translate(120px, -120vh);
@@ -462,33 +486,34 @@
 .trip-detail.hidden {
   pointer-events: none;
 }
+
 .trip-detail.visible {
   pointer-events: auto;
 }
 
-/* === 水感滑動遮罩效果 === */
+/* ✅ 柔美漸層擴散光圈 hover 效果 */
 .explore-style-card::before {
   content: '';
   position: absolute;
   inset: 0;
-  background: radial-gradient(circle at var(--x, 50%) var(--y, 50%), rgba(255, 255, 255, 0.1) 0%, transparent 30%);
+  background: radial-gradient(circle at var(--x, 50%) var(--y, 50%), rgba(255, 255, 255, 0.08) 0%, transparent 40%);
   pointer-events: none;
   z-index: 1;
-  transition: background 0.2s ease;
+  transition: background 0.5s ease;
 }
 
 .explore-style-card:hover::before {
-  background: radial-gradient(circle at var(--x, 50%) var(--y, 50%), rgba(255, 255, 255, 0.2) 0%, transparent 40%);
+  background: radial-gradient(circle at var(--x, 50%) var(--y, 50%), rgba(255, 255, 255, 0.18) 0%, transparent 55%);
 }
 
 .explore-style-card::after {
   content: '';
   position: absolute;
   inset: 0;
-  background: radial-gradient(circle at var(--x, 50%) var(--y, 50%), rgba(255,255,255,0.1) 0%, transparent 45%);
+  background: radial-gradient(circle at var(--x, 50%) var(--y, 50%), rgba(255, 255, 255, 0.05) 0%, transparent 55%);
   pointer-events: none;
   border-radius: inherit;
-  transition: background 0.15s ease-out;
+  transition: background 0.25s ease-out;
   mix-blend-mode: screen;
 }
 
@@ -513,10 +538,27 @@
 }
 
 .image-container {
-  position: relative;
-  width: 100%;
-  height: 100%;
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  overflow: hidden;
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+
+  /* ✅ 淡入動畫關鍵 */
+  opacity: 0;
+  /* transition: opacity 1.6s ease-in-out; */
+  z-index: 0;
 }
+
+.swiper-slide-active .image-container {
+  opacity: 1;
+  z-index: 1;
+}
+
 
 .image-container img {
   width: 100%;
@@ -528,14 +570,16 @@
 .image-overlay {
   position: absolute;
   inset: 0;
-  background-color: rgba(0, 0, 0, 0.3); /* 黑色，透明度 20% */
+  background-color: rgba(0, 0, 0, 0.1);
+  /* 黑色，透明度 20% */
   z-index: 1;
   pointer-events: none;
 }
 
 .scroll-down-indicator {
   position: relative;
-  margin-top: 150px; /* ✅ 新增！讓向上箭頭往下推一點 */
+  margin-top: 150px;
+  /* ✅ 新增！讓向上箭頭往下推一點 */
   width: 24px;
   height: 64px;
   margin-left: auto;
@@ -580,12 +624,14 @@
 
 .chevron-up::before {
   left: 0;
-  transform: skewY(-30deg); /* ❗️注意：向上箭頭這裡要 -30deg */
+  transform: skewY(-30deg);
+  /* ❗️注意：向上箭頭這裡要 -30deg */
 }
 
 .chevron-up::after {
   right: 0;
-  transform: skewY(30deg);  /* ❗️注意：向上箭頭這裡要 30deg */
+  transform: skewY(30deg);
+  /* ❗️注意：向上箭頭這裡要 30deg */
 }
 
 /* 🔥 全新向上浮動畫 */
@@ -593,28 +639,170 @@
   25% {
     opacity: 1;
   }
+
   33% {
     opacity: 1;
     transform: translate(-50%, -30px) scale3d(1, 1, 1);
   }
+
   67% {
     opacity: 1;
     transform: translate(-50%, -40px) scale3d(1, 1, 1);
   }
+
   100% {
     opacity: 0;
     transform: translate(-50%, -55px) scale3d(0.5, 0.5, 0.5);
   }
 }
 
+.trip-style-tabs {
+  display: flex;
+  justify-content: center;
+  gap: 16px;
+  margin: 48px 0 24px;
+  flex-wrap: wrap;
+}
+
+.trip-style-tab {
+  background: transparent;
+  color: white;
+  border: 2px solid white;
+  padding: 10px 20px;
+  border-radius: 999px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.trip-style-tab.active {
+  background-color: white;
+  color: #142E3F;
+  /* 你的主色調 */
+}
+
+.trip-style-tab:hover {
+  background-color: #DCE8ED;
+  /* 輔助色 */
+  color: #142E3F;
+}
+
+.explore-style-card .image-overlay {
+  background: linear-gradient(to bottom, rgba(20, 46, 63, 0.3), rgba(20, 46, 63, 0.7));
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+}
 
 
 
+/* ✅ overlay 與 scroll indicator 的進場動畫效果 */
+.swiper-slide .explore-style-overlay,
+.swiper-slide .scroll-up-indicator {
+  opacity: 0;
+  /* ✅ 輕微下滑感 */
+  transition: opacity 1.2s cubic-bezier(0.25, 0.1, 0.25, 1),
+  transform 2.5s cubic-bezier(0.25, 0.1, 0.25, 1);
+  transition-delay: 0.3s;
+  /* ⬅️ 延遲 0.1 秒進場，配合背景淡入 */
+  pointer-events: none;
+  /* ⛔ 避免複製的 slide 接收點擊 */
+}
+
+/* ✅ 只有 active 的才淡入進場，不影響原定位 */
+.swiper-slide-active .explore-style-overlay,
+.swiper-slide-active .scroll-up-indicator {
+  opacity: 1;
+  transform: translateX(-50%) translateY(0);
+}
 
 
 
+@keyframes fadeInUp {
+  from {
+    opacity: 1;
+    transform: translateY(20px);
+  }
 
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
 
+.swiper-slide-active .explore-style-overlay {
+  opacity: 1;
+  transform: translateX(-50%) translateY(0);
+}
 
-  
-  
+.swiper-slide {
+  /* transition: opacity 1.4s ease-in-out; */
+  background-color: black !important;
+}
+
+.swiper-slide.swiper-slide-active {
+  opacity: 1 !important;
+}
+
+.image-background {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  opacity: 0;
+  transform: scale(1.05);
+  transition: opacity 1.6s ease-in-out, transform 1.6s ease-in-out;
+  z-index: 0;
+}
+
+.swiper-slide-visible .image-background {
+  opacity: 1;
+  transform: scale(1);
+  z-index: 1;
+}
+
+.explore-style {
+  color: #fff;
+  padding: 0;
+  background-color: transparent;
+}
+
+.explore-style-overlay {
+  opacity: 0;
+  transform: translateY(20px);
+  transition: opacity 1s ease, transform 1s ease;
+}
+
+.explore-style-overlay.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* ✅ Overlay 預設不可見，載入圖片後才加上 .visible 才淡入 */
+.explore-style-overlay {
+  opacity: 0;
+  transform: translateX(-50%) translateY(20px);
+  transition: opacity 1.2s ease, transform 1.2s ease;
+  pointer-events: none;
+}
+
+.explore-style-overlay.visible {
+  opacity: 1;
+  transform: translateX(-50%) translateY(0);
+  pointer-events: auto;
+}
+
+/* ✅ 防止未載入圖片前閃出背景圖 */
+.image-background {
+  opacity: 0;
+  transition: opacity 0.01s ease;
+}
+
+.swiper-slide-active .image-background {
+  opacity: 1;
+}
