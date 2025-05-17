@@ -159,7 +159,7 @@
   font-family: var(--font-zh);
   display: grid;
   /* grid-template-columns: 3.1fr 0.65fr 0.9fr 0.3fr 0.3fr; */
-  grid-template-columns: 3fr 1.2fr 1.5fr 1.1fr 0.1fr;
+  grid-template-columns: 3.1fr 1.2fr 1.55fr 1.1fr 0.1fr;
   align-items: center;
   font-size: 20px;
   font-weight: bold;
@@ -180,7 +180,7 @@
 
 /* 單一行程 */
 .mytrip-item {
-    position: relative;
+  position: relative;
   display: grid;
   /* grid-template-columns: 3fr 0.7fr 0.8fr 0.3fr 0.3fr; */
   grid-template-columns: 3fr 1.3fr 1.35fr 0.8fr 0.6fr;
@@ -240,7 +240,7 @@
 
 .people-select select {
   width: 100%;
-  padding: 8px 32px 8px 20px;
+  padding: 8px 32px 8px 38px;
   /* ✅ 右邊留更多空間給箭頭 */
   border-radius: 6px;
   /* border: 1px solid var(--primary-color); */
@@ -249,25 +249,36 @@
 }
 
 .custom-people-input {
-  width: 80px; /* 可以依照版型調整 */
+  width: 80px;
+  /* 可以依照版型調整 */
   height: 30px;
+  margin-left: 28px;
   padding: 5px 10px;
   font-size: 16px;
-  font-family: var(--font-zh); /* ✅ 走你的主字型 */
-  color: #142E3F; /* ✅ 打字進去的字的顏色 */
-  background-color: rgba(255, 255, 255, 0.8); /* 淡白色背景 */
-  border: 1px solid rgba(20, 30, 40, 0.4); /* 深藍灰色的邊框 */
-  border-radius: 12px; /* ✅ 圓角一點 */
+  font-family: var(--font-zh);
+  /* ✅ 走你的主字型 */
+  color: #142E3F;
+  /* ✅ 打字進去的字的顏色 */
+  background-color: rgba(255, 255, 255, 0.8);
+  /* 淡白色背景 */
+  border: 1px solid rgba(20, 30, 40, 0.4);
+  /* 深藍灰色的邊框 */
+  border-radius: 12px;
+  /* ✅ 圓角一點 */
   outline: none;
-  text-align: center; /* 文字置中 */
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* 輕微陰影，提升立體感 */
+  text-align: center;
+  /* 文字置中 */
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  /* 輕微陰影，提升立體感 */
 }
 
 .custom-people-input::placeholder {
-  color: #999; /* ✅ 提示字顏色：灰灰的 */
+  color: #999;
+  /* ✅ 提示字顏色：灰灰的 */
   font-family: var(--font-zh);
   font-size: 12px;
-  opacity: 1; /* 有些瀏覽器會預設透明，強制讓它清楚可見 */
+  opacity: 1;
+  /* 有些瀏覽器會預設透明，強制讓它清楚可見 */
 }
 
 /* 刪除按鈕 */
@@ -443,7 +454,7 @@
   color: var(--primary-color);
   /* ✅文字主色 */
   font-size: 18px;
-  padding: 8px 32px 8px 20px;
+  padding: 8px 32px 8px 38px;
   /* ✅ 上下留8px，右邊留24px空間放箭頭 */
   background-image: url('/images/arrow-down.svg');
   /* ✅自訂下拉箭頭圖片（路徑自己調整） */
@@ -548,7 +559,7 @@ select::-ms-expand {
   cursor: pointer;
   line-height: 1;
   transition: color 0.3s ease;
-  color:  #FF6F19;
+  color: #FF6F19;
   outline: none;
 }
 
@@ -580,7 +591,7 @@ select::-ms-expand {
 /* ❌ 紅色 */
 .delete-btn {
   position: absolute;
-  right: 25px;
+  right: 40px;
   top: 50%;
   transform: translateY(-50%);
   z-index: 1;
@@ -588,10 +599,31 @@ select::-ms-expand {
 }
 
 /* ➕ 橘色（你的品牌色） */
+
 .add-btn {
   color: #FF6F19;
+  /* 橘色 */
+  font-size: 30px;
+  /* 控制整體大小（線長） */
+  font-weight: bold;
+  /* 粗細，加號線會更明顯 */
+  line-height: 1;
+  /* 控制垂直置中 */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0;
+  background: white;
+  border: none;
+  width: 28px;
+  height: 28px;
+  border-radius: 50%;
+  cursor: pointer;
+  transform: translateY(-1px) translateX(-1px); /* 或其他值微調 */
 }
 
-
-
-
+.circle-btn.add-btn:focus,
+.circle-btn.delete-btn:focus {
+  outline: none;
+  box-shadow: none;
+}
