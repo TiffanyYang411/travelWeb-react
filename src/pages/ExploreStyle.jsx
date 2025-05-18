@@ -151,7 +151,6 @@ function ExploreStyle() {
             src={logo}
             alt="ÉLAN Journeys Logo"
           />
-          <div className="loading-slogan fade-in-up-delay">Where your Nordic dream begins…</div>
         </div>
       )}
 

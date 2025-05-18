@@ -1,5 +1,4 @@
-// src/components/Navbar.jsx
-
+// src/components/// ✅ 已整合：RWD + 手機側邊滑出選單 + 購物車顯示修復 + Logo 手型游標
 import { Link, useLocation, useNavigate } from 'react-router-dom';
 import { useEffect, useState, useRef } from 'react';
 import '../styles/Navbar.css';
@@ -22,6 +21,7 @@ function Navbar() {
   const [tripCount, setTripCount] = useState(0);
   const [showCartDropdown, setShowCartDropdown] = useState(false);
   const [cartPinned, setCartPinned] = useState(false);
+  const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
 
   useEffect(() => {
     const loginStatus = isLoggedIn();
@@ -62,6 +62,7 @@ function Navbar() {
       if (e.key === 'Escape') {
         setCartPinned(false);
         setShowCartDropdown(false);
+        setMobileMenuOpen(false);
       }
     };
     document.addEventListener('keydown', handleEscKey);
@@ -76,7 +77,6 @@ function Navbar() {
         setShowCartDropdown(false);
       }, 1500);
     };
-
     window.addEventListener('openCartDropdown', handleOpenCart);
     return () => window.removeEventListener('openCartDropdown', handleOpenCart);
   }, []);
@@ -94,7 +94,7 @@ function Navbar() {
   };
 
   const navLinks = [
-  { name: '探索旅遊風格', path: '/explore', scrollToTop: true },
+    { name: '探索旅遊風格', path: '/explore', scrollToTop: true },
     { name: '我的行程', path: '/my-trip' },
     ...(loggedIn ? [
       { name: '即將出發', path: '/upcoming-trips' },
@@ -106,55 +106,54 @@ function Navbar() {
 
   return (
     <nav className="navbar">
-      <Link to="/" className="navbar-logo">
+      <Link to="/" className="navbar-logo" style={{ cursor: 'pointer' }}>
         <img src={logo} alt="Élan Journeys Logo" className="logo-img" />
       </Link>
 
       <div className={`navbar-center ${loggedIn ? 'shift-right' : ''}`}>
         <ul className="navbar-links">
-  {navLinks.map((link) => (
-    <li
-      key={link.path}
-      className={location.pathname === link.path.split('?')[0] ? 'active' : ''}
-    >
-      {link.scrollToTop ? (
-        <Link
-          to={link.path}
-          className="zh-text-16"
-          onClick={() => {
-            sessionStorage.setItem('scrollToTop', 'true');
-          }}
-        >
-          {link.name}
-        </Link>
-      ) : (
-        <Link to={link.path} className="zh-text-16">
-          {link.name}
-        </Link>
-      )}
-    </li>
-  ))}
-</ul>
-
+          {navLinks.map((link) => (
+            <li
+              key={link.path}
+              className={location.pathname === link.path.split('?')[0] ? 'active' : ''}
+            >
+              {link.scrollToTop ? (
+                <Link
+                  to={link.path}
+                  className="zh-text-16"
+                  onClick={() => {
+                    sessionStorage.setItem('scrollToTop', 'true');
+                    setMobileMenuOpen(false);
+                  }}
+                >
+                  {link.name}
+                </Link>
+              ) : (
+                <Link
+                  to={link.path}
+                  className="zh-text-16"
+                  onClick={() => setMobileMenuOpen(false)}
+                >
+                  {link.name}
+                </Link>
+              )}
+            </li>
+          ))}
+        </ul>
       </div>
 
       <div className="navbar-icons">
         <div
-          className="cart-container" // ✅ 這裡結構不動，但css會控制 hover範圍
+          className="cart-container"
           ref={cartRef}
           onMouseEnter={() => !cartPinned && setShowCartDropdown(true)}
           onMouseLeave={() => !cartPinned && setShowCartDropdown(false)}
         >
           <div className="icon-link" title="購物車" onClick={handleCartClick} style={{ cursor: 'pointer' }}>
             <img src={cartIcon} alt="Cart Icon" className="nav-icon" />
-            {loggedIn && tripCount > 0 && (
-              <span className="cart-dot">{tripCount}</span>
-            )}
+            {loggedIn && tripCount > 0 && <span className="cart-dot">{tripCount}</span>}
           </div>
-
-          {loggedIn && (
-            <CartDropdown isOpen={showCartDropdown} />
-          )}
+          <CartDropdown isOpen={showCartDropdown} isLoggedIn={loggedIn} />
         </div>
 
         {!loggedIn ? (
@@ -172,14 +171,10 @@ function Navbar() {
         ) : (
           <div className="user-info zh-text-16">
             <img src={userIcon} alt="User Icon" className="nav-icon" />
-            <span style={{
-              color: '#F6FBFC',
-              maxWidth: '100px',
-              whiteSpace: 'nowrap',
-              overflow: 'hidden',
-              textOverflow: 'ellipsis',
-              display: 'inline-block'
-            }} title={userName}>
+            <span
+              style={{ color: '#F6FBFC', maxWidth: '100px', whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis', display: 'inline-block' }}
+              title={userName}
+            >
               {userName}
             </span>
             <button onClick={handleLogout} className="logout-btn" title="登出">
@@ -187,12 +182,46 @@ function Navbar() {
             </button>
           </div>
         )}
+
+        {/* 📱 漢堡選單 icon */}
+        <div className="icon-link mobile-menu-icon" onClick={() => setMobileMenuOpen(!mobileMenuOpen)}>
+          <span className="hamburger-icon">☰</span>
+        </div>
       </div>
+
+      {/* 📱 側邊滑出選單 */}
+      <div className={`mobile-menu-drawer ${mobileMenuOpen ? 'open' : ''}`}>
+        <button className="mobile-menu-close" onClick={() => setMobileMenuOpen(false)}>
+          ×
+        </button>
+
+        <ul>
+          {navLinks.map((link) => (
+            <li key={link.path}>
+              <Link
+                to={link.path}
+                onClick={() => setMobileMenuOpen(false)}
+                className="zh-text-16"
+              >
+                {link.name}
+              </Link>
+            </li>
+          ))}
+        </ul>
+      </div>
+
+      {mobileMenuOpen && (
+        <div
+          className="mobile-menu-overlay"
+          onClick={() => setMobileMenuOpen(false)}
+        ></div>
+      )}
     </nav>
   );
 }
 
 export default Navbar;
+
 
 
 

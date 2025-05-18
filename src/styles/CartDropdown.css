@@ -2,7 +2,7 @@
 
 .cart-container {
   position: relative;
-  width: 60px;   /* 稍微大一點，容納hover範圍 */
+  width: 57px;   /* 稍微大一點，容納hover範圍 */
   height: 80px;
   display: flex; /* ✅ 加這行 */
   align-items: center; /* ✅ 置中對齊 */

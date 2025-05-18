@@ -1,4 +1,5 @@
-/* styles/Navbar.css */
+/* styles//* ✅ 原有樣式保留，僅補強與修改區塊標示清楚 */
+
 .navbar {
   position: fixed;
   top: 0;
@@ -16,12 +17,12 @@
   padding: 13px 0;
 }
 
-/* 左側 Logo */
 .navbar-logo {
   font-size: 2rem;
   font-weight: bold;
   color: #333;
   margin-left: 45px;
+  cursor: pointer; /* ✅ 加入手型游標 */
 }
 
 .logo-img {
@@ -31,7 +32,6 @@
   display: block;
 }
 
-/* 中間導覽列 */
 .navbar-center {
   flex: 1;
   display: flex;
@@ -79,7 +79,8 @@
   color: #ffffff;
 }
 
-.navbar-links li a:hover::after {
+.navbar-links li a:hover::after,
+.navbar-links li.active a::after {
   opacity: 1;
   transform: scaleX(1);
 }
@@ -89,30 +90,23 @@
   font-weight: bold;
 }
 
-.navbar-links li.active a::after {
-  opacity: 1;
-  transform: scaleX(1);
-}
-
-/* 右側 icon 區 */
 .navbar-icons {
   display: flex;
   align-items: center;
   gap: 0px;
-  margin-right: 116px;
+  margin-right: 60px;
   padding: 9px 0;
 }
 
-/* 單個 icon 的連結 */
 .icon-link {
   position: relative;
-  width: 48px;  /* icon的尺寸 */
+  width: 40px;
   height: 48px;
   display: flex;
   align-items: center;
   justify-content: center;
+  cursor: pointer;
 }
-
 
 .nav-icon {
   width: 30px;
@@ -124,11 +118,10 @@
   opacity: 0.7;
 }
 
-/* 購物車紅點 */
 .cart-dot {
   position: absolute;
   top: 4px;
-  right: -6px;
+  right: 0;
   background-color: red;
   color: #ffffff;
   font-size: 10px;
@@ -139,9 +132,9 @@
   display: flex;
   align-items: center;
   justify-content: center;
+  z-index: 10;
 }
 
-/* 使用者資訊 */
 .user-info {
   display: flex;
   align-items: center;
@@ -171,6 +164,191 @@
   outline: none;
   box-shadow: none;
 }
+
+/* ✅ RWD：手機（最大 767px） */
+@media (max-width: 767px) {
+  .user-info {
+  gap: 0px;            /* icon 與文字間縮小間距 */
+  overflow: hidden;
+  white-space: nowrap;
+}
+
+.user-info span {
+  font-size: 14px;     /* 字體縮小更易排列 */
+  max-width: 0px !important;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  display: none; /* ✅ 建議直接不顯示 */
+} 
+
+   .navbar {
+    padding: 10px 10px !important;
+  }
+
+  .navbar-logo {
+    margin-left: 5px !important;
+  }
+
+  .navbar-center {
+    display: none;
+  }
+
+  .navbar-icons {
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    margin-right: 0px !important;
+    gap: 10px !important;
+    padding: 0px !important;
+  }
+
+  .logo-img {
+    width: 140px !important;
+  }
+
+  .nav-icon {
+    width: 30px;
+    height: 30px;
+  }
+
+  .mobile-menu-icon {
+    display: flex;
+    font-size: 24px;
+    color: white;
+    margin-left: 5px !important;
+  }
+
+  .cart-container {
+    margin-right: -10px; /* ✅ 往右推一點和 user icon 保持距離 */
+  }
+
+  .logout-btn {
+    margin-left:30px !important;
+  }
+}
+
+/* ✅ RWD：手機與平板版 navbar 隱藏導覽列 */
+@media (max-width: 1024px) {
+  .navbar-logo {
+    margin-left: 0;
+  }
+
+  .navbar-center {
+    display: none;
+  }
+
+  .mobile-menu-icon {
+    display: flex;
+    font-size: 28px;
+    color: white;
+    margin-left: 20px;
+  }
+
+  .navbar-icons {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  margin-right: 30px;
+  gap: 2px;
+}
+
+  .mobile-menu-drawer {
+    position: fixed;
+    top: 0px;
+    right: -320px;
+    width: 250px;
+    height: 22vh;
+    background-color: #142E3F;
+    box-shadow: -4px 0 12px rgba(0, 0, 0, 0.3);
+    padding: 60px 24px;
+    display: flex;
+    flex-direction: column;
+    gap: 30px;
+    transition: right 0.6s ease;
+    z-index: 9999;
+  }
+
+  .mobile-menu-drawer.open {
+    right: 0;
+  }
+
+  .mobile-menu-drawer ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+  }
+
+  .mobile-menu-drawer li {
+    margin-bottom: 20px;
+  }
+
+  .mobile-menu-drawer a {
+    color: white;
+    font-size: 18px;
+    text-decoration: none;
+    font-weight: bold;
+  }
+
+  .mobile-menu-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background-color: rgba(0,0,0,0.4);
+  z-index: 9998;
+}
+
+.mobile-menu-close {
+  position: absolute;
+  top: 18px;
+  right: 18px;
+  background: none;
+  border: none;
+  font-size: 28px;
+  color: white;
+  cursor: pointer;
+}
+
+}
+
+/* ✅ 桌機版隱藏漢堡 icon */
+@media (min-width: 1025px) {
+  .navbar-logo {
+    margin-left: 0;
+  }
+  
+  .mobile-menu-icon {
+    display: none;
+  }
+
+  .mobile-menu-drawer {
+    display: none;
+  }
+
+  .mobile-menu-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background-color: rgba(0,0,0,0.4);
+  z-index: 9998;
+}
+
+.mobile-menu-close {
+  position: absolute;
+  top: 18px;
+  right: 18px;
+  background: none;
+  border: none;
+  font-size: 28px;
+  color: white;
+  cursor: pointer;
+}
+
+}
+
 
 
 

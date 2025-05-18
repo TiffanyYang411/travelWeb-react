@@ -4,12 +4,14 @@ import { useNavigate } from 'react-router-dom';
 import { getUserTrips, removeTripFromUser } from '../utils/tripUtils';
 import { useTripStore } from '../store/useTripStore'; // ✅ 加這行
 import { findTripById } from '../utils/findTripById'; // ✅ 要確定有引入這行
+import { isLoggedIn } from '../utils/auth'; // 如果你沒傳 isLoggedIn，也可以直接調用這個
 import '../styles/CartDropdown.css';
 
 function CartDropdown({ isOpen }) {
   const navigate = useNavigate();
   const [trips, setTrips] = useState([]);
   const { pendingTrips, setPendingTrips } = useTripStore(); // ✅ 加這行
+const loggedIn = isLoggedIn();
 
   useEffect(() => {
     loadTrips();
@@ -93,34 +95,35 @@ function CartDropdown({ isOpen }) {
         <div className="cart-dropdown">
           <div className="cart-triangle"></div>
 
-          {trips.length === 0 ? (
-            <div className="cart-empty">尚未加入任何行程</div>
-          ) : (
-            <>
-              <div className="cart-items">
-                {trips.map((trip) => (
-                  <div className="cart-item" key={trip.id}>
-                    <img src={trip.bannerImage} alt={trip.title} />
-                    <div className="cart-item-overlay">
-                      <p className="cart-trip-title">{trip.title}</p>
-                      <p className="cart-trip-days">{trip.days}</p>
-                    </div>
-                    <button
-                      className="cart-remove-btn"
-                      onClick={() => handleRemove(trip.id)}
-                    >
-                      <span className="minus-icon"></span>
-                    </button>
-                  </div>
-                ))}
-              </div>
-              <div className="cart-start-trip-container">
-                <button className="cart-start-trip-btn" onClick={handleStartTrip}>
-                  開始行程
-                </button>
-              </div>
-            </>
-          )}
+          {!loggedIn || trips.length === 0 ? (
+  <div className="cart-empty">尚未加入任何行程</div>
+) : (
+  <>
+    <div className="cart-items">
+      {trips.map((trip) => (
+        <div className="cart-item" key={trip.id}>
+          <img src={trip.bannerImage} alt={trip.title} />
+          <div className="cart-item-overlay">
+            <p className="cart-trip-title">{trip.title}</p>
+            <p className="cart-trip-days">{trip.days}</p>
+          </div>
+          <button
+            className="cart-remove-btn"
+            onClick={() => handleRemove(trip.id)}
+          >
+            <span className="minus-icon"></span>
+          </button>
+        </div>
+      ))}
+    </div>
+    <div className="cart-start-trip-container">
+      <button className="cart-start-trip-btn" onClick={handleStartTrip}>
+        開始行程
+      </button>
+    </div>
+  </>
+)}
+
         </div>
       </div>
     </div>

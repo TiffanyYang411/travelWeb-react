@@ -40,24 +40,37 @@ function Home() {
   }, []);
 
   // Step 2：窗戶動畫跑完後才開始圖片輪播
-  useEffect(() => {
-    if (!expanded) return;
+   useEffect(() => {
+  if (!expanded) return;
 
-    const delayBeforeFirstSlide = setTimeout(() => {
-      const slideTimer = setInterval(() => {
-        setTransitioning(true);
-        setTimeout(() => {
-          setCurrentSlide((prev) => (prev + 1) % slideImages.length);
-          setTransitioning(false);
-        }, 300); // 圖片切換淡入時間
-      }, 4000); // 每 4 秒切換一次
+  // ✅ 先切到第二張
+  const switchToSecond = setTimeout(() => {
+    setTransitioning(true);
+    setTimeout(() => {
+      setCurrentSlide(1); // ✅ 切第二張
+      setTransitioning(false);
+    }, 300);
 
-      // ⬅️ 清除輪播定時器
-      return () => clearInterval(slideTimer);
-    }, 0); // 等窗戶動畫播完（4 秒）＋一點緩衝時間
+    // ✅ 第二張顯示完，延後 6 秒後再開始輪播
+    slideTimerRef.current = setInterval(() => {
+      setTransitioning(true);
+      setTimeout(() => {
+        setCurrentSlide((prev) => (prev + 1) % slideImages.length);
+        setTransitioning(false);
+      }, 300);
+    }, 4000); // ✅ 正常輪播（從第三張開始）
+  }, 3000); // 動畫結束後切第二張
 
-    return () => clearTimeout(delayBeforeFirstSlide);
-  }, [expanded]);
+  // ✅ 為了清理 interval（因為我們不是立即宣告）
+  const slideTimerRef = { current: null };
+
+  return () => {
+    clearTimeout(switchToSecond);
+    if (slideTimerRef.current) clearInterval(slideTimerRef.current);
+  };
+}, [expanded]);
+
+
 
   return (
     <div className="home-page">

@@ -197,7 +197,7 @@
 
   .footer-top {
     flex-direction: column;
-    padding: 30px 16px;
+    padding: 30px 16px !important;
     align-items: center;
   }
 
@@ -210,7 +210,7 @@
 
   .footer-left-moved .footer-contact-info p {
     text-align: center;
-    font-size: 14px;
+    font-size: 14px !important;
   }
 
   .footer-left-inner {
@@ -233,17 +233,17 @@
     display: grid;
     grid-template-columns: repeat(2, max-content);
     justify-content: center;
-    row-gap: 12px;
-    column-gap: 18px;
+    row-gap: 10px;
+    column-gap: 12px;
     text-align: center;
   }
 
   .footer-links-grid a {
-    font-size: 12px;
+    font-size: 12px !important;
   }
 
   .footer-links-grid span {
-    font-size: 12px;
+    font-size: 12px !important;
   }
 
   .footer-bottom {
@@ -258,5 +258,10 @@
   .footer-bottom p {
     font-size: 12px;
   }
+
+  .footer-link-item {
+  max-width: 100%;             /* ✅ 限制每個項目的最大寬度 */
+  overflow-wrap: break-word;
+}
 }
 
