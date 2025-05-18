@@ -10,21 +10,26 @@ function Footer() {
   const location = useLocation();
   const navigate = useNavigate();
   const isAboutPage = location.pathname === "/about";
+const isHomePage = location.pathname === "/";
   const loggedIn = isLoggedIn();
 
   return (
-    <footer className={`footer ${isAboutPage ? "footer-about-bg" : ""}`}>
+    <footer className={`footer ${isAboutPage ? "footer-about-bg" : ""} ${isHomePage ? "footer-home-bg" : ""}`}>
       {/* 上層 深藍區 */}
       <div className="footer-top">
-        <div className="footer-left">
-          <div className="footer-logo">
-            <img src={footerLogo} alt="ÉLAN Journeys Logo" className="footer-logo-img" />
-          </div>
-          <p className="zh-text-14">地址：台北市信義松仁路100號</p>
-          <p className="zh-text-14">電話號碼：123-456-7890　信箱：example@gmail.com</p>
-        </div>
-
         <div className="footer-right">
+          <div className="footer-left footer-left-moved">
+            <div className="footer-left-inner">
+              <div className="footer-logo">
+                <img src={footerLogo} alt="ÉLAN Journeys Logo" className="footer-logo-img" />
+              </div>
+              <div className="footer-contact-info">
+                <p className="zh-text-14">地址：台北市信義松仁路100號</p>
+                <p className="zh-text-14">電話號碼：123-456-7890　信箱：example@gmail.com</p>
+              </div>
+            </div>
+          </div>
+
           <div className="footer-links-grid">
             {/* 第一列 */}
             <div className="footer-link-item" style={{ gridColumn: '1', gridRow: '1' }}>
@@ -35,15 +40,15 @@ function Footer() {
             </div>
             <div className="footer-link-item" style={{ gridColumn: '3', gridRow: '1' }}>
               <span
-  className="zh-text-14"
-  style={{ cursor: 'pointer' }}
-  onClick={() => {
-    sessionStorage.setItem('scrollToTop', 'true'); // ✅ 加這一行
-    navigate('/explore?style=1');
-  }}
->
-  探索旅遊風格
-</span>
+                className="zh-text-14"
+                style={{ cursor: 'pointer' }}
+                onClick={() => {
+                  sessionStorage.setItem('scrollToTop', 'true');
+                  navigate('/explore?style=1');
+                }}
+              >
+                探索旅遊風格
+              </span>
             </div>
 
             <div className="footer-link-item" style={{ gridColumn: '4', gridRow: '1' }}>
@@ -61,7 +66,7 @@ function Footer() {
                   style={{ cursor: 'pointer', color: 'white' }}
                   onClick={() => {
                     logout();
-                    navigate(`${import.meta.env.BASE_URL}`); // ✅ 改成正確 base path
+                    navigate(`${import.meta.env.BASE_URL}`);
                     window.location.href = import.meta.env.BASE_URL;
                   }}
                 >
@@ -112,6 +117,8 @@ function Footer() {
 }
 
 export default Footer;
+
+
 
 
 

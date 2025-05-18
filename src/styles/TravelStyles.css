@@ -1,7 +1,5 @@
 /* src/styles/TravelStyles.css */
 
-/* src/styles/TravelStyles.css */
-
 @import './Colors.css';
 @import './Typography.css';
 
@@ -82,8 +80,9 @@
   height: 350px;
   border-radius: 16px;
   overflow: hidden;
-  background: rgba(255, 255, 255, 0.08);
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+  background: transparent;
+  /* ✅ 改成透明背景 */
+  box-shadow: none !important;
   cursor: pointer;
   transition: transform 0.5s cubic-bezier(0.22, 1, 0.36, 1);
   display: flex;
@@ -97,20 +96,43 @@
 
 .style-card-wrapper.active {
   transform: scale(1.08);
-  box-shadow: 0 8px 30px rgba(0, 0, 0, 0.4);
+  /* box-shadow: 0 8px 30px rgba(0, 0, 0, 0.4); */
   animation: bounce 0.6s;
 }
 
+/* ✅ 強制清除 SwiperSlide 預設樣式，避免邊緣殘留 */
+.swiper-slide {
+  background: transparent !important;
+  border-radius: 16px !important;
+  overflow: hidden !important;
+  box-shadow: none !important;
+}
+
 @keyframes bounce {
-  0% { transform: scale(1); }
-  50% { transform: scale(1.12); }
-  100% { transform: scale(1.08); }
+  0% {
+    transform: scale(1);
+  }
+
+  50% {
+    transform: scale(1.12);
+  }
+
+  100% {
+    transform: scale(1.08);
+  }
 }
 
 .style-card-image-wrapper {
   width: 100%;
   height: 100%;
   position: relative;
+
+  /* ✅ 關鍵修正點 */
+  border-radius: 16px;
+  overflow: hidden;
+  background: transparent;
+  transform: translateZ(0); /* 避免放大後卡住邊緣渲染 */
+  will-change: transform;   /* 提升 GPU 抗鋸齒表現 */
 }
 
 .style-card-img {
@@ -118,6 +140,11 @@
   height: 100%;
   object-fit: cover;
   display: block;
+  border-radius: 16px;
+  /* ✅ 一致 */
+    /* ✅ 關鍵解法：啟用硬體加速消除邊緣黑線 */
+  transform: translateZ(0);
+  will-change: transform;
 }
 
 .style-card-title {
@@ -146,12 +173,23 @@
   z-index: 1;
 }
 
+.travel-style-slider {
+  position: relative;
+  z-index: 2;
+  width: 800px;
+  overflow-x: auto;
+  overflow-y: hidden;
+  scroll-behavior: smooth;
+  white-space: nowrap;
+}
+
+.travel-style-track {
+  display: flex;
+  flex-wrap: nowrap;
+  gap: 20px;
+  padding: 10px 0;
+  width: max-content;
+  /* ⬅️ 確保子項目不被壓縮 */
+}
 
 
-
-
-
-
-
-
- 

@@ -2,7 +2,7 @@
 
 .testimonial-section {
   width: 100vw;
-  height: 100vh; /* 高度為整個視窗 */
+  height: 100vh;
   background-image: url('./images/testimonial-bg.jpg');
   background-size: cover;
   background-position: center;
@@ -17,7 +17,6 @@
 
 .testimonial-header {
   text-align: center;
-  margin-bottom: 60px;
   position: absolute;
   top: 10%;
   left: 50%;
@@ -26,7 +25,6 @@
   display: flex;
   flex-direction: column;
   align-items: center;
-  justify-content: center;
 }
 
 .testimonial-header .en-title-32 {
@@ -46,95 +44,83 @@
 
 .testimonial-slider-outer {
   width: 100%;
-  height: 600px; /* 3 張卡片 + 2 間距 */
-  position: relative;
-  display: flex;
-  justify-content: center;
-  flex-direction: column;
-  align-items: center;
+  height: 500px;
+  margin-top: 320px;
   overflow: hidden;
-  margin-top: 280px; /* 或者越大越下 */
+  position: relative;
+
+  /* 淡出上下的遮罩效果 */
+  mask-image: linear-gradient(to bottom, transparent, white 20%, white 80%, transparent);
+  -webkit-mask-image: linear-gradient(to bottom, transparent, white 20%, white 80%, transparent);
 }
 
-.testimonial-item-slide {
+.testimonial-track {
   display: flex;
-  align-items: center;
-  position: absolute;
-  width: 700px;
-  height: 150px;
-  padding: 20px 30px;
-  background: var(--secondary-color-xlight);
-  border-radius: 5px;
-  color: var(--secondary-color-dark);
-  font-size: 16px;
-  text-align: left;
-  gap: 20px;
-  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
-  will-change: transform, opacity;
-  animation: carousel-animate-vertical 27s linear infinite;
-  z-index: 2;
-  margin: 0 auto;
-  left: 0;
-  right: 0;
+  flex-direction: column;
+  animation-play-state: running; /* ✅ 預設為播放 */
 }
 
-.testimonial-item-slide:nth-child(1) { animation-delay: 0s; opacity: 0;}
-.testimonial-item-slide:nth-child(2) { animation-delay: 3s; opacity: 0;}
-.testimonial-item-slide:nth-child(3) { animation-delay: 6s; opacity: 0;}
-.testimonial-item-slide:nth-child(4) { animation-delay: 9s; opacity: 0;}
-.testimonial-item-slide:nth-child(5) { animation-delay: 12s; opacity: 0;}
-.testimonial-item-slide:nth-child(6) { animation-delay: 15s; opacity: 0;}
-
-.testimonial-avatar {
-  width: 100px;
-  height: 100px;
-  border-radius: 50%;
-  object-fit: cover;
-  flex-shrink: 0;
-  border: 3px solid #fff;
-  box-shadow: 0 0 8px rgba(0,0,0,0.15);
-  z-index: 3;
+.testimonial-track:hover {
+  animation-play-state: paused;
 }
 
-.user-name {
-  margin-top: 10px;
-  font-weight: bold;
-  font-size: 14px;
-  color: var(--secondary-color-dark);
+.testimonial-card {
+  pointer-events: auto;  /* ✅ 卡片可被 hover */
 }
 
-@keyframes carousel-animate-vertical {
+.testimonial-track {
+  pointer-events: none;  /* ✅ 預防過大範圍 hover 啟動 */
+  animation: scrollTestimonials 20s linear infinite;
+}
+
+.testimonial-card:hover ~ .testimonial-card,
+.testimonial-card:hover {
+  animation-play-state: paused !important;
+}
+
+
+@keyframes scrollTestimonials {
   0% {
-    transform: translateY(100%) scale(0.5);
-    opacity: 0;
-    visibility: hidden;
-  }
-  3% {
-    transform: translateY(100%) scale(0.7);
-    opacity: 0.4;
-    visibility: visible;
-  }
-  15% {
-    transform: translateY(0) scale(1);
-    opacity: 1;
-    visibility: visible;
-  }
-  27% {
-    transform: translateY(-100%) scale(0.7);
-    opacity: 0.4;
-    visibility: visible;
-  }
-  30% {
-    transform: translateY(-100%) scale(0.5);
-    opacity: 0;
-    visibility: hidden;
+    transform: translateY(0);
   }
   100% {
-    transform: translateY(-100%) scale(0.5);
-    opacity: 0;
-    visibility: hidden;
+    transform: translateY(-50%);
   }
 }
+
+.testimonial-card {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+  width: 700px; /* ✅ 卡片寬度變小 */
+  margin: 0 auto 10px;
+  padding: 5px 25px;
+  border-radius: 16px;
+  backdrop-filter: blur(10px);
+  background: rgba(255, 255, 255, 0.08);
+  box-shadow: 0 6px 24px rgba(0, 0, 0, 0.2);
+  color: #fff;
+  font-size: 15px;
+  line-height: 1.8;           /* ✅ 增加行距 */
+  letter-spacing: 0.03em;     /* ✅ 微調字距 */
+}
+
+.testimonial-avatar {
+  width: 90px;                /* ✅ 放大頭像 */
+  height: 90px;
+  border-radius: 50%;
+  object-fit: cover;
+  border: 2px solid #fff;
+  box-shadow: 0 0 6px rgba(0, 0, 0, 0.2);
+  flex-shrink: 0;
+}
+
+.zh-text-14 {
+  font-size: 16px !important;        /* ✅ 原本是 15px，現在加大 */
+  line-height: 1.8 !important;
+  letter-spacing: 0.05em !important;
+}
+
 
 
 

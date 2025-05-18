@@ -61,7 +61,7 @@
   align-items: start;
 }
 
-.footer-links-grid > div {
+.footer-links-grid>div {
   display: block;
 }
 
@@ -99,7 +99,7 @@
     column-gap: 32px;
   }
 
-  .footer-links-grid > div {
+  .footer-links-grid>div {
     display: block;
   }
 
@@ -120,19 +120,143 @@
   background-size: cover;
   background-position: center;
   background-repeat: no-repeat;
-  background-color: transparent !important; /* ✅ 關鍵：清除原背景色 */
+  background-color: transparent !important;
+  /* ✅ 關鍵：清除原背景色 */
+}
+
+/* 💡 新增：footer left 搬移後在右區塊中排版 */
+.footer-left-moved {
+  margin-right: 30px;
+}
+
+.footer-home-bg {
+  background-image: url("./images/home-footer.jpg"); /* ✅ 你要替換的圖 */
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-color: transparent !important;
+}
+
+@media (max-width: 1024px) {
+  .footer-right {
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .footer-left-moved {
+    margin: 0 0 30px 0;
+    text-align: center;
+  }
+
+  .footer-left-moved .footer-logo-img {
+    margin: 0 auto 10px auto;
+  }
+
+  .footer-left-moved .footer-contact-info p {
+    text-align: center;
+    font-size: 18px;
+  }
+
+  .footer-links-grid {
+    justify-content: center;
+  }
+
+  .footer-logo {
+    margin-bottom: 10px;
+  }
 }
 
 
+@media (max-width: 768px) {
+  .footer-left-moved {
+    margin-bottom: 20px;
+  }
 
+  .footer-links-grid {
+    column-gap: 60px;
+    row-gap: 12px;
+  }
 
+  .footer-links-grid a {
+    font-size: 16px;
+  }
 
+  .footer-links-grid span {
+    font-size: 16px;
+  }
+}
 
+@media (max-width: 390px) {
+  .about-contact-header h2 {
+    font-size: 24px;
+  }
 
+  .footer-left-moved .footer-logo-img {
+    margin: 0 auto 0px auto;
+  }
 
+  .footer-top {
+    flex-direction: column;
+    padding: 30px 16px;
+    align-items: center;
+  }
 
+  .footer-right {
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    min-width: auto;
+  }
 
+  .footer-left-moved .footer-contact-info p {
+    text-align: center;
+    font-size: 14px;
+  }
 
+  .footer-left-inner {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
 
+  .footer-logo-img {
+    height: 36px;
+    margin-bottom: 12px;
+  }
 
+  .footer-contact-info p {
+    font-size: 14px;
+    line-height: 1.4;
+  }
+
+  .footer-links-grid {
+    display: grid;
+    grid-template-columns: repeat(2, max-content);
+    justify-content: center;
+    row-gap: 12px;
+    column-gap: 18px;
+    text-align: center;
+  }
+
+  .footer-links-grid a {
+    font-size: 12px;
+  }
+
+  .footer-links-grid span {
+    font-size: 12px;
+  }
+
+  .footer-bottom {
+    font-size: 1px;
+    padding: 0px 5px;
+    line-height: 1.5;
+    text-align: center;
+    word-break: break-word;
+    /* ✅ 避免文字過長溢出 */
+  }
+
+  .footer-bottom p {
+    font-size: 12px;
+  }
+}
 

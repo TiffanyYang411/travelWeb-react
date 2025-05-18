@@ -1,5 +1,3 @@
-// src/pages/Home.jsx
-
 import React, { useEffect, useState } from 'react';
 import '../styles/Home.css';
 import '../styles/Typography.css';
@@ -28,28 +26,41 @@ function Home() {
   const [currentSlide, setCurrentSlide] = useState(0);
   const [transitioning, setTransitioning] = useState(false);
 
+  // Step 1：語錄進場 + 窗戶放大
   useEffect(() => {
     const quoteInTimer = setTimeout(() => setReady(true), 50);
-    const expandTimer = setTimeout(() => setExpanded(true), 3000);
-
-    const slideTimer = setInterval(() => {
-      setTransitioning(true);
-      setTimeout(() => {
-        setCurrentSlide((prev) => (prev + 1) % slideImages.length);
-        setTransitioning(false);
-      }, 300);
-    }, 6000);
+    const expandTimer = setTimeout(() => {
+      setExpanded(true);
+    }, 3000);
 
     return () => {
       clearTimeout(quoteInTimer);
       clearTimeout(expandTimer);
-      clearInterval(slideTimer);
     };
   }, []);
 
+  // Step 2：窗戶動畫跑完後才開始圖片輪播
+  useEffect(() => {
+    if (!expanded) return;
+
+    const delayBeforeFirstSlide = setTimeout(() => {
+      const slideTimer = setInterval(() => {
+        setTransitioning(true);
+        setTimeout(() => {
+          setCurrentSlide((prev) => (prev + 1) % slideImages.length);
+          setTransitioning(false);
+        }, 300); // 圖片切換淡入時間
+      }, 4000); // 每 4 秒切換一次
+
+      // ⬅️ 清除輪播定時器
+      return () => clearInterval(slideTimer);
+    }, 0); // 等窗戶動畫播完（4 秒）＋一點緩衝時間
+
+    return () => clearTimeout(delayBeforeFirstSlide);
+  }, [expanded]);
+
   return (
     <div className="home-page">
-
       {/* Hero Banner 區塊 */}
       <section className={`hero-section ${ready ? 'ready' : ''} ${expanded ? 'expanded' : ''}`}>
         <div className="hero-scene">
@@ -85,7 +96,7 @@ function Home() {
         <TravelStyles />
       </section>
 
-      {/* 為什麼選擇我們區塊（此區不吸附） */}
+      {/* 為什麼選擇我們區塊 */}
       <section className="why-us-section">
         <WhyUs />
       </section>
@@ -94,12 +105,12 @@ function Home() {
       <section className="testimonial-wrapper">
         <Testimonial />
       </section>
-
     </div>
   );
 }
 
 export default Home;
+
 
 
 

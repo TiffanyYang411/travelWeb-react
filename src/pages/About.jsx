@@ -1,14 +1,24 @@
 // src/pages/About.jsx
 import "../styles/About.css";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 
 function About() {
+  const [isMobile, setIsMobile] = useState(false);
+  const [windowWidth, setWindowWidth] = useState(window.innerWidth);
+
   useEffect(() => {
+    const handleResize = () => setWindowWidth(window.innerWidth);
+    window.addEventListener("resize", handleResize);
+    handleResize();
+
+    if (window.innerWidth <= 1024) {
+      document.querySelector('.about-text-overlay')?.classList.add('show');
+    }
+
     const track = document.querySelector(".about-carousel-track");
     const images = Array.from(document.querySelectorAll(".about-smallphoto"));
     if (!track || images.length === 0) return;
 
-    // ✅ 複製圖片實現無縫
     images.forEach((img) => {
       const clone = img.cloneNode(true);
       track.appendChild(clone);
@@ -38,12 +48,11 @@ function About() {
 
     startAutoScroll();
 
-    // ✅ IntersectionObserver 動畫觸發
     const observerCallback = (entries) => {
       entries.forEach((entry) => {
         if (entry.isIntersecting) {
           entry.target.classList.add("show");
-          observer.unobserve(entry.target); // ✅ 避免重複觸發
+          observer.unobserve(entry.target);
         }
       });
     };
@@ -52,7 +61,7 @@ function About() {
 
     setTimeout(() => {
       const animatedElements = document.querySelectorAll(
-         ".about-index-title, .about-slogan, .about-text-overlay, .about-inner, .about-card-row.horizontal"
+        ".about-index-title, .about-slogan, .about-text-overlay, .about-inner, .about-card-row.horizontal"
       );
       animatedElements.forEach((el) => observer.observe(el));
     }, 100);
@@ -62,6 +71,7 @@ function About() {
       track.removeEventListener("mouseenter", handleMouseEnter);
       track.removeEventListener("mouseleave", handleMouseLeave);
       observer.disconnect();
+      window.removeEventListener("resize", handleResize);
     };
   }, []);
 
@@ -152,37 +162,91 @@ function About() {
       </section>
 
       <div className="about-photo-group about-bg">
-        {[0, 1].map((row) => (
-          <div className="about-row" key={row}>
-            {[0, 1].map((col) => {
-              const member = teamMembers[row * 2 + col];
-              return (
-                <div className="about-card-row horizontal" key={member.title}>
-                  <img
-                    src={`${import.meta.env.BASE_URL}images/about/${member.img}`}
-                    alt={member.title}
-                    className="about-card-photo"
-                  />
-                  <div className="about-card-text">
-                    {member.title.split("<br />").map((line, index) => (
-                      <div
-                        key={index}
-                        className="zh-text-20 about-card-title"
-                        style={{ marginBottom: index === 0 ? "10px" : "0" }}
-                      >
-                        {line}
-                      </div>
-                    ))}
-                    <p className="zh-text-16-regular about-card-desc"
-                      style={{ marginTop: "30px" }}
-                    >{member.desc}</p>
+        {windowWidth < 768 ? (
+          // ✅ 手機：上下排列
+          teamMembers.map((member) => (
+            <div className="about-card-row vertical" key={member.title}>
+              <img
+                src={`${import.meta.env.BASE_URL}images/about/${member.img}`}
+                alt={member.title}
+                className="about-card-photo"
+              />
+              <div className="about-card-text">
+                {member.title.split("<br />").map((line, index) => (
+                  <div
+                    key={index}
+                    className="zh-text-20 about-card-title"
+                    style={{ marginBottom: index === 0 ? "10px" : "0" }}
+                  >
+                    {line}
                   </div>
-                </div>
-              );
-            })}
-          </div>
-        ))}
+                ))}
+                <p className="zh-text-16-regular about-card-desc" style={{ marginTop: "30px" }}>
+                  {member.desc}
+                </p>
+              </div>
+            </div>
+          ))
+        ) : windowWidth <= 1024 ? (
+          // ✅ 平板：單欄左右排列（tablet className）
+          teamMembers.map((member) => (
+            <div className="about-card-row tablet" key={member.title}>
+              <img
+                src={`${import.meta.env.BASE_URL}images/about/${member.img}`}
+                alt={member.title}
+                className="about-card-photo"
+              />
+              <div className="about-card-text">
+                {member.title.split("<br />").map((line, index) => (
+                  <div
+                    key={index}
+                    className="zh-text-20 about-card-title"
+                    style={{ marginBottom: index === 0 ? "10px" : "0" }}
+                  >
+                    {line}
+                  </div>
+                ))}
+                <p className="zh-text-16-regular about-card-desc" style={{ marginTop: "30px" }}>
+                  {member.desc}
+                </p>
+              </div>
+            </div>
+          ))
+        ) : (
+          // ✅ 桌機：兩欄排列（原本邏輯）
+          [0, 1].map((row) => (
+            <div className="about-row" key={row}>
+              {[0, 1].map((col) => {
+                const member = teamMembers[row * 2 + col];
+                return (
+                  <div className="about-card-row horizontal" key={member.title}>
+                    <img
+                      src={`${import.meta.env.BASE_URL}images/about/${member.img}`}
+                      alt={member.title}
+                      className="about-card-photo"
+                    />
+                    <div className="about-card-text">
+                      {member.title.split("<br />").map((line, index) => (
+                        <div
+                          key={index}
+                          className="zh-text-20 about-card-title"
+                          style={{ marginBottom: index === 0 ? "10px" : "0" }}
+                        >
+                          {line}
+                        </div>
+                      ))}
+                      <p className="zh-text-16-regular about-card-desc" style={{ marginTop: "30px" }}>
+                        {member.desc}
+                      </p>
+                    </div>
+                  </div>
+                );
+              })}
+            </div>
+          ))
+        )}
       </div>
+
 
       {/* 聯絡我們區塊 */}
       <section
@@ -235,6 +299,7 @@ function About() {
 }
 
 export default About;
+
 
 
 

@@ -166,7 +166,11 @@
   margin-left: 2rem;
 }
 
-
+.logout-btn:focus,
+.logout-btn:active {
+  outline: none;
+  box-shadow: none;
+}
 
 
 
