@@ -10,7 +10,7 @@ function Footer() {
   const location = useLocation();
   const navigate = useNavigate();
   const isAboutPage = location.pathname === "/about";
-const isHomePage = location.pathname === "/";
+  const isHomePage = location.pathname === "/";
   const loggedIn = isLoggedIn();
 
   return (
@@ -25,8 +25,8 @@ const isHomePage = location.pathname === "/";
               </div>
               <div className="footer-contact-info">
                 <p className="zh-text-14">地址：台北市信義松仁路100號</p>
-<p className="zh-text-14">電話號碼：123-456-7890</p>
-<p className="zh-text-14 email-line">信箱：example@gmail.com</p>
+                <p className="zh-text-14">電話號碼：123-456-7890</p>
+                <p className="zh-text-14 email-line">信箱：example@gmail.com</p>
               </div>
             </div>
           </div>
