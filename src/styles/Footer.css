@@ -109,14 +109,14 @@
 }
 
 .footer-about-bg {
-  background-image: url("./images/about/about-footer.jpg");
+  background-image: url('/travelWeb-react/images/about/about-footer.jpg');
   background-size: cover;
   background-position: center;
   background-repeat: no-repeat;
 }
 
 .footer.footer-about-bg {
-  background-image: url("./images/about/about-footer.jpg");
+  background-image: url('/travelWeb-react/images/about/about-footer.jpg');
   background-size: cover;
   background-position: center;
   background-repeat: no-repeat;
@@ -130,7 +130,7 @@
 }
 
 .footer-home-bg {
-   background-image: url('/travelWeb-react/images/home-footer.jpg');
+  background-image: url('/travelWeb-react/images/home-footer.jpg');
   background-size: cover;
   background-position: center;
   background-repeat: no-repeat;
@@ -224,17 +224,20 @@
   }
 
   .footer-links-grid {
-  display: flex;
-  flex-wrap: wrap;                               /* ✅ 可自動換行 */
-  justify-content: center;
-  gap: clamp(8px, 3vw, 36px) clamp(8px, 4vw, 48px);  /* ✅ 橫向與縱向間距會自動縮放 */
-  font-size: clamp(12px, 2.5vw, 14px);           /* ✅ 字體大小會根據螢幕變小 */
-  text-align: center;
-  padding: 0 16px;
-  width: 100%;
-  max-width: 100%;
-  box-sizing: border-box;
-}
+    display: flex;
+    flex-wrap: wrap;
+    /* ✅ 可自動換行 */
+    justify-content: center;
+    gap: clamp(8px, 3vw, 36px) clamp(8px, 4vw, 48px);
+    /* ✅ 橫向與縱向間距會自動縮放 */
+    font-size: clamp(12px, 2.5vw, 14px);
+    /* ✅ 字體大小會根據螢幕變小 */
+    text-align: center;
+    padding: 0 16px;
+    width: 100%;
+    max-width: 100%;
+    box-sizing: border-box;
+  }
 
   .footer-links-grid a,
   .footer-links-grid span {
@@ -343,8 +346,8 @@
   }
 
   .footer-link-item {
-  max-width: 100%;             /* ✅ 限制每個項目的最大寬度 */
-  overflow-wrap: break-word;
+    max-width: 100%;
+    /* ✅ 限制每個項目的最大寬度 */
+    overflow-wrap: break-word;
+  }
 }
-}
-
