@@ -12,9 +12,9 @@
   background-color: rgba(20, 46, 63, 0.3);
   backdrop-filter: blur(12px);
   -webkit-backdrop-filter: blur(12px);
-  height: 50px;
+  height: 70px; /* ✅ 調整這邊，讓內容有空間顯示 */
+  padding: 0 30px;  /* ✅ 建議左右留白用 padding 控制 */
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
-  padding: 13px 0;
 }
 
 .navbar-logo {
@@ -22,7 +22,8 @@
   font-weight: bold;
   color: #333;
   margin-left: 45px;
-  cursor: pointer; /* ✅ 加入手型游標 */
+  cursor: pointer;
+  /* ✅ 加入手型游標 */
 }
 
 .logo-img {
@@ -46,21 +47,35 @@
 .navbar-links {
   list-style: none;
   display: flex;
-  gap: 48px;
+  flex-wrap: nowrap;
+  /* ❗ 保證不會換行 */
+  gap: clamp(12px, 3vw, 48px);
+  /* ✅ 自動縮小間距 */
   margin: 0;
   padding: 0;
   font-family: 'LXGW WenKai TC', serif;
   font-weight: bold;
-  font-size: 16px;
+  font-size: clamp(12px, 1.5vw, 16px);
+  /* ✅ 根據寬度自動調整字體 */
+  white-space: nowrap;
+  /* ❗ 防止項目自動換行 */
+}
+
+.navbar-links li {
+  flex-shrink: 1;
+  /* ✅ 當寬度不足時允許項目縮小 */
 }
 
 .navbar-links li a {
   position: relative;
+  display: inline-block;
   text-decoration: none;
   color: var(--secondary-color-xlight);
   transition: color 0.3s ease;
   line-height: 24px;
+  white-space: nowrap;
 }
+
 
 .navbar-links li a::after {
   content: "";
@@ -168,21 +183,28 @@
 /* ✅ RWD：手機（最大 767px） */
 @media (max-width: 767px) {
   .user-info {
-  gap: 0px;            /* icon 與文字間縮小間距 */
-  overflow: hidden;
-  white-space: nowrap;
-}
+    gap: 0px;
+    /* icon 與文字間縮小間距 */
+    overflow: hidden;
+    white-space: nowrap;
+  }
 
-.user-info span {
-  font-size: 14px;     /* 字體縮小更易排列 */
-  max-width: 0px !important;
-  overflow: hidden;
-  text-overflow: ellipsis;
-  display: none; /* ✅ 建議直接不顯示 */
-} 
+  .user-info span {
+    font-size: 14px;
+    /* 字體縮小更易排列 */
+    max-width: 0px !important;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    display: none;
+    /* ✅ 建議直接不顯示 */
+  }
 
-   .navbar {
+  .navbar {
+    height: 60px;               /* ✅ 你要的手機版高度 */
     padding: 10px 10px !important;
+    display: flex;
+    align-items: center;        /* ✅ 讓 logo 和 icon 在高度中置中 */
+    box-sizing: border-box;
   }
 
   .navbar-logo {
@@ -190,67 +212,88 @@
   }
 
   .navbar-center {
-    display: none;
+    flex: 1 1 auto;
+    display: flex;
+    justify-content: center;
+    min-width: 0;
+    /* ✅ 防止內容撐爆 */
+    overflow: hidden;
   }
 
   .navbar-icons {
-    display: flex;
-    align-items: center;
-    justify-content: flex-end;
-    margin-right: 0px !important;
-    gap: 10px !important;
-    padding: 0px !important;
-  }
+  display: flex;
+  align-items: center;
+  gap: 0px !important; /* ✅ 強制指定 icon 間距 */
+  margin-left: auto;
+  padding: 0 !important;
+  margin-right: 0px !important;
+  flex-shrink: 0;
+}
 
-  .logo-img {
-    width: 140px !important;
-  }
 
   .nav-icon {
     width: 30px;
     height: 30px;
+    position: relative;
+    z-index: 10;
   }
 
   .mobile-menu-icon {
-    display: flex;
-    font-size: 24px;
-    color: white;
-    margin-left: 5px !important;
-  }
+  display: flex !important;
+  font-size: 24px;
+  color: white;
+  margin-left: auto !important;  /* ✅ 關鍵：把它推到最右側 */
+  padding-left: 10px;
+  flex-shrink: 0;
+}
+
 
   .cart-container {
-    margin-right: -10px; /* ✅ 往右推一點和 user icon 保持距離 */
+    margin-right: -10px;
+    /* ✅ 往右推一點和 user icon 保持距離 */
   }
 
   .logout-btn {
-    margin-left:30px !important;
+  margin-left: 20px !important;    /* ✅ 小一點，避免擠出畫面 */
+  display: flex !important;
+  align-items: center;
+  background: none;
+  border: none;
+  padding: 0;
+  cursor: pointer;
+  flex-shrink: 0;                 /* ✅ 不允許它被壓縮到不見 */
   }
 }
 
 /* ✅ RWD：手機與平板版 navbar 隱藏導覽列 */
-@media (max-width: 1024px) {
+@media (max-width: 1530px) {
   .navbar-logo {
     margin-left: 0;
   }
 
+  .logo-img {
+    width: 200px !important;
+    height: 30px;               /* ✅ 根據 navbar 高度微調 logo 大小 */
+  }
+
   .navbar-center {
-    display: none;
+    display: none !important;
   }
 
   .mobile-menu-icon {
-    display: flex;
+    display: flex !important; /* ✅ 強制顯示漢堡 icon */
     font-size: 28px;
     color: white;
     margin-left: 20px;
   }
 
   .navbar-icons {
-  display: flex;
-  align-items: center;
-  justify-content: flex-end;
-  margin-right: 30px;
-  gap: 2px;
-}
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    margin-right: 30px;
+    gap: 2px;
+  }
 
   .mobile-menu-drawer {
     position: fixed;
@@ -290,25 +333,25 @@
   }
 
   .mobile-menu-overlay {
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100vw;
-  height: 100vh;
-  background-color: rgba(0,0,0,0.4);
-  z-index: 9998;
-}
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background-color: rgba(0, 0, 0, 0.4);
+    z-index: 9998;
+  }
 
-.mobile-menu-close {
-  position: absolute;
-  top: 18px;
-  right: 18px;
-  background: none;
-  border: none;
-  font-size: 28px;
-  color: white;
-  cursor: pointer;
-}
+  .mobile-menu-close {
+    position: absolute;
+    top: 18px;
+    right: 18px;
+    background: none;
+    border: none;
+    font-size: 28px;
+    color: white;
+    cursor: pointer;
+  }
 
 }
 
@@ -317,7 +360,7 @@
   .navbar-logo {
     margin-left: 0;
   }
-  
+
   .mobile-menu-icon {
     display: none;
   }
@@ -327,34 +370,50 @@
   }
 
   .mobile-menu-overlay {
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100vw;
-  height: 100vh;
-  background-color: rgba(0,0,0,0.4);
-  z-index: 9998;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background-color: rgba(0, 0, 0, 0.4);
+    z-index: 9998;
+  }
+
+  .mobile-menu-close {
+    position: absolute;
+    top: 18px;
+    right: 18px;
+    background: none;
+    border: none;
+    font-size: 28px;
+    color: white;
+    cursor: pointer;
+  }
+
+  .navbar-links {
+  display: flex;
+  flex-wrap: nowrap;
+  gap: clamp(12px, 2vw, 48px);  /* ✅ 字與字距離自動縮放 */
+  font-size: clamp(12px, 1vw, 16px); /* ✅ 字體會自動縮小 */
+  white-space: nowrap;
+  overflow: hidden;
+}
 }
 
-.mobile-menu-close {
-  position: absolute;
-  top: 18px;
-  right: 18px;
-  background: none;
-  border: none;
-  font-size: 28px;
-  color: white;
-  cursor: pointer;
+@media (max-width: 1200px) {
+  .navbar-links {
+    gap: clamp(8px, 2vw, 24px);
+    /* 間距再小一點 */
+    font-size: clamp(12px, 1.2vw, 14px);
+    /* 字體略縮 */
+  }
+
+  .nav-icon {
+    width: 26px;
+    height: 26px;
+  }
+
+  .logo-img {
+    width: 140px;
+  }
 }
-
-}
-
-
-
-
-
-
-
-
-
-  

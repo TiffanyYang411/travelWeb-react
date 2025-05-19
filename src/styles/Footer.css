@@ -186,7 +186,90 @@
   }
 }
 
-@media (max-width: 390px) {
+@media (min-width: 660px) and (max-width: 666px) {
+  .footer-top {
+    flex-direction: column;
+    align-items: center;
+    padding: 24px 16px;
+    box-sizing: border-box;
+    width: 100%;
+    max-width: 100%;
+  }
+
+  .footer-right {
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    max-width: 100%;
+    box-sizing: border-box;
+  }
+
+  .footer-left-moved {
+    margin-bottom: 20px;
+    text-align: center;
+  }
+
+  .footer-left-inner {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .footer-contact-info p {
+    font-size: 13px;
+    text-align: center;
+    line-height: 1.4;
+    word-break: break-word;
+  }
+
+  .footer-links-grid {
+  display: flex;
+  flex-wrap: wrap;                               /* ✅ 可自動換行 */
+  justify-content: center;
+  gap: clamp(8px, 3vw, 36px) clamp(8px, 4vw, 48px);  /* ✅ 橫向與縱向間距會自動縮放 */
+  font-size: clamp(12px, 2.5vw, 14px);           /* ✅ 字體大小會根據螢幕變小 */
+  text-align: center;
+  padding: 0 16px;
+  width: 100%;
+  max-width: 100%;
+  box-sizing: border-box;
+}
+
+  .footer-links-grid a,
+  .footer-links-grid span {
+    font-size: 13px;
+    display: inline-block;
+    max-width: 100%;
+    word-break: break-word;
+  }
+
+  .footer-link-item {
+    max-width: 100%;
+    overflow-wrap: break-word;
+  }
+
+  .footer-logo-img {
+    height: 34px;
+    margin-bottom: 12px;
+  }
+
+  .footer-bottom {
+    font-size: 12px;
+    padding: 6px 8px;
+    text-align: center;
+    word-break: break-word;
+  }
+
+  .footer-bottom p {
+    font-size: 12px;
+    line-height: 1.5;
+  }
+}
+
+
+
+@media (max-width: 659px) {
   .about-contact-header h2 {
     font-size: 24px;
   }
