@@ -130,7 +130,7 @@
 }
 
 .footer-home-bg {
-  background-image: url("./images/home-footer.jpg"); /* ✅ 你要替換的圖 */
+   background-image: url('/travelWeb-react/images/home-footer.jpg');
   background-size: cover;
   background-position: center;
   background-repeat: no-repeat;

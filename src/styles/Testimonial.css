@@ -3,7 +3,7 @@
 .testimonial-section {
   width: 100vw;
   height: 100vh;
-  background-image: url('./images/testimonial-bg.jpg');
+  background-image: url('/travelWeb-react/images/testimonial-bg.jpg');
   background-size: cover;
   background-position: center;
   background-repeat: no-repeat;

@@ -117,16 +117,6 @@
   transform: translateY(0);
 }
 
-/* === Testimonial 視覺背景包裝區塊（與 WhyUs 極光銜接） === */
-.testimonial-wrapper {
-  background-image: url('/images/testimonial-bg.jpg');
-  background-size: cover;
-  background-repeat: no-repeat;
-  background-position: center ; /* ↑再往上對齊 whyUs 的底部 */
-  padding: 180px 0;
-  position: relative;
-  z-index: 1;
-}
 
 
 
