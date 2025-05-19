@@ -10,11 +10,19 @@ export default defineConfig({
       targets: [
         {
           src: 'dist/index.html',
-          dest: '.',       // 複製到 dist 根目錄
-          rename: '404.html', // 讓 GitHub Pages fallback 到 React App
+          dest: '.',
+          rename: '404.html',
         },
       ],
     }),
   ],
+  build: {
+    rollupOptions: {
+      input: {
+        main: 'index.html',
+      },
+    },
+  },
 })
+
 
