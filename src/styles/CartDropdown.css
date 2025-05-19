@@ -37,19 +37,31 @@
   pointer-events: auto;
 }
 
-.cart-dropdown::before {
+/* .cart-dropdown::before {
   content: "";
   position: absolute;
-  top: -8.7px; /* ✅ 小三角形貼更近 */
-  left: 43%;
-  transform: translateX(-45%);
-  transform: translateY(-70%);
+  top: 0;
+  left: 50%;
+  transform: translate(-50%, -100%);
   width: 30px;
   height: 30px;
   background: rgba(255, 255, 255, 0.6);
   backdrop-filter: blur(80px);
   clip-path: path('M0 30 L13 10 Q15 5 17 10 L30 30 Z');
-  z-index: 0;
+  z-index: 1;
+} */
+
+.cart-triangle {
+  position: absolute;
+  bottom: 100%; /* ✅ 關鍵：對齊 dropdown 的上邊緣 */
+  left: 61%;
+  transform: translateX(-50%);
+  width: 30px;
+  height: 30px;
+  background: rgba(255, 255, 255, 0.6);
+  backdrop-filter: blur(80px);
+  clip-path: path('M0 30 L13 10 Q15 5 17 10 L30 30 Z');
+  z-index: 998;
 }
 
 
@@ -178,3 +190,16 @@
   font-size: 16px;
 }
 
+@media (max-width: 1024px) {
+  .cart-triangle {
+    left: 61.5%;
+    margin-bottom: -1.5px; /* ✅ 貼更近，用正值會讓它遠離 */
+  }
+}
+
+@media (max-width: 767px) {
+  .cart-triangle {
+    left: 61.5%;
+    margin-bottom: -1.8px; /* ✅ 貼更近，用正值會讓它遠離 */
+  }
+}
