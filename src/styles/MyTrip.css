@@ -807,6 +807,7 @@ select::-ms-expand {
   /* ✅ 保持原本顏色 */
   font-size: inherit;
   font-weight: inherit;
+  vertical-align: middle;       /* ✅ 垂直對齊 */
 }
 
 .react-calendar__tile.past-date {
@@ -938,7 +939,15 @@ select::-ms-expand {
   margin-bottom: 10px;
 }
 
-
+.trip-drag-handle {
+  font-size: 30px;
+  margin-right: 0px;
+  color: #888;
+  cursor: grab;
+  user-select: none;
+  display: flex;
+  align-items: center;
+}
 
 html, body {
   overscroll-behavior: none;
@@ -950,6 +959,15 @@ html, body {
 
 .mytrip-card-left.drag-handle {
   user-select: none; /* ✅ 防止選取文字影響拖曳 */
+}
+
+.drag-hint {
+  margin-bottom: 8px;
+  color: var(--primary-color);
+  font-size: 14px;
+  display: flex;
+  align-items: center;
+  gap: 4px;
 }
 
 /* 🔧 修正 react-beautiful-dnd 拖曳偏移問題 */
@@ -974,4 +992,11 @@ html, body, #root {
 .mytrip-page-wrapper *::before,
 .mytrip-page-wrapper *::after {
   animation: none !important;
+}
+
+@media (max-width: 767px) {
+  .mytrip-info-container {
+    max-height: none;
+    overflow: visible;
+  }
 }

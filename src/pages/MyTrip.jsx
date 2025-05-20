@@ -498,7 +498,8 @@ console.log('🧪 pendingTrips:', pendingTrips);
         </div>
 
         <div className="mytrip-info-container slide-up-appear">
-          <div className="mytrip-header-row">
+<p className="drag-hint zh-text-14">✥ 拖曳行程卡片可自行排序，調整您理想的旅遊順序 ✥</p>
+<div className="mytrip-header-row">
             <div>行程</div>
             <div>天數</div>
             <div>行程費用/人</div>
@@ -562,6 +563,7 @@ const finalPrice = tripHasWeekend
                           >
                             {/* 行程（圖片＋標題＋亮點） */}
                             <div className="mytrip-card-cell mytrip-card-left">
+                               <div className="trip-drag-handle">≡</div> {/* 👈 拖曳 icon */}
                               <img
                                 src={tripDetail.bannerImage || tripDetail.banner}
                                 alt={tripDetail.title}
