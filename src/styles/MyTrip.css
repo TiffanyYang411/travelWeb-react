@@ -10,9 +10,18 @@
 }
 
 /* === 頁面淡入動畫 === */
-.fade-in {
-  animation: fadeInPage 1s ease forwards;
+.fade-in-safe {
+  animation: fadeInOnly 0.8s ease-out forwards;
+  opacity: 0;
 }
+
+/* ✅ 改為純 opacity 過渡 */
+@keyframes fadeInOnly {
+  to {
+    opacity: 1;
+  }
+}
+
 
 @keyframes fadeInPage {
   from {
@@ -24,27 +33,15 @@
   }
 }
 
-.slide-up {
-  animation: slideUpCards 1s ease forwards;
-}
-
-@keyframes slideUpCards {
-  from {
-    opacity: 0;
-    transform: translateY(30px);
-  }
-
-  to {
-    opacity: 1;
-    transform: translateY(0);
-  }
+.slide-up-appear {
+  opacity: 1;
+  margin-top: 0;
+  transition: opacity 0.8s ease-out, margin-top 0.8s ease-out;
 }
 
 /* === 頁面基本設定 === */
 .mytrip-page-wrapper {
   min-height: 100vh;
-  max-height: 100vh;
-  /* max-height: 100vh; ❌ 刪掉這一行 */
   overflow-x: hidden;
   /* ✅ 只隱藏左右溢出，不要擋住上下 */
   overflow-y: auto;
@@ -56,15 +53,17 @@
   padding-bottom: 70px;
   box-sizing: border-box;
   position: relative;
+  flex-grow: 1; /* ✅ 確保能撐開 */
 }
 
 .mytrip-page-title {
   position: absolute;
-  top: 0;
+   top: 100px; /* ✅ 讓它往下移開 navbar */
   left: 100px;
   font-size: 32px;
   font-weight: bold;
   color: var(--secondary-color-xlight);
+  margin: 0 0 20px 40px;
 }
 
 /* === 主內容區 === */
@@ -72,9 +71,11 @@
   display: flex;
   flex: 1;
   overflow-y: auto;
-  padding: 20px;
+  padding: 50px;
   gap: 40px;
   box-sizing: border-box;
+  /* ✅ 加這一行 */
+  margin-top: 40px; /* 視覺上讓月曆和右側內容整體往下 */
 }
 
 /* === 月曆區 === */
@@ -170,23 +171,46 @@
 
 /* 行程列表 */
 .mytrip-list {
+  position: relative; /* ✅ 這個一定要有 */
+  z-index: 0; /* 防止拖曳卡片被遮擋 */
   font-size: 18px;
   display: flex;
   flex-direction: column;
-  gap: 8px;
+  gap: 0px;
   overflow-y: auto;
   flex-grow: 1;
+  min-height: 200px; /* 或至少有 padding-bottom */
+  min-width: 100%;
 }
 
 /* 單一行程 */
-.mytrip-item {
+ .mytrip-item {
   position: relative;
-  display: grid;
-  /* grid-template-columns: 3fr 0.7fr 0.8fr 0.3fr 0.3fr; */
+  display: grid !important;
+  justify-content: space-between;
   grid-template-columns: 3fr 1.2fr 1.2fr 1fr 0.6fr;
   align-items: center;
   padding: 10px 5px 10px 5px;
   border-bottom: 2px solid var(--primary-color);
+  transition: opacity 0.3s ease;
+  z-index: 1;
+  margin-bottom: 0px;
+  box-sizing: border-box; /* 確保寬度正確計算 */
+  width: 100% !important; /* 強制拖曳時仍維持寬度 */
+} 
+
+.mytrip-card-cell {
+  display: flex;
+  align-items: center;
+}
+
+.mytrip-card-left {
+  gap: 16px;
+}
+
+.mytrip-item:active {
+  background-color: #f6fbfc;
+  box-shadow: 0 2px 12px rgba(0,0,0,0.1);
 }
 
 /* 行程左側（圖片＋標題亮點） */
@@ -233,20 +257,21 @@
 }
 
 /* 行程右側欄位（天數/費用/人數/刪除） */
-.mytrip-card-right {
+/* .mytrip-card-right {
   font-family: var(--font-zh);
   display: contents;
+} */
+
+.mytrip-card-right {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  font-family: var(--font-zh);
+  flex-wrap: nowrap;
+  justify-content: flex-start; /* or space-between */
 }
 
-.people-select select {
-  width: 100%;
-  padding: 8px 32px 8px 38px;
-  /* ✅ 右邊留更多空間給箭頭 */
-  border-radius: 6px;
-  /* border: 1px solid var(--primary-color); */
-  font-size: 14px;
-  background-color: var(--secondary-color-light);
-}
+
 
 .custom-people-input {
   width: 80px;
@@ -314,6 +339,8 @@
   font-family: var(--font-zh);
   margin-top: 5px;
   padding: 0px;
+  padding-right: 20px;
+  /* ✅ 增加右邊內距，避免緊貼邊界 */
   /* background-color: var(--secondary-color-xlight); */
   /* border-radius: 16px; */
   text-align: right;
@@ -321,7 +348,8 @@
 }
 
 .mytrip-summary p {
-  margin: 10px 0;
+  margin: 15px 0;
+  margin-bottom: 20px; /* ✅ 兩行之間留點呼吸空間 */
 }
 
 /* 下一步按鈕 */
@@ -441,6 +469,23 @@
   text-decoration: none;
 }
 
+.people-select {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 6px;
+}
+
+.people-select input[type="number"] {
+  width: 100px;
+  padding: 20px 10px;
+  font-size: 16px;
+  border-radius: 6px;
+  border: 1px solid #ccc;
+  margin-left: 50px; /* ✅ 這行讓它往右移動 */
+  margin-top: -15px; /* ✅ 負值會讓它往上 */
+}
+
 .people-select select {
   appearance: none;
   /* ✅移除原生下拉樣式 */
@@ -454,7 +499,7 @@
   color: var(--primary-color);
   /* ✅文字主色 */
   font-size: 18px;
-  padding: 8px 32px 8px 38px;
+  padding: 20px 48px 20px 48px;
   /* ✅ 上下留8px，右邊留24px空間放箭頭 */
   background-image: url('/images/arrow-down.svg');
   /* ✅自訂下拉箭頭圖片（路徑自己調整） */
@@ -467,8 +512,11 @@
   /* ✅選取時不出藍框 */
   line-height: 1.5;
   /* ✅ 加行高讓字正常置中 */
-  min-height: 40px;
+  min-height: 48px;
   /* ✅ 最小高度給一點空間 */
+  min-width: 100px;            /* ✅ 拉寬寬度避免不好按 */
+  display: flex;
+  flex-direction: column; /* ✅ 垂直排列 */
 }
 
 /* 若需要兼容Safari可加 */
@@ -589,13 +637,24 @@ select::-ms-expand {
 }
 
 /* ❌ 紅色 */
-.delete-btn {
+/* .delete-btn {
   position: absolute;
   right: 40px;
   top: 50%;
   transform: translateY(-50%);
   z-index: 1;
   color: #FF0000;
+} */
+
+.delete-btn {
+  position: relative; /* 改成 relative 或移除 position */
+  margin-left: auto;
+  margin-right: 10px;
+  top: auto;
+  transform: none;
+  color: #FF0000;
+  transform: translateY(-2px); /* 上移 2px，可調整 */
+  line-height: 1; /* 或 0.9、0.8，視需要微調 */
 }
 
 /* ➕ 橘色（你的品牌色） */
@@ -619,7 +678,7 @@ select::-ms-expand {
   height: 28px;
   border-radius: 50%;
   cursor: pointer;
-  transform: translateY(-1px) translateX(-1px);
+  transform: translateY(-5px) translateX(-1px);
   /* 或其他值微調 */
 }
 
@@ -641,7 +700,7 @@ select::-ms-expand {
   background-color: #cccccc !important;
   color: #ffffff !important;
   font-weight: bold;
-  border-radius: 8px;
+  /* border-radius: 8px; */
   text-decoration: line-through;
   cursor: not-allowed;
 }
@@ -704,6 +763,14 @@ select::-ms-expand {
 .react-calendar__tile.today-disabled:focus {
   outline: none !important;
   box-shadow: none !important;
+}
+
+.react-calendar__tile:disabled {
+  background-color: #f0f0f0 !important;
+  color: #999 !important;
+  cursor: not-allowed !important;
+  font-weight: normal;
+  opacity: 1;
 }
 
 /* 🔒 移除任何被 disabled tile 的焦點樣式 */
@@ -786,17 +853,23 @@ select::-ms-expand {
   font-weight: bold;
   margin-top: 12px;
   font-family: var(--font-zh);
+  text-align: center;
+  white-space: nowrap;
 }
 
 /* ✅ 當週末日期被選中，同時加上 active 時的特殊樣式 */
 .react-calendar__tile.weekend-possible.react-calendar__tile--active {
-  background-color: var(--secondary-color-dark) !important;  /* 橘棕色背景 */
-  color: white !important;               /* 白字 */
+  background-color: var(--secondary-color-dark) !important;
+  /* 橘棕色背景 */
+  color: white !important;
+  /* 白字 */
 }
 
 .react-calendar__tile.weekend-selected {
-  background-color: var(--secondary-color-dark) !important; /* ✅ 跟你其他選取區一致 */
-  color: var(--secondary-color-xlight) !important;          /* 白色字 */
+  background-color: var(--secondary-color-dark) !important;
+  /* ✅ 跟你其他選取區一致 */
+  color: var(--secondary-color-xlight) !important;
+  /* 白色字 */
   font-weight: bold;
   border-radius: 0px;
 }
@@ -830,3 +903,75 @@ select::-ms-expand {
   color: var(--secondary-color-xlight);
 }
 
+.react-calendar__navigation__label {
+  padding: 6px 8px;
+  max-width: 100%;
+  box-sizing: border-box;
+  text-align: center;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  font-weight: bold;
+  font-size: 24px;
+}
+
+.calendar-warning-text {
+  color: #999;
+  font-size: 13px;
+  margin-top: 10px;
+  font-family: var(--font-zh);
+  text-align: center;
+}
+
+.drag-handle {
+  cursor: grab;
+}
+
+.drag-handle:active {
+  cursor: grabbing;
+}
+
+.drag-test {
+  padding: 20px;
+  background-color: #eee;
+  border: 2px dashed #999;
+  margin-bottom: 10px;
+}
+
+
+
+html, body {
+  overscroll-behavior: none;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+.mytrip-card-left.drag-handle {
+  user-select: none; /* ✅ 防止選取文字影響拖曳 */
+}
+
+/* 🔧 修正 react-beautiful-dnd 拖曳偏移問題 */
+body {
+  overflow-anchor: none !important;
+}
+
+html, body, #root {
+  transform: none !important;
+  /* overflow: visible !important; */
+}
+
+/* .mytrip-page-wrapper,
+.mytrip-main,
+.mytrip-info-container,
+.mytrip-list {
+  transform: none !important;
+  perspective: none !important;
+} */
+
+.mytrip-page-wrapper *,
+.mytrip-page-wrapper *::before,
+.mytrip-page-wrapper *::after {
+  animation: none !important;
+}

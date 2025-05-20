@@ -98,7 +98,7 @@
   padding: 50px;
   border-radius: 12px;
   color: var(--primary-color);
-  height: 450px;         /* ✅ 固定高度，不再由內容撐開 */
+  height: 550px;         /* ✅ 固定高度，不再由內容撐開 */
   transition: opacity 0.3s ease;
 }
 

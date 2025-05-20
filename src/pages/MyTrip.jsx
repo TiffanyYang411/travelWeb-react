@@ -8,6 +8,7 @@ import '../styles/Typography.css';
 import { useTripStore } from '../store/useTripStore';
 import { findTripById } from '../utils/findTripById';
 import { getUserTrips, removeTripFromUser } from '../utils/tripUtils';
+import { DragDropContext, Droppable, Draggable } from 'react-beautiful-dnd';
 
 
 function formatDateToZh(date) {
@@ -36,6 +37,15 @@ function MyTrip() {
   const [editingPeople, setEditingPeople] = useState({});
   const [hasSurcharge, setHasSurcharge] = useState(false); // ✅ 顯示是否週末加價
   const [surchargeDates, setSurchargeDates] = useState([]);      // ✅ 新增
+
+  // ✅ 拖曳完成時更新順序
+  const handleDragEnd = (result) => {
+    if (!result.destination) return;
+    const reordered = Array.from(pendingTrips);
+    const [moved] = reordered.splice(result.source.index, 1);
+    reordered.splice(result.destination.index, 0, moved);
+    setPendingTrips(reordered);
+  };
 
   useEffect(() => {
     const updateFromSession = () => {
@@ -83,32 +93,39 @@ function MyTrip() {
       return;
     }
 
-    pendingTrips.forEach((trip) => {
-      const tripDetail = findTripById(trip.tripId);
-      if (!tripDetail) return;
+    let currentDate = new Date(inputStartDate); // 🔁 每次重算從 startDate 開始
 
-      const people = parseInt(trip.peopleCount, 10);
-      if (!people || isNaN(people)) return;
+pendingTrips.forEach((trip) => {
+  const tripDetail = findTripById(trip.tripId);
+  if (!tripDetail) return;
 
-      const match = tripDetail.days?.match(/(\d+)\s*天/);
-      const days = match ? parseInt(match[1], 10) : 0;
-      let hasWeekend = false;
+  const people = parseInt(trip.peopleCount, 10);
+  if (!people || isNaN(people)) return;
 
-      const baseDate = new Date(startDate);
-      for (let i = 0; i < days; i++) {
-        const curDate = new Date(baseDate);
-        curDate.setDate(baseDate.getDate() + i);
-        const day = curDate.getDay();
-        if (day === 0 || day === 6) {
-          hasWeekend = true;
-          foundSurcharge = true;
-          weekendDates.push(`${curDate.getMonth() + 1}/${curDate.getDate()}`);
-        }
-      }
+  const match = tripDetail.days?.match(/(\d+)\s*天/);
+  const days = match ? parseInt(match[1], 10) : 0;
+  let hasWeekend = false;
 
-      const pricePerPerson = hasWeekend ? tripDetail.price * 1.2 : tripDetail.price;
-      total += pricePerPerson * people;
-    });
+  // 🔁 檢查該行程的實際落點範圍是否有週末
+  for (let i = 0; i < days; i++) {
+    const curDate = new Date(currentDate);
+    curDate.setDate(currentDate.getDate() + i);
+    const day = curDate.getDay();
+    if (day === 0 || day === 6) {
+      hasWeekend = true;
+      foundSurcharge = true;
+      weekendDates.push(`${curDate.getMonth() + 1}/${curDate.getDate()}`);
+    }
+  }
+
+  // 💰 該行程要不要加價
+  const pricePerPerson = hasWeekend ? tripDetail.price * 1.2 : tripDetail.price;
+  total += pricePerPerson * people;
+
+  // 🧭 將 currentDate 往後推動
+  currentDate.setDate(currentDate.getDate() + days);
+});
+
 
     // ✅ 先排序週末日期，避免順序亂跳
     weekendDates.sort((a, b) => {
@@ -122,6 +139,32 @@ function MyTrip() {
     setTotalPrice(Math.round(total));
   };
 
+  // ✅ 額外邏輯：只根據日期與天數判斷是否包含週末（不考慮人數）
+  const hasWeekendInRange = (() => {
+    if (!startDate || pendingTrips.length === 0) return false;
+
+    let totalDays = 0;
+    pendingTrips.forEach(trip => {
+      const detail = findTripById(trip.tripId);
+      if (!detail) return;
+      const match = detail.days?.match(/(\d+)\s*天/);
+      const days = match ? parseInt(match[1], 10) : 0;
+      totalDays += days;
+    });
+
+    const end = new Date(startDate);
+    end.setDate(end.getDate() + totalDays - 1);
+
+    const cur = new Date(startDate);
+    while (cur <= end) {
+      const day = cur.getDay();
+      if (day === 0 || day === 6) {
+        return true; // 有包含週末
+      }
+      cur.setDate(cur.getDate() + 1);
+    }
+    return false;
+  })();
 
 
   const recalculateEndDate = (currentStartDate, tripArray) => {
@@ -312,7 +355,7 @@ function MyTrip() {
 
   if (pendingTrips.length === 0) {
     return (
-      <div className="mytrip-page-wrapper fade-in">
+      <div className="mytrip-page-wrapper fade-in-safe">
         <div className="mytrip-empty-container">
           <h2 className="zh-title-36">您的專屬旅程</h2>
           <p className="zh-text-20">旅程的篇章尚未開始書寫，<br />現在，就是您與北歐邂逅的最佳時刻。</p>
@@ -323,9 +366,10 @@ function MyTrip() {
       </div>
     );
   }
+console.log('🧪 pendingTrips:', pendingTrips);
 
   return (
-    <div className="mytrip-page-wrapper fade-in">
+    <div className="mytrip-page-wrapper fade-in-safe">
       <h2 className="zh-title-36 mytrip-page-title">你的專屬旅程</h2>
       <div className="mytrip-main">
         <div className="mytrip-calendar-wrapper">
@@ -337,53 +381,80 @@ function MyTrip() {
               next2Label={null}
               prev2Label={null}
               locale="en-US"
-              formatMonthYear={(locale, date) => `${date.getFullYear()}年${date.getMonth() + 1}月`}
+              formatMonthYear={(locale, date) =>
+                `${date.getFullYear()}年${date.getMonth() + 1}月`
+              }
               formatShortWeekday={(locale, date) => ['SUN', 'MON', 'TUE', 'WED', 'THU', 'FRI', 'SAT'][date.getDay()]}
-              tileDisabled={({ date }) => {
-                // 只讓「額滿日」不可點，今天以前的日期保留外觀控制（不 disabled）
-                return isFullyBooked(date);
+              tileDisabled={({ date, view }) => {
+                const today = new Date();
+                today.setHours(0, 0, 0, 0);
+
+                if (view === 'decade') {
+                  // 禁用今天以前的年份
+                  return date.getFullYear() < today.getFullYear();
+                }
+
+                if (view === 'year') {
+                  // 禁用今天以前的月份
+                  const year = date.getFullYear();
+                  const month = date.getMonth();
+                  return (
+                    year < today.getFullYear() ||
+                    (year === today.getFullYear() && month < today.getMonth())
+                  );
+                }
+
+                if (view === 'month') {
+                  // 月曆視圖下：只禁用額滿日（你原本邏輯保留）
+                  return isFullyBooked(date);
+                }
+
+                return false;
               }}
 
-              tileClassName={({ date }) => {
+
+              tileClassName={({ date, view }) => {
                 const classes = [];
 
                 const yyyyMMdd = date.toISOString().split('T')[0];
                 const isFull = fullyBookedDates.includes(yyyyMMdd);
-                const isWeekend = date.getDay() === 0 || date.getDay() === 6;
 
-                const selectedStart = startDate ? new Date(startDate.setHours(0, 0, 0, 0)) : null;
-                const selectedEnd = endDate ? new Date(endDate.setHours(0, 0, 0, 0)) : null;
-                const currentDate = new Date(date.setHours(0, 0, 0, 0));
+                if (view === 'month') {
+                  const isWeekend = date.getDay() === 0 || date.getDay() === 6;
 
-                const isSelected = selectedStart && selectedEnd &&
-                  currentDate.getTime() >= selectedStart.getTime() &&
-                  currentDate.getTime() <= selectedEnd.getTime();
+                  const selectedStart = startDate ? new Date(startDate.setHours(0, 0, 0, 0)) : null;
+                  const selectedEnd = endDate ? new Date(endDate.setHours(0, 0, 0, 0)) : null;
+                  const currentDate = new Date(date.setHours(0, 0, 0, 0));
 
-                if (isPastDate(date)) classes.push('past-date');
-                if (isTodayDisabled(date)) classes.push('today-disabled');
-                if (isFull) classes.push('fully-booked-day');
+                  const isSelected = selectedStart && selectedEnd &&
+                    currentDate.getTime() >= selectedStart.getTime() &&
+                    currentDate.getTime() <= selectedEnd.getTime();
 
-                if (isWeekend) {
-                  if (isSelected) {
-                    classes.push('weekend-selected');
-                  } else {
-                    classes.push('weekend-possible');
+                  if (isPastDate(date)) classes.push('past-date');
+                  if (isTodayDisabled(date)) classes.push('today-disabled');
+                  if (isFull) classes.push('fully-booked-day');
+
+                  if (isWeekend) {
+                    if (isSelected) {
+                      classes.push('weekend-selected');
+                    } else {
+                      classes.push('weekend-possible');
+                    }
                   }
-                }
 
-                // ✅ 對於選取起始日是週末，保留 .react-calendar__tile--rangeStart 風格
-                if (selectedStart && currentDate.getTime() === selectedStart.getTime()) {
-                  classes.push('react-calendar__tile--rangeStart');
-                  if (isWeekend) classes.push('weekend-range-start'); // 左圓角
-                }
+                  if (selectedStart && currentDate.getTime() === selectedStart.getTime()) {
+                    classes.push('react-calendar__tile--rangeStart');
+                    if (isWeekend) classes.push('weekend-range-start');
+                  }
 
-                // ✅ 對於結尾日是週末，加右圓角
-                if (selectedEnd && currentDate.getTime() === selectedEnd.getTime()) {
-                  if (isWeekend) classes.push('weekend-range-end');
+                  if (selectedEnd && currentDate.getTime() === selectedEnd.getTime()) {
+                    if (isWeekend) classes.push('weekend-range-end');
+                  }
                 }
 
                 return classes;
               }}
+
 
 
 
@@ -404,7 +475,18 @@ function MyTrip() {
                 );
               }}
 
+              formatMonth={(locale, date) =>
+                date.toLocaleString('en-US', { month: 'short' })
+              }
             />
+
+            {hasWeekendInRange &&
+              pendingTrips.every(trip => !trip.peopleCount || parseInt(trip.peopleCount, 10) <= 0) && (
+                <p className="calendar-warning-text zh-text-12">
+                  ※ 您所選的日期涵蓋假日，行程費用將加收 20% 假日加價費用
+                </p>
+              )}
+
 
             {hasSurcharge && (
               <p className="calendar-surcharge-text zh-text-12">
@@ -415,87 +497,167 @@ function MyTrip() {
           </div>
         </div>
 
-        <div className="mytrip-info-container slide-up">
+        <div className="mytrip-info-container slide-up-appear">
           <div className="mytrip-header-row">
             <div>行程</div>
             <div>天數</div>
             <div>行程費用/人</div>
             <div>人數</div>
           </div>
+          <DragDropContext onDragEnd={handleDragEnd}>
+            <Droppable droppableId="tripList">
+              {(provided) => (
+                <div
+                  className="mytrip-list"
+                  ref={provided.innerRef}
+                  {...provided.droppableProps}
+                >
+                  {pendingTrips.map((trip, index) => {
+                    const tripDetail = findTripById(trip.tripId);
+                    if (!tripDetail) return null;
+                    const priceMatch = tripDetail.days?.match(/(\d+)\s*天/);
+const days = priceMatch ? parseInt(priceMatch[1], 10) : 0;
 
-          <div className="mytrip-list">
-            {pendingTrips.map((trip) => {
-              const tripDetail = findTripById(trip.tripId);
-              if (!tripDetail) return null;
-              return (
-                <div key={trip.tripId} className="mytrip-item">
-                  <div className="mytrip-card-left">
-                    <img src={tripDetail.bannerImage || tripDetail.banner} alt={tripDetail.title} className="mytrip-thumb" />
-                    <div className="mytrip-left-text">
-                      <h3 className="zh-title-24">{tripDetail.title}</h3>
-                      <p className="zh-text-18">
-                        {tripDetail.highlights ? tripDetail.highlights.filter(Boolean).join('、') : ''}
-                      </p>
-                    </div>
-                  </div>
-                  <div className="mytrip-card-right">
-                    <div>{tripDetail.days}</div>
-                    <div className="trip-price-cell">
-                      {hasSurcharge ? (
-                        <>
-                          <span className="original-price">
-                            NT$ {tripDetail.price.toLocaleString()}
-                          </span>
-                          <span
-                            className="surcharge-price"
-                            title={`週末加價日：${surchargeDates.join('、')}`}
-                          >
-                            NT$ {(tripDetail.price * 1.2).toLocaleString()}
-                          </span>
+let tripStartDate = new Date(startDate);
+for (let i = 0; i < index; i++) {
+  const prevDetail = findTripById(pendingTrips[i].tripId);
+  const prevMatch = prevDetail.days?.match(/(\d+)\s*天/);
+  const prevDays = prevMatch ? parseInt(prevMatch[1], 10) : 0;
+  tripStartDate.setDate(tripStartDate.getDate() + prevDays);
+}
 
-                        </>
-                      ) : (
-                        <>NT$ {tripDetail.price.toLocaleString()}</>
-                      )}
-                    </div>
+// 檢查該行程實際天數範圍是否有週末
+let tripHasWeekend = false;
+for (let i = 0; i < days; i++) {
+  const d = new Date(tripStartDate);
+  d.setDate(d.getDate() + i);
+  const dow = d.getDay();
+  if (dow === 0 || dow === 6) {
+    tripHasWeekend = true;
+    break;
+  }
+}
 
-                    <div className="people-select">
-                      <select
-                        value={editingPeople[trip.tripId] !== undefined
-                          ? (parseInt(editingPeople[trip.tripId], 10) > 10 ? 'custom' : editingPeople[trip.tripId])
-                          : (parseInt(trip.peopleCount, 10) > 10 ? 'custom' : trip.peopleCount || '')}
-                        onChange={(e) => handlePeopleChange(trip.tripId, e.target.value)}
+const finalPrice = tripHasWeekend
+  ? Math.round(tripDetail.price * 1.2)
+  : tripDetail.price;
+
+                    return (
+                      <Draggable
+                        key={`trip-${trip.tripId}`}  // ✅ 保證唯一且穩定
+                        draggableId={trip.tripId.toString()}
+                        index={index}
                       >
+                        {(provided) => (
+                          <div
+                            className="mytrip-item drag-handle"
+                            ref={provided.innerRef}
+                            {...provided.draggableProps}
+                            {...provided.dragHandleProps} // ✅ 可以整塊都可拖曳，或改放到圖左再微調
+                            style={{
+                              ...provided.draggableProps.style,
+                              userSelect: 'none', // ✅ 避免拖曳時選取文字
+                              width: '100%', // ✅ 確保對齊一致
+                            }}
+                          >
+                            {/* 行程（圖片＋標題＋亮點） */}
+                            <div className="mytrip-card-cell mytrip-card-left">
+                              <img
+                                src={tripDetail.bannerImage || tripDetail.banner}
+                                alt={tripDetail.title}
+                                className="mytrip-thumb"
+                              />
+                              <div className="mytrip-left-text">
+                                <h3 className="zh-title-24">{tripDetail.title}</h3>
+                                <p className="zh-text-18">
+                                  {tripDetail.highlights?.filter(Boolean).join('、') || ''}
+                                </p>
+                              </div>
+                            </div>
 
-                        <option value="">請選擇</option>
-                        {[...Array(10)].map((_, i) => (
-                          <option key={i + 1} value={i + 1}>{i + 1} 位</option>
-                        ))}
-                        <option value="custom">10位以上</option>
-                      </select>
-                      {(editingPeople[trip.tripId] !== undefined || parseInt(trip.peopleCount, 10) > 10) && (
-                        <input
-                          type="number"
-                          min="11"
-                          value={editingPeople[trip.tripId] !== undefined
-                            ? editingPeople[trip.tripId]
-                            : trip.peopleCount?.toString() || ''}
-                          onChange={(e) => handleCustomPeopleChange(trip.tripId, e.target.value)}
-                          onBlur={(e) => handleCustomBlur(trip.tripId, e.target.value)}
-                          className="custom-people-input"
-                        />
-                      )}
+                            {/* 天數 */}
+                            <div className="mytrip-card-cell">{tripDetail.days}</div>
+
+                            {/* 費用 */}
+                            <div className="mytrip-card-cell trip-price-cell">
+ {tripHasWeekend ? (
+    <>
+      <span className="original-price">
+        NT$ {tripDetail.price.toLocaleString()}
+      </span>
+      <span
+        className="surcharge-price"
+        title="此行程包含週末，已加價 20%"
+      >
+        NT$ {finalPrice.toLocaleString()}
+      </span>
+    </>
+  ) : (
+    <>NT$ {finalPrice.toLocaleString()}</>
+  )}
+</div>
 
 
-                    </div>
-                    <button className="circle-btn delete-btn" onClick={() => handleRemoveTrip(trip.tripId)}>✕</button>
+                            {/* 人數選擇 */}
+                            <div className="mytrip-card-cell people-select">
+                              <select
+                                value={
+                                  editingPeople[trip.tripId] !== undefined
+                                    ? parseInt(editingPeople[trip.tripId], 10) > 10
+                                      ? 'custom'
+                                      : editingPeople[trip.tripId]
+                                    : parseInt(trip.peopleCount, 10) > 10
+                                      ? 'custom'
+                                      : trip.peopleCount || ''
+                                }
+                                onChange={(e) => handlePeopleChange(trip.tripId, e.target.value)}
+                              >
+                                <option value="">請選擇</option>
+                                {[...Array(10)].map((_, i) => (
+                                  <option key={i + 1} value={i + 1}>
+                                    {i + 1} 位
+                                  </option>
+                                ))}
+                                <option value="custom">10位以上</option>
+                              </select>
 
-                  </div>
+                              {(editingPeople[trip.tripId] !== undefined ||
+                                parseInt(trip.peopleCount, 10) > 10) && (
+                                  <input
+                                    type="number"
+                                    min="11"
+                                    value={
+                                      editingPeople[trip.tripId] !== undefined
+                                        ? editingPeople[trip.tripId]
+                                        : trip.peopleCount?.toString() || ''
+                                    }
+                                    onChange={(e) => handleCustomPeopleChange(trip.tripId, e.target.value)}
+                                    onBlur={(e) => handleCustomBlur(trip.tripId, e.target.value)}
+                                    className="custom-people-input"
+                                  />
+                                )}
+                            </div>
+
+                            {/* 刪除按鈕 */}
+                            <div className="mytrip-card-cell">
+                              <button
+                                className="circle-btn delete-btn"
+                                onClick={() => handleRemoveTrip(trip.tripId)}
+                              >
+                                ✕
+                              </button>
+                            </div>
+                          </div>
+                        )}
+                      </Draggable>
+
+                    );
+                  })}
+                  {provided.placeholder}
                 </div>
-              );
-            })}
-          </div>
-
+              )}
+            </Droppable>
+          </DragDropContext>
           <div className="mytrip-add-trip-wrapper">
             <button className="circle-btn add-btn" onClick={() => navigate('/explore')}>
               ＋
@@ -530,6 +692,9 @@ function MyTrip() {
           </div>
         </div>
       </div>
+
+
+
     </div>
   );
 }
