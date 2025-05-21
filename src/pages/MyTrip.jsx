@@ -50,9 +50,29 @@ function MyTrip() {
   useEffect(() => {
     const updateFromSession = () => {
       const stored = getUserTrips() || [];
+      // ✅ 若使用者的 localStorage 已清空行程，就清掉日期（重新選）
+      if (stored.length === 0) {
+        setStartDate(null);
+        setEndDate(null);
+        setTotalPrice(0);
+        setSurchargeDates([]);
+        setHasSurcharge(false);
+      }
+
+      if (stored.length === 0) {
+        // ✅ 若已清空所有行程 → 自動清空日期與金額狀態
+        setStartDate(null);
+        setEndDate(null);
+        setTotalPrice(0);
+        setHasSurcharge(false);
+        setSurchargeDates([]);
+        sessionStorage.removeItem('confirmedStartDate');
+        sessionStorage.removeItem('confirmedEndDate');
+      }
+
       setPendingTrips(
         stored.map(trip => ({
-          tripId: trip.id, // 🔥 把 id 轉成 tripId，符合 MyTrip 用的資料結構
+          tripId: trip.id,
           peopleCount: trip.peopleCount || 0,
         }))
       );
@@ -74,12 +94,19 @@ function MyTrip() {
   }, [setPendingTrips]);
 
   useEffect(() => {
-    calculateTotal();
-    recalculateEndDate(startDate, pendingTrips);
+    if (startDate) {
+      calculateTotal(startDate, pendingTrips);
+      recalculateEndDate(startDate, pendingTrips);
+    } else {
+      setTotalPrice(0);
+      setEndDate(null);
+      setHasSurcharge(false);
+      setSurchargeDates([]);
+    }
 
-    // ✅ pendingTrips一有變化，就存到sessionStorage
     sessionStorage.setItem('userTrips', JSON.stringify(pendingTrips));
   }, [pendingTrips, startDate]);
+
 
   const calculateTotal = (inputStartDate = startDate, inputTrips = pendingTrips) => {
     let total = 0;
@@ -95,36 +122,36 @@ function MyTrip() {
 
     let currentDate = new Date(inputStartDate); // 🔁 每次重算從 startDate 開始
 
-pendingTrips.forEach((trip) => {
-  const tripDetail = findTripById(trip.tripId);
-  if (!tripDetail) return;
+    pendingTrips.forEach((trip) => {
+      const tripDetail = findTripById(trip.tripId);
+      if (!tripDetail) return;
 
-  const people = parseInt(trip.peopleCount, 10);
-  if (!people || isNaN(people)) return;
+      const people = parseInt(trip.peopleCount, 10);
+      if (!people || isNaN(people)) return;
 
-  const match = tripDetail.days?.match(/(\d+)\s*天/);
-  const days = match ? parseInt(match[1], 10) : 0;
-  let hasWeekend = false;
+      const match = tripDetail.days?.match(/(\d+)\s*天/);
+      const days = match ? parseInt(match[1], 10) : 0;
+      let hasWeekend = false;
 
-  // 🔁 檢查該行程的實際落點範圍是否有週末
-  for (let i = 0; i < days; i++) {
-    const curDate = new Date(currentDate);
-    curDate.setDate(currentDate.getDate() + i);
-    const day = curDate.getDay();
-    if (day === 0 || day === 6) {
-      hasWeekend = true;
-      foundSurcharge = true;
-      weekendDates.push(`${curDate.getMonth() + 1}/${curDate.getDate()}`);
-    }
-  }
+      // 🔁 檢查該行程的實際落點範圍是否有週末
+      for (let i = 0; i < days; i++) {
+        const curDate = new Date(currentDate);
+        curDate.setDate(currentDate.getDate() + i);
+        const day = curDate.getDay();
+        if (day === 0 || day === 6) {
+          hasWeekend = true;
+          foundSurcharge = true;
+          weekendDates.push(`${curDate.getMonth() + 1}/${curDate.getDate()}`);
+        }
+      }
 
-  // 💰 該行程要不要加價
-  const pricePerPerson = hasWeekend ? tripDetail.price * 1.2 : tripDetail.price;
-  total += pricePerPerson * people;
+      // 💰 該行程要不要加價
+      const pricePerPerson = hasWeekend ? tripDetail.price * 1.2 : tripDetail.price;
+      total += pricePerPerson * people;
 
-  // 🧭 將 currentDate 往後推動
-  currentDate.setDate(currentDate.getDate() + days);
-});
+      // 🧭 將 currentDate 往後推動
+      currentDate.setDate(currentDate.getDate() + days);
+    });
 
 
     // ✅ 先排序週末日期，避免順序亂跳
@@ -355,7 +382,7 @@ pendingTrips.forEach((trip) => {
 
   if (pendingTrips.length === 0) {
     return (
-      <div className="mytrip-page-wrapper fade-in-safe">
+      <div className="mytrip-page-wrapper slide-up-appear">
         <div className="mytrip-empty-container">
           <h2 className="zh-title-36">您的專屬旅程</h2>
           <p className="zh-text-20">旅程的篇章尚未開始書寫，<br />現在，就是您與北歐邂逅的最佳時刻。</p>
@@ -366,11 +393,16 @@ pendingTrips.forEach((trip) => {
       </div>
     );
   }
-console.log('🧪 pendingTrips:', pendingTrips);
+  console.log('🧪 pendingTrips:', pendingTrips);
 
   return (
-    <div className="mytrip-page-wrapper fade-in-safe">
-      <h2 className="zh-title-36 mytrip-page-title">你的專屬旅程</h2>
+    <div className="mytrip-page-wrapper slide-up-appear">
+      <div className="announcement-marquee">
+        <div className="marquee-content">
+          ※ 為提供順暢旅程體驗，系統會將多筆行程自動安排為連續日期。如您希望行程時間分開進行，敬請分開下訂，感謝您的理解！
+        </div>
+      </div>
+      <h2 className="zh-title-36 mytrip-page-title">您的專屬旅程</h2>
       <div className="mytrip-main">
         <div className="mytrip-calendar-wrapper">
           <div className="mytrip-calendar">
@@ -498,8 +530,8 @@ console.log('🧪 pendingTrips:', pendingTrips);
         </div>
 
         <div className="mytrip-info-container slide-up-appear">
-<p className="drag-hint zh-text-14">✥ 拖曳行程卡片可自行排序，調整您理想的旅遊順序 ✥</p>
-<div className="mytrip-header-row">
+          <p className="drag-hint zh-text-14">✥ 請依照您的需求上下拖曳行程排序，調整成您理想的旅遊行程順序</p>
+          <div className="mytrip-header-row">
             <div>行程</div>
             <div>天數</div>
             <div>行程費用/人</div>
@@ -517,31 +549,37 @@ console.log('🧪 pendingTrips:', pendingTrips);
                     const tripDetail = findTripById(trip.tripId);
                     if (!tripDetail) return null;
                     const priceMatch = tripDetail.days?.match(/(\d+)\s*天/);
-const days = priceMatch ? parseInt(priceMatch[1], 10) : 0;
+                    const days = priceMatch ? parseInt(priceMatch[1], 10) : 0;
 
-let tripStartDate = new Date(startDate);
-for (let i = 0; i < index; i++) {
-  const prevDetail = findTripById(pendingTrips[i].tripId);
-  const prevMatch = prevDetail.days?.match(/(\d+)\s*天/);
-  const prevDays = prevMatch ? parseInt(prevMatch[1], 10) : 0;
-  tripStartDate.setDate(tripStartDate.getDate() + prevDays);
-}
+                    let tripStartDate = new Date(startDate);
+                    for (let i = 0; i < index; i++) {
+                      const prevDetail = findTripById(pendingTrips[i].tripId);
+                      const prevMatch = prevDetail.days?.match(/(\d+)\s*天/);
+                      const prevDays = prevMatch ? parseInt(prevMatch[1], 10) : 0;
+                      tripStartDate.setDate(tripStartDate.getDate() + prevDays);
+                    }
 
-// 檢查該行程實際天數範圍是否有週末
-let tripHasWeekend = false;
-for (let i = 0; i < days; i++) {
-  const d = new Date(tripStartDate);
-  d.setDate(d.getDate() + i);
-  const dow = d.getDay();
-  if (dow === 0 || dow === 6) {
-    tripHasWeekend = true;
-    break;
-  }
-}
+                    // 檢查該行程實際天數範圍是否有週末
+                    let tripHasWeekend = false;
+                    for (let i = 0; i < days; i++) {
+                      const d = new Date(tripStartDate);
+                      d.setDate(d.getDate() + i);
+                      const dow = d.getDay();
+                      if (dow === 0 || dow === 6) {
+                        tripHasWeekend = true;
+                        break;
+                      }
+                    }
 
-const finalPrice = tripHasWeekend
-  ? Math.round(tripDetail.price * 1.2)
-  : tripDetail.price;
+                    // const finalPrice = tripHasWeekend
+                    //   ? Math.round(tripDetail.price * 1.2)
+                    //   : tripDetail.price;
+
+                    //  ⬆️ 在這段上方先補上這兩行：
+                    const shouldShowSurcharge = startDate && tripHasWeekend;
+                    const finalPrice = shouldShowSurcharge
+                      ? Math.round(tripDetail.price * 1.2)
+                      : tripDetail.price;
 
                     return (
                       <Draggable
@@ -563,7 +601,7 @@ const finalPrice = tripHasWeekend
                           >
                             {/* 行程（圖片＋標題＋亮點） */}
                             <div className="mytrip-card-cell mytrip-card-left">
-                               <div className="trip-drag-handle">≡</div> {/* 👈 拖曳 icon */}
+                              <div className="trip-drag-handle">≡</div> {/* 👈 拖曳 icon */}
                               <img
                                 src={tripDetail.bannerImage || tripDetail.banner}
                                 alt={tripDetail.title}
@@ -581,23 +619,27 @@ const finalPrice = tripHasWeekend
                             <div className="mytrip-card-cell">{tripDetail.days}</div>
 
                             {/* 費用 */}
+
+
+                            {/* ⬇️ 然後把原本的 JSX 換成這個 */}
                             <div className="mytrip-card-cell trip-price-cell">
- {tripHasWeekend ? (
-    <>
-      <span className="original-price">
-        NT$ {tripDetail.price.toLocaleString()}
-      </span>
-      <span
-        className="surcharge-price"
-        title="此行程包含週末，已加價 20%"
-      >
-        NT$ {finalPrice.toLocaleString()}
-      </span>
-    </>
-  ) : (
-    <>NT$ {finalPrice.toLocaleString()}</>
-  )}
-</div>
+                              {shouldShowSurcharge ? (
+                                <>
+                                  <span className="original-price">
+                                    NT$ {tripDetail.price.toLocaleString()}
+                                  </span>
+                                  <span
+                                    className="surcharge-price"
+                                    title="此行程包含週末，已加價 20%"
+                                  >
+                                    NT$ {finalPrice.toLocaleString()}
+                                  </span>
+                                </>
+                              ) : (
+                                <>NT$ {finalPrice.toLocaleString()}</>
+                              )}
+                            </div>
+
 
 
                             {/* 人數選擇 */}
@@ -685,12 +727,14 @@ const finalPrice = tripHasWeekend
 
 
             <button
-              className={`next-step-btn zh-text-18 ${canProceed() ? '' : 'disabled'}`}
-              onClick={handleNext}
-              disabled={!canProceed()}
-            >
-              下一步 ➔
-            </button>
+  className={`next-step-btn zh-text-18 ${canProceed() ? '' : 'disabled'}`}
+  onClick={handleNext}
+  disabled={!canProceed()}
+  title={!canProceed() ? '請於左側選擇完行程日期及右側人數後才可進行到下一步' : ''}
+>
+  下一步 ➔
+</button>
+
           </div>
         </div>
       </div>
@@ -698,6 +742,7 @@ const finalPrice = tripHasWeekend
 
 
     </div>
+
   );
 }
 

@@ -576,28 +576,26 @@
     transform: translate(-50%, -50%);
 }
 
-/* 當前步驟橘色 */
-.stepper-circle.active {
-    background-color: #ff6f19;
-    border: 2px solid #ff6f19;
-}
-
 /* 虛線 */
 .stepper-line {
-    position: absolute;
-    top: 10px;
-    left: 50%;
-    right: -50%;
-    height: 2px;
-    background-image: repeating-linear-gradient(to right,
-            #ffffff,
-            #ffffff 4px,
-            transparent 4px,
-            transparent 8px);
-    background-size: 8px 2px;
-    background-repeat: repeat-x;
-    z-index: 0;
+  position: absolute;
+  top: 10px;
+  left: 50%;
+  right: -50%;
+  height: 2px;
+  background-image: repeating-linear-gradient(
+    to right,
+    #ffffff,             /* ✅ 未啟用的白色虛線 */
+    #ffffff 4px,
+    transparent 4px,
+    transparent 8px
+  );
+  background-size: 8px 2px;
+  background-repeat: repeat-x;
+  z-index: 0;
+  transition: background-color 0.4s ease, background-image 0.4s ease;
 }
+
 
 /* 下方步驟文字 */
 .stepper-label {
@@ -775,4 +773,99 @@
   font-weight: bold;
   appearance: none;
   margin-right: -10px; /* ✅ 加這個！微小間距 */
+}
+
+.stepper-circle.active {
+  background-image: none;
+  background-color: #ff6f19;
+  border: 2px solid #ff6f19;
+  box-shadow: 0 0 0 0 rgba(255, 111, 25, 0.4);
+  animation: glowPulse 2s ease-in-out infinite;
+}
+
+@keyframes glowPulse {
+  0% {
+    box-shadow: 0 0 0 0 rgba(255, 111, 25, 0.4);
+  }
+  50% {
+    box-shadow: 0 0 12px 6px rgba(255, 111, 25, 0.6);
+  }
+  100% {
+    box-shadow: 0 0 0 0 rgba(255, 111, 25, 0.4);
+  }
+}
+
+.stepper-circle.current {
+  border: 1.5px solid var(--secondary-color-xlight);
+  box-shadow: 0 0 20px 4px rgba(255, 111, 25, 0.6);
+}
+
+/* @keyframes glowLine {
+  from {
+    background-color: var(--primary-color);
+  }
+  to {
+    background-color: var(--accent-color);
+  }
+}
+
+.stepper-line.active {
+  animation: glowLine 0.6s ease forwards;
+} */
+
+@keyframes stepperGlow {
+  0% {
+    background-image: repeating-linear-gradient(
+      to right,
+      #ffffff,
+      #ffffff 4px,
+      transparent 4px,
+      transparent 8px
+    );
+  }
+  100% {
+    background-image: repeating-linear-gradient(
+      to right,
+      #ff6f19,
+      #ff6f19 4px,
+      var(--primary-color) 4px,
+      var(--primary-color) 8px
+    );
+  }
+}
+
+/* 當前步驟橘色 */
+.stepper-line.active {
+  background-image: repeating-linear-gradient(
+    to right,
+    #ff6f19,
+    #ff6f19 4px,
+    var(--primary-color) 4px,
+    var(--primary-color) 8px
+  );
+  animation: stepperGlow 0.5s cubic-bezier(0.25, 1, 0.5, 1) forwards;
+}
+
+.stepper-item.clickable {
+  cursor: pointer;
+}
+
+.tripcustom-error-global {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #ff4d4f;
+  font-size: 15px;
+  margin-top: 10px;
+  margin-bottom: 20px;
+  gap: 3px;
+  font-family: var(--font-zh);
+}
+
+.tripcustom-error-icon {
+  font-size: 13px;
+}
+
+.tripcustom-error-text {
+  font-weight: 500;
 }

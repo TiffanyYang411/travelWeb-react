@@ -53,12 +53,16 @@
   padding-bottom: 70px;
   box-sizing: border-box;
   position: relative;
-  flex-grow: 1; /* ✅ 確保能撐開 */
+  flex-grow: 1;
+  /* ✅ 確保能撐開 */
+  width: 100%;
+  max-width: 100vw; /* ✅ 硬限制不要超過視口寬度 */
 }
 
 .mytrip-page-title {
   position: absolute;
-   top: 100px; /* ✅ 讓它往下移開 navbar */
+  top: 130px;
+  /* ✅ 讓它往下移開 navbar */
   left: 100px;
   font-size: 32px;
   font-weight: bold;
@@ -75,7 +79,8 @@
   gap: 40px;
   box-sizing: border-box;
   /* ✅ 加這一行 */
-  margin-top: 40px; /* 視覺上讓月曆和右側內容整體往下 */
+  margin-top: 40px;
+  /* 視覺上讓月曆和右側內容整體往下 */
 }
 
 /* === 月曆區 === */
@@ -171,20 +176,23 @@
 
 /* 行程列表 */
 .mytrip-list {
-  position: relative; /* ✅ 這個一定要有 */
-  z-index: 0; /* 防止拖曳卡片被遮擋 */
+  position: relative;
+  /* ✅ 這個一定要有 */
+  z-index: 0;
+  /* 防止拖曳卡片被遮擋 */
   font-size: 18px;
   display: flex;
   flex-direction: column;
   gap: 0px;
   overflow-y: auto;
   flex-grow: 1;
-  min-height: 200px; /* 或至少有 padding-bottom */
+  min-height: 200px;
+  /* 或至少有 padding-bottom */
   min-width: 100%;
 }
 
 /* 單一行程 */
- .mytrip-item {
+.mytrip-item {
   position: relative;
   display: grid !important;
   justify-content: space-between;
@@ -195,22 +203,20 @@
   transition: opacity 0.3s ease;
   z-index: 1;
   margin-bottom: 0px;
-  box-sizing: border-box; /* 確保寬度正確計算 */
-  width: 100% !important; /* 強制拖曳時仍維持寬度 */
-} 
+  box-sizing: border-box;
+  /* 確保寬度正確計算 */
+  width: 100% !important;
+  /* 強制拖曳時仍維持寬度 */
+}
 
 .mytrip-card-cell {
   display: flex;
   align-items: center;
 }
 
-.mytrip-card-left {
-  gap: 16px;
-}
-
 .mytrip-item:active {
   background-color: #f6fbfc;
-  box-shadow: 0 2px 12px rgba(0,0,0,0.1);
+  box-shadow: 0 2px 12px rgba(0, 0, 0, 0.1);
 }
 
 /* 行程左側（圖片＋標題亮點） */
@@ -252,7 +258,7 @@
   font-family: var(--font-zh);
   font-size: 14px;
   color: var(--primary-color);
-  margin-right: 80px;
+  margin-right: 100px;
   /* ✅ 新增這行！右邊留一點空隙 */
 }
 
@@ -268,7 +274,8 @@
   gap: 16px;
   font-family: var(--font-zh);
   flex-wrap: nowrap;
-  justify-content: flex-start; /* or space-between */
+  justify-content: flex-start;
+  /* or space-between */
 }
 
 
@@ -349,7 +356,8 @@
 
 .mytrip-summary p {
   margin: 15px 0;
-  margin-bottom: 20px; /* ✅ 兩行之間留點呼吸空間 */
+  margin-bottom: 20px;
+  /* ✅ 兩行之間留點呼吸空間 */
 }
 
 /* 下一步按鈕 */
@@ -373,6 +381,52 @@
 .next-step-btn:disabled {
   background-color: grey;
   cursor: not-allowed;
+}
+
+.announcement-marquee {
+  font-family: var(--font-zh);
+  width: 100%;
+  max-width: 100%;
+  overflow-x: hidden;
+  white-space: nowrap;
+  background-color: var(--primary-color);
+  line-height: 1.4;         /* ✅ 行高調整 */
+  padding: 5px 0;           /* ✅ 原本 padding: 8px 0 太高，改小 */
+  position: relative;
+  z-index: 10;
+  color: var(--secondary-color-xlight);
+  font-size: 16px;
+  margin-bottom: 0;
+  position: relative;
+  top: -15px; /* ✅ 輕微往上提 */
+  z-index: 999; /* ✅ 確保在 Navbar 下面但其他上層之上 */
+}
+
+
+.marquee-content {
+  display: inline-block;
+  white-space: nowrap;
+  padding-left: 100%;
+  animation: marqueeScroll 25s linear infinite;
+  position: relative;
+}
+
+.marquee-content::after {
+  content: attr(data-text); /* 用 attr 複製內容 */
+  padding-left: 100px;
+}
+
+@keyframes marqueeScroll {
+  0% {
+    transform: translateX(0%);
+  }
+  100% {
+    transform: translateX(-100%);
+  }
+}
+
+.announcement-marquee:hover .marquee-content {
+  animation-play-state: paused;
 }
 
 /* 手機版RWD */
@@ -482,8 +536,10 @@
   font-size: 16px;
   border-radius: 6px;
   border: 1px solid #ccc;
-  margin-left: 50px; /* ✅ 這行讓它往右移動 */
-  margin-top: -15px; /* ✅ 負值會讓它往上 */
+  margin-left: 50px;
+  /* ✅ 這行讓它往右移動 */
+  margin-top: -15px;
+  /* ✅ 負值會讓它往上 */
 }
 
 .people-select select {
@@ -514,9 +570,11 @@
   /* ✅ 加行高讓字正常置中 */
   min-height: 48px;
   /* ✅ 最小高度給一點空間 */
-  min-width: 100px;            /* ✅ 拉寬寬度避免不好按 */
+  min-width: 100px;
+  /* ✅ 拉寬寬度避免不好按 */
   display: flex;
-  flex-direction: column; /* ✅ 垂直排列 */
+  flex-direction: column;
+  /* ✅ 垂直排列 */
 }
 
 /* 若需要兼容Safari可加 */
@@ -647,14 +705,17 @@ select::-ms-expand {
 } */
 
 .delete-btn {
-  position: relative; /* 改成 relative 或移除 position */
+  position: relative;
+  /* 改成 relative 或移除 position */
   margin-left: auto;
   margin-right: 10px;
   top: auto;
   transform: none;
   color: #FF0000;
-  transform: translateY(-2px); /* 上移 2px，可調整 */
-  line-height: 1; /* 或 0.9、0.8，視需要微調 */
+  transform: translateY(-2px);
+  /* 上移 2px，可調整 */
+  line-height: 1;
+  /* 或 0.9、0.8，視需要微調 */
 }
 
 /* ➕ 橘色（你的品牌色） */
@@ -708,6 +769,7 @@ select::-ms-expand {
 .surcharge-badge {
   display: inline-block;
   margin-left: 12px;
+  margin-bottom: 3px;
   padding: 3px 10px;
   font-size: 14px;
   font-weight: 500;
@@ -807,7 +869,27 @@ select::-ms-expand {
   /* ✅ 保持原本顏色 */
   font-size: inherit;
   font-weight: inherit;
-  vertical-align: middle;       /* ✅ 垂直對齊 */
+  vertical-align: middle;
+  /* ✅ 垂直對齊 */
+}
+
+.react-calendar__tile--disabled abbr {
+  display: inline-block;
+  line-height: 1.6;
+  vertical-align: middle;
+  text-decoration: line-through;
+  color: #aaa;
+}
+
+.react-calendar__tile--disabled abbr::after {
+  content: "";
+  position: absolute;
+  top: 50%;
+  left: 0;
+  width: 100%;
+  height: 1px;
+  background-color: #999;
+  transform: translateY(-50%);
 }
 
 .react-calendar__tile.past-date {
@@ -932,24 +1014,18 @@ select::-ms-expand {
   cursor: grabbing;
 }
 
-.drag-test {
-  padding: 20px;
-  background-color: #eee;
-  border: 2px dashed #999;
-  margin-bottom: 10px;
-}
-
 .trip-drag-handle {
   font-size: 30px;
   margin-right: 0px;
-  color: #888;
+  color: var(--secondary-color-dark);
   cursor: grab;
   user-select: none;
   display: flex;
   align-items: center;
 }
 
-html, body {
+html,
+body {
   overscroll-behavior: none;
 }
 
@@ -958,12 +1034,13 @@ html, body {
 }
 
 .mytrip-card-left.drag-handle {
-  user-select: none; /* ✅ 防止選取文字影響拖曳 */
+  user-select: none;
+  /* ✅ 防止選取文字影響拖曳 */
 }
 
 .drag-hint {
   margin-bottom: 8px;
-  color: var(--primary-color);
+  color: #cc5200;
   font-size: 14px;
   display: flex;
   align-items: center;
@@ -975,7 +1052,9 @@ body {
   overflow-anchor: none !important;
 }
 
-html, body, #root {
+html,
+body,
+#root {
   transform: none !important;
   /* overflow: visible !important; */
 }
@@ -991,7 +1070,7 @@ html, body, #root {
 .mytrip-page-wrapper *,
 .mytrip-page-wrapper *::before,
 .mytrip-page-wrapper *::after {
-  animation: none !important;
+  /* animation: none !important; */
 }
 
 @media (max-width: 767px) {
@@ -1000,3 +1079,43 @@ html, body, #root {
     overflow: visible;
   }
 }
+
+.next-step-wrapper {
+  position: relative;
+  display: inline-block;
+}
+
+.tooltip-bubble {
+  position: absolute;
+  bottom: 120%; /* 顯示在上方 */
+  left: 50%;
+  transform: translateX(-50%);
+  background-color: #fff;
+  color: #333;
+  padding: 8px 12px;
+  border-radius: 10px;
+  font-size: 14px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+  white-space: nowrap;
+  pointer-events: none;
+  opacity: 0;
+  max-width: 240px;
+  z-index: 1000;
+  transition: opacity 0.3s ease;
+}
+
+.next-step-wrapper:hover .tooltip-bubble {
+  opacity: 1;
+}
+
+.tooltip-bubble::after {
+  content: '';
+  position: absolute;
+  top: 100%;
+  left: 50%;
+  transform: translateX(-50%);
+  border-width: 6px;
+  border-style: solid;
+  border-color: #fff transparent transparent transparent;
+}
+

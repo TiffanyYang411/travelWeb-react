@@ -13,6 +13,7 @@ import 'swiper/css/navigation';
 import 'swiper/css/effect-fade';
 import 'swiper/css';
 import logo from '../images/Logo.svg';
+import { useTripStore } from '../store/useTripStore';
 
 function ExploreStyle() {
   const navigate = useNavigate();
@@ -20,7 +21,7 @@ function ExploreStyle() {
   const [searchParams] = useSearchParams();
   const styleParam = parseInt(searchParams.get('style'));
   const initialIndex = travelStyles.findIndex(style => style.id === styleParam);
-
+const { setStartDate, setEndDate, setTotalPrice } = useTripStore();
   const [selectedStyleId, setSelectedStyleId] = useState(
     initialIndex !== -1 ? travelStyles[initialIndex].id : travelStyles[0].id
   );
@@ -135,9 +136,21 @@ function ExploreStyle() {
       sessionStorage.setItem("returnTo", purePath);
       navigate("/login");
     } else {
-      addTripToCart(tripId);
-      window.dispatchEvent(new Event('openCartDropdown'));
-    }
+       // ✅ 先清空日期與金額狀態（避免殘留週末日期導致誤判加價）
+  setStartDate(null);
+  setEndDate(null);
+  setTotalPrice(0);
+  
+  // ✅ 加入前強制清掉先前的日期與金額記憶
+  sessionStorage.removeItem('confirmedStartDate');
+  sessionStorage.removeItem('confirmedEndDate');
+  sessionStorage.removeItem('confirmedTotalPrice');
+  sessionStorage.removeItem('userTrips'); // 若你有這個 key 儲存暫存行程的話
+
+  addTripToCart(tripId);
+  window.dispatchEvent(new Event('openCartDropdown'));
+}
+
   };
 
   return (

@@ -374,6 +374,13 @@
   animation: imageFadeIn 1s ease forwards;
 }
 
+.tripcustom-hint {
+  margin: 8px 0 16px;
+  color: #666;
+  font-size: 14px;
+  text-align: center;
+}
+
 /* 動畫只讓圖片進行 fade，不影響整個 block */
 @keyframes imageFadeIn {
   from { opacity: 0; }
