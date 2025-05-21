@@ -7,7 +7,7 @@ import '../styles/Typography.css';
 import '../styles/TripDetailVertical.css';
 import ExploreTripCard from '../components/ExploreTripCard';
 import TripDetailSection from '../components/TripDetailSection';
-import { Swiper, SwiperSlide } from 'swiper/react';
+import { Swiper, SwiperSlide } from 'swiper/react'; // ✅ 要從 'swiper/react' 匯入元件
 import { Navigation, EffectFade, Autoplay } from 'swiper/modules';
 import 'swiper/css/navigation';
 import 'swiper/css/effect-fade';
@@ -21,7 +21,7 @@ function ExploreStyle() {
   const [searchParams] = useSearchParams();
   const styleParam = parseInt(searchParams.get('style'));
   const initialIndex = travelStyles.findIndex(style => style.id === styleParam);
-const { setStartDate, setEndDate, setTotalPrice } = useTripStore();
+  const { setStartDate, setEndDate, setTotalPrice } = useTripStore();
   const [selectedStyleId, setSelectedStyleId] = useState(
     initialIndex !== -1 ? travelStyles[initialIndex].id : travelStyles[0].id
   );
@@ -136,20 +136,20 @@ const { setStartDate, setEndDate, setTotalPrice } = useTripStore();
       sessionStorage.setItem("returnTo", purePath);
       navigate("/login");
     } else {
-       // ✅ 先清空日期與金額狀態（避免殘留週末日期導致誤判加價）
-  setStartDate(null);
-  setEndDate(null);
-  setTotalPrice(0);
-  
-  // ✅ 加入前強制清掉先前的日期與金額記憶
-  sessionStorage.removeItem('confirmedStartDate');
-  sessionStorage.removeItem('confirmedEndDate');
-  sessionStorage.removeItem('confirmedTotalPrice');
-  sessionStorage.removeItem('userTrips'); // 若你有這個 key 儲存暫存行程的話
+      // ✅ 先清空日期與金額狀態（避免殘留週末日期導致誤判加價）
+      setStartDate(null);
+      setEndDate(null);
+      setTotalPrice(0);
 
-  addTripToCart(tripId);
-  window.dispatchEvent(new Event('openCartDropdown'));
-}
+      // ✅ 加入前強制清掉先前的日期與金額記憶
+      sessionStorage.removeItem('confirmedStartDate');
+      sessionStorage.removeItem('confirmedEndDate');
+      sessionStorage.removeItem('confirmedTotalPrice');
+      sessionStorage.removeItem('userTrips'); // 若你有這個 key 儲存暫存行程的話
+
+      addTripToCart(tripId);
+      window.dispatchEvent(new Event('openCartDropdown'));
+    }
 
   };
 
@@ -167,57 +167,80 @@ const { setStartDate, setEndDate, setTotalPrice } = useTripStore();
         </div>
       )}
 
-      <section className="explore-style">
+      <section className="explore-style explore-page-style">
         <div ref={swiperRef} className="explore-swiper-wrapper">
+          <div className="explore-swiper-prev swiper-arrow">‹</div>
+          <div className="explore-swiper-next swiper-arrow">›</div>
+
           <Swiper
-            modules={[Navigation, EffectFade, Autoplay]}
-            effect="fade"
-            autoplay={{ delay: 3500, disableOnInteraction: false }}
-            loop={true}
-            speed={1200}
-            navigation={{
-              nextEl: '.explore-swiper-next',
-              prevEl: '.explore-swiper-prev',
-            }}
-          >
+  effect="fade"
+  navigation={{
+    nextEl: '.explore-swiper-next',
+    prevEl: '.explore-swiper-prev',
+  }}
+  autoplay={{ delay: 3500, disableOnInteraction: false }}
+  loop={true}
+  speed={1200}
+  onSwiper={(swiper) => {
+    swiperInstanceRef.current = swiper;
+    setTimeout(() => {
+      swiper.navigation.init();
+      swiper.navigation.update();
+    }, 0);
+  }}
+>
+
+
             {travelStyles.map((style) => (
-              <SwiperSlide key={style.id} style={{ width: '100vw', height: '100vh' }}>
-                <div className="explore-style-card">
-                  <div className="image-container">
-                    <div className="image-background" style={{ backgroundImage: `url(${style.exploreImage})` }} />
-                    <div className="image-overlay"></div>
-                    <img
-                      src={style.exploreImage}
-                      alt=""
-                      style={{ display: 'none' }}
-                      onLoad={() =>
-                        setLoadedImages((prev) => ({ ...prev, [style.id]: true }))
-                      }
-                    />
+              <SwiperSlide key={style.id}>
+                <div className="explore-slide-inner">
+                  <div className="explore-style-card">
+                    <div className="image-container">
+                      <div
+                        className="image-background"
+                        style={{ backgroundImage: `url(${style.exploreImage})` }}
+                      />
+                      <div className="image-overlay" />
+                      <img
+                        src={style.exploreImage}
+                        alt=""
+                        style={{
+                          width: 1,
+                          height: 1,
+                          visibility: 'hidden',
+                          position: 'absolute',
+                        }}
+                        onLoad={() =>
+                          setLoadedImages((prev) => ({
+                            ...prev,
+                            [style.id]: true,
+                          }))
+                        }
+                      />
+                    </div>
+
+                    {loadedImages[style.id] && (
+                      <div className="explore-style-overlay">
+                        <h2 className="zh-title-48">{style.title}</h2>
+                        <p className="zh-text-24">{style.description}</p>
+                      </div>
+                    )}
+
+                    {loadedImages[style.id] && (
+                      <div className="scroll-up-indicator">
+                        <div className="chevron"></div>
+                        <div className="chevron"></div>
+                        <div className="chevron"></div>
+                      </div>
+                    )}
                   </div>
-
-                  {loadedImages[style.id] && (
-                    <div className="explore-style-overlay">
-                      <h2 className="zh-title-48">{style.title}</h2>
-                      <p className="zh-text-24">{style.description}</p>
-                    </div>
-                  )}
-
-                  {loadedImages[style.id] && (
-                    <div className="scroll-up-indicator">
-                      <div className="chevron"></div>
-                      <div className="chevron"></div>
-                      <div className="chevron"></div>
-                    </div>
-                  )}
                 </div>
               </SwiperSlide>
             ))}
           </Swiper>
-
-          <div className="explore-swiper-prev swiper-arrow">‹</div>
-          <div className="explore-swiper-next swiper-arrow">›</div>
         </div>
+
+
 
         <div className="trip-style-tabs">
           {travelStyles.map(style => (

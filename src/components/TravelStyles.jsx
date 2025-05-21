@@ -1,6 +1,6 @@
 // src/components/TravelStyles.jsx
 
-import { useState, useRef } from 'react';
+import { useState, useRef, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { travelStyles } from '../data/travelStyles';
 import { Swiper, SwiperSlide } from 'swiper/react';
@@ -13,6 +13,40 @@ import '../styles/Typography.css';
 
 function TravelStyles() {
   const [selectedIndex, setSelectedIndex] = useState(0);
+  const [isMobileMode, setIsMobileMode] = useState(false);
+
+  useEffect(() => {
+    const checkMobileMode = () => {
+      const width = window.innerWidth;
+      setIsMobileMode(width < 1664); // ✅ 1664px 以下進入「中小螢幕模式」
+    };
+
+    checkMobileMode();
+    window.addEventListener('resize', checkMobileMode);
+    return () => window.removeEventListener('resize', checkMobileMode);
+  }, []);
+
+  const [scrollSpeed, setScrollSpeed] = useState(6000);
+
+  useEffect(() => {
+    const updateSpeed = () => {
+      const width = window.innerWidth;
+      if (width < 768) {
+        setScrollSpeed(10000); // 手機：最慢
+      } else if (width < 1024) {
+        setScrollSpeed(8000);  // 平板
+      } else if (width < 1664) {
+        setScrollSpeed(7000);  // ✅ 桌機寬度但動畫過快的區間
+      } else {
+        setScrollSpeed(6000);  // 寬螢幕桌機
+      }
+    };
+
+    updateSpeed(); // 初始執行一次
+    window.addEventListener('resize', updateSpeed);
+    return () => window.removeEventListener('resize', updateSpeed);
+  }, []);
+
   const navigate = useNavigate();
   const swiperRef = useRef(null);
 
@@ -32,8 +66,10 @@ function TravelStyles() {
       window.dispatchEvent(event);
     }
   };
+  console.log('[scrollSpeed]', scrollSpeed);
 
   return (
+
     <section
       className="travel-style-section"
       style={{ backgroundImage: `url(${travelStyles[selectedIndex].background})` }}
@@ -54,20 +90,23 @@ function TravelStyles() {
         <div className="travel-style-slider" style={{ maxWidth: '1000px', padding: '0 20px' }}>
           <Swiper
             ref={swiperRef}
-            spaceBetween={50}
-            grabCursor={true}
-            loop={true}
-            autoplay={{ delay: 0, disableOnInteraction: false, pauseOnMouseEnter: true }}
-            speed={6000}
-            freeMode={true}
             modules={[Autoplay, FreeMode]}
+            loop={true}
+            freeMode={true}
+            slidesPerView={3}
+            spaceBetween={40}
+            speed={scrollSpeed}
+            autoplay={{
+              delay: 0, // ✅ 立即開始
+              disableOnInteraction: false,
+              pauseOnMouseEnter: true, // ✅ 滑鼠移入暫停
+            }}
             onSlideChange={handleSlideChange}
-            breakpoints={{
-              1024: { slidesPerView: 3, spaceBetween: 40 },
-              768: { slidesPerView: 2, spaceBetween: 30 },
-              0: { slidesPerView: 1.2, spaceBetween: 20 },
+            onSwiper={(swiper) => {
+              swiperRef.current = swiper;
             }}
           >
+
             {travelStyles.map((item, index) => (
               <SwiperSlide
                 key={item.id}

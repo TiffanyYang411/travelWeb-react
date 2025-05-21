@@ -69,25 +69,17 @@
   background-color: #e6600f;
 }
 
-.travel-style-slider {
-  position: relative;
-  z-index: 2;
-  width: 800px;
-}
+
 
 .style-card-wrapper {
   width: 250px;
   height: 350px;
   border-radius: 16px;
   overflow: hidden;
+  position: relative;
   background: transparent;
-  /* ✅ 改成透明背景 */
-  box-shadow: none !important;
   cursor: pointer;
   transition: transform 0.5s cubic-bezier(0.22, 1, 0.36, 1);
-  display: flex;
-  flex-direction: column;
-  position: relative;
 }
 
 .style-card-wrapper:hover {
@@ -96,16 +88,17 @@
 
 .style-card-wrapper.active {
   transform: scale(1.08);
-  /* box-shadow: 0 8px 30px rgba(0, 0, 0, 0.4); */
-  animation: bounce 0.6s;
+  margin-left: 0px;
+  margin-right: 0px;
+  z-index: 3;
 }
 
 /* ✅ 強制清除 SwiperSlide 預設樣式，避免邊緣殘留 */
 .swiper-slide {
-  background: transparent !important;
-  border-radius: 16px !important;
-  overflow: hidden !important;
-  box-shadow: none !important;
+  width: 250px !important;
+  min-width: 250px !important;
+  max-width: 250px !important;
+  flex-shrink: 0 !important;
 }
 
 @keyframes bounce {
@@ -126,13 +119,9 @@
   width: 100%;
   height: 100%;
   position: relative;
-
-  /* ✅ 關鍵修正點 */
+  display: block;
   border-radius: 16px;
   overflow: hidden;
-  background: transparent;
-  transform: translateZ(0); /* 避免放大後卡住邊緣渲染 */
-  will-change: transform;   /* 提升 GPU 抗鋸齒表現 */
 }
 
 .style-card-img {
@@ -141,10 +130,6 @@
   object-fit: cover;
   display: block;
   border-radius: 16px;
-  /* ✅ 一致 */
-    /* ✅ 關鍵解法：啟用硬體加速消除邊緣黑線 */
-  transform: translateZ(0);
-  will-change: transform;
 }
 
 .style-card-title {
@@ -152,13 +137,17 @@
   bottom: 20px;
   left: 50%;
   transform: translateX(-50%);
-  color: white;
+  padding: 6px 12px;
   font-size: 1rem;
   font-weight: bold;
-  line-height: 1.5;
-  letter-spacing: 5%;
+  color: white;
+  text-align: center;
+  white-space: nowrap;
   text-shadow: 0 2px 6px rgba(0, 0, 0, 0.5);
   z-index: 2;
+
+  /* ✅ Debug 用：你可以先留著 */
+  /* border: 1px dashed red; */
 }
 
 .gradient-overlay {
@@ -174,13 +163,12 @@
 }
 
 .travel-style-slider {
-  position: relative;
-  z-index: 2;
-  width: 800px;
-  overflow-x: auto;
-  overflow-y: hidden;
-  scroll-behavior: smooth;
-  white-space: nowrap;
+  width: calc(3 * 263.5px + 2 * 40px);
+  /* 三張卡 + 間距 */
+  max-width: 120%;
+  display: flex;
+  justify-content: flex-start;
+  /* ✅ 保證從左開始 */
 }
 
 .travel-style-track {
@@ -192,4 +180,16 @@
   /* ⬅️ 確保子項目不被壓縮 */
 }
 
+@media (max-width: 768px) {
+  .style-card-title {
+    font-size: 0.9rem;
+    bottom: 16px;
+  }
+}
 
+@media (max-width: 480px) {
+  .style-card-title {
+    font-size: 0.8rem;
+    bottom: 12px;
+  }
+}

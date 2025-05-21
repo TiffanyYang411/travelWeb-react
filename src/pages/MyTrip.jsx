@@ -399,7 +399,7 @@ function MyTrip() {
     <div className="mytrip-page-wrapper slide-up-appear">
       <div className="announcement-marquee">
         <div className="marquee-content">
-          ※ 為提供順暢旅程體驗，系統會將多筆行程自動安排為連續日期。如您希望行程時間分開進行，敬請分開下訂，感謝您的理解！
+          ※ 為提供順暢旅程體驗，系統會將多筆行程自動安排為連續日期。如您希望行程安排須分開進行，敬請分次下訂，感謝您的理解與配合！
         </div>
       </div>
       <h2 className="zh-title-36 mytrip-page-title">您的專屬旅程</h2>

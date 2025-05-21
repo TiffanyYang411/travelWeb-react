@@ -24,8 +24,10 @@
 }
 
 .explore-style-card {
+  position: relative; /* ✅ 新增 */
   width: 100%;
   height: 100%;
+  overflow: hidden;   /* ✅ 可防止圖片爆出範圍 */
   cursor: pointer;
   text-align: center;
   display: flex;
@@ -49,12 +51,17 @@
   position: absolute;
   bottom: 43%;
   left: 50%;
-  transform: translateX(-50%);
+  transform: translateX(-50%) translateY(20px);
   text-align: center;
   color: #F6FBFC;
   z-index: 2;
   padding: 50px 20px;
   width: 100%;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 3s cubic-bezier(0.25, 0.1, 0.25, 1),
+              transform 2.5s cubic-bezier(0.25, 0.1, 0.25, 1);
+  transition-delay: 0.3s;
 }
 
 .explore-style-overlay h2 {
@@ -95,8 +102,10 @@
   padding: 10px;
   border-radius: 50%;
   cursor: pointer;
-  z-index: 10;
+  /* z-index: 1000; */
+   z-index: 9999 !important;
   user-select: none;
+  pointer-events: auto; /* ✅ 能被點擊 */
   /* transition: background-color 0.3s; */
 }
 
@@ -116,11 +125,22 @@
   position: absolute;
   bottom: 30px;
   left: 50%;
-  transform: translateX(-50%);
+  transform: translateX(-50%) translateY(20px);
   text-align: center;
   z-index: 3;
   width: 24px;
   height: 64px;
+  opacity: 0;
+  transition: opacity 3s cubic-bezier(0.25, 0.1, 0.25, 1),
+              transform 2.5s cubic-bezier(0.25, 0.1, 0.25, 1);
+  transition-delay: 0.3s;
+  pointer-events: none;
+}
+
+.swiper-slide-active .scroll-up-indicator {
+  opacity: 1;
+  transform: translateX(-50%) translateY(0);
+  pointer-events: auto;
 }
 
 .chevron {
@@ -332,26 +352,6 @@ display: flex; /* or grid */
 .add-btn:hover {
   background-color: #e65d00;
 }
-
-/* 遮罩開場動畫（強化版本） */
-@import './Colors.css';
-@import './Typography.css';
-
-/* 遮罩開場動畫（強化版本） */
-@import './Colors.css';
-@import './Typography.css';
-
-/* 遮罩開場動畫（強化版本） */
-@import './Colors.css';
-@import './Typography.css';
-
-/* 遮罩開場動畫（強化版本） */
-@import './Colors.css';
-@import './Typography.css';
-
-/* 遮罩開場動畫（強化版本） */
-@import './Colors.css';
-@import './Typography.css';
 
 /* 遮罩開場動畫（強化版本） */
 .loading-overlay {
@@ -759,30 +759,6 @@ display: flex; /* or grid */
   height: 100%;
 }
 
-
-
-/* ✅ overlay 與 scroll indicator 的進場動畫效果 */
-.swiper-slide .explore-style-overlay,
-.swiper-slide .scroll-up-indicator {
-  opacity: 0;
-  /* ✅ 輕微下滑感 */
-  transition: opacity 3s cubic-bezier(0.25, 0.1, 0.25, 1),
-  transform 2.5s cubic-bezier(0.25, 0.1, 0.25, 1);
-  transition-delay: 0.3s;
-  /* ⬅️ 延遲 0.1 秒進場，配合背景淡入 */
-  pointer-events: none;
-  /* ⛔ 避免複製的 slide 接收點擊 */
-}
-
-/* ✅ 只有 active 的才淡入進場，不影響原定位 */
-.swiper-slide-active .explore-style-overlay,
-.swiper-slide-active .scroll-up-indicator {
-  opacity: 1;
-  transform: translateX(-50%) translateY(0);
-}
-
-
-
 @keyframes fadeInUp {
   from {
     opacity: 1;
@@ -798,11 +774,15 @@ display: flex; /* or grid */
 .swiper-slide-active .explore-style-overlay {
   opacity: 1;
   transform: translateX(-50%) translateY(0);
+  pointer-events: auto;
 }
 
-.swiper-slide {
-  /* transition: opacity 1.4s ease-in-out; */
+/* .swiper-slide {
   background-color: black !important;
+} */
+
+.swiper-slide:not(.swiper-slide-active) {
+  background-color: transparent;
 }
 
 .swiper-slide.swiper-slide-active {
@@ -820,51 +800,25 @@ display: flex; /* or grid */
   background-repeat: no-repeat;
   opacity: 0;
   transform: scale(1.05);
-  transition: opacity 4s ease-in-out, transform 4s ease-in-out;
+   transition: opacity 1.2s ease-in-out, transform 1.2s ease-in-out;
   z-index: 0;
 }
 
-.swiper-slide-visible .image-background {
+/* .swiper-slide-visible .image-background {
   opacity: 1;
   transform: scale(1);
   z-index: 1;
+} */
+
+.swiper-slide-active .image-background {
+  opacity: 1;
+  transform: scale(1);
 }
 
 .explore-style {
   color: #fff;
   padding: 0;
   background-color: transparent;
-}
-
-.explore-style-overlay {
-  opacity: 0;
-  transform: translateY(20px);
-  transition: opacity 1s ease, transform 1s ease;
-}
-
-.explore-style-overlay.visible {
-  opacity: 1;
-  transform: translateY(0);
-}
-
-/* ✅ Overlay 預設不可見，載入圖片後才加上 .visible 才淡入 */
-.explore-style-overlay {
-  opacity: 0;
-  transform: translateX(-50%) translateY(20px);
-  transition: opacity 1.2s ease, transform 1.2s ease;
-  pointer-events: none;
-}
-
-.explore-style-overlay.visible {
-  opacity: 1;
-  transform: translateX(-50%) translateY(0);
-  pointer-events: auto;
-}
-
-/* ✅ 防止未載入圖片前閃出背景圖 */
-.image-background {
-  opacity: 0;
-  transition: opacity 0.01s ease;
 }
 
 .swiper-slide-active .image-background {
@@ -881,13 +835,6 @@ display: flex; /* or grid */
   align-items: center;
   z-index: 9999;
   animation: fadeOutOverlay 0.8s ease 2.4s forwards;
-}
-
-@keyframes fadeOutOverlay {
-  to {
-    opacity: 0;
-    visibility: hidden;
-  }
 }
 
 .spinner {
@@ -994,14 +941,6 @@ display: flex; /* or grid */
   }
 }
 
-@keyframes fadeOutOverlay {
-  to {
-    opacity: 0;
-    visibility: hidden;
-    pointer-events: none;
-  }
-}
-
 /* ✅ 遮罩整體區塊 */
 .loading-overlay.elegant {
   position: fixed;
@@ -1087,19 +1026,11 @@ display: flex; /* or grid */
   }
 }
 
-/* ✅ 遮罩淡出 */
-@keyframes fadeOutOverlay {
-  to {
-    opacity: 0;
-    visibility: hidden;
-    pointer-events: none;
-  }
-}
-
 .loading-overlay.fade-out {
   animation: fadeOutOverlay 1.6s ease forwards;
 }
 
+/* ✅ 遮罩淡出 */
 @keyframes fadeOutOverlay {
   from {
     opacity: 1;
@@ -1110,8 +1041,6 @@ display: flex; /* or grid */
     pointer-events: none;
   }
 }
-
-
 
 /* ✨ LOGO 上下 bounce */
 .loading-logo.bounce {
@@ -1176,3 +1105,28 @@ display: flex; /* or grid */
   z-index: 10000;
   pointer-events: none;
 }
+
+/* 🟡 探索頁專用樣式：只針對 explore-page-style 這一頁有效 */
+
+.explore-page-style .explore-style-card {
+  height: 100vh;
+  margin-top: 0;
+  border-radius: 0;
+  box-shadow: none;
+  padding: 0;
+}
+
+.explore-page-style .image-background {
+  height: 100vh;
+  background-size: cover;
+  background-position: center;
+}
+
+/* 如果還有其他跑版，這邊可以繼續加 */
+
+.explore-slide-inner {
+  width: 100vw;
+  height: 100vh;
+  position: relative;
+}
+
