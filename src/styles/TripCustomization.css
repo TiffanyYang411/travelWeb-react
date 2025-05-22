@@ -780,10 +780,10 @@
   background-color: #ff6f19;
   border: 2px solid #ff6f19;
   box-shadow: 0 0 0 0 rgba(255, 111, 25, 0.4);
-  animation: glowPulse 2s ease-in-out infinite;
+  animation: glowPulseCustom 2s ease-in-out infinite;
 }
 
-@keyframes glowPulse {
+@keyframes glowPulseCustom {
   0% {
     box-shadow: 0 0 0 0 rgba(255, 111, 25, 0.4);
   }
@@ -795,23 +795,33 @@
   }
 }
 
+/* .stepper-circle.current {
+  border: 1.5px solid var(--secondary-color-xlight);
+  box-shadow: 0 0 20px 6px rgba(255, 111, 25, 0.6);
+  transform: scale(1.4);
+  transition: transform 0.3s ease-in-out;
+} */
+
 .stepper-circle.current {
   border: 1.5px solid var(--secondary-color-xlight);
-  box-shadow: 0 0 20px 4px rgba(255, 111, 25, 0.6);
+  box-shadow: 0 0 20px 6px rgba(255, 111, 25, 0.6);
+  animation: pulseCurrent 2s ease-in-out infinite;
 }
 
-/* @keyframes glowLine {
-  from {
-    background-color: var(--primary-color);
+@keyframes pulseCurrent {
+  0% {
+    transform: scale(1.2);
+    box-shadow: 0 0 12px 4px rgba(255, 111, 25, 0.4);
   }
-  to {
-    background-color: var(--accent-color);
+  50% {
+    transform: scale(1.5);
+    box-shadow: 0 0 20px 8px rgba(255, 111, 25, 0.7);
+  }
+  100% {
+    transform: scale(1.2);
+    box-shadow: 0 0 12px 4px rgba(255, 111, 25, 0.4);
   }
 }
-
-.stepper-line.active {
-  animation: glowLine 0.6s ease forwards;
-} */
 
 @keyframes stepperGlow {
   0% {
