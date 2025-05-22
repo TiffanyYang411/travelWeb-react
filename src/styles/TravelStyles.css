@@ -94,7 +94,7 @@
 }
 
 /* ✅ 強制清除 SwiperSlide 預設樣式，避免邊緣殘留 */
-.swiper-slide {
+.travel-style-slider .swiper-slide {
   width: 250px !important;
   min-width: 250px !important;
   max-width: 250px !important;

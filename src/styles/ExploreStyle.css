@@ -77,6 +77,8 @@
   overflow: hidden;
   text-overflow: ellipsis;
   margin: 0;
+  max-width: 90%; /* ← 避免過長超出 */
+  margin-inline: auto;
 }
 
 .explore-style-card p {
@@ -386,7 +388,8 @@ display: flex; /* or grid */
   position: absolute;
   width: 180%;
   height: 180%;
-  background: linear-gradient(to bottom right, #7395A6 70%, #5d7e91);
+  /* background: linear-gradient(to bottom right, #7395A6 70%, #5d7e91); */
+   background: linear-gradient(to bottom right, #000000 60%, #111111);
   z-index: 10000;
   transform-origin: center;
   box-shadow: 0 0 60px rgba(0, 0, 0, 0.05);
@@ -555,7 +558,7 @@ display: flex; /* or grid */
   background-size: cover;
   background-position: center;
   background-repeat: no-repeat;
-
+background-color: #000; /* ✅ 加強黑底穩定性 */
   /* ✅ 淡入動畫關鍵 */
   opacity: 0;
   /* transition: opacity 1.6s ease-in-out; */
@@ -795,6 +798,7 @@ display: flex; /* or grid */
   left: 0;
   width: 100vw;
   height: 100vh;
+   background-color: #000; /* ✅ 黑色底色補上 */
   background-size: cover;
   background-position: center;
   background-repeat: no-repeat;
@@ -1131,4 +1135,8 @@ display: flex; /* or grid */
 .explore-page-style .swiper-wrapper,
 .explore-page-style .swiper-slide {
   height: 100vh !important;
+}
+
+.explore-page-style .swiper-slide {
+  background-color: #000 !important;
 }
