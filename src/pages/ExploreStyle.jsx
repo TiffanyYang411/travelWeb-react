@@ -173,22 +173,28 @@ function ExploreStyle() {
           <div className="explore-swiper-next swiper-arrow">›</div>
 
           <Swiper
-  effect="fade"
-  navigation={{
-    nextEl: '.explore-swiper-next',
-    prevEl: '.explore-swiper-prev',
-  }}
-  autoplay={{ delay: 3500, disableOnInteraction: false }}
-  loop={true}
-  speed={1200}
-  onSwiper={(swiper) => {
-    swiperInstanceRef.current = swiper;
-    setTimeout(() => {
-      swiper.navigation.init();
-      swiper.navigation.update();
-    }, 0);
-  }}
->
+            modules={[Navigation, EffectFade, Autoplay]} // ✅ 加入 fade 效果與 autoplay
+            effect="fade"
+            autoplay={{ delay: 4000, disableOnInteraction: false, pauseOnMouseEnter: true }} // ✅ 每 4 秒切換、滑鼠懸停會暫停
+            loop={true}
+            speed={1200}
+            navigation={{
+              nextEl: '.explore-swiper-next',
+              prevEl: '.explore-swiper-prev',
+            }}
+            watchSlidesProgress={true}
+observer={true}
+observeParents={true}
+            onSwiper={(swiper) => {
+              swiperInstanceRef.current = swiper;
+              setTimeout(() => {
+                swiper.navigation.init();
+                swiper.navigation.update();
+              }, 100);
+            }}
+             initialSlide={initialIndex !== -1 ? initialIndex : 0} // ✅ 加上這行
+          >
+
 
 
             {travelStyles.map((style) => (
@@ -220,14 +226,14 @@ function ExploreStyle() {
                     </div>
 
                     {loadedImages[style.id] && (
-                      <div className="explore-style-overlay">
+                      <div className="explore-style-overlay-fade">
                         <h2 className="zh-title-48">{style.title}</h2>
                         <p className="zh-text-24">{style.description}</p>
                       </div>
                     )}
 
                     {loadedImages[style.id] && (
-                      <div className="scroll-up-indicator">
+                      <div className="scroll-up-indicator-fade">
                         <div className="chevron"></div>
                         <div className="chevron"></div>
                         <div className="chevron"></div>

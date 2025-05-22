@@ -47,7 +47,7 @@
   display: block;
 }
 
-.explore-style-overlay {
+.explore-style-overlay-fade {
   position: absolute;
   bottom: 43%;
   left: 50%;
@@ -121,7 +121,7 @@
   right: 20px;
 }
 
-.scroll-up-indicator {
+.scroll-up-indicator-fade {
   position: absolute;
   bottom: 30px;
   left: 50%;
@@ -137,7 +137,7 @@
   pointer-events: none;
 }
 
-.swiper-slide-active .scroll-up-indicator {
+.swiper-slide-active .scroll-up-indicator-fade {
   opacity: 1;
   transform: translateX(-50%) translateY(0);
   pointer-events: auto;
@@ -771,7 +771,7 @@ display: flex; /* or grid */
   }
 }
 
-.swiper-slide-active .explore-style-overlay {
+.swiper-slide-active .explore-style-overlay-fade {
   opacity: 1;
   transform: translateX(-50%) translateY(0);
   pointer-events: auto;
@@ -819,10 +819,6 @@ display: flex; /* or grid */
   color: #fff;
   padding: 0;
   background-color: transparent;
-}
-
-.swiper-slide-active .image-background {
-  opacity: 1;
 }
 
 .loading-overlay.new-style {
@@ -1130,3 +1126,9 @@ display: flex; /* or grid */
   position: relative;
 }
 
+/* ✅ 只作用在 ExploreStyle 頁面的 Swiper */
+.explore-page-style .swiper,
+.explore-page-style .swiper-wrapper,
+.explore-page-style .swiper-slide {
+  height: 100vh !important;
+}
