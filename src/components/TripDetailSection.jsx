@@ -5,6 +5,7 @@ import { isLoggedIn } from '../utils/auth';
 import { addTripToUser } from '../utils/tripUtils';
 import { useTripStore } from '../store/useTripStore'; // ✅ 新增：引入 useTripStore
 import '../styles/TripDetailVertical.css';
+import { tripData } from '../data/tripData'; // ⬅️ 加在最上面
 
 function TripDetailSection({ trip }) {
   const [currentDayIndex, setCurrentDayIndex] = useState(0);
@@ -54,6 +55,40 @@ function TripDetailSection({ trip }) {
       if (!alreadyExists) {
         setPendingTrips([...pendingTrips, { tripId: trip.id, peopleCount: '' }]);
       }
+
+      const handleAddTrip = () => {
+  console.log('📌 點擊加入行程按鈕');
+  if (!isLoggedIn()) {
+    console.log('🔒 尚未登入，導向登入頁');
+    sessionStorage.setItem("returnTo", window.location.pathname);
+    navigate("/login");
+  } else {
+    console.log('✅ 已登入，加入行程');
+
+    const alreadyExists = pendingTrips.some(t => t.tripId === trip.id);
+    if (!alreadyExists) {
+      setPendingTrips([...pendingTrips, { tripId: trip.id, peopleCount: '' }]);
+    }
+
+    // ✅ 補：從 tripData 找出完整 trip
+    const fullTrip = tripData.flatMap(style => style.trips).find(t => t.id === trip.id);
+
+    if (!fullTrip) {
+      console.warn("❗找不到完整的 trip 資料，無法加入！");
+      return;
+    }
+
+    addTripToUser(fullTrip); // ✅ 用完整資料
+    window.dispatchEvent(new CustomEvent("tripCountChanged"));
+    window.dispatchEvent(new CustomEvent("tripAdded"));
+    window.dispatchEvent(new Event('openCartDropdown'));
+
+    setShowAddMessage(true);
+    setTimeout(() => {
+      setShowAddMessage(false);
+    }, 1500);
+  }
+};
 
       addTripToUser(trip);
       window.dispatchEvent(new CustomEvent("tripCountChanged"));

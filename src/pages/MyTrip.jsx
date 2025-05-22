@@ -8,8 +8,8 @@ import '../styles/Typography.css';
 import { useTripStore } from '../store/useTripStore';
 import { findTripById } from '../utils/findTripById';
 import { getUserTrips, removeTripFromUser } from '../utils/tripUtils';
-import { DragDropContext, Droppable, Draggable } from 'react-beautiful-dnd';
-
+// import { DragDropContext, Droppable, Draggable } from 'react-beautiful-dnd';
+import { DragDropContext, Droppable, Draggable } from '@hello-pangea/dnd';
 
 function formatDateToZh(date) {
   const days = ['日', '一', '二', '三', '四', '五', '六'];
@@ -530,13 +530,19 @@ function MyTrip() {
         </div>
 
         <div className="mytrip-info-container slide-up-appear">
-          <p className="drag-hint zh-text-14">✥ 請依照您的需求上下拖曳行程排序，調整成您理想的旅遊行程順序</p>
+          <p className="drag-hint zh-text-14">✥ 若此次安排為多筆行程，請依照您的需求上下拖曳行程排序，調整成您理想的旅遊行程順序</p>
           <div className="mytrip-header-row">
-            <div>行程</div>
+            {/* <div>行程</div>
             <div>天數</div>
             <div>行程費用/人</div>
-            <div>人數</div>
+            <div>人數</div> */}
+            <div className="header-col title">行程</div>
+  <div className="header-col days">天數</div>
+  <div className="header-col price">行程費用/人</div>
+  <div className="header-col people">人數</div>
+  <div className="header-col delete"></div>
           </div>
+          <div className="header-underline" style={{ marginTop: '0px' }}></div> {/* ✅ 新增底線 */}
           <DragDropContext onDragEnd={handleDragEnd}>
             <Droppable droppableId="tripList">
               {(provided) => (

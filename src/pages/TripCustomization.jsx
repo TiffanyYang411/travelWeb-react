@@ -7,6 +7,9 @@ import TripSummaryBar from '../components/TripSummaryBar';
 
 function TripCustomization() {
     const navigate = useNavigate();
+    const [name, setName] = useState('');
+    const [email, setEmail] = useState('');
+    const [phone, setPhone] = useState('');
     const location = useLocation();
     const [trips, setTrips] = useState([]);
     const [startDate, setStartDate] = useState('');
@@ -175,6 +178,8 @@ function TripCustomization() {
             };
             sessionStorage.setItem('tripSummary', JSON.stringify(summaryData));
             alert('表單送出完成！');
+            // 導向 TripSummary 頁面
+            navigate('/trip-summary');
         }
 
     };

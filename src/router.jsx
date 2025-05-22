@@ -1,5 +1,5 @@
 // src/import { createBrowserRouter, Navigate } from 'react-router-dom';
- /*import { createBrowserRouter, Navigate } from 'react-router-dom'; // ✅ 要加這行！
+/*import { createBrowserRouter, Navigate } from 'react-router-dom'; // ✅ 要加這行！
 import Layout from './components/Layout';
 import Home from './pages/Home';
 import ExploreStyle from './pages/ExploreStyle';
@@ -11,34 +11,34 @@ import TripDetail from "./components/TripDetail";
 import TripCustomization from './pages/TripCustomization';
 
 const router = createBrowserRouter(
-  [
-    {
-      path: '/',
-      element: <Layout />,
-      children: [
-        { index: true, element: <Home /> },
-        { path: 'explore', element: <ExploreStyle /> },
-        { path: 'my-trip', element: <MyTrip /> },
-        { path: 'about', element: <About /> },
-        { path: 'faq', element: <FAQ /> },
-        { path: 'trip/:styleId/:tripId', element: <TripDetail /> },
-        { path: 'past-trips', element: <MyTrip /> },
-        { path: 'upcoming-trips', element: <MyTrip /> },
-        { path: 'trip-customization', element: <TripCustomization /> }, // ✅ 正式加這一條
-      ],
-    },
-    {
-      path: '/login',
-      element: <Login />,
-    },
-    {
-      path: '*',
-      element: <Navigate to="/explore" replace />,
-    },
-  ],
-  {
-    basename: '/travelWeb-react',
-  }
+ [
+   {
+     path: '/',
+     element: <Layout />,
+     children: [
+       { index: true, element: <Home /> },
+       { path: 'explore', element: <ExploreStyle /> },
+       { path: 'my-trip', element: <MyTrip /> },
+       { path: 'about', element: <About /> },
+       { path: 'faq', element: <FAQ /> },
+       { path: 'trip/:styleId/:tripId', element: <TripDetail /> },
+       { path: 'past-trips', element: <MyTrip /> },
+       { path: 'upcoming-trips', element: <MyTrip /> },
+       { path: 'trip-customization', element: <TripCustomization /> }, // ✅ 正式加這一條
+     ],
+   },
+   {
+     path: '/login',
+     element: <Login />,
+   },
+   {
+     path: '*',
+     element: <Navigate to="/explore" replace />,
+   },
+ ],
+ {
+   basename: '/travelWeb-react',
+ }
 );
 
 export default router; */
@@ -54,6 +54,7 @@ import Login from './pages/Login';
 import TripDetail from "./components/TripDetail";
 import TripCustomization from './pages/TripCustomization';
 import MyTripTest from './pages/MyTripTest'; // ✅ 修正這裡
+import TripSummary from './pages/TripSummary'; // ✅ 請先確保這行已存在（你有建立 TripSummary.jsx）
 
 const router = createBrowserRouter(
   [
@@ -74,6 +75,7 @@ const router = createBrowserRouter(
         { path: 'past-trips', element: <MyTrip /> },
         { path: 'upcoming-trips', element: <MyTrip /> },
         { path: 'trip-customization', element: <TripCustomization /> },
+        { path: 'trip-summary', element: <TripSummary /> },
       ],
     },
     {
@@ -84,6 +86,7 @@ const router = createBrowserRouter(
       path: '*',
       element: <Navigate to="/explore" replace />,
     },
+
   ],
   {
     basename: '/travelWeb-react', // ✅ GitHub Pages 正確 base 設定
