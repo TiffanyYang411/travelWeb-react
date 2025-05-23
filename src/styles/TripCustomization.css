@@ -19,6 +19,7 @@
 .tripcustom-edit-trip-btn {
     font-family: var(--font-zh);
     font-weight: bold;
+      outline: none;
 }
 
 /* ✅ 下面保持你的原設定 */
@@ -188,6 +189,7 @@
     align-items: center;
     justify-content: center;
     margin-top: 8px;
+      outline: none;
 }
 
 /* 🔥 tripcustom-intro 改版 */
@@ -265,6 +267,7 @@
     cursor: pointer;
     align-self: flex-end;
     margin-left: 0;
+      outline: none;
 }
 
 .tripcustom-intro-wrapper {
@@ -511,6 +514,7 @@
     width: 100%;
     max-width: 700px;
     margin-top: 16px;
+      outline: none;
 }
 
 /* ✨ 下一步按鈕 */
@@ -523,10 +527,12 @@
     border-radius: 8px;
     cursor: pointer;
     transition: background-color 0.3s ease;
+      outline: none;
 }
 
 .tripcustom-next-step-btn:hover {
     background-color: #e65c00;
+      outline: none;
 }
 
 .tripcustom-stepper {

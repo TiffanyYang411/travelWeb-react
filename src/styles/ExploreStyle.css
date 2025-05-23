@@ -711,6 +711,7 @@ background-color: #000; /* ✅ 加強黑底穩定性 */
   color: #142E3F;
   font-weight: 600;
   border-color: transparent;
+  outline: none;
   box-shadow:
     0 0 12px rgba(255, 255, 255, 0.25),
     0 0 20px rgba(255, 255, 255, 0.15),

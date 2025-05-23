@@ -359,6 +359,7 @@
   font-weight: bold;
   border: none;
   border-radius: 8px;
+  outline: none;
   background-color: var(--accent-color);
   color: white;
   cursor: pointer;
@@ -367,6 +368,7 @@
 
 .add-trip-btn-vertical:hover {
   background-color: #e85d00;
+  outline: none;
 }
 
 .trip-image-fade {
