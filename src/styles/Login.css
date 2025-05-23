@@ -17,13 +17,14 @@
   background-color: #ffffff;
   padding-top: 67px;
   border-radius: 20px;
-  width: 560px;
-  height: 550px;
+  width: 520px;
+  max-width: 520px; /* ✅ 對齊 .login-box 內部寬度 */
+  height: 560px;
   box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1);
   text-align: center;
   display: flex;
   flex-direction: column;
-  align-items: center;
+  align-items: stretch; /* ✅ 一定要用 stretch */
 }
 
 .logo-img {
@@ -31,6 +32,8 @@
   height: 42px;
   object-fit: contain;
   cursor: default;
+  display: block;        /* ✅ img 預設是 inline，要轉成 block 才能用 margin */
+  margin: 0 auto;        /* ✅ 這樣就水平置中了 */
 }
 
 .login-title {
@@ -50,16 +53,22 @@
   flex-direction: column;
   row-gap: 16px;
   text-align: left;
-  align-items: center;
-  align-items: stretch; /* ✅ 改這行，讓 .form-group 撐滿 */
+  align-items: center;  /* ✅ 讓每個 form-group 水平置中 */
+  width: 100%;
+  max-width: 520px;
+  margin: 0 auto;
 }
+
 
 .form-group {
   display: flex;
   flex-direction: column;
-  width: 400px;
-  height: 96px;
-  gap: 0;
+  width: 100%;
+  max-width: 350px; /* ✅ 你想拉寬就加這裡 */
+  height: auto;
+  gap: 3px; /* Optional 美化 */
+  align-items: stretch; /* ✅ 用 stretch 才會讓 input 撐滿寬度 */
+margin: 0 auto;
 }
 
 .form-group label {
@@ -88,6 +97,7 @@
   letter-spacing: 5%;
 }
 
+
 .form-group input::placeholder {
   color: #999;
   font-size: 20px;
@@ -108,10 +118,12 @@
   transition: background-color 0.3s ease;
   align-self: center;
   margin-top: 20px;
+  outline: none;
 }
 
 .login-btn:hover {
   background-color: #d5740a;
+  outline: none;
 }
 
 

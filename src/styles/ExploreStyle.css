@@ -258,17 +258,17 @@ display: flex; /* or grid */
   transform: translateY(0);
 }
 
-.explore-trip-card.delay-1 {
-  /* transition-delay: 0.1s; */
+/* .explore-trip-card.delay-1 {
+  transition-delay: 0.1s;
 }
 
 .explore-trip-card.delay-2 {
-  /* transition-delay: 0.2s; */
+  transition-delay: 0.2s;
 }
 
 .explore-trip-card.delay-3 {
-  /* transition-delay: 0.3s; */
-}
+  transition-delay: 0.3s;
+} */
 
 .trip-detail {
   background: #fff;
@@ -711,6 +711,7 @@ background-color: #000; /* ✅ 加強黑底穩定性 */
   color: #142E3F;
   font-weight: 600;
   border-color: transparent;
+  outline: none;
   box-shadow:
     0 0 12px rgba(255, 255, 255, 0.25),
     0 0 20px rgba(255, 255, 255, 0.15),

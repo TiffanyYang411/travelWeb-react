@@ -427,16 +427,19 @@
   border: none;
   cursor: pointer;
   transition: background-color 0.3s ease;
+    outline: none;
 }
 
 .next-step-btn:hover:not(.disabled):not(:disabled) {
   background-color: #e85b00;
+    outline: none;
 }
 
 .next-step-btn.disabled,
 .next-step-btn:disabled {
   background-color: grey;
   cursor: not-allowed;
+    outline: none;
 }
 
 .announcement-marquee {
@@ -715,10 +718,12 @@ select::-ms-expand {
   border: none;
   cursor: pointer;
   transition: background-color 0.3s ease;
+    outline: none;
 }
 
 .mytrip-start-trip-btn:hover {
   background-color: #e85b00;
+    outline: none;
 }
 
 .mytrip-item.deleting {
@@ -1148,12 +1153,6 @@ body,
   transform: none !important;
   perspective: none !important;
 } */
-
-.mytrip-page-wrapper *,
-.mytrip-page-wrapper *::before,
-.mytrip-page-wrapper *::after {
-  /* animation: none !important; */
-}
 
 @media (max-width: 767px) {
   .mytrip-info-container {

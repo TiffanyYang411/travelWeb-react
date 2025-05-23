@@ -22,14 +22,21 @@ html, body, #root {
   font-weight: 400;
 
   /* 品牌主色設定 */
-  --primary-color: #142E3F; /* 主色（深藍） */
-  --secondary-color: #DCE8ED; /* 輔色（淺藍） */
-  --accent-color: #FF6F19; /* 強調色（亮橘） */
-  --error-color: #FF0000; /* 功能錯誤色 */
-
+  --primary-color: #142E3F;
+  /* 主色（深藍） */
+  --secondary-color: #DCE8ED;
+  /* 輔色（淺藍） */
+  --accent-color: #FF6F19;
+  /* 強調色（亮橘） */
+  --error-color: #FF0000;
+  /* 功能錯誤色 */
+  --secondary-color-xlight: #F6FBFC;
+  /* ←加這行 */
   /* 字色設定 */
-  --text-color: #142E3F; /* 預設字色用深藍 */
-  --background-color: #F6FBFC; /* 預設背景淺藍白 */
+  --text-color: #142E3F;
+  /* 預設字色用深藍 */
+  --background-color: #F6FBFC;
+  /* 預設背景淺藍白 */
 
   /* 額外原本就有的設定 */
   color-scheme: light dark;
@@ -43,7 +50,8 @@ html, body, #root {
 }
 
 a {
-  color: var(--secondary-color-xlight); /* #F6FBFC */
+  color: var(--secondary-color-xlight);
+  /* #F6FBFC */
   text-decoration: none;
   font-weight: bold;
   font-size: 14px;
@@ -51,7 +59,8 @@ a {
 }
 
 a:hover {
-  color: var(--accent-color); /* #FF6F19 或自定 */
+  color: var(--accent-color);
+  /* #FF6F19 或自定 */
 }
 
 
@@ -79,9 +88,11 @@ button {
   cursor: pointer;
   transition: border-color 0.25s;
 }
+
 button:hover {
   border-color: #646cff;
 }
+
 button:focus,
 button:focus-visible {
   outline: none;
@@ -93,9 +104,11 @@ button:focus-visible {
     color: #213547;
     background-color: #ffffff;
   }
+
   a:hover {
     color: #747bff;
   }
+
   button {
     background-color: #f9f9f9;
   }
