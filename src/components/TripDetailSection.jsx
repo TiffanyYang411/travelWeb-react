@@ -223,7 +223,7 @@ const lines = String(rawDay.desc ?? '').split('\n').map(l => l.trim()).filter(Bo
 
   return {
     day,
-    title: titleLine?.replace(/^第.+?：/, '') || '',
+    title: String(titleLine ?? '').replace(/^第.+?：/, ''),
     sections,
     image
   };

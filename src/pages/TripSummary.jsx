@@ -188,7 +188,7 @@ const lines = String(dayObj.desc ?? '').split('\n').map(l => l.trim()).filter(Bo
                       <h3 className="trip-summary-index">{`第${['一', '二', '三', '四', '五', '六', '七', '八', '九', '十'][index]}個行程`}</h3>
                     </div>
                     <img
-                      src={`${import.meta.env.BASE_URL}${currentDay.image.replace('./', '')}`}
+                      src={`${import.meta.env.BASE_URL}${String(currentDay.image ?? '').replace('./', '')}`}
                       alt={`Day ${currentDay.day}`}
                       className="trip-summary-img"
                       style={{ width: '255px', height: '255px', objectFit: 'cover' }}
