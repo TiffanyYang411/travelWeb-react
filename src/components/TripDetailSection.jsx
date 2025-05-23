@@ -196,7 +196,7 @@ function parseDayDetailSafe(rawDay) {
     };
   }
 
-  const lines = rawDay.desc.split('\n').map(l => l.trim()).filter(Boolean);
+const lines = String(rawDay.desc ?? '').split('\n').map(l => l.trim()).filter(Boolean);
   const titleLine = lines[0];
   const day = rawDay.day;
   const image = rawDay.image;

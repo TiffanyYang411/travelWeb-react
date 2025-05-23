@@ -24,7 +24,7 @@ function TripSummary() {
       if (!trip) return null;
 
       const daySchedules = (trip.itinerary || []).map((dayObj, index) => {
-        const lines = dayObj.desc.split('\n').map(l => l.trim()).filter(Boolean);
+const lines = String(dayObj.desc ?? '').split('\n').map(l => l.trim()).filter(Boolean);
         let current = '';
         let morning = '', afternoon = '', evening = '';
 
