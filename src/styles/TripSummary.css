@@ -41,7 +41,7 @@
 
 .trip-summary-popup {
   position: fixed;
-  top: 50%;
+  top: 15vh; /* ⬅️ 這裡往上移動，比起原本的 50vh 更靠近頂部 */
   left: 50%;
   transform: translate(-50%, -50%);
   background-color: white;

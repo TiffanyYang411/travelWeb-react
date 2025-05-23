@@ -21,9 +21,16 @@ function TripSummary() {
     const allTrips = tripData.flatMap(style => style.trips);
     const transformedTrips = (summaryData.trips || []).map(({ tripId, peopleCount }) => {
       const trip = allTrips.find(t => Number(t.id) === Number(tripId));
-      if (!trip) return null;
+      if (!trip || !trip.id) {
+        console.warn('[⚠️ trip 資料異常]', trip);
+        return null;
+      }
 
-      const daySchedules = (trip.itinerary || []).map((dayObj, index) => {
+
+      const daySchedules = (trip.itinerary || [])
+  .filter(d => d.desc || d.image) // ✅ 過濾掉空資料
+  .map((dayObj, index) => {
+
         const lines = String(dayObj.desc ?? '').split('\n').map(l => l.trim()).filter(Boolean);
         let current = '';
         let morning = '', afternoon = '', evening = '';
@@ -51,7 +58,8 @@ function TripSummary() {
       return {
         ...trip,
         peopleCount,
-        daySchedules
+        daySchedules,
+        itineraryLength: daySchedules.length  // ✅ 這裡改成用 daySchedules
       };
     }).filter(Boolean);
 
@@ -75,9 +83,10 @@ function TripSummary() {
 
   const handleDayChange = (tripId, direction, max) => {
     setDayIndexes(prev => {
-      const current = prev[tripId] || 0;
+      const current = prev[tripId] ?? 0;
       let next = direction === 'next' ? current + 1 : current - 1;
-      next = Math.max(0, Math.min(max - 1, next));
+      if (next < 0) next = 0;
+      if (next >= max) next = max - 1;
       return { ...prev, [tripId]: next };
     });
   };
@@ -140,11 +149,22 @@ function TripSummary() {
           <div className="trip-summary-section">
             <div className="trip-summary-section-title">我的行程</div>
             {trips.map((trip, index) => {
-              const currentIndex = dayIndexes[trip.id] || 0;
-              const currentDay = trip.daySchedules[currentIndex];
-              const { morning, afternoon, evening } = currentDay || {};
-              const hasAnySchedule = morning || afternoon || evening;
-              if (!hasAnySchedule) return null;
+
+
+              const currentIndex = dayIndexes?.[trip.id] ?? 0;
+              console.log('[🧪 trip]', trip.title, '行程長度:', trip.daySchedules.length, '目前 index:', currentIndex);
+              console.log(`[🧾 渲染中] trip: ${trip.title}, index: ${index}, 天數: ${trip.daySchedules.length}`);
+              const safeIndex = Math.min(currentIndex, trip.daySchedules.length - 1);
+              const isAtFirstDay = safeIndex <= 0;
+              const isAtLastDay = safeIndex >= trip.daySchedules.length - 1;
+              const currentDay = trip.daySchedules?.[safeIndex];
+
+
+
+
+              const { morning, afternoon, evening } = currentDay;
+
+
               // ⏱ 根據 sessionStorage 中的 startDate 和 trip 天數計算日期範圍
               const startDateStr = sessionStorage.getItem('confirmedStartDate');
               const startDate = startDateStr ? new Date(startDateStr) : null;
@@ -233,13 +253,38 @@ function TripSummary() {
 
                   <div className="trip-summary-schedule">
                     <div className="trip-summary-schedule-header">
-                      <button onClick={() => handleDayChange(trip.id, 'prev', trip.daySchedules.length)}>
-                        <img src="./images/tripSummary-arrow-left.svg" alt="prev" className="trip-summary-arrow-left" />
+                      <button
+                        disabled={isAtFirstDay}
+                        onClick={() => handleDayChange(trip.id, 'prev', trip.daySchedules.length)}
+                      >
+                        <img
+                          src="./images/tripSummary-arrow-left.svg"
+                          alt="prev"
+                          className="trip-summary-arrow-left"
+                          style={{
+                            opacity: isAtFirstDay ? 0.3 : 1,
+                            cursor: isAtFirstDay ? 'not-allowed' : 'pointer'
+                          }}
+                        />
                       </button>
-                      <div className="trip-summary-day-label">第 {currentDay.day} 天</div>
-                      <button onClick={() => handleDayChange(trip.id, 'next', trip.daySchedules.length)}>
-                        <img src="./images/tripSummary-arrow-right.svg" alt="next" className="trip-summary-arrow-right" />
+
+                      <div className="trip-summary-day-label">第 {safeIndex + 1} 天</div>
+                      <button
+                        disabled={isAtLastDay}
+                        onClick={() => handleDayChange(trip.id, 'next', trip.daySchedules.length)}
+                      >
+                        <img
+                          src="./images/tripSummary-arrow-right.svg"
+                          alt="next"
+                          className="trip-summary-arrow-right"
+                          style={{
+                            opacity: isAtLastDay ? 0.3 : 1,
+                            cursor: isAtLastDay ? 'not-allowed' : 'pointer'
+                          }}
+                        />
                       </button>
+
+
                     </div>
                     <div className="trip-summary-schedule-detail">
                       {morning && (
