@@ -24,7 +24,7 @@ function TripSummary() {
       if (!trip) return null;
 
       const daySchedules = (trip.itinerary || []).map((dayObj, index) => {
-const lines = String(dayObj.desc ?? '').split('\n').map(l => l.trim()).filter(Boolean);
+        const lines = String(dayObj.desc ?? '').split('\n').map(l => l.trim()).filter(Boolean);
         let current = '';
         let morning = '', afternoon = '', evening = '';
 
@@ -142,7 +142,9 @@ const lines = String(dayObj.desc ?? '').split('\n').map(l => l.trim()).filter(Bo
             {trips.map((trip, index) => {
               const currentIndex = dayIndexes[trip.id] || 0;
               const currentDay = trip.daySchedules[currentIndex];
-
+              const { morning, afternoon, evening } = currentDay || {};
+              const hasAnySchedule = morning || afternoon || evening;
+              if (!hasAnySchedule) return null;
               // ⏱ 根據 sessionStorage 中的 startDate 和 trip 天數計算日期範圍
               const startDateStr = sessionStorage.getItem('confirmedStartDate');
               const startDate = startDateStr ? new Date(startDateStr) : null;
@@ -240,18 +242,24 @@ const lines = String(dayObj.desc ?? '').split('\n').map(l => l.trim()).filter(Bo
                       </button>
                     </div>
                     <div className="trip-summary-schedule-detail">
-                      <div className="trip-summary-schedule-item">
-                        <div className="trip-summary-schedule-time">上午</div>
-                        <div className="trip-summary-schedule-desc">{currentDay.morning || '無行程'}</div>
-                      </div>
-                      <div className="trip-summary-schedule-item">
-                        <div className="trip-summary-schedule-time">下午</div>
-                        <div className="trip-summary-schedule-desc">{currentDay.afternoon || '無行程'}</div>
-                      </div>
-                      <div className="trip-summary-schedule-item">
-                        <div className="trip-summary-schedule-time">晚上</div>
-                        <div className="trip-summary-schedule-desc">{currentDay.evening || '無行程'}</div>
-                      </div>
+                      {morning && (
+                        <div className="trip-summary-schedule-item">
+                          <div className="trip-summary-schedule-time">上午</div>
+                          <div className="trip-summary-schedule-desc">{morning}</div>
+                        </div>
+                      )}
+                      {afternoon && (
+                        <div className="trip-summary-schedule-item">
+                          <div className="trip-summary-schedule-time">下午</div>
+                          <div className="trip-summary-schedule-desc">{afternoon}</div>
+                        </div>
+                      )}
+                      {evening && (
+                        <div className="trip-summary-schedule-item">
+                          <div className="trip-summary-schedule-time">晚上</div>
+                          <div className="trip-summary-schedule-desc">{evening}</div>
+                        </div>
+                      )}
                     </div>
                   </div>
                 </div>
@@ -264,35 +272,35 @@ const lines = String(dayObj.desc ?? '').split('\n').map(l => l.trim()).filter(Bo
             <div className="trip-summary-section-title">客製化</div>
             <div className="trip-summary-customization">
               {customizationFields.map(({ label, key, value }) => {
-  const selected = customization[key];
-  
-  // ✅ 英文格式來自 options: { '1': 'yes', ... }
-  if (['1', '2', '3', '4'].includes(key)) {
-    if (selected === 'yes' && value) return (
-      <div className="trip-summary-custom-row" key={key}>
-        <div className="trip-summary-custom-label">{label}：</div>
-        <div className="trip-summary-custom-value">是，{value}</div>
-      </div>
-    );
-    if (selected === 'yes') return (
-      <div className="trip-summary-custom-row" key={key}>
-        <div className="trip-summary-custom-label">{label}：</div>
-        <div className="trip-summary-custom-value">是</div>
-      </div>
-    );
-    return null;
-  }
+                const selected = customization[key];
 
-  // 其他欄位（姓名、電話、email、特殊需求）照顯示
-  if (!selected || selected === 'no') return null;
+                // ✅ 英文格式來自 options: { '1': 'yes', ... }
+                if (['1', '2', '3', '4'].includes(key)) {
+                  if (selected === 'yes' && value) return (
+                    <div className="trip-summary-custom-row" key={key}>
+                      <div className="trip-summary-custom-label">{label}：</div>
+                      <div className="trip-summary-custom-value">是，{value}</div>
+                    </div>
+                  );
+                  if (selected === 'yes') return (
+                    <div className="trip-summary-custom-row" key={key}>
+                      <div className="trip-summary-custom-label">{label}：</div>
+                      <div className="trip-summary-custom-value">是</div>
+                    </div>
+                  );
+                  return null;
+                }
 
-  return (
-    <div className="trip-summary-custom-row" key={key}>
-      <div className="trip-summary-custom-label">{label}：</div>
-      <div className="trip-summary-custom-value">{value || selected}</div>
-    </div>
-  );
-})}
+                // 其他欄位（姓名、電話、email、特殊需求）照顯示
+                if (!selected || selected === 'no') return null;
+
+                return (
+                  <div className="trip-summary-custom-row" key={key}>
+                    <div className="trip-summary-custom-label">{label}：</div>
+                    <div className="trip-summary-custom-value">{value || selected}</div>
+                  </div>
+                );
+              })}
 
             </div>
           </div>
