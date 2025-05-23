@@ -1,3 +1,4 @@
+// TripSummary.jsx
 import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { generateSerialNumber } from '../utils/serialNumber';
@@ -14,27 +15,6 @@ function TripSummary() {
   const [dayIndexes, setDayIndexes] = useState({});
 
   useEffect(() => {
-    sessionStorage.setItem('tripSummary', JSON.stringify({
-      trips: [{ tripId: 101, peopleCount: 2 }],
-      formData: {
-        name: '測試用',
-        email: 'test@example.com',
-        phone: '123456789'
-      },
-      options: {
-        '1': 'yes',
-        '2': 'no',
-        '3': 'no',
-        '4': 'no'
-      },
-      foodNote: '無',
-      specialRequest: '無',
-      startDate: '2025-06-01',
-      endDate: '2025-06-05',
-      totalPeople: 2,
-      totalPrice: 152400
-    }));
-
     const summaryData = JSON.parse(sessionStorage.getItem('tripSummary')) || {};
     setSerialNumber(generateSerialNumber());
 
@@ -84,8 +64,8 @@ function TripSummary() {
     setCustomization({
       ...summaryData.formData,
       ...summaryData.options,
-      foodNote: summaryData.foodNote,
       specialRequest: summaryData.specialRequest,
+      foodNote: summaryData.foodNote,
       startDate: summaryData.startDate,
       endDate: summaryData.endDate,
       totalPeople: summaryData.totalPeople,
@@ -120,15 +100,25 @@ function TripSummary() {
     }, 3000);
   };
 
-  const filteredCustomization = Object.entries(customization).filter(([key, value]) => {
-    if (typeof value === 'string') {
-      return value.trim() !== '' && value !== '否';
-    }
-    return value === true;
-  });
+  const customizationFields = [
+    { label: '人數', key: 'totalPeople', value: customization.totalPeople + ' 人' },
+    { label: '費用', key: 'totalPrice', value: 'NT$ ' + Number(customization.totalPrice).toLocaleString() },
+    { label: '專屬導遊 / 私人導覽', key: '1' },
+    { label: '豪華專車接送', key: '2' },
+    { label: '升級住宿', key: '3' },
+    { label: '飲食需求', key: '4', value: customization['foodNote'] },
+    { label: '姓名', key: 'name' },
+    { label: 'Email', key: 'email' },
+    { label: '聯絡電話', key: 'phone' },
+    { label: '其他特別需求', key: 'specialRequest' }
+  ];
 
   return (
     <div className="trip-summary-page">
+      <div className="trip-summary-header-message">
+        <h2>感謝預訂，我們將為您開啟一段北歐詩篇</h2>
+        <p>旅程即將展開，願這是一場值得一輩子回味的探索</p>
+      </div>
       {showPopup && (
         <div className="trip-summary-popup">
           <p>您的行程已確認！<br />策劃師將於24小時聯繫<br />請前往「即將出發」頁面查看相關訊息</p>
@@ -137,65 +127,175 @@ function TripSummary() {
 
       {!showPopup && (
         <div className="trip-summary-wrapper">
-          <div className="trip-summary-title-block">
-            <h2 className="trip-summary-title-code">{serialNumber}</h2>
-            <p className="trip-summary-title-date">
-              日期：{customization.startDate} ～ {customization.endDate}
-            </p>
+          {/* ⬇️ 放這裡，接在 wrapper 開始後 */}
+
+          <div className="trip-summary-header">
+            <div className="trip-summary-code">{serialNumber}</div>
           </div>
 
-          <section className="trip-summary-section">
-            <h3 className="trip-summary-subtitle">我的行程</h3>
+          <div className="trip-summary-title">
+            <div className="trip-summary-dates">{customization.startDate} ～ {customization.endDate}</div>
+          </div>
+
+          <div className="trip-summary-section">
+            <div className="trip-summary-section-title">我的行程</div>
             {trips.map((trip, index) => {
               const currentIndex = dayIndexes[trip.id] || 0;
               const currentDay = trip.daySchedules[currentIndex];
 
+              // ⏱ 根據 sessionStorage 中的 startDate 和 trip 天數計算日期範圍
+              const startDateStr = sessionStorage.getItem('confirmedStartDate');
+              const startDate = startDateStr ? new Date(startDateStr) : null;
+              let tripStartDate = startDate ? new Date(startDate) : null;
+              for (let i = 0; i < index; i++) {
+                const prevTrip = trips[i];
+                const prevMatch = prevTrip.days?.match(/(\d+)\s*天/);
+                const prevDays = prevMatch ? parseInt(prevMatch[1], 10) : 0;
+                if (tripStartDate) tripStartDate.setDate(tripStartDate.getDate() + prevDays);
+              }
+
+              const match = trip.days?.match(/(\d+)\s*天/);
+              const tripDays = match ? parseInt(match[1], 10) : 0;
+              const tripEndDate = tripStartDate ? new Date(tripStartDate) : null;
+              if (tripEndDate) tripEndDate.setDate(tripEndDate.getDate() + tripDays - 1);
+
+              // 📅 判斷是否包含週末
+              let hasWeekend = false;
+              if (tripStartDate && tripDays) {
+                for (let d = 0; d < tripDays; d++) {
+                  const cur = new Date(tripStartDate);
+                  cur.setDate(cur.getDate() + d);
+                  const dow = cur.getDay();
+                  if (dow === 0 || dow === 6) {
+                    hasWeekend = true;
+                    break;
+                  }
+                }
+              }
+
+              const originalPrice = trip.price;
+              const finalPrice = hasWeekend ? Math.round(originalPrice * 1.2) : originalPrice;
               return (
-                <div key={trip.id} className="trip-summary-tripbox">
-                  <div className="trip-summary-left">
-                    <p className="trip-summary-index">第一個行程</p>
+                <div key={trip.id} className="trip-summary-trip-card" style={{
+                  maxWidth: '960px',
+                  margin: '0 auto',
+                  maxHeight: '550px',
+                  overflow: 'hidden'
+                }}
+                >
+                  <div className="trip-summary-info">
+                    <div className="trip-summary-index-wrapper">
+                      <h3 className="trip-summary-index">{`第${['一', '二', '三', '四', '五', '六', '七', '八', '九', '十'][index]}個行程`}</h3>
+                    </div>
                     <img
                       src={`${import.meta.env.BASE_URL}${currentDay.image.replace('./', '')}`}
                       alt={`Day ${currentDay.day}`}
                       className="trip-summary-img"
+                      style={{ width: '255px', height: '255px', objectFit: 'cover' }}
                     />
-                    <div className="trip-summary-info-block">
-                      <p className="trip-summary-tripdays">{trip.days}</p>
-                      <h4 className="trip-summary-tripname">{trip.title}</h4>
-                      <p className="trip-summary-highlight-title">行程亮點：</p>
-                      <p className="trip-summary-highlight-list">
-                        {trip.highlights?.filter(Boolean).join('，')}
-                      </p>
+                  </div>
+
+                  <div className="trip-summary-content">
+                    <div className="trip-summary-top">
+                      <div className="trip-summary-days">{trip.days}</div>
+                      <div className="trip-summary-name">{trip.title}</div>
+                    </div>
+                    <div className="trip-summary-bottom">
+                      <div className="trip-summary-highlight-label">行程亮點：</div>
+                      <div className="trip-summary-highlight-content">
+                        {trip.highlights?.filter(Boolean).join('、')}
+                      </div>
+                      {tripStartDate && tripEndDate && (
+                        <div className="trip-summary-trip-dates" style={{ fontFamily: 'LXGW WenKai TC' }}>
+                          {tripStartDate.toLocaleDateString()} ～ {tripEndDate.toLocaleDateString()}
+                        </div>
+                      )}
+                      <div className="trip-summary-price-wrapper">
+                        {hasWeekend ? (
+                          <>
+                            <span className="trip-summary-price-original">
+                              NT$ {originalPrice.toLocaleString()}
+                            </span>
+                            <span className="trip-summary-price-current">
+                              NT$ {finalPrice.toLocaleString()}
+                            </span>
+                          </>
+                        ) : (
+                          <span className="trip-summary-price-current">
+                            NT$ {originalPrice.toLocaleString()}
+                          </span>
+                        )}
+                      </div>
                     </div>
                   </div>
-                  <div className="trip-summary-right">
-                    <div className="day-switcher">
-                      <button onClick={() => handleDayChange(trip.id, 'prev', trip.daySchedules.length)}>←</button>
-                      <span>第 {currentDay.day} 天</span>
-                      <button onClick={() => handleDayChange(trip.id, 'next', trip.daySchedules.length)}>→</button>
-                    </div>
 
-                    <div className="trip-summary-schedule-block">
-                      <p><strong>上午：</strong>{currentDay.morning || '無行程'}</p>
-                      <p><strong>下午：</strong>{currentDay.afternoon || '無行程'}</p>
-                      <p><strong>晚上：</strong>{currentDay.evening || '無行程'}</p>
+                  <div className="trip-summary-schedule">
+                    <div className="trip-summary-schedule-header">
+                      <button onClick={() => handleDayChange(trip.id, 'prev', trip.daySchedules.length)}>
+                        <img src="./images/tripSummary-arrow-left.svg" alt="prev" className="trip-summary-arrow-left" />
+                      </button>
+                      <div className="trip-summary-day-label">第 {currentDay.day} 天</div>
+                      <button onClick={() => handleDayChange(trip.id, 'next', trip.daySchedules.length)}>
+                        <img src="./images/tripSummary-arrow-right.svg" alt="next" className="trip-summary-arrow-right" />
+                      </button>
+                    </div>
+                    <div className="trip-summary-schedule-detail">
+                      <div className="trip-summary-schedule-item">
+                        <div className="trip-summary-schedule-time">上午</div>
+                        <div className="trip-summary-schedule-desc">{currentDay.morning || '無行程'}</div>
+                      </div>
+                      <div className="trip-summary-schedule-item">
+                        <div className="trip-summary-schedule-time">下午</div>
+                        <div className="trip-summary-schedule-desc">{currentDay.afternoon || '無行程'}</div>
+                      </div>
+                      <div className="trip-summary-schedule-item">
+                        <div className="trip-summary-schedule-time">晚上</div>
+                        <div className="trip-summary-schedule-desc">{currentDay.evening || '無行程'}</div>
+                      </div>
                     </div>
                   </div>
                 </div>
               );
-            })}
-          </section>
 
-          <section className="trip-summary-section">
-            <h3 className="trip-summary-subtitle">客製化</h3>
-            <ul className="trip-summary-custom-list">
-              <li>人數：{customization.totalPeople} 人</li>
-              <li>費用：NT$ {Number(customization.totalPrice).toLocaleString()}</li>
-              {filteredCustomization.map(([key, value], index) => (
-                <li key={index}><strong>{key}：</strong>{String(value)}</li>
-              ))}
-            </ul>
-          </section>
+            })}
+          </div>
+
+          <div className="trip-summary-section">
+            <div className="trip-summary-section-title">客製化</div>
+            <div className="trip-summary-customization">
+              {customizationFields.map(({ label, key, value }) => {
+  const selected = customization[key];
+  
+  // ✅ 英文格式來自 options: { '1': 'yes', ... }
+  if (['1', '2', '3', '4'].includes(key)) {
+    if (selected === 'yes' && value) return (
+      <div className="trip-summary-custom-row" key={key}>
+        <div className="trip-summary-custom-label">{label}：</div>
+        <div className="trip-summary-custom-value">是，{value}</div>
+      </div>
+    );
+    if (selected === 'yes') return (
+      <div className="trip-summary-custom-row" key={key}>
+        <div className="trip-summary-custom-label">{label}：</div>
+        <div className="trip-summary-custom-value">是</div>
+      </div>
+    );
+    return null;
+  }
+
+  // 其他欄位（姓名、電話、email、特殊需求）照顯示
+  if (!selected || selected === 'no') return null;
+
+  return (
+    <div className="trip-summary-custom-row" key={key}>
+      <div className="trip-summary-custom-label">{label}：</div>
+      <div className="trip-summary-custom-value">{value || selected}</div>
+    </div>
+  );
+})}
+
+            </div>
+          </div>
 
           <button className="trip-summary-confirm" onClick={handleConfirm}>確認送出 ➔</button>
         </div>
@@ -205,6 +305,7 @@ function TripSummary() {
 }
 
 export default TripSummary;
+
 
 
 

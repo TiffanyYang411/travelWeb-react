@@ -1,11 +1,42 @@
-/* === TripSummary.css === */
+/* TripSummary.css */
 
 .trip-summary-page {
-  padding: 40px;
-  background-color: #f6fbfc;
+  padding: 40px 0 80px; /* 上下空間更寬裕，避免碰到 navbar */
+  background-color: var(--primary-color);
   min-height: 100vh;
-  font-family: 'Piazzolla', serif;
+  font-family: 'Piazzolla', 'LXGW WenKai TC', serif;
   color: #142e3f;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.trip-summary-index-wrapper {
+  margin-bottom: 30px;
+  text-align: left;
+  padding-left: 4px;
+}
+
+.trip-summary-header-message {
+  text-align: center;
+  margin-bottom: 24px;
+  max-width: 920px;
+  padding-top: 60px; /* ✅ 加距離拉開與 navbar */
+}
+
+.trip-summary-header-message h2 {
+  font-size: 24px;
+  font-weight: bold;
+  margin-bottom: 20px;
+  color: var(--secondary-color-xlight);
+  font-family: 'LXGW WenKai TC';
+}
+
+.trip-summary-header-message p {
+  font-size: 16px;
+  color: var(--secondary-color-xlight);
+  font-family: 'LXGW WenKai TC';
+  margin-bottom: 24px;
 }
 
 .trip-summary-popup {
@@ -23,31 +54,47 @@
 }
 
 .trip-summary-wrapper {
-  max-width: 1080px;
-  margin: 0 auto;
+  width: 1040px;
+  /* ✅ 縮小整體寬度呈現為表單感 */
+  background-color: white;
+  padding: 40px 48px;
+  border-radius: 20px;
+  box-shadow: 0 0 8px rgba(0, 0, 0, 0.08);
+  margin-top: 0; /* ✅ 與 header 區隔，避免貼到 navbar */
 }
 
-.trip-summary-title-block {
+.trip-summary-header {
+  text-align: center;
+  margin-bottom: 24px;
+}
+
+.trip-summary-code {
+  background-color: #142E3F;
+  color: #F6FBFC;
+  font-size: 24px;
+  font-family: 'LXGW WenKai TC';
+  padding: 12px 20px;
+  border-radius: 10px;
+  display: inline-block;
+}
+
+.trip-summary-title {
   text-align: center;
   margin-bottom: 32px;
 }
 
-.trip-summary-title-code {
-  font-size: 24px;
-  font-weight: bold;
-}
-
-.trip-summary-title-date {
+.trip-summary-dates {
   font-size: 16px;
   color: #5a5a5a;
-  margin-top: 8px;
+  text-align: center;
+  margin-bottom: 24px;
 }
 
 .trip-summary-section {
   margin-bottom: 48px;
 }
 
-.trip-summary-subtitle {
+.trip-summary-section-title {
   font-size: 20px;
   font-weight: bold;
   margin-bottom: 16px;
@@ -55,79 +102,205 @@
   padding-bottom: 4px;
 }
 
-.trip-summary-tripbox {
+.trip-summary-trip-card {
   display: flex;
-    flex-wrap: nowrap;
-     gap: 24px;
-   align-items: center; /* ✅ 垂直置中圖片與右側文字 */
+  gap: 24px;
+    height: 350px; /* ✅ 固定高度 */
+  align-items: center;
   background-color: #ffffff;
   border-radius: 12px;
   padding: 20px;
   margin-bottom: 40px;
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.05);
+  flex-wrap: wrap;
 }
 
-.trip-summary-left {
+.trip-summary-info {
   flex: 0 0 240px;
-  margin-right: 20px;
-  display: flex;
-  flex-direction: column;
-  align-items: flex-start;
+  position: relative;
 }
 
 .trip-summary-img {
   width: 100%;
+  height: auto;
   max-height: 200px;
   object-fit: cover;
   border-radius: 8px;
 }
 
-.trip-summary-schedule-img {
-  width: 100%;
-  max-height: 400px;
-  object-fit: cover;
-  border-radius: 8px;
+.trip-summary-index {
+  position: absolute;
+  top: -30px;
+  left: 0;
+  font-size: 20px;
+  font-weight: bold;
+  font-family: 'LXGW WenKai TC';
+  color: #142A3B;
 }
 
-.trip-summary-right {
+.trip-summary-content {
   flex: 1;
   display: flex;
   flex-direction: column;
-  justify-content: space-between;
+  justify-content: center;
+  gap: 12px;
+  color: #142A3B;
+   min-width: 180px;
 }
 
-.trip-summary-tripname {
-  font-size: 18px;
-  font-weight: bold;
-  margin: 0;
+.trip-summary-days {
+  font-size: 20px;
+  font-weight: 700;
+  font-family: 'LXGW WenKai TC';
 }
 
-.trip-summary-tripdays {
+.trip-summary-name {
+  font-size: 20px;
+  font-weight: 700;
+  line-height: 1.4;
+  font-family: 'LXGW WenKai TC';
+}
+
+.trip-summary-highlight-label {
   font-size: 16px;
-  margin: 4px 0 12px;
+  font-weight: 700;
+  font-family: 'LXGW WenKai TC';
+   margin-top: 8px;
 }
 
-.trip-summary-highlight-title {
+.trip-summary-price-wrapper {
+  display: flex;
+  align-items: baseline;
+  gap: 12px;
+  font-family: 'LXGW WenKai TC';
+  margin-top: 8px; /* ✅ 價格區塊往下推 */
+}
+.trip-summary-price-original {
+  text-decoration: line-through;
+  color: #999;
+    font-size: 16px;
+}
+.trip-summary-price-current {
+    font-size: 18px;
+  color: #e53935;
   font-weight: bold;
-  margin-bottom: 6px;
-  font-size: 16px;
 }
 
-.trip-summary-highlight-list {
-  padding-left: 20px;
-  margin: 0;
+.trip-summary-highlight-content {
   font-size: 15px;
+  line-height: 1.6;
   color: #5a5a5a;
+  font-family: 'LXGW WenKai TC';
 }
 
-.trip-summary-custom-list {
-  padding-left: 20px;
+.trip-summary-schedule {
+  width: 380px;
+  background-color: #DCE8ED;
+  border-radius: 10px;
+  padding: 16px;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  justify-content: center;
+  align-items: center;
+}
+
+.trip-summary-schedule-header {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 40px;
+}
+
+.trip-summary-schedule-header button {
+  background: transparent;
+  border: none;
+  padding: 0;
+}
+
+.trip-summary-arrow-left,
+.trip-summary-arrow-right {
+  width: 36px;
+  height: auto;
+}
+
+.trip-summary-arrow-left {
+  transform: none;
+}
+
+.trip-summary-arrow-right {
+  transform: none;
+}
+
+.trip-summary-day-label {
+  background-color: #142E3F;
+  color: #F6FBFC;
+  padding: 4px 16px;
+  font-size: 14px;
+  font-weight: bold;
+  border-radius: 4px;
+  font-family: 'LXGW WenKai TC';
+}
+
+.trip-summary-schedule-detail {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  width: 100%;
+  overflow-y: auto; /* ✅ 超出可滾動 */
+}
+
+.trip-summary-schedule-item {
+  display: flex;
+  flex-direction: column;
+  font-family: 'LXGW WenKai TC';
+}
+
+.trip-summary-schedule-time {
+  font-weight: bold;
+  font-size: 14px;
+  color: #142E3F;
+}
+
+.trip-summary-schedule-desc {
+  font-size: 14px;
+  color: #142E3F;
+  line-height: 1.6;
+}
+
+.trip-summary-customization {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  width: 600px;
+  margin: 0 auto;
+  padding-bottom: 0px;
+}
+
+.trip-summary-custom-row {
+  display: flex;
+  gap: 20px;
+  align-items: center;
+}
+
+.trip-summary-custom-label {
+  flex: 1;
   font-size: 16px;
-  color: #3f3f3f;
+  font-weight: 600;
+  color: #142E3F;
+  font-family: 'LXGW WenKai TC';
+  white-space: nowrap;
 }
 
-.trip-summary-custom-list li {
-  margin-bottom: 6px;
+.trip-summary-custom-value {
+  flex: 2;
+  padding: 6px 12px;
+  background-color: #DCE8ED;
+  border-radius: 5px;
+  text-align: center;
+  color: #142A3B;
+  font-size: 16px;
+  font-family: 'LXGW WenKai TC';
 }
 
 .trip-summary-confirm {
@@ -147,48 +320,3 @@
 .trip-summary-confirm:hover {
   background-color: #e45f10;
 }
-
-.trip-summary-schedule-wrapper {
-  margin-top: 24px;
-  border-top: 1px dashed #ccc;
-  padding-top: 16px;
-}
-
-.trip-summary-schedule-day {
-  margin-bottom: 16px;
-}
-
-.trip-summary-schedule-daytitle {
-  font-weight: bold;
-  font-size: 16px;
-  color: #142e3f;
-  margin-bottom: 8px;
-}
-
-.trip-summary-schedule-block {
-  padding: 16px;
-  background-color: #f0f8fb;
-  border-radius: 8px;
-  color: #3f3f3f;
-  font-size: 15px;
-  line-height: 1.6;
-}
-
-.day-switcher {
-  display: flex;
-  align-items: center;
-  gap: 8px;
-  margin: 16px 0;
-  font-weight: bold;
-}
-
-.day-switcher button {
-  background-color: #142E3F;
-  color: white;
-  padding: 4px 10px;
-  border-radius: 4px;
-  border: none;
-  font-size: 16px;
-  cursor: pointer;
-}
-

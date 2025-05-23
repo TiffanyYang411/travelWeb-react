@@ -181,6 +181,8 @@
   border-radius: 10px;
   font-size: 1rem;
   cursor: pointer;
+  outline: none;             /* ⬅️ 移除點擊後的外框 */
+  border: none;              /* ⬅️ 移除邊框 */
 }
 
 .cart-empty {
