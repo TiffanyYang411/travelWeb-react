@@ -1154,12 +1154,6 @@ body,
   perspective: none !important;
 } */
 
-.mytrip-page-wrapper *,
-.mytrip-page-wrapper *::before,
-.mytrip-page-wrapper *::after {
-  /* animation: none !important; */
-}
-
 @media (max-width: 767px) {
   .mytrip-info-container {
     max-height: none;
