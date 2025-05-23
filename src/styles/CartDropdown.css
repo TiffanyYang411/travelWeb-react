@@ -53,13 +53,13 @@
 
 .cart-triangle {
   position: absolute;
-  bottom: 99.9%; /* ✅ 關鍵：對齊 dropdown 的上邊緣 */
+  bottom: 99%; /* ✅ 關鍵：對齊 dropdown 的上邊緣 */
   left: 61%;
   transform: translateX(-50%);
   width: 30px;
   height: 30px;
-  background: rgba(255, 255, 255, 0.6);
-  backdrop-filter: blur(80px);
+  background: rgba(255, 255, 255, 0.6); /* ✅ 提高透明度、避免透明失真 */
+  backdrop-filter: none;                /* ✅ 移除模糊效果，避免重疊干擾 */
   clip-path: path('M0 30 L13 10 Q15 5 17 10 L30 30 Z');
   z-index: 998;
 }
