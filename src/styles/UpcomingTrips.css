@@ -104,7 +104,8 @@
   width: auto;
   max-height: 120px;
   overflow-y: auto;
-  overflow-x: hidden;
+  overflow-x: auto;
+  max-width: 300px;
   padding-right: 8px;
   scroll-behavior: smooth;
   margin-right: 24px;
@@ -131,6 +132,7 @@
 .upcoming-trip-thumbnails:hover::-webkit-scrollbar-thumb {
   background-color: var(--secondary-color-dark);
   border-radius: 99px;
+  width: 8px;
 }
 
 .upcoming-thumb-item {
