@@ -1,0 +1,26 @@
+/* src/styles/PastTrips.css */
+.past-trips-page {
+  padding: 40px;
+  background-color: #F6FBFC;
+}
+
+.past-trips-record {
+  margin-bottom: 48px;
+  padding: 24px;
+  background: white;
+  border-radius: 16px;
+  box-shadow: 0 2px 12px rgba(0, 0, 0, 0.05);
+}
+
+.past-trips-card {
+  display: flex;
+  gap: 16px;
+  margin-top: 16px;
+}
+
+.past-trips-card img {
+  width: 180px;
+  height: 120px;
+  object-fit: cover;
+  border-radius: 8px;
+}

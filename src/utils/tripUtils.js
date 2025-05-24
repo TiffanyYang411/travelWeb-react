@@ -55,9 +55,11 @@ function triggerTripChange() {
   tripChangeListeners.forEach(fn => fn());
 }
 
-export function clearCart() {
-  localStorage.removeItem('cart'); // 假設你把購物車資料存在 localStorage 裡
+export function clearCart(username) {
+  localStorage.removeItem(`cart_${username}`);
+  window.dispatchEvent(new Event("tripCountChanged")); // ✅ 通知購物車 icon 更新
 }
+
 
 
   

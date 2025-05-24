@@ -53,8 +53,9 @@ import FAQ from './pages/FAQ';
 import Login from './pages/Login';
 import TripDetail from "./components/TripDetail";
 import TripCustomization from './pages/TripCustomization';
-import MyTripTest from './pages/MyTripTest'; // ✅ 修正這裡
 import TripSummary from './pages/TripSummary'; // ✅ 請先確保這行已存在（你有建立 TripSummary.jsx）
+import UpcomingTrips from './pages/UpcomingTrips';
+import PastTrips from './pages/PastTrips';
 
 const router = createBrowserRouter(
   [
@@ -72,8 +73,8 @@ const router = createBrowserRouter(
         { path: 'about', element: <About /> },
         { path: 'faq', element: <FAQ /> },
         { path: 'trip/:styleId/:tripId', element: <TripDetail /> },
-        { path: 'past-trips', element: <MyTrip /> },
-        { path: 'upcoming-trips', element: <MyTrip /> },
+        { path: 'past-trips', element: <PastTrips /> },
+        { path: 'upcoming-trips', element: <UpcomingTrips /> },
         { path: 'trip-customization', element: <TripCustomization /> },
         { path: 'trip-summary', element: <TripSummary /> },
       ],

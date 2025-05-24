@@ -5,6 +5,7 @@ import { generateSerialNumber } from '../utils/serialNumber';
 import '../styles/TripSummary.css';
 import { clearCart } from '../utils/tripUtils';
 import { tripData } from '../data/tripData';
+import { useTripStore } from '../store/useTripStore';
 
 function TripSummary() {
   const navigate = useNavigate();
@@ -13,6 +14,8 @@ function TripSummary() {
   const [customization, setCustomization] = useState({});
   const [showPopup, setShowPopup] = useState(false);
   const [dayIndexes, setDayIndexes] = useState({});
+  const { setTrips: resetTrips, setCartItems } = useTripStore(); // ⬅️ 取出 setCartItems
+
 
   useEffect(() => {
     const summaryData = JSON.parse(sessionStorage.getItem('tripSummary')) || {};
@@ -28,32 +31,32 @@ function TripSummary() {
 
 
       const daySchedules = (trip.itinerary || [])
-  .filter(d => d.desc || d.image) // ✅ 過濾掉空資料
-  .map((dayObj, index) => {
+        .filter(d => d.desc || d.image) // ✅ 過濾掉空資料
+        .map((dayObj, index) => {
 
-        const lines = String(dayObj.desc ?? '').split('\n').map(l => l.trim()).filter(Boolean);
-        let current = '';
-        let morning = '', afternoon = '', evening = '';
+          const lines = String(dayObj.desc ?? '').split('\n').map(l => l.trim()).filter(Boolean);
+          let current = '';
+          let morning = '', afternoon = '', evening = '';
 
-        lines.forEach((line) => {
-          if (/^清晨|上午/.test(line)) current = 'morning';
-          else if (/^中午|下午/.test(line)) current = 'afternoon';
-          else if (/^傍晚|晚上/.test(line)) current = 'evening';
-          else if (current) {
-            if (current === 'morning') morning += line + ' ';
-            if (current === 'afternoon') afternoon += line + ' ';
-            if (current === 'evening') evening += line + ' ';
-          }
+          lines.forEach((line) => {
+            if (/^清晨|上午/.test(line)) current = 'morning';
+            else if (/^中午|下午/.test(line)) current = 'afternoon';
+            else if (/^傍晚|晚上/.test(line)) current = 'evening';
+            else if (current) {
+              if (current === 'morning') morning += line + ' ';
+              if (current === 'afternoon') afternoon += line + ' ';
+              if (current === 'evening') evening += line + ' ';
+            }
+          });
+
+          return {
+            day: index + 1,
+            morning: morning.trim(),
+            afternoon: afternoon.trim(),
+            evening: evening.trim(),
+            image: dayObj.image
+          };
         });
-
-        return {
-          day: index + 1,
-          morning: morning.trim(),
-          afternoon: afternoon.trim(),
-          evening: evening.trim(),
-          image: dayObj.image
-        };
-      });
 
       return {
         ...trip,
@@ -81,6 +84,16 @@ function TripSummary() {
     });
   }, []);
 
+  useEffect(() => {
+    if (showPopup) {
+      const timer = setTimeout(() => {
+        navigate('/upcoming-trips');
+      }, 3000);
+      return () => clearTimeout(timer);
+    }
+  }, [showPopup]);
+
+
   const handleDayChange = (tripId, direction, max) => {
     setDayIndexes(prev => {
       const current = prev[tripId] ?? 0;
@@ -92,22 +105,45 @@ function TripSummary() {
   };
 
   const handleConfirm = () => {
-    const upcomingTrips = JSON.parse(sessionStorage.getItem('upcomingTrips')) || [];
+    setShowPopup(true);
+
+    const username = localStorage.getItem('currentUser');
+    const upcomingKey = `upcomingTrips_${username}`;
+    const existingTrips = JSON.parse(localStorage.getItem(upcomingKey)) || [];
+
     const newTripRecord = {
       serialNumber,
       trips,
       customization,
+      confirmedAt: new Date().toISOString()
     };
 
-    sessionStorage.setItem('upcomingTrips', JSON.stringify([...upcomingTrips, newTripRecord]));
-    sessionStorage.removeItem('tripSummary');
-    clearCart();
+    // ✅ 存入 localStorage 的 upcomingTrips
+    localStorage.setItem(upcomingKey, JSON.stringify([...existingTrips, newTripRecord]));
 
-    setShowPopup(true);
+    // ✅ 清除 sessionStorage 中的 tripSummary
+    sessionStorage.removeItem('tripSummary');
+
+    // ✅ 清除購物車與我的行程（localStorage）
+    localStorage.removeItem(`cart_${username}`);
+    localStorage.removeItem(`user_${username}_trips`);
+
+    // ✅ 清空 Zustand 狀態
+    resetTrips([]);
+
+    // ✅ ⬇️ 若你有狀態管理購物車數字，也加這一行
+    setCartItems([]); // 或 setCartCount(0) 依你 store 設定而定
+
+    // ✅ ✅ ✅ ⬇⬇⬇ 關鍵補這兩行，讓畫面同步更新
+    window.dispatchEvent(new Event('tripCountChanged'));
+    window.dispatchEvent(new Event('tripListChanged'));
+
+    // ✅ 3 秒後跳轉到 upcoming
     setTimeout(() => {
       navigate('/upcoming-trips');
     }, 3000);
   };
+
 
   const customizationFields = [
     { label: '人數', key: 'totalPeople', value: customization.totalPeople + ' 人' },
@@ -200,7 +236,7 @@ function TripSummary() {
               return (
                 <div key={trip.id} className="trip-summary-trip-card" style={{
                   maxWidth: '960px',
-                  margin: '0 auto',
+                  margin: '15px auto',
                   maxHeight: '550px',
                   overflow: 'hidden'
                 }}
@@ -258,7 +294,7 @@ function TripSummary() {
                         onClick={() => handleDayChange(trip.id, 'prev', trip.daySchedules.length)}
                       >
                         <img
-                          src="./images/tripSummary-arrow-left.svg"
+                          src={`${import.meta.env.BASE_URL}images/tripSummary-arrow-left.svg`}
                           alt="prev"
                           className="trip-summary-arrow-left"
                           style={{
@@ -274,7 +310,7 @@ function TripSummary() {
                         onClick={() => handleDayChange(trip.id, 'next', trip.daySchedules.length)}
                       >
                         <img
-                          src="./images/tripSummary-arrow-right.svg"
+                          src={`${import.meta.env.BASE_URL}images/tripSummary-arrow-right.svg`}
                           alt="next"
                           className="trip-summary-arrow-right"
                           style={{

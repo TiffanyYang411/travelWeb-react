@@ -1,4 +1,4 @@
-// src/components/// ✅ 已整合：RWD + 手機側邊滑出選單 + 購物車顯示修復 + Logo 手型游標
+// Navbar.jsx
 import { Link, useLocation, useNavigate } from 'react-router-dom';
 import { useEffect, useState, useRef } from 'react';
 import '../styles/Navbar.css';

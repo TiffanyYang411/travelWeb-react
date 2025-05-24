@@ -86,10 +86,12 @@ function MyTrip() {
 
     window.addEventListener('confirmedTripsChanged', handleTripChange);
     window.addEventListener('tripCountChanged', handleTripChange);
+    window.addEventListener('tripListChanged', handleTripChange); // ⬅️ 新增這行！
 
     return () => {
       window.removeEventListener('confirmedTripsChanged', handleTripChange);
       window.removeEventListener('tripCountChanged', handleTripChange);
+    window.removeEventListener('tripListChanged', handleTripChange);
     };
   }, [setPendingTrips]);
 
@@ -537,10 +539,10 @@ function MyTrip() {
             <div>行程費用/人</div>
             <div>人數</div> */}
             <div className="header-col title">行程</div>
-  <div className="header-col days">天數</div>
-  <div className="header-col price">行程費用/人</div>
-  <div className="header-col people">人數</div>
-  <div className="header-col delete"></div>
+            <div className="header-col days">天數</div>
+            <div className="header-col price">行程費用/人</div>
+            <div className="header-col people">人數</div>
+            <div className="header-col delete"></div>
           </div>
           <div className="header-underline" style={{ marginTop: '0px' }}></div> {/* ✅ 新增底線 */}
           <DragDropContext onDragEnd={handleDragEnd}>
@@ -733,13 +735,13 @@ function MyTrip() {
 
 
             <button
-  className={`next-step-btn zh-text-18 ${canProceed() ? '' : 'disabled'}`}
-  onClick={handleNext}
-  disabled={!canProceed()}
-  title={!canProceed() ? '請於左側選擇完行程日期及右側人數後才可進行到下一步' : ''}
->
-  下一步 ➔
-</button>
+              className={`next-step-btn zh-text-18 ${canProceed() ? '' : 'disabled'}`}
+              onClick={handleNext}
+              disabled={!canProceed()}
+              title={!canProceed() ? '請於左側選擇完行程日期及右側人數後才可進行到下一步' : ''}
+            >
+              下一步 ➔
+            </button>
 
           </div>
         </div>

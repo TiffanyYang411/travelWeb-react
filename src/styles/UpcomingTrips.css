@@ -1,89 +1,249 @@
 /* === UpcomingTrips.css === */
 
-.upcoming-trips-page {
-  padding: 40px;
-  background-color: #f6fbfc;
+/*
+  ✅ UpcomingTrips.css
+  統一整合 TripCustomization + TripSummary 風格命名，適用於即將出發／歷史行程樣式
+*/
+
+/* UpcomingTrips.css */
+
+.upcoming-page {
+  background-color: #142E3F;
+  padding: 100px 0 80px;
   min-height: 100vh;
+  color: #142E3F;
+  font-family: 'LXGW WenKai TC', sans-serif;
 }
 
-.upcoming-trips-wrapper {
-  max-width: 1200px;
+.upcoming-page-title {
+  color: #F6FBFC;
+  text-align: center;
+  margin-bottom: 40px;
+}
+
+.upcoming-empty-message {
+  color: #fff;
+  text-align: center;
+  margin-top: 80px;
+}
+
+.upcoming-record-wrapper {
+  max-width: 1000px;
+  /* ⬅️ 原本 1280px，改成 960px 讓整體縮短 */
   margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  gap: 36px;
+  background-color: var(--primary-color);
 }
 
-.upcoming-trips-empty-message {
+.upcoming-record {
+  background-color: #fff;
+  border-radius: 16px;
+  overflow: hidden;
+  padding: 0;
+}
+
+.upcoming-serial-bar {
+  display: flex;
+  background-color: var(--primary-color);
+  justify-content: flex-start;
+  padding: 0;
+  margin: 0 auto 0px;
+  max-width: 1250px;
+}
+
+.upcoming-serial-tag {
+  color: white;
+  background-color: var(--accent-color);
+  font-size: 20px;
+  font-weight: bold;
+  font-family: 'LXGW WenKai TC';
+  letter-spacing: 1px;
+  padding: 7px 18px;
+  border-radius: 16px 16px 0 0;
+}
+
+.upcoming-record-card {
+  background-color: var(--secondary-color-light);
+  border-radius: 0px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+  overflow: hidden;
+  padding: 20px 24px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: nowrap; /* ✅ 讓圖片 + 資訊橫排，避免換行 */
+  height: 150px;
+}
+
+
+.upcoming-summary-bar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 20px;
+  flex-wrap: wrap;
+  padding-bottom: 12px;
+  border-bottom: 1.5px dashed #DCE8ED;
+  margin-top: 0;
+}
+
+.upcoming-trip-thumbnails {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+  width: auto;
+  flex-shrink: 0;
+  max-height: 100%;
+  overflow-y: auto;
+  overflow-x: hidden;
+  padding-right: 8px;
+  scroll-behavior: smooth;
+}
+
+.upcoming-thumb-item {
+  width: 140px;
+  height: 110px;
+  border-radius: 12px;
   text-align: center;
-  margin-top: 100px;
-  font-size: 22px;
-  color: #5a5a5a;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  position: relative;
+  flex-shrink: 0;
 }
 
-.upcoming-trips-record {
-  margin-bottom: 60px;
+.upcoming-thumb-item img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
 }
 
-.upcoming-trips-serial {
+.upcoming-thumb-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0,0,0,0.5);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 4px;
+  box-sizing: border-box;
+}
+
+.upcoming-thumb-text {
   text-align: center;
-  margin-bottom: 30px;
-  font-size: 24px;
-  color: #142e3f;
+  color: #fff;
+  font-size: 12px;
+  font-weight: bold;
 }
 
-.upcoming-trips-list {
+.upcoming-thumb-days {
+  margin-bottom: 2px;
+  font-size: 13px;
+}
+
+.upcoming-info-columns {
+  display: flex;
+  align-items: stretch;
+  gap: 0;
+}
+.upcoming-label {
+  font-size: 18px;
+  font-weight: bold;
+  color: #142E3F;
+  margin-bottom: 4px;
+}
+.upcoming-value {
+  font-size: 16px;
+  font-weight: bold;
+  color: #234B5E;
+  white-space: pre-line;
+  text-align: center;
+}
+
+.upcoming-expand-btn {
+  background-color: #FF6F19;
+  color: white;
+  padding: 6px 16px;
+  font-size: 16px;
+  height: 36px;
+  border-radius: 8px;
+  cursor: pointer;
+  margin-left: 16px;
+}
+
+.upcoming-expanded-wrapper {
+  margin-top: 24px;
+}
+
+.upcoming-trip-detail-list {
   display: flex;
   flex-direction: column;
   gap: 20px;
+  margin-bottom: 24px;
 }
 
-.upcoming-trips-card {
+.upcoming-trip-detail {
   display: flex;
+  align-items: flex-start;
   gap: 20px;
-  padding: 20px;
   background-color: white;
+  padding: 16px;
   border-radius: 12px;
-  box-shadow: 0 2px 8px rgba(0,0,0,0.1);
 }
 
-.upcoming-trips-card img {
-  width: 200px;
-  height: 140px;
+.upcoming-trip-detail img {
+  width: 180px;
+  height: 120px;
   object-fit: cover;
   border-radius: 8px;
 }
 
-.upcoming-trips-card h3 {
-  margin: 0 0 10px;
-  font-size: 20px;
-  color: #142e3f;
+.upcoming-detail-title {
+  font-size: 18px;
+  font-weight: bold;
+  color: #142E3F;
 }
 
-.upcoming-trips-card p {
-  margin: 0 0 10px;
-  font-size: 16px;
-  color: #5a5a5a;
+.upcoming-detail-days {
+  font-size: 14px;
+  margin-top: 4px;
+  color: #142E3F;
 }
 
-.upcoming-trips-card ul {
+.upcoming-highlight-list {
+  margin-top: 8px;
   padding-left: 20px;
-  color: #5a5a5a;
+  font-size: 14px;
+  color: #234B5E;
+  line-height: 1.6;
 }
 
-.upcoming-trips-customization-section {
-  margin-top: 20px;
-  background-color: white;
+.upcoming-customization {
+  background-color: #F6FBFC;
   padding: 20px;
   border-radius: 12px;
-  box-shadow: 0 2px 8px rgba(0,0,0,0.1);
 }
 
-.upcoming-trips-customization-section h3 {
-  margin-bottom: 20px;
-  color: #142e3f;
+.upcoming-custom-title {
+  font-size: 16px;
+  font-weight: bold;
+  margin-bottom: 12px;
+  color: #142E3F;
 }
 
-.upcoming-trips-customization-section ul {
+.upcoming-custom-list {
+  font-size: 14px;
+  color: #234B5E;
   padding-left: 20px;
-  color: #5a5a5a;
+  line-height: 1.8;
 }
+
+
+
+
+
 
 

@@ -1,7 +1,8 @@
 /* TripSummary.css */
 
 .trip-summary-page {
-  padding: 40px 0 80px; /* 上下空間更寬裕，避免碰到 navbar */
+  padding: 40px 0 80px;
+  /* 上下空間更寬裕，避免碰到 navbar */
   background-color: var(--primary-color);
   min-height: 100vh;
   font-family: 'Piazzolla', 'LXGW WenKai TC', serif;
@@ -21,7 +22,8 @@
   text-align: center;
   margin-bottom: 24px;
   max-width: 920px;
-  padding-top: 60px; /* ✅ 加距離拉開與 navbar */
+  padding-top: 60px;
+  /* ✅ 加距離拉開與 navbar */
 }
 
 .trip-summary-header-message h2 {
@@ -41,7 +43,8 @@
 
 .trip-summary-popup {
   position: fixed;
-  top: 40vh; /* ⬅️ 這裡往上移動，比起原本的 50vh 更靠近頂部 */
+  top: 40vh;
+  /* ⬅️ 這裡往上移動，比起原本的 50vh 更靠近頂部 */
   left: 50%;
   transform: translate(-50%, -50%);
   background-color: white;
@@ -60,12 +63,13 @@
   padding: 40px 48px;
   border-radius: 20px;
   box-shadow: 0 0 8px rgba(0, 0, 0, 0.08);
-  margin-top: 0; /* ✅ 與 header 區隔，避免貼到 navbar */
+  margin-top: 0;
+  /* ✅ 與 header 區隔，避免貼到 navbar */
 }
 
 .trip-summary-header {
   text-align: center;
-  margin-bottom: 24px;
+  margin-bottom: 30px;
 }
 
 .trip-summary-code {
@@ -97,7 +101,7 @@
 .trip-summary-section-title {
   font-size: 20px;
   font-weight: bold;
-  margin-bottom: 16px;
+  margin-bottom: 40px;
   border-bottom: 2px dashed #b0c7d4;
   padding-bottom: 4px;
 }
@@ -105,11 +109,12 @@
 .trip-summary-trip-card {
   display: flex;
   gap: 24px;
-    height: 350px; /* ✅ 固定高度 */
+  height: 350px;
+  /* ✅ 固定高度 */
   align-items: center;
   background-color: #ffffff;
   border-radius: 12px;
-  padding: 20px;
+  padding: 14px;
   margin-bottom: 40px;
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.05);
   flex-wrap: wrap;
@@ -145,7 +150,7 @@
   justify-content: center;
   gap: 12px;
   color: #142A3B;
-   min-width: 180px;
+  min-width: 180px;
 }
 
 .trip-summary-days {
@@ -165,7 +170,7 @@
   font-size: 16px;
   font-weight: 700;
   font-family: 'LXGW WenKai TC';
-   margin-top: 8px;
+  margin-top: 8px;
 }
 
 .trip-summary-price-wrapper {
@@ -173,15 +178,18 @@
   align-items: baseline;
   gap: 12px;
   font-family: 'LXGW WenKai TC';
-  margin-top: 8px; /* ✅ 價格區塊往下推 */
+  margin-top: 8px;
+  /* ✅ 價格區塊往下推 */
 }
+
 .trip-summary-price-original {
   text-decoration: line-through;
   color: #999;
-    font-size: 16px;
+  font-size: 16px;
 }
+
 .trip-summary-price-current {
-    font-size: 18px;
+  font-size: 18px;
   color: #e53935;
   font-weight: bold;
 }
@@ -195,6 +203,8 @@
 
 .trip-summary-schedule {
   width: 380px;
+  min-height: 320px;
+  /* 或你想要的固定高度 */
   background-color: #DCE8ED;
   border-radius: 10px;
   padding: 16px;
@@ -203,6 +213,7 @@
   gap: 16px;
   justify-content: center;
   align-items: center;
+  transition: all 0.3s ease;
 }
 
 .trip-summary-schedule-header {
@@ -210,6 +221,8 @@
   align-items: center;
   justify-content: center;
   gap: 40px;
+  margin-bottom: 0px;
+  min-height: 40px; /* ⬅️ 保證上下固定 */
 }
 
 .trip-summary-schedule-header button {
@@ -243,11 +256,13 @@
 }
 
 .trip-summary-schedule-detail {
+  flex: 1;
   display: flex;
   flex-direction: column;
   gap: 12px;
   width: 100%;
-  overflow-y: auto; /* ✅ 超出可滾動 */
+  overflow-y: auto;
+  /* ✅ 超出可滾動 */
 }
 
 .trip-summary-schedule-item {
