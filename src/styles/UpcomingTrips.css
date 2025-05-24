@@ -11,24 +11,32 @@
   background-color: #142E3F;
   padding: 100px 0 80px;
   min-height: 100vh;
-  color: #142E3F;
-  font-family: 'LXGW WenKai TC', sans-serif;
+  font-family: 'Piazzolla', 'LXGW WenKai TC', serif;
+  color: #142e3f;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 }
 
 .upcoming-page-title {
-  color: #F6FBFC;
-  text-align: center;
+  border: 0.5px solid white;
+  padding: 10px 20px;
+  display: inline-block;
   margin-bottom: 40px;
+  margin-top: 50px;
+  font-family: 'LXGW WenKai TC';
+  color: #F6FBFC;
 }
 
 .upcoming-empty-message {
   color: #fff;
   text-align: center;
-  margin-top: 80px;
+  margin-top: 120px;
+  font-size: 20px; /* ✅ 你指定的字體大小 */
 }
 
 .upcoming-record-wrapper {
-  max-width: 1000px;
+  max-width: 960px;
   /* ⬅️ 原本 1280px，改成 960px 讓整體縮短 */
   margin: 0 auto;
   display: flex;
@@ -38,7 +46,7 @@
 }
 
 .upcoming-record {
-  background-color: #fff;
+  background-color: var(--secondary-color-xlight);
   border-radius: 16px;
   overflow: hidden;
   padding: 0;
@@ -50,13 +58,13 @@
   justify-content: flex-start;
   padding: 0;
   margin: 0 auto 0px;
-  max-width: 1250px;
+  max-width: 960px;
 }
 
 .upcoming-serial-tag {
   color: white;
   background-color: var(--accent-color);
-  font-size: 20px;
+  font-size: 16px;
   font-weight: bold;
   font-family: 'LXGW WenKai TC';
   letter-spacing: 1px;
@@ -66,7 +74,7 @@
 
 .upcoming-record-card {
   background-color: var(--secondary-color-light);
-  border-radius: 0px;
+  border-radius: 0 0 16px 16px; /* ✅ 右上角改為 0 */
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
   overflow: hidden;
   padding: 20px 24px;
@@ -94,12 +102,35 @@
   flex-wrap: wrap;
   gap: 12px;
   width: auto;
-  flex-shrink: 0;
-  max-height: 100%;
+  max-height: 120px;
   overflow-y: auto;
   overflow-x: hidden;
   padding-right: 8px;
   scroll-behavior: smooth;
+  margin-right: 24px;
+}
+
+.upcoming-trip-thumbnails:hover {
+  overflow-y: auto;
+}
+
+.upcoming-trip-thumbnails::-webkit-scrollbar {
+  width: 0px;
+  background: transparent;
+}
+
+.upcoming-trip-thumbnails::-webkit-scrollbar-thumb {
+  background-color: rgba(0, 0, 0, 0.2);
+  border-radius: 99px;
+}
+
+.upcoming-trip-thumbnails:hover::-webkit-scrollbar {
+  width: 8px;
+}
+
+.upcoming-trip-thumbnails:hover::-webkit-scrollbar-thumb {
+  background-color: var(--secondary-color-dark);
+  border-radius: 99px;
 }
 
 .upcoming-thumb-item {
@@ -135,7 +166,7 @@
 .upcoming-thumb-text {
   text-align: center;
   color: #fff;
-  font-size: 12px;
+  font-size: 14px;
   font-weight: bold;
 }
 
@@ -164,18 +195,23 @@
 }
 
 .upcoming-expand-btn {
-  background-color: #FF6F19;
+   background-color: #FF6F19;
   color: white;
+  border: none;
   padding: 6px 16px;
-  font-size: 16px;
-  height: 36px;
   border-radius: 8px;
+  font-size: 16px;
   cursor: pointer;
-  margin-left: 16px;
+  height: 40px;
+  align-self: center;
 }
 
 .upcoming-expanded-wrapper {
   margin-top: 24px;
+  width: 100%;
+  max-width: 960px; /* ✅ 跟 .upcoming-record-wrapper 和 .upcoming-trip-detail 一樣 */
+  margin-left: auto;
+  margin-right: auto;
 }
 
 .upcoming-trip-detail-list {
@@ -186,60 +222,323 @@
 }
 
 .upcoming-trip-detail {
-  display: flex;
-  align-items: flex-start;
-  gap: 20px;
-  background-color: white;
-  padding: 16px;
+    display: flex;
+  flex-wrap: wrap;
+  gap: 24px;
+  background-color: #ffffff;
   border-radius: 12px;
+  padding: 24px 32px;
+  margin-bottom: 48px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.05);
+  align-items: center;
+  justify-content: space-between;
+  position: relative;
+  max-width: 960px; /* ✅ 統一展開寬度與收起狀態 */
+  margin-left: auto;
+  margin-right: auto;
 }
 
-.upcoming-trip-detail img {
-  width: 180px;
-  height: 120px;
+.upcoming-trip-index-label {
+  position: absolute;
+  top: -6px;
+  left: 60px;
+  font-size: 20px;
+  font-weight: bold;
+  font-family: 'LXGW WenKai TC';
+  color: #142A3B;
+}
+
+.upcoming-trip-img {
+  width: 255px;
+  height: 255px;
   object-fit: cover;
-  border-radius: 8px;
+  border-radius: 12px;
+  flex-shrink: 0;
+  align-self: center;
+}
+
+.upcoming-trip-content {
+  flex: 1;
+  min-width: 180px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 8px;
+  color: #142E3F;
 }
 
 .upcoming-detail-title {
-  font-size: 18px;
-  font-weight: bold;
-  color: #142E3F;
+   font-size: 20px;
+  font-weight: 700;
+  font-family: 'LXGW WenKai TC';
 }
 
-.upcoming-detail-days {
-  font-size: 14px;
-  margin-top: 4px;
-  color: #142E3F;
+.upcoming-highlight-label {
+  font-size: 16px;
+  font-weight: 700;
+  font-family: 'LXGW WenKai TC';
+  margin-top: 8px;
+}
+
+.upcoming-highlight-label {
+  font-size: 16px;
+  font-weight: 700;
+  font-family: 'LXGW WenKai TC';
+  margin-top: 8px;
 }
 
 .upcoming-highlight-list {
-  margin-top: 8px;
-  padding-left: 20px;
-  font-size: 14px;
-  color: #234B5E;
+  font-size: 15px;
   line-height: 1.6;
+  color: #5a5a5a;
+  font-family: 'LXGW WenKai TC';
+  margin-top: 4px;
+}
+
+.upcoming-trip-dates {
+  font-family: 'LXGW WenKai TC';
+  font-size: 14px;
+  color: #5a5a5a;
+}
+
+.upcoming-price-wrapper {
+  display: flex;
+  align-items: baseline;
+  gap: 12px;
+  font-family: 'LXGW WenKai TC';
+  margin-top: 8px;
+}
+
+.upcoming-price-original {
+  text-decoration: line-through;
+  color: #999;
+  font-size: 16px;
+}
+
+.upcoming-price-current {
+  font-size: 18px;
+  color: #e53935;
+  font-weight: bold;
+}
+
+.upcoming-schedule {
+  width: 360px;
+  max-width: 100%;
+  min-height: 320px;
+  background-color: #DCE8ED;
+  border-radius: 10px;
+  padding: 16px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-start;
+  gap: 16px;
+  transition: all 0.3s ease;
+  flex-shrink: 0;
+  box-sizing: border-box;
+}
+
+.upcoming-schedule-header {
+    width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 24px;
+  min-height: 36px;
+  flex-wrap: nowrap;
+  overflow: hidden;
+  box-sizing: border-box;
+  padding: 0 4px;
+}
+
+.upcoming-schedule-header button {
+  background: none;
+  border: none;
+  padding: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.upcoming-schedule-header button:disabled img {
+  opacity: 0.3;
+  cursor: not-allowed;
+}
+
+.upcoming-arrow-left,
+.upcoming-arrow-right {
+  width: 36px;
+  height: auto;
+  max-width: 100%;
+}
+
+.upcoming-day-label {
+  background-color: #142E3F;
+  color: #F6FBFC;
+  padding: 4px 16px;
+  font-size: 14px;
+  font-weight: bold;
+  border-radius: 4px;
+  font-family: 'LXGW WenKai TC';
+  white-space: nowrap;
+}
+
+.upcoming-schedule-detail {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  width: 100%;
+  overflow-y: auto;
+}
+
+.upcoming-schedule-item {
+  display: flex;
+  flex-direction: column;
+  font-family: 'LXGW WenKai TC';
+}
+
+.upcoming-schedule-time {
+  font-weight: bold;
+  font-size: 14px;
+  color: #142E3F;
+}
+
+.upcoming-schedule-desc {
+  font-size: 14px;
+  color: #142E3F;
+  line-height: 1.6;
+}
+
+.upcoming-trip-index-wrapper {
+  font-size: 18px;
+  font-weight: bold;
+  font-family: 'LXGW WenKai TC';
+  color: #142E3F;
+   margin: 0 0 4px 32px;
+}
+
+.upcoming-code-box {
+  background-color: #142E3F;
+  color: #F6FBFC;
+  font-size: 20px;
+  padding: 10px 18px;
+  border-radius: 10px;
+  text-align: center;
+  display: inline-block;
+  margin: 0 auto 32px;
+  font-family: 'LXGW WenKai TC';
+}
+
+.upcoming-subtitle,
+.upcoming-section-title {
+  font-size: 20px;
+  font-weight: bold;
+  margin: 30px 19px 20px;
+  padding-bottom: 8px;
+  border-bottom: 2px dashed #b0c7d4;
+  color: #142E3F;
+  font-family: 'LXGW WenKai TC';
+}
+
+.upcoming-custom-title {
+  font-size: 20px;
+  font-weight: bold;
+  margin-bottom: 40px;
+  border-bottom: 2px dashed #b0c7d4;
+  padding-bottom: 4px;
+}
+
+.upcoming-custom-list {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  width: 600px;
+  margin: 0 auto;
+  padding-bottom: 0px;
+}
+
+.upcoming-custom-list li {
+  display: flex;
+  gap: 20px;
+  align-items: center;
+  font-family: 'LXGW WenKai TC';
+}
+
+.upcoming-custom-list strong {
+  flex: 1;
+  font-size: 16px;
+  font-weight: 600;
+  color: #142E3F;
+  white-space: nowrap;
+}
+
+.upcoming-custom-list li > span, .upcoming-custom-list li > div {
+  flex: 2;
+  padding: 6px 12px;
+  background-color: #DCE8ED;
+  border-radius: 5px;
+  text-align: center;
+  color: #142A3B;
+  font-size: 16px;
+}
+
+.upcoming-detail-days {
+   font-size: 20px;
+  font-weight: 700;
+  font-family: 'LXGW WenKai TC';
 }
 
 .upcoming-customization {
   background-color: #F6FBFC;
   padding: 20px;
   border-radius: 12px;
+  margin-top: 40px;
+  margin-bottom: 20px;
 }
 
 .upcoming-custom-title {
-  font-size: 16px;
+  font-size: 20px;
   font-weight: bold;
-  margin-bottom: 12px;
-  color: #142E3F;
+  margin-bottom: 40px;
+  border-bottom: 2px dashed #b0c7d4;
+  padding-bottom: 4px;
 }
 
 .upcoming-custom-list {
-  font-size: 14px;
-  color: #234B5E;
-  padding-left: 20px;
-  line-height: 1.8;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  width: 600px;
+  margin: 0 auto;
+  padding-bottom: 0px;
 }
+
+.upcoming-custom-list li {
+  display: flex;
+  gap: 20px;
+  align-items: center;
+  font-family: 'LXGW WenKai TC';
+}
+
+.upcoming-custom-list strong {
+  flex: 1;
+  font-size: 16px;
+  font-weight: 600;
+  color: #142E3F;
+  white-space: nowrap;
+}
+
+.upcoming-custom-list li > span, .upcoming-custom-list li > div {
+  flex: 2;
+  padding: 6px 12px;
+  background-color: #DCE8ED;
+  border-radius: 5px;
+  text-align: center;
+  color: #142A3B;
+  font-size: 16px;
+}
+
 
 
 

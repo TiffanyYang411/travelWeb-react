@@ -32,10 +32,10 @@ function PastTrips() {
 
   return (
     <div className="upcoming-page">
-      <h2 className="zh-title-36 upcoming-page-title">歷史行程</h2>
+      <h2 className="zh-title-32 upcoming-page-title">歷史行程</h2>
       {pastTrips.length === 0 ? (
         <p className="zh-text-20 upcoming-empty-message">
-          尚無歷史行程紀錄，完成旅程後將自動呈現在此。
+          尚無歷史行程紀錄
         </p>
       ) : (
         <div className="upcoming-record-wrapper">

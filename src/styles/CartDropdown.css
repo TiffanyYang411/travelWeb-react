@@ -53,7 +53,7 @@
 
 .cart-triangle {
   position: absolute;
-  bottom: 99%; /* ✅ 關鍵：對齊 dropdown 的上邊緣 */
+  bottom: 100%; /* ✅ 關鍵：對齊 dropdown 的上邊緣 */
   left: 61%;
   transform: translateX(-50%);
   width: 30px;
@@ -195,13 +195,13 @@
 @media (max-width: 1024px) {
   .cart-triangle {
     left: 61.5%;
-    margin-bottom: -1.5px; /* ✅ 貼更近，用正值會讓它遠離 */
+    margin-bottom: 0px; /* ✅ 貼更近，用正值會讓它遠離 */
   }
 }
 
 @media (max-width: 767px) {
   .cart-triangle {
     left: 61.5%;
-    margin-bottom: -1.8px; /* ✅ 貼更近，用正值會讓它遠離 */
+    margin-bottom: 0px; /* ✅ 貼更近，用正值會讓它遠離 */
   }
 }
