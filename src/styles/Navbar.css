@@ -286,7 +286,7 @@
     top: 0;
     right: -320px; /* ✅ 初始在畫面右側外 */
     width: 250px;
-    height: 42vh;
+    height: 80vh;
     background-color: #142E3F;
     box-shadow: -4px 0 12px rgba(0, 0, 0, 0.3);
     padding: 60px 24px;
@@ -314,8 +314,8 @@
 
   .mobile-menu-close {
     position: absolute;
-    top: 18px;
-    right: 18px;
+    top: 2px;
+    right: -2px;
     background: none;
     border: none;
     font-size: 28px;
@@ -325,7 +325,7 @@
 
   .mobile-menu-drawer ul {
     list-style: none;
-    padding: 0;
+    padding: 20px;
     margin: 0;
   }
 
