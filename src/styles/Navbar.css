@@ -21,7 +21,8 @@
   font-size: 2rem;
   font-weight: bold;
   color: #333;
-  margin-left: 45px;
+  padding-left: 0px;  /* ✅ 你可以從 30px 改成 15px、10px，甚至 0，看你的視覺需求 */
+  padding-right: 30px; /* ✅ 可保留原本的右側間距 */
   cursor: pointer;
   /* ✅ 加入手型游標 */
 }
@@ -267,41 +268,25 @@
 }
 
 /* ✅ RWD：手機與平板版 navbar 隱藏導覽列 */
-@media (max-width: 1530px) {
-  .navbar-logo {
-    margin-left: 0;
-  }
-
-  .logo-img {
-    width: 200px !important;
-    height: 30px;               /* ✅ 根據 navbar 高度微調 logo 大小 */
-  }
-
+/* ✅ 手機與平板（≤1529px）：顯示漢堡 icon 與滑出 drawer */
+@media (max-width: 1529px) {
   .navbar-center {
     display: none !important;
   }
 
   .mobile-menu-icon {
-    display: flex !important; /* ✅ 強制顯示漢堡 icon */
+    display: flex !important;
     font-size: 28px;
     color: white;
     margin-left: 20px;
   }
 
-  .navbar-icons {
-    display: flex;
-    align-items: center;
-    justify-content: flex-end;
-    margin-right: 30px;
-    gap: 2px;
-  }
-
   .mobile-menu-drawer {
     position: fixed;
-    top: 0px;
-    right: -320px;
+    top: 0;
+    right: -320px; /* ✅ 初始在畫面右側外 */
     width: 250px;
-    height: 28vh;
+    height: 42vh;
     background-color: #142E3F;
     box-shadow: -4px 0 12px rgba(0, 0, 0, 0.3);
     padding: 60px 24px;
@@ -314,6 +299,28 @@
 
   .mobile-menu-drawer.open {
     right: 0;
+  }
+
+  .mobile-menu-overlay {
+    position: fixed;
+    display: block;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background-color: rgba(0, 0, 0, 0.4);
+    z-index: 9998;
+  }
+
+  .mobile-menu-close {
+    position: absolute;
+    top: 18px;
+    right: 18px;
+    background: none;
+    border: none;
+    font-size: 28px;
+    color: white;
+    cursor: pointer;
   }
 
   .mobile-menu-drawer ul {
@@ -332,76 +339,34 @@
     text-decoration: none;
     font-weight: bold;
   }
-
-  .mobile-menu-overlay {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100vw;
-    height: 100vh;
-    background-color: rgba(0, 0, 0, 0.4);
-    z-index: 9998;
-  }
-
-  .mobile-menu-close {
-    position: absolute;
-    top: 18px;
-    right: 18px;
-    background: none;
-    border: none;
-    font-size: 28px;
-    color: white;
-    cursor: pointer;
-  }
-
 }
 
-/* ✅ 桌機版隱藏漢堡 icon */
-@media (min-width: 1025px) {
-  .navbar-logo {
-    margin-left: 0;
-  }
-
+/* ✅ 桌機版完全隱藏漢堡選單與滑出選單 */
+@media (min-width: 1530px) {
   .mobile-menu-icon {
-    display: none;
+    display: none !important;
   }
 
-  .mobile-menu-drawer {
-    display: none;
+  .mobile-menu-drawer,
+  .mobile-menu-drawer.open {
+    display: none !important;
+    right: auto !important;
+    opacity: 0 !important;
+    pointer-events: none !important;
+    visibility: hidden !important;
   }
 
   .mobile-menu-overlay {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100vw;
-    height: 100vh;
-    background-color: rgba(0, 0, 0, 0.4);
-    z-index: 9998;
+    display: none !important;
   }
-
-  .mobile-menu-close {
-    position: absolute;
-    top: 18px;
-    right: 18px;
-    background: none;
-    border: none;
-    font-size: 28px;
-    color: white;
-    cursor: pointer;
-  }
-
-  .navbar-links {
-  display: flex;
-  flex-wrap: nowrap;
-  gap: clamp(12px, 2vw, 48px);  /* ✅ 字與字距離自動縮放 */
-  font-size: clamp(12px, 1vw, 16px); /* ✅ 字體會自動縮小 */
-  white-space: nowrap;
-  overflow: hidden;
 }
-}
+
 
 @media (max-width: 1200px) {
+  .navbar {
+    padding-right: 0px;
+  }
+
   .navbar-links {
     gap: clamp(8px, 2vw, 24px);
     /* 間距再小一點 */
