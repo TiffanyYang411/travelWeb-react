@@ -47,9 +47,13 @@
   display: block;
 }
 
+.scroll-click-target {
+  cursor: pointer;
+}
+
 .explore-style-overlay-fade {
   position: absolute;
-  bottom: 43%;
+  bottom: 47%;
   left: 50%;
   transform: translateX(-50%) translateY(20px);
   text-align: center;
@@ -98,46 +102,50 @@
   position: absolute;
   top: 50%;
   transform: translateY(-50%);
-  font-size: 32px;
-  color: #fff;
-  background-color: rgba(20, 46, 63, 0.5);
-  padding: 10px;
-  border-radius: 50%;
-  cursor: pointer;
-  /* z-index: 1000; */
-   z-index: 9999 !important;
-  user-select: none;
-  pointer-events: auto; /* ✅ 能被點擊 */
-  /* transition: background-color 0.3s; */
+  z-index: 100;
+  pointer-events: auto;
 }
 
-.swiper-arrow:hover {
-  background-color: rgba(20, 46, 63, 0.8);
+.explore-swiper-prev,
+.explore-swiper-next {
+  width: 36px;
+  height: 36px;
+  cursor: pointer; /* ✅ 滑鼠變手指 */
+}
+
+.explore-swiper-prev:hover,
+.explore-swiper-next:hover {
+  filter: brightness(0) saturate(100%) invert(29%) sepia(65%) saturate(408%) hue-rotate(156deg) brightness(90%) contrast(90%);
+}
+
+
+.swiper-arrow img {
+  width: 36px;  /* 自訂大小 */
+  height: auto;
+  display: block;
+  filter: drop-shadow(0 0 2px rgba(0, 0, 0, 0.5)); /* 可選：增加陰影 */
 }
 
 .explore-swiper-prev {
-  left: 20px;
+  left: 32px;
 }
 
 .explore-swiper-next {
-  right: 20px;
+  right: 50px;
 }
 
 .scroll-up-indicator-fade {
   position: absolute;
-  bottom: 30px;
+  bottom: 100px; /* 往上移 */
   left: 50%;
-  transform: translateX(-50%) translateY(20px);
+  transform: translateX(-50%);
   text-align: center;
   z-index: 3;
-  width: 24px;
-  height: 64px;
   opacity: 0;
-  transition: opacity 3s cubic-bezier(0.25, 0.1, 0.25, 1),
-              transform 2.5s cubic-bezier(0.25, 0.1, 0.25, 1);
-  transition-delay: 0.3s;
+  transition: opacity 3s ease, transform 2.5s ease;
   pointer-events: none;
 }
+
 
 .swiper-slide-active .scroll-up-indicator-fade {
   opacity: 1;
@@ -147,12 +155,13 @@
 
 .chevron {
   position: absolute;
-  width: 28px;
-  height: 8px;
+  width: 20px;
+  height: 4px;
   opacity: 0;
   transform: translateX(-50%) scale3d(0.5, 0.5, 0.5);
   animation: chevron-move 3s ease-out infinite;
   left: 50%;
+  opacity: 0.5;
 }
 
 .chevron:first-child {
@@ -1156,4 +1165,92 @@ background-color: #000; /* ✅ 加強黑底穩定性 */
 
 .explore-page-style .swiper-slide {
   background-color: #000 !important;
+}
+
+.scroll-text-line {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  gap: 180px;
+}
+
+.scroll-icon-group .scroll-label-new {
+  font-size: 20px;
+  font-family: var(--font-en);
+  color: var(--secondary-color-xlight);
+  
+}
+
+.scroll-icon-group {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0px; /* 調整上下距離 */
+  margin-top: 60px; /* 往下推整個區塊 */
+}
+
+.scroll-text-line {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0px;
+  opacity: 0.8;
+}
+
+
+/* 星星基本樣式 */
+.scroll-star {
+  width: 16px;
+  height: 16px;
+  animation: twinkle 3s ease-in-out infinite;
+  opacity: 0.8;
+}
+
+/* 星星位置精調 */
+.scroll-star.top-left {
+  animation: twinkle 3s infinite;
+  position: relative;
+  top: -8px;
+  left: -4px;
+}
+
+.scroll-star.bottom-right {
+  animation: twinkle 3s infinite;
+  position: relative;
+  bottom: -12px;
+  right: -6px;
+}
+
+.twinkle-text {
+  animation: twinkleText 2s infinite ease-in-out;
+}
+
+@keyframes twinkleText {
+  0%, 100% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0.4;
+  }
+}
+
+
+/* 星星閃爍動畫 */
+@keyframes twinkle {
+  0%, 100% {
+    opacity: 0.8;
+    transform: scale(0.7);
+  }
+  50% {
+    opacity: 0.2;
+    transform: scale(1.2);
+  }
+}
+
+.scroll-stars .chevrons {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  align-items: center;
 }

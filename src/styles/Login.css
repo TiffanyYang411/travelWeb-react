@@ -31,7 +31,7 @@
   width: 374px;
   height: 42px;
   object-fit: contain;
-  cursor: default;
+  cursor: pointer;
   display: block;        /* ✅ img 預設是 inline，要轉成 block 才能用 margin */
   margin: 0 auto;        /* ✅ 這樣就水平置中了 */
 }

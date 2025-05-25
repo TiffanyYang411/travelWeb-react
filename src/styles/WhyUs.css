@@ -124,7 +124,7 @@
 
 /* 圖片設定 */
 .whyus-large-img {
-  width: 680px;
+  width: 570px;
   height: 300px;
   object-fit: cover;
   border-radius: 16px;
@@ -176,14 +176,12 @@
   color: #FFFFFF;
 }
 .whyus-text p {
-  max-width: none;
+  max-width: 600px;      /* ✅ 限制最大寬度 */
+  margin: 0 auto;        /* ✅ 水平置中 */
   white-space: normal;
   color: #FFFFFF;
   line-height: 2;
   letter-spacing: 0.05em;
-}
-.one-line {
-  white-space: nowrap !important;
 }
 
 /* === 客戶評論區 (最新版) === */

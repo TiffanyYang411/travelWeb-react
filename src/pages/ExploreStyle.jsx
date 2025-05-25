@@ -169,8 +169,14 @@ function ExploreStyle() {
 
       <section className="explore-style explore-page-style">
         <div ref={swiperRef} className="explore-swiper-wrapper">
-          <div className="explore-swiper-prev swiper-arrow">‹</div>
-          <div className="explore-swiper-next swiper-arrow">›</div>
+          <div className="explore-swiper-prev swiper-arrow">
+            <img src={`${import.meta.env.BASE_URL}images/arrow-left.svg`} alt="Previous" />
+          </div>
+
+          <div className="explore-swiper-next swiper-arrow">
+            <img src={`${import.meta.env.BASE_URL}images/arrow-right.svg`} alt="Next" />
+          </div>
+
 
           <Swiper
             modules={[Navigation, EffectFade, Autoplay]} // ✅ 加入 fade 效果與 autoplay
@@ -183,8 +189,8 @@ function ExploreStyle() {
               prevEl: '.explore-swiper-prev',
             }}
             watchSlidesProgress={true}
-observer={true}
-observeParents={true}
+            observer={true}
+            observeParents={true}
             onSwiper={(swiper) => {
               swiperInstanceRef.current = swiper;
               setTimeout(() => {
@@ -192,7 +198,7 @@ observeParents={true}
                 swiper.navigation.update();
               }, 100);
             }}
-             initialSlide={initialIndex !== -1 ? initialIndex : 0} // ✅ 加上這行
+            initialSlide={initialIndex !== -1 ? initialIndex : 0} // ✅ 加上這行
           >
 
 
@@ -232,13 +238,39 @@ observeParents={true}
                       </div>
                     )}
 
+
                     {loadedImages[style.id] && (
-                      <div className="scroll-up-indicator-fade">
-                        <div className="chevron"></div>
-                        <div className="chevron"></div>
-                        <div className="chevron"></div>
+                      <div
+                        className="scroll-up-indicator-fade scroll-click-target"
+                        onClick={() => {
+                          const target = document.querySelector('.trip-style-tabs');
+                          if (target) {
+                            target.scrollIntoView({ behavior: 'smooth' });
+                          }
+                        }}
+                      >
+                        <div className="scroll-icon-group">
+                          <div className="scroll-text-line">
+                            <svg className="scroll-star top-left" width="12" height="12" viewBox="0 0 24 24">
+                              <path d="M12 2 L15 12 L24 12 L15 15 L12 24 L9 15 L0 12 L9 12 Z" fill="white" />
+                            </svg>
+                            <span className="scroll-label-new twinkle-text" style={{ lineHeight: '160%', letterSpacing: '6%' }}>Scroll Down</span>
+                            <svg className="scroll-star bottom-right" width="12" height="12" viewBox="0 0 24 24">
+                              <path d="M12 2 L15 12 L24 12 L15 15 L12 24 L9 15 L0 12 L9 12 Z" fill="white" />
+                            </svg>
+                          </div>
+
+                          <div className="chevrons">
+                            <div className="chevron"></div>
+                            <div className="chevron"></div>
+                            <div className="chevron"></div>
+                          </div>
+                        </div>
                       </div>
                     )}
+
+
+
                   </div>
                 </div>
               </SwiperSlide>

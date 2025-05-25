@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useRef } from 'react'; // ✅ 多加 useRef
 import '../styles/Home.css';
 import '../styles/Typography.css';
 import TravelStyles from '../components/TravelStyles';
@@ -25,6 +25,8 @@ function Home() {
   const [expanded, setExpanded] = useState(false);
   const [currentSlide, setCurrentSlide] = useState(0);
   const [transitioning, setTransitioning] = useState(false);
+  const travelRef = useRef(null);
+  const hasScrolledRef = useRef(false); // 避免重複觸發
 
   // Step 1：語錄進場 + 窗戶放大
   useEffect(() => {
@@ -40,36 +42,61 @@ function Home() {
   }, []);
 
   // Step 2：窗戶動畫跑完後才開始圖片輪播
-   useEffect(() => {
-  if (!expanded) return;
+  useEffect(() => {
+    if (!expanded) return;
 
-  // ✅ 先切到第二張
-  const switchToSecond = setTimeout(() => {
-    setTransitioning(true);
-    setTimeout(() => {
-      setCurrentSlide(1); // ✅ 切第二張
-      setTransitioning(false);
-    }, 300);
-
-    // ✅ 第二張顯示完，延後 6 秒後再開始輪播
-    slideTimerRef.current = setInterval(() => {
+    // ✅ 先切到第二張
+    const switchToSecond = setTimeout(() => {
       setTransitioning(true);
       setTimeout(() => {
-        setCurrentSlide((prev) => (prev + 1) % slideImages.length);
+        setCurrentSlide(1); // ✅ 切第二張
         setTransitioning(false);
       }, 300);
-    }, 4000); // ✅ 正常輪播（從第三張開始）
-  }, 3000); // 動畫結束後切第二張
 
-  // ✅ 為了清理 interval（因為我們不是立即宣告）
-  const slideTimerRef = { current: null };
+      // ✅ 第二張顯示完，延後 6 秒後再開始輪播
+      slideTimerRef.current = setInterval(() => {
+        setTransitioning(true);
+        setTimeout(() => {
+          setCurrentSlide((prev) => (prev + 1) % slideImages.length);
+          setTransitioning(false);
+        }, 300);
+      }, 4000); // ✅ 正常輪播（從第三張開始）
+    }, 3000); // 動畫結束後切第二張
 
-  return () => {
-    clearTimeout(switchToSecond);
-    if (slideTimerRef.current) clearInterval(slideTimerRef.current);
-  };
-}, [expanded]);
+    // ✅ 為了清理 interval（因為我們不是立即宣告）
+    const slideTimerRef = { current: null };
 
+    return () => {
+      clearTimeout(switchToSecond);
+      if (slideTimerRef.current) clearInterval(slideTimerRef.current);
+    };
+  }, [expanded]);
+
+  useEffect(() => {
+    const handleWheel = (e) => {
+      const scrollY = window.scrollY;
+      const viewportHeight = window.innerHeight;
+
+      const isInHero = scrollY < viewportHeight * 0.8;
+
+      if (isInHero && !hasScrolledRef.current && e.deltaY > 0) {
+        e.preventDefault();
+        travelRef.current?.scrollIntoView({ behavior: 'smooth' });
+        hasScrolledRef.current = true;
+
+        setTimeout(() => {
+          hasScrolledRef.current = false;
+        }, 2000);
+      }
+    };
+
+    window.addEventListener('wheel', handleWheel, { passive: false });
+
+    // ✅ 僅保留這個 return 就好
+    return () => {
+      window.removeEventListener('wheel', handleWheel);
+    };
+  }, []);
 
 
   return (
@@ -105,7 +132,7 @@ function Home() {
       </section>
 
       {/* 探索你的旅行風格區塊 */}
-      <section className="travel-style-section">
+      <section className="travel-style-section" ref={travelRef}>
         <TravelStyles />
       </section>
 

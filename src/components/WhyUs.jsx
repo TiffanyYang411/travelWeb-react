@@ -69,7 +69,7 @@ function WhyUs() {
             <img src={whyUsItems[2].image} alt={whyUsItems[2].title} className="whyus-large-img fade-in delay-0" />
             <div className="whyus-text fade-in delay-1">
               <h3 className="zh-text-24">{whyUsItems[2].title}</h3>
-              <p className="zh-text-20 one-line">{whyUsItems[2].description}</p>
+              <p className="zh-text-20" dangerouslySetInnerHTML={{ __html: whyUsItems[2].description }} />
             </div>
           </div>
         </div>

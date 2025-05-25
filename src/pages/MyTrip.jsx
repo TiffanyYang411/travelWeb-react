@@ -91,7 +91,7 @@ function MyTrip() {
     return () => {
       window.removeEventListener('confirmedTripsChanged', handleTripChange);
       window.removeEventListener('tripCountChanged', handleTripChange);
-    window.removeEventListener('tripListChanged', handleTripChange);
+      window.removeEventListener('tripListChanged', handleTripChange);
     };
   }, [setPendingTrips]);
 
@@ -388,7 +388,11 @@ function MyTrip() {
         <div className="mytrip-empty-container">
           <h2 className="zh-title-36">您的專屬旅程</h2>
           <p className="zh-text-20">旅程的篇章尚未開始書寫，<br />現在，就是您與北歐邂逅的最佳時刻。</p>
-          <button className="mytrip-start-trip-btn zh-text-18" onClick={() => navigate('/explore')}>
+          <button className="mytrip-start-trip-btn zh-text-18" onClick={() => {
+            sessionStorage.setItem('scrollToTop', 'true');
+            navigate('/explore');
+          }}
+          >
             立即開啟您的專屬行程 ➔
           </button>
         </div>
