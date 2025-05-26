@@ -26,7 +26,7 @@ function TripSummary() {
     const transformedTrips = (summaryData.trips || []).map(({ tripId, peopleCount }) => {
       const trip = allTrips.find(t => Number(t.id) === Number(tripId));
       if (!trip || !trip.id) {
-        console.warn('[⚠️ trip 資料異常]', trip);
+        
         return null;
       }
 
@@ -108,8 +108,8 @@ function TripSummary() {
   const handleConfirm = () => {
     setShowPopup(true);
 
-    const username = localStorage.getItem('currentUser');
-    const upcomingKey = `upcomingTrips_${username}`;
+    const currentUser = localStorage.getItem('currentUser');
+    const upcomingKey = `upcomingTrips_${currentUser}`;
     const existingTrips = JSON.parse(localStorage.getItem(upcomingKey)) || [];
 
     const newTripRecord = {
@@ -126,8 +126,8 @@ function TripSummary() {
     sessionStorage.removeItem('tripSummary');
 
     // ✅ 清除購物車與我的行程（localStorage）
-    localStorage.removeItem(`cart_${username}`);
-    localStorage.removeItem(`user_${username}_trips`);
+    localStorage.removeItem(`cart_${currentUser}`);
+    localStorage.removeItem(`user_${currentUser}_trips`);
 
     // ✅ 清空 Zustand 狀態
     setPendingTrips([]);
@@ -187,8 +187,7 @@ function TripSummary() {
 
 
               const currentIndex = dayIndexes?.[trip.id] ?? 0;
-              console.log('[🧪 trip]', trip.title, '行程長度:', trip.daySchedules.length, '目前 index:', currentIndex);
-              console.log(`[🧾 渲染中] trip: ${trip.title}, index: ${index}, 天數: ${trip.daySchedules.length}`);
+
               const safeIndex = Math.min(currentIndex, trip.daySchedules.length - 1);
               const isAtFirstDay = safeIndex <= 0;
               const isAtLastDay = safeIndex >= trip.daySchedules.length - 1;

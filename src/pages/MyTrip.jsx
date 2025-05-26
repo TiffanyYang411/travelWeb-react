@@ -447,7 +447,7 @@ sessionStorage.setItem('confirmedTotalPrice', confirmedTotalPrice);
       </div>
     );
   }
-  console.log('🧪 pendingTrips:', pendingTrips);
+
 
   return (
     <div className="mytrip-page-wrapper slide-up-appear">

@@ -22,21 +22,18 @@ export default function TripDetail() {
   }
 
   const handleAddTrip = () => {
-    console.log("🧪 點擊加入行程按鈕");
-    console.log("🔒 isLoggedIn() =", isLoggedIn());
 
     if (!isLoggedIn()) {
-      console.log("⚠️ 未登入，導向登入頁");
+
       const fullPath = window.location.pathname + window.location.search;
       const base = import.meta.env.BASE_URL.replace(/\/$/, '');
       const purePath = fullPath.startsWith(base.length)
         ? fullPath.slice(base.length)
         : fullPath;
-      console.log("🟢 returnTo 寫入", purePath);
+
       sessionStorage.setItem("returnTo", purePath);
       navigate("/login");
     } else {
-      console.log("✅ 已登入，執行 addTripToUser()");
       addTripToUser(trip);
 
       window.dispatchEvent(new CustomEvent("tripCountChanged"));

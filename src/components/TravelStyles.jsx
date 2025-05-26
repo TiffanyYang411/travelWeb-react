@@ -66,7 +66,6 @@ function TravelStyles() {
       window.dispatchEvent(event);
     }
   };
-  console.log('[scrollSpeed]', scrollSpeed);
 
   return (
 

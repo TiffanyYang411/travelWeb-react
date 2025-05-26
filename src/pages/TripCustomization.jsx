@@ -122,7 +122,7 @@ function TripCustomization() {
             }
             setStep(prev => prev + 1);
         } else if (step === 5) {
-            console.log('[🟠 specialRequest]', specialRequest, '| [🟠 將進入 Step 6]');
+
 
             if (!specialRequest.trim()) {
                 setSpecialRequest('無');

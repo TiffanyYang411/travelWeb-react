@@ -13,18 +13,22 @@ function CartDropdown({ isOpen }) {
   const loggedIn = isLoggedIn();
 
   useEffect(() => {
-    loadTrips();
-     const handleManualClear = () => {
-      setTrips([]); // ✅ 直接清空畫面中的行程
-    };
+  loadTrips();
 
-    window.addEventListener('tripCountChanged', loadTrips);
-    window.addEventListener('tripListChanged', loadTrips); // ✅ 加上這個事件同步更新畫面
-    window.addEventListener('clearCartManually', handleManualClear); // ✅ 改成 handleManualClear
+  const handleManualClear = () => {
+    setTrips([]);
+  };
+
+  window.addEventListener('tripCountChanged', loadTrips);
+  window.addEventListener('tripListChanged', loadTrips);
+  window.addEventListener('clearCartManually', handleManualClear);
+
+  return () => {
     window.removeEventListener('tripCountChanged', loadTrips);
     window.removeEventListener('tripListChanged', loadTrips);
-    window.removeEventListener('clearCartManually', handleManualClear); // ✅ 改成 handleManualClear
-  }, []);
+    window.removeEventListener('clearCartManually', handleManualClear);
+  };
+}, []);
 
   function loadTrips() {
     const stored = getUserTrips() || [];

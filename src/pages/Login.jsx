@@ -25,12 +25,8 @@ function Login() {
     }
 
     // ✅ 改用 navigate，避免 reload 導致 returnTo 失效或跳錯頁
-  navigate(returnTo, { replace: true });
-  console.log('[🟢 returnTo 讀取]', returnTo);
-  console.log("🟢 location.pathname =", window.location.pathname);
-  console.log("🟢 BASE_URL =", import.meta.env.BASE_URL);
-  console.log("🟢 navigate target =", returnTo);
-  
+    navigate(returnTo, { replace: true });
+
   };
 
   return (
