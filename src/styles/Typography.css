@@ -41,7 +41,7 @@
   letter-spacing: 5%;
 }
 
-h-text-20.z {
+.zh-text-20 {
   font-family: var(--font-zh);
   font-size: 20px;
   font-weight: bold;

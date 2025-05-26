@@ -254,7 +254,7 @@ function ExploreStyle() {
                             <svg className="scroll-star top-left" width="12" height="12" viewBox="0 0 24 24">
                               <path d="M12 2 L15 12 L24 12 L15 15 L12 24 L9 15 L0 12 L9 12 Z" fill="white" />
                             </svg>
-                            <span className="scroll-label-new twinkle-text" style={{ lineHeight: '160%', letterSpacing: '6%' }}>Scroll Down</span>
+                            <span className="scroll-label-new twinkle-text" style={{ lineHeight: '150%', letterSpacing: '5%' }}>查看更多</span>
                             <svg className="scroll-star bottom-right" width="12" height="12" viewBox="0 0 24 24">
                               <path d="M12 2 L15 12 L24 12 L15 15 L12 24 L9 15 L0 12 L9 12 Z" fill="white" />
                             </svg>

@@ -1177,7 +1177,7 @@ background-color: #000; /* ✅ 加強黑底穩定性 */
 
 .scroll-icon-group .scroll-label-new {
   font-size: 20px;
-  font-family: var(--font-en);
+  font-family: var(--font-zh);
   color: var(--secondary-color-xlight);
   
 }
@@ -1212,13 +1212,13 @@ background-color: #000; /* ✅ 加強黑底穩定性 */
   animation: twinkle 3s infinite;
   position: relative;
   top: -8px;
-  left: -4px;
+  left: -8px;
 }
 
 .scroll-star.bottom-right {
   animation: twinkle 3s infinite;
   position: relative;
-  bottom: -12px;
+  bottom: -8px;
   right: -6px;
 }
 
