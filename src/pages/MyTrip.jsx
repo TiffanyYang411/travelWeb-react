@@ -45,6 +45,16 @@ function MyTrip() {
     const [moved] = reordered.splice(result.source.index, 1);
     reordered.splice(result.destination.index, 0, moved);
     setPendingTrips(reordered);
+
+    // ✅ 更新 sessionStorage 裡的 tripSummary.trips
+    const currentSummary = JSON.parse(sessionStorage.getItem('tripSummary') || '{}');
+    sessionStorage.setItem(
+      'tripSummary',
+      JSON.stringify({
+        ...currentSummary,
+        trips: reordered,
+      })
+    );
   };
 
   useEffect(() => {
@@ -359,15 +369,53 @@ function MyTrip() {
     return true;
   };
 
+  function calculateConfirmedTotalPrice(startDate, trips) {
+  let currentDate = new Date(startDate);
+  let total = 0;
+
+  trips.forEach((trip) => {
+    const detail = findTripById(trip.tripId);
+    if (!detail) return;
+    const people = parseInt(trip.peopleCount, 10) || 0;
+    const days = parseInt(detail.days?.match(/(\d+)\s*天/)?.[1], 10) || 0;
+
+    let hasWeekend = false;
+    for (let i = 0; i < days; i++) {
+      const d = new Date(currentDate);
+      d.setDate(d.getDate() + i);
+      const dow = d.getDay();
+      if (dow === 0 || dow === 6) {
+        hasWeekend = true;
+        break;
+      }
+    }
+
+    const pricePerPerson = hasWeekend ? detail.price * 1.2 : detail.price;
+    total += pricePerPerson * people;
+
+    currentDate.setDate(currentDate.getDate() + days);
+  });
+
+  return Math.round(total);
+}
+
   const handleNext = () => {
     if (!canProceed()) return;
 
     // 🔥跳頁前，把 pendingTrips 存到 sessionStorage
-    sessionStorage.setItem('confirmedTrips', JSON.stringify(pendingTrips));
-    sessionStorage.setItem('confirmedStartDate', startDate);
-    sessionStorage.setItem('confirmedEndDate', endDate);
-    sessionStorage.setItem('confirmedTotalPeople', pendingTrips.reduce((sum, trip) => sum + (parseInt(trip.peopleCount) || 0), 0));
-    sessionStorage.setItem('confirmedTotalPrice', totalPrice);
+    const confirmedTrips = pendingTrips;
+const confirmedTotalPeople = confirmedTrips.reduce(
+  (sum, trip) => sum + (parseInt(trip.peopleCount) || 0),
+  0
+);
+const confirmedTotalPrice = calculateConfirmedTotalPrice(startDate, confirmedTrips);
+
+sessionStorage.setItem('confirmedTrips', JSON.stringify(confirmedTrips));
+sessionStorage.setItem('confirmedStartDate', startDate);
+sessionStorage.setItem('confirmedEndDate', endDate);
+sessionStorage.setItem('confirmedTotalPeople', confirmedTotalPeople);
+sessionStorage.setItem('confirmedTotalPrice', confirmedTotalPrice);
+
 
     navigate('/trip-customization');
   };

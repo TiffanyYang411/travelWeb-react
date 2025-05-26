@@ -14,13 +14,21 @@ function CartDropdown({ isOpen }) {
 
   useEffect(() => {
     loadTrips();
+     const handleManualClear = () => {
+      setTrips([]); // ✅ 直接清空畫面中的行程
+    };
+
     window.addEventListener('tripCountChanged', loadTrips);
-    return () => window.removeEventListener('tripCountChanged', loadTrips);
+    window.addEventListener('tripListChanged', loadTrips); // ✅ 加上這個事件同步更新畫面
+    window.addEventListener('clearCartManually', handleManualClear); // ✅ 改成 handleManualClear
+    window.removeEventListener('tripCountChanged', loadTrips);
+    window.removeEventListener('tripListChanged', loadTrips);
+    window.removeEventListener('clearCartManually', handleManualClear); // ✅ 改成 handleManualClear
   }, []);
 
   function loadTrips() {
-    const stored = getUserTrips();
-    setTrips(stored);
+    const stored = getUserTrips() || [];
+    setTrips([...stored]); // ✅ 用新 array 強制觸發 re-render
   }
 
   function handleRemove(tripId) {
@@ -73,6 +81,7 @@ function CartDropdown({ isOpen }) {
     }
 
     window.dispatchEvent(new Event('tripCountChanged'));
+     window.dispatchEvent(new Event('tripListChanged')); // ✅ 同步通知購物車重新載入
     window.dispatchEvent(new Event('confirmedTripsChanged'));
   }
 

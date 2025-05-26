@@ -14,7 +14,8 @@ function TripSummary() {
   const [customization, setCustomization] = useState({});
   const [showPopup, setShowPopup] = useState(false);
   const [dayIndexes, setDayIndexes] = useState({});
-  const { setTrips: resetTrips, setCartItems } = useTripStore(); // ⬅️ 取出 setCartItems
+  const { setPendingTrips, setCartItems } = useTripStore();
+
 
 
   useEffect(() => {
@@ -129,14 +130,12 @@ function TripSummary() {
     localStorage.removeItem(`user_${username}_trips`);
 
     // ✅ 清空 Zustand 狀態
-    resetTrips([]);
-
-    // ✅ ⬇️ 若你有狀態管理購物車數字，也加這一行
-    setCartItems([]); // 或 setCartCount(0) 依你 store 設定而定
+    setPendingTrips([]);
 
     // ✅ ✅ ✅ ⬇⬇⬇ 關鍵補這兩行，讓畫面同步更新
     window.dispatchEvent(new Event('tripCountChanged'));
     window.dispatchEvent(new Event('tripListChanged'));
+    window.dispatchEvent(new Event('clearCartManually'));
 
     // ✅ 3 秒後跳轉到 upcoming
     setTimeout(() => {
