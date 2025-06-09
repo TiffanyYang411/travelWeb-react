@@ -5,7 +5,7 @@
   color: #142E3F;
   background-color: transparent;
   line-height: 1.6;
-  
+
 }
 
 .home-page section {
@@ -117,13 +117,127 @@
   transform: translateY(0);
 }
 
+/* ✅ 桌機 (> 1024px)：維持原始設計縮放與位移 */
+@media screen and (min-width: 1299px) and (max-width: 1440px) {
+  .hero-quote.quote-expanded {
+    left: 150px;
+    bottom: 280px;
+  }
+  
+  .hero-window-frame {
+    transform-origin: 80.2% 90%;
+  }
 
+  .hero-section.expanded .hero-window-frame {
+    transform: scale(3.5) translate(-7px, 50px);
+  }
 
+  .fullscreen-img.slide-one.active {
+    transform: translateX(50px);
+    /* 改成 40px、20px、或 0px 試試 */
+  }
 
+  .fullscreen-img {
+    object-position: center center !important;
+    /* ✅ 左右居中 */
+    height: 100vh;
+    transform: scale(1.2);
+    /* ✅ 可選，稍微縮放讓構圖剛好 */
+  }
+}
 
+/* ✅ 平板 (768px ~ 1024px)：居中縮放，移除偏移 */
+@media screen and (min-width: 1200px) and (max-width: 1298px) {
+  .hero-quote:not(.quote-expanded) {
+    left: 15%;
+    top: 55%;
+    width: 250px;
+  }
 
+  .hero-quote.quote-expanded {
+    left: 120px;
+    bottom: 280px;
+    width: 500px;
+  }
 
+  .hero-window-frame {
+    transform-origin: 81% 90%;
+  }
 
+  .hero-section.expanded .hero-window-frame {
+    transform: scale(3.1) translate(-22px, 60px);
+  }
 
+  .fullscreen-img.slide-one.active {
+    transform: translateX(35px);
+    /* 改成 40px、20px、或 0px 試試 */
+  }
 
+  .fullscreen-img {
+    object-position: center center !important;
+    /* ✅ 左右居中 */
+    height: 100vh;
+    transform: scale(1.2);
+    /* ✅ 可選，稍微縮放讓構圖剛好 */
+  }
+}
 
+/* ✅ 桌機中尺寸（例如：1025 ~ 1199px）也要有定義 */
+@media screen and (min-width: 1025px) and (max-width: 1199px) {
+  .hero-quote:not(.quote-expanded) {
+    left: 15%;
+    top: 50%;
+    width: 250px;
+  }
+
+  .hero-quote.quote-expanded {
+    left: 140px;
+    bottom: 200px;
+    width: 550px;
+  }
+
+  .hero-window-frame {
+    transform-origin: 80% 90%;
+  }
+
+  .hero-section.expanded .hero-window-frame {
+    transform: scale(2.5) translate(-108px, 50px);
+  }
+
+  .fullscreen-img {
+    object-position: center center !important;
+    transform: scale(1.1);
+  }
+
+  .fullscreen-img.slide-one.active {
+    transform: translateX(20px);
+  }
+}
+
+/* ✅ 手機 (< 767px)：縮放更小，調整語錄位置 */
+/* @media screen and (max-width: 767px) {
+  .hero-quote:not(.quote-expanded) {
+    left: 8%;
+    top: 40%;
+    width: 200px;
+  }
+
+  .hero-quote.quote-expanded {
+    left: 10px;
+    bottom: 160px;
+    width: 320px;
+  }
+
+  .hero-window-frame {
+    transform-origin: center center !important;
+  }
+
+  .hero-section.expanded .hero-window-frame {
+    transform: scale(2) translate(0, 0) !important;
+  }
+
+  .fullscreen-img,
+  .hero-window-frame {
+    object-position: center center !important;
+  }
+} */

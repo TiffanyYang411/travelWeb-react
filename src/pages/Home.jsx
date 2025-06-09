@@ -1,3 +1,4 @@
+// Home.jsx
 import React, { useEffect, useState, useRef } from 'react'; // ✅ 多加 useRef
 import '../styles/Home.css';
 import '../styles/Typography.css';
