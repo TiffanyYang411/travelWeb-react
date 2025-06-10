@@ -57,7 +57,8 @@
 .testimonial-track {
   display: flex;
   flex-direction: column;
-  animation-play-state: running; /* ✅ 預設為播放 */
+  animation-play-state: running;
+  /* ✅ 預設為播放 */
 }
 
 .testimonial-track:hover {
@@ -65,15 +66,17 @@
 }
 
 .testimonial-card {
-  pointer-events: auto;  /* ✅ 卡片可被 hover */
+  pointer-events: auto;
+  /* ✅ 卡片可被 hover */
 }
 
 .testimonial-track {
-  pointer-events: none;  /* ✅ 預防過大範圍 hover 啟動 */
+  pointer-events: none;
+  /* ✅ 預防過大範圍 hover 啟動 */
   animation: scrollTestimonials 20s linear infinite;
 }
 
-.testimonial-card:hover ~ .testimonial-card,
+.testimonial-card:hover~.testimonial-card,
 .testimonial-card:hover {
   animation-play-state: paused !important;
 }
@@ -83,6 +86,7 @@
   0% {
     transform: translateY(0);
   }
+
   100% {
     transform: translateY(-50%);
   }
@@ -92,7 +96,8 @@
   display: flex;
   align-items: center;
   gap: 20px;
-  width: 700px; /* ✅ 卡片寬度變小 */
+  width: 700px;
+  /* ✅ 卡片寬度變小 */
   margin: 0 auto 10px;
   padding: 5px 25px;
   border-radius: 16px;
@@ -101,12 +106,15 @@
   box-shadow: 0 6px 24px rgba(0, 0, 0, 0.2);
   color: #fff;
   font-size: 15px;
-  line-height: 1.8;           /* ✅ 增加行距 */
-  letter-spacing: 0.03em;     /* ✅ 微調字距 */
+  line-height: 1.8;
+  /* ✅ 增加行距 */
+  letter-spacing: 0.03em;
+  /* ✅ 微調字距 */
 }
 
 .testimonial-avatar {
-  width: 90px;                /* ✅ 放大頭像 */
+  width: 90px;
+  /* ✅ 放大頭像 */
   height: 90px;
   border-radius: 50%;
   object-fit: cover;
@@ -116,18 +124,105 @@
 }
 
 .zh-text-14 {
-  font-size: 16px !important;        /* ✅ 原本是 15px，現在加大 */
+  font-size: 16px !important;
+  /* ✅ 原本是 15px，現在加大 */
   line-height: 1.8 !important;
   letter-spacing: 0.05em !important;
 }
 
+/* ✅ 平板 RWD */
+@media (max-width: 1024px) {
+  .testimonial-card {
+    width: 90%;
+    /* ✅ 自動縮放 */
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 12px;
+    padding: 20px;
+  }
 
+  .testimonial-avatar {
+    width: 72px;
+    height: 72px;
+    align-self: center;
+  }
 
+  .zh-text-14 {
+    font-size: 15px !important;
+    text-align: left;
+  }
+}
 
+/* ✅ 手機 RWD */
+@media (max-width: 767px) {
+  .testimonial-section {
+    padding-top: 100px;
+    padding-bottom: 60px;
+    /* ✅ 預留底部空間避免緊貼 Footer */
+    height: auto !important;
+    /* ✅ 防止多餘空白 */
+    overflow: visible;
+    /* ✅ 避免內容被 mask 裁切 */
+  }
 
+  .testimonial-header {
+    position: relative !important;
+    /* ✅ 移除桌機 absolute 定位 */
+    top: auto !important;
+    left: auto !important;
+    transform: none !important;
+    width: 100%;
+    padding: 0 20px;
+    box-sizing: border-box;
+    text-align: center;
+    margin-bottom: 70px;
+    z-index: 10;
+  }
 
+  .testimonial-header .en-title-32 {
+    font-size: 24px;
+    white-space: normal;
+    word-break: break-word;
+    line-height: 1.4;
+    text-align: center;
+  }
 
+  .testimonial-header .zh-title-32 {
+    font-size: 20px;
+    text-align: center;
+  }
 
+  .testimonial-slider-outer {
+    height: 450px;
+    /* 約每張卡片 120~140px 高 × 3 張 */
+    overflow: hidden;
+    position: relative;
+    mask-image: linear-gradient(to bottom, transparent, white 20%, white 80%, transparent);
+    -webkit-mask-image: linear-gradient(to bottom, transparent, white 20%, white 80%, transparent);
+    margin-top: 0px;
+  }
 
+  .testimonial-track {
+    animation: scrollTestimonials 20s linear infinite;
+    display: flex;
+    flex-direction: column;
+  }
 
+  .testimonial-card {
+    width: 80%;
+    flex-direction: column;
+    align-items: center;
+    padding: 20px 16px;
+    box-sizing: border-box;
+  }
 
+  .testimonial-avatar {
+    width: 64px;
+    height: 64px;
+  }
+
+  .zh-text-14 {
+    font-size: 14px !important;
+    text-align: center;
+  }
+}

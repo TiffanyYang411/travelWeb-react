@@ -1,15 +1,5 @@
 /* src/styles/WhyUs.css */
 
-/* === 滑動進場動畫設定 === */
-
-/* 通用淡入設定 */
-/* === 動畫共用設定 === */
-/* === 為什麼選擇我們區塊 === */
-/* === 出現動畫 === */
-/* === 進場動畫 === */
-/* === 進場動畫 === */
-/* === 進場動畫 === */
-/* === 共有動畫設定 === */
 .fade-in {
   opacity: 0;
   transform: translateY(80px);
@@ -296,20 +286,175 @@
   margin-top: 10px; /* 中文在英文下面一點，不要太貼 */
 }
 
+br {
+  display: inline;
+}
 
+/* ✅ 平板 RWD (max-width: 1024px) */
+@media screen and (max-width: 1025px) {
+  .whyus-section {
+    padding: 120px 20px;
+    min-height: auto; /* 不要強制太高 */
+  }
 
+  .whyus-header {
+    height: auto;
+    margin-bottom: 60px;
+  }
 
+  .whyus-header .en-title-32 {
+    position: static;
+    text-align: center;
+    margin-bottom: 8px;
+    font-size: 24px;
+  }
 
+  .whyus-header .zh-title-32 {
+    position: static;
+    text-align: center;
+    font-size: 20px;
+  }
 
+  .whyus-content {
+    gap: 180px;
+    margin-bottom: 50px;
+  }
 
+  .whyus-item {
+    flex-direction: column;
+    gap: 0px;
+  }
 
+  .whyus-item.custom-layout,
+  .whyus-item.service-text-adjust {
+    flex-direction: column;
+    gap: 40px;
+  }
 
+  .whyus-large-img,
+  .top-img,
+  .bottom-img {
+    width: 80%;
+    max-width: 300px;
+    height: auto;
+    margin-top: 10px;
+  }
 
+  .overlap-images {
+    position: static;
+    transform: none;
+    display: flex;
+    gap: 20px;
+    justify-content: center;
+    height: auto;
+    width: 80%;
+  }
 
+  .top-img,
+  .bottom-img {
+    position: static;
+  }
 
+  .whyus-text {
+    margin-top: 0;
+    margin-left: 0;
+    padding: 0 20px;
+  }
 
+  .whyus-text p {
+    max-width: 100%;
+  }
 
+  .whyus-item.service-text-adjust .whyus-text,
+  .whyus-item.service-text-adjust h3 {
+    transform: none;
+    margin-top: 0;
+  }
 
+  br {
+    display: none;
+  }
 
+  .whyus-large-img,
+  .top-img,
+  .bottom-img {
+    width: 100%;
+    max-width: 420px;
+    height: auto;
+    margin-top: 0;
+  }
+}
 
+/* ✅ 手機 RWD (max-width: 767px) */
+@media screen and (max-width: 768px) {
+  .whyus-header {
+    padding: 60px 20px;
+  }
+
+  .whyus-header .en-title-32 {
+    font-size: 28px;
+  }
+
+  .whyus-header .zh-title-32 {
+    font-size: 24px;
+    margin-bottom: -80px;
+  }
+
+  .whyus-content {
+    gap: 100px;
+  }
+
+  .whyus-text h3 {
+    font-size: 20px;
+  }
+
+  .whyus-text p {
+    font-size: 16px;
+    line-height: 1.8;
+  }
+
+  .testimonial-card {
+    width: 90%;
+    padding: 16px 20px;
+    height: auto;
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .testimonial-avatar {
+    margin: 0 auto 12px;
+  }
+
+  .testimonial-comment {
+    font-size: 14px;
+    text-align: left;
+  }
+
+  .testimonial-card.single {
+    width: 95%;
+  }
+
+  br {
+    display: none;
+  }
+
+  .whyus-large-img,
+  .top-img,
+  .bottom-img {
+    width: 100%;
+    max-width: 420px;
+    height: auto;
+    margin-bottom: 30px;
+  }
   
+  .overlap-images {
+    position: static;
+    transform: none;
+    display: flex;
+    gap: 30px;
+    justify-content: center;
+    height: 40vh;
+    width: 50%;
+    padding: 0 10px;
+  }
+}

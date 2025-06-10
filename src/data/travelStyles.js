@@ -22,7 +22,7 @@ export const travelStyles = [
   {
     id: 3, // 新增
     title: '頂級奢華度假',
-    description: '專屬高端人士的休閒度假行程，結合高端住宿、私人管家、獨特體驗，提供極致放鬆享受',
+    description: '專屬高端的休閒度假行程，結合高端住宿、私人管家、獨特體驗，提供極致放鬆享受',
     background: `${baseUrl}images/luxury-bg.jpg`,
     thumbnail: `${baseUrl}images/luxury-thumb.jpg`,
     exploreImage: `${baseUrl}images/explore-luxury.jpg`, // ✅ ExploreStyle 專用

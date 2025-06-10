@@ -8,7 +8,7 @@ export const whyUsItems = [
   },
   {
     title: '高端客製化',
-    description: `拒絕制式行程，只為您打造獨一無二的高端旅行體驗。<br />我們結合國際資源與在地人脈，依據您的品味與興趣<br />精心設計，無論是寧靜的海島假期、<br />藝術之旅或文化深度遊，或是從交通、<br />住宿到私密體驗皆可客製`,
+    description: `拒絕制式行程，只為您打造獨一無二的高端旅行體驗。<br />我們結合國際資源與在地人脈，依據您的品味與興趣<br />精心設計，無論是寧靜的海島假期、<br />藝術之旅、文化深度旅遊，或是從交通、<br />住宿到私密體驗，皆可客製`,
     image1: `${import.meta.env.BASE_URL}images/whyus-custom1.jpg`,
     image2: `${import.meta.env.BASE_URL}images/whyus-custom2.jpg`,
   },
