@@ -32,11 +32,3 @@ function ExploreTripCard({ trip, onClick, isActive, delayIndex }) {
 }
 
 export default ExploreTripCard;
-
-
-
-
-
-
-
-

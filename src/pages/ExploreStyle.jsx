@@ -297,6 +297,7 @@ function ExploreStyle() {
         </div>
 
         <div ref={tripCardRef} className={`explore-trip-card-wrapper ${showTripCards ? 'visible' : 'hidden'}`}>
+           <div className="scroll-hint">← 左右滑動探索行程 →</div>
           <div className="explore-trip-card-container">
             {selectedTrips.map((trip, index) => (
               <ExploreTripCard

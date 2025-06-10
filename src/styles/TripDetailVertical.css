@@ -1,7 +1,7 @@
 /* TripDetailVertical.css */
 
 .trip-detail-vertical {
-  padding: 70px 40px;
+  padding: 70px 50px;
   max-width: 1440px;
   margin: 0 auto;
   color: #fff;
@@ -42,22 +42,26 @@
   display: flex;
   flex-direction: column;
   align-items: center;
-  position: relative; /* ✅ 這行是必要的 */
+  position: relative;
+  /* ✅ 這行是必要的 */
 }
 
 .trip-button-wrapper {
   position: absolute;
   bottom: 0;
   right: 0;
-  transform: translate(0%, 208%); /* ✅ 向右下偏移 */
+  transform: translate(0%, 208%);
+  /* ✅ 向右下偏移 */
   z-index: 3;
 }
 
 .trip-layout-switch {
-  width: 100px;          /* ✅ 固定寬度 */
+  width: 100px;
+  /* ✅ 固定寬度 */
   min-width: 120px;
   max-width: 120px;
-  height: 100%;          /* ✅ 跟父層等高 */
+  height: 100%;
+  /* ✅ 跟父層等高 */
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -98,7 +102,8 @@
   padding: 50px;
   border-radius: 12px;
   color: var(--primary-color);
-  height: 550px;         /* ✅ 固定高度，不再由內容撐開 */
+  height: 550px;
+  /* ✅ 固定高度，不再由內容撐開 */
   transition: opacity 0.3s ease;
 }
 
@@ -277,13 +282,15 @@
   from {
     opacity: 0;
   }
+
   to {
     opacity: 1;
   }
 }
 
 .day-slot {
-  height: 44px; /* ✅ 每格固定高度，避免 font-size 撐開 */
+  height: 44px;
+  /* ✅ 每格固定高度，避免 font-size 撐開 */
   display: flex;
   align-items: center;
 }
@@ -298,20 +305,27 @@
   from {
     opacity: 0;
   }
+
   to {
     opacity: 1;
   }
 }
 
 @keyframes imageFadeIn {
-  from { opacity: 0; }
-  to { opacity: 1; }
+  from {
+    opacity: 0;
+  }
+
+  to {
+    opacity: 1;
+  }
 }
 
 .trip-image-box {
   position: relative;
   width: 100%;
-  height: 450px; /* ✅ 改為固定高度，避免圖片動畫導致跳動 */
+  height: 450px;
+  /* ✅ 改為固定高度，避免圖片動畫導致跳動 */
   border-radius: 12px;
   overflow: hidden;
 }
@@ -339,8 +353,13 @@
 
 /* ✅ 淡入動畫保留 */
 @keyframes imageFadeIn {
-  from { opacity: 0; }
-  to { opacity: 1; }
+  from {
+    opacity: 0;
+  }
+
+  to {
+    opacity: 1;
+  }
 }
 
 
@@ -349,7 +368,8 @@
   margin-top: 20px;
   width: 100%;
   display: flex;
-  justify-content: flex-end; /* ✅ 讓按鈕靠右 */
+  justify-content: flex-end;
+  /* ✅ 讓按鈕靠右 */
 }
 
 .add-trip-btn-vertical {
@@ -385,7 +405,188 @@
 
 /* 動畫只讓圖片進行 fade，不影響整個 block */
 @keyframes imageFadeIn {
-  from { opacity: 0; }
-  to { opacity: 1; }
+  from {
+    opacity: 0;
+  }
+
+  to {
+    opacity: 1;
+  }
 }
 
+/* ✅ 平板版型：768px 以下調整為上下堆疊 */
+@media screen and (max-width: 1024px) {
+  .trip-header {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+  }
+  
+  .trip-image-box {
+    width: 100%;
+    height: 300px;
+    /* ✅ 保證圖片有容器 */
+    border-radius: 12px;
+    overflow: hidden;
+  }
+
+  .trip-image-wrapper img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    opacity: 1 !important;
+    animation: none !important;
+  }
+
+  .trip-detail-main-layout {
+    flex-direction: column;
+    gap: 20px;
+    align-items: center;
+  }
+
+  .trip-layout-switch {
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    max-width: none;
+    height: auto;
+    gap: 12px;
+    margin-bottom: 20px;
+  }
+
+  .day-nav {
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: center;
+    height: auto;
+    padding: 12px;
+    gap: 12px;
+  }
+
+  .trip-day-selection-box {
+    padding: 40px 50px;
+    width: 100%;
+    max-width: 90vw;
+    height: auto;
+  }
+
+  .trip-button-wrapper {
+    position: static;
+    transform: none;
+    margin-top: 20px;
+  }
+
+  .trip-image-wrapper {
+    position: static !important;
+    width: 100%;
+    height: 100%;
+    top: 0;
+    left: 0;
+    z-index: 1;
+  }
+
+  .trip-image-box {
+    width: 100%;
+    height: 300px;
+    /* ✅ 加這行修復圖片容器高度 */
+    border-radius: 12px;
+    overflow: hidden;
+  }
+}
+
+/* ✅ 手機版型：767px 以下進一步優化 */
+@media screen and (max-width: 768px) {
+  .trip-header {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+  }
+
+  .trip-image-box {
+    width: 100%;
+    height: 300px;
+    /* ✅ 保證圖片有容器 */
+    border-radius: 12px;
+    overflow: hidden;
+  }
+
+  .trip-image-wrapper {
+    position: static !important;
+    width: 100%;
+    height: 100%;
+    top: 0;
+    left: 0;
+    z-index: 1;
+  }
+
+  .trip-image-box {
+    width: 90%;
+    height: 300px;
+    /* ✅ 加這行修復圖片容器高度 */
+    border-radius: 12px;
+    overflow: hidden;
+  }
+
+  .trip-detail-vertical {
+    padding: 40px 40px;
+  }
+
+  .trip-vertical-title {
+    font-size: 22px !important;
+    text-align: center;
+  }
+
+  .trip-price {
+    font-size: 18px;
+    justify-content: center;
+    text-align: center;
+    flex-direction: column;
+    margin-left: 10px;
+  }
+
+  .trip-highlight {
+    font-size: 16px;
+    text-align: center;
+  }
+
+  .day-btn {
+    font-size: 14px;
+  }
+
+  .day-btn.active {
+    font-size: 16px;
+  }
+
+  .trip-layout-image {
+    width: 100%;
+  }
+
+  .trip-layout-content {
+    width: 100%;
+  }
+
+  .trip-day-selection-box {
+    padding: 30px;
+    font-size: 14px;
+  }
+
+  .trip-day-content .day-title {
+    font-size: 18px;
+  }
+
+  .time-section h4 {
+    font-size: 18px;
+  }
+
+  .time-section li {
+    font-size: 14px;
+  }
+
+  .add-trip-btn-vertical {
+    font-size: 16px;
+    padding: 10px 24px;
+  }
+}

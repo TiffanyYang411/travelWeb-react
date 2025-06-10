@@ -5,8 +5,15 @@
   display: flex;
   overflow-x: auto;
   scroll-snap-type: x mandatory;
-  padding: 50px 30px;
+  scroll-padding-left: 30px;
+  /* ✅ 替代 ::before 的作用 */
+  scroll-padding-right: 30px;
+  /* ✅ 替代 ::after 的作用 */
   gap: 20px;
+  padding: 50px 0;
+  position: relative;
+  -webkit-overflow-scrolling: touch;
+  /* iOS 平滑滑動 */
 }
 
 .explore-trip-card {
@@ -88,8 +95,7 @@
 }
 
 /* 預設：標題顯示 */
-.explore-trip-title,
-.trip-days {
+.explore-trip-title {
   font-size: 18px;
   font-weight: 500;
   white-space: nowrap;
@@ -103,6 +109,16 @@
   /* ✅ 不要太小，也不要設死數字 */
   padding: 0 8px;
   /* ✅ 留一點 padding 防止貼邊 */
+}
+.trip-days {
+  font-size: 16px;
+  line-height: 1.4;
+  font-family: var(--font-zh);
+  text-align: center;
+  margin: 0 auto;
+  padding: 0 4px;
+  max-width: 100%;
+  white-space: normal;
 }
 
 .explore-trip-title {
@@ -221,17 +237,64 @@
   /* ✅ 加深背景對比 */
 }
 
+.scroll-hint {
+  display: none;
+  /* 預設不顯示 */
+  font-family: var(--font-zh);
+  color: #7395A6;
+}
+
+@media (max-width: 1499px) {
+  .scroll-hint {
+    display: block;
+    text-align: center;
+    font-size: 14px;
+    color: #7395A6;
+    margin-bottom: -10px;
+    animation: blink 2s infinite;
+  }
+}
+
+@keyframes blink {
+
+  0%,
+  100% {
+    opacity: 1;
+  }
+
+  50% {
+    opacity: 0.3;
+  }
+}
+
 /* ✅ 平板 RWD */
 @media screen and (max-width: 1024px) {
+  .explore-trip-card-container {
+    padding: 30px 16px;
+    gap: 12px;
+    overflow-x: auto;
+    scrollbar-width: thin;
+    /* Firefox */
+    scrollbar-color: #7395A6 transparent;
+  }
+
   .explore-trip-card {
     width: 220px;
     height: 180px;
   }
 
   .explore-trip-title {
-    font-size: 16px;
-    max-width: 200px;
-  }
+  font-size: 16px; /* ✅ 比原本的 18px 小一點 */
+  max-width: 95%;  /* ✅ 拉寬，避免被左右邊框吃掉 */
+  width: 200px;
+  white-space: normal; /* ✅ 允許換行 */
+  display: -webkit-box;
+  -webkit-line-clamp: 2; /* ✅ 最多顯示 2 行 */
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  text-align: center; /* ✅ 置中比較美觀 */
+}
 
   .trip-hover-text,
   .trip-days {
@@ -244,6 +307,24 @@
   .explore-trip-card-container {
     padding: 30px 16px;
     gap: 12px;
+    overflow-x: auto;
+    scrollbar-width: thin;
+    /* Firefox */
+    scrollbar-color: #7395A6 transparent;
+  }
+
+  /* Chrome, Edge, Safari */
+  .explore-trip-card-container::-webkit-scrollbar {
+    height: 6px;
+  }
+
+  .explore-trip-card-container::-webkit-scrollbar-track {
+    background: transparent;
+  }
+
+  .explore-trip-card-container::-webkit-scrollbar-thumb {
+    background-color: #ccc;
+    border-radius: 3px;
   }
 
   .explore-trip-card {
@@ -253,7 +334,8 @@
 
   .explore-trip-title {
     font-size: 14px;
-    max-width: 160px;
+    max-width: 100%;
+    width: 160px;
     white-space: normal;
     /* ✅ 手機允許斷行 */
     -webkit-line-clamp: 2;
@@ -280,5 +362,5 @@
     padding: 16px 26px;
     width: 200px;
     font-size: 16px;
-}
+  }
 }
