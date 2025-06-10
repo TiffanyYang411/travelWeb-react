@@ -29,12 +29,29 @@
   transform: translateY(0);
 }
 
-.explore-trip-card.delay-0 { transition-delay: 0s; }
-.explore-trip-card.delay-1 { transition-delay: 0.1s; }
-.explore-trip-card.delay-2 { transition-delay: 0.2s; }
-.explore-trip-card.delay-3 { transition-delay: 0.3s; }
-.explore-trip-card.delay-4 { transition-delay: 0.4s; }
-.explore-trip-card.delay-5 { transition-delay: 0.5s; }
+.explore-trip-card.delay-0 {
+  transition-delay: 0s;
+}
+
+.explore-trip-card.delay-1 {
+  transition-delay: 0.1s;
+}
+
+.explore-trip-card.delay-2 {
+  transition-delay: 0.2s;
+}
+
+.explore-trip-card.delay-3 {
+  transition-delay: 0.3s;
+}
+
+.explore-trip-card.delay-4 {
+  transition-delay: 0.4s;
+}
+
+.explore-trip-card.delay-5 {
+  transition-delay: 0.5s;
+}
 
 .explore-trip-card:hover {
   transform: translateY(-4px);
@@ -82,8 +99,10 @@
   margin: 0;
   color: white;
   text-shadow: 0 2px 4px rgba(0, 0, 0, 0.5);
-  max-width: 90%;     /* ✅ 不要太小，也不要設死數字 */
-  padding: 0 8px;     /* ✅ 留一點 padding 防止貼邊 */
+  max-width: 90%;
+  /* ✅ 不要太小，也不要設死數字 */
+  padding: 0 8px;
+  /* ✅ 留一點 padding 防止貼邊 */
 }
 
 .explore-trip-title {
@@ -93,15 +112,18 @@
   -webkit-box-orient: vertical;
   overflow: hidden;
   text-overflow: ellipsis;
-  white-space: nowrap;         /* ❗不允許換行 */
-  max-width: 280px;            /* ✅ 可視卡片寬度調整 */
+  white-space: nowrap;
+  /* ❗不允許換行 */
+  max-width: 280px;
+  /* ✅ 可視卡片寬度調整 */
   margin-bottom: 0px !important;
 }
 
 .trip-card-mask {
   position: absolute;
   inset: 0;
-  background: rgba(0, 0, 0, 0.4); /* 遮罩顏色 */
+  background: rgba(0, 0, 0, 0.4);
+  /* 遮罩顏色 */
   transition: opacity 0.3s ease;
   z-index: 1;
 }
@@ -134,8 +156,15 @@
 }
 
 @keyframes bounce-up {
-  0%, 100% { transform: translateY(0); }
-  50% { transform: translateY(-6px); }
+
+  0%,
+  100% {
+    transform: translateY(0);
+  }
+
+  50% {
+    transform: translateY(-6px);
+  }
 }
 
 .trip-card-image {
@@ -146,7 +175,7 @@
 
 .trip-card-info,
 .trip-card-hover {
-   position: absolute;
+  position: absolute;
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
@@ -188,6 +217,68 @@
   font-weight: 600;
   letter-spacing: 0.5px;
   font-family: var(--font-zh);
-  text-shadow: 0 2px 6px rgba(0, 0, 0, 3); /* ✅ 加深背景對比 */
+  text-shadow: 0 2px 6px rgba(0, 0, 0, 3);
+  /* ✅ 加深背景對比 */
 }
 
+/* ✅ 平板 RWD */
+@media screen and (max-width: 1024px) {
+  .explore-trip-card {
+    width: 220px;
+    height: 180px;
+  }
+
+  .explore-trip-title {
+    font-size: 16px;
+    max-width: 200px;
+  }
+
+  .trip-hover-text,
+  .trip-days {
+    font-size: 16px;
+  }
+}
+
+/* ✅ 手機 RWD */
+@media screen and (max-width: 767px) {
+  .explore-trip-card-container {
+    padding: 30px 16px;
+    gap: 12px;
+  }
+
+  .explore-trip-card {
+    width: 180px;
+    height: 150px;
+  }
+
+  .explore-trip-title {
+    font-size: 14px;
+    max-width: 160px;
+    white-space: normal;
+    /* ✅ 手機允許斷行 */
+    -webkit-line-clamp: 2;
+  }
+
+  .trip-hover-text,
+  .trip-days {
+    font-size: 14px;
+  }
+
+  .trip-card-hover {
+    gap: 4px;
+  }
+
+  .trip-style-tabs {
+    display: flex;
+    justify-content: center;
+    gap: 18px;
+    margin: 130px 0 50px;
+    flex-wrap: wrap;
+  }
+
+  .trip-style-tab {
+    padding: 16px 26px;
+    width: 200px;
+    font-size: 16px;
+}
+}

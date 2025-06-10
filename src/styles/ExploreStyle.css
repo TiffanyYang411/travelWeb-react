@@ -24,10 +24,12 @@
 }
 
 .explore-style-card {
-  position: relative; /* ✅ 新增 */
+  position: relative;
+  /* ✅ 新增 */
   width: 100%;
   height: 100%;
-  overflow: hidden;   /* ✅ 可防止圖片爆出範圍 */
+  overflow: hidden;
+  /* ✅ 可防止圖片爆出範圍 */
   cursor: pointer;
   text-align: center;
   display: flex;
@@ -64,7 +66,7 @@
   opacity: 0;
   pointer-events: none;
   transition: opacity 3s cubic-bezier(0.25, 0.1, 0.25, 1),
-              transform 2.5s cubic-bezier(0.25, 0.1, 0.25, 1);
+    transform 2.5s cubic-bezier(0.25, 0.1, 0.25, 1);
   transition-delay: 0.3s;
 }
 
@@ -81,7 +83,8 @@
   overflow: hidden;
   text-overflow: ellipsis;
   margin: 0;
-  max-width: 90%; /* ← 避免過長超出 */
+  max-width: 90%;
+  /* ← 避免過長超出 */
   margin-inline: auto;
 }
 
@@ -110,7 +113,8 @@
 .explore-swiper-next {
   width: 36px;
   height: 36px;
-  cursor: pointer; /* ✅ 滑鼠變手指 */
+  cursor: pointer;
+  /* ✅ 滑鼠變手指 */
 }
 
 .explore-swiper-prev:hover,
@@ -120,10 +124,12 @@
 
 
 .swiper-arrow img {
-  width: 36px;  /* 自訂大小 */
+  width: 36px;
+  /* 自訂大小 */
   height: auto;
   display: block;
-  filter: drop-shadow(0 0 2px rgba(0, 0, 0, 0.5)); /* 可選：增加陰影 */
+  filter: drop-shadow(0 0 2px rgba(0, 0, 0, 0.5));
+  /* 可選：增加陰影 */
 }
 
 .explore-swiper-prev {
@@ -136,7 +142,8 @@
 
 .scroll-up-indicator-fade {
   position: absolute;
-  bottom: 100px; /* 往上移 */
+  bottom: 100px;
+  /* 往上移 */
   left: 50%;
   transform: translateX(-50%);
   text-align: center;
@@ -252,7 +259,8 @@
   opacity: 1;
   pointer-events: auto;
   /* transition: opacity 0.6s ease; */
-display: flex; /* or grid */
+  display: flex;
+  /* or grid */
   flex-direction: column;
 }
 
@@ -385,20 +393,22 @@ display: flex; /* or grid */
 @keyframes fadeInOverlay {
   0% {
     opacity: 0;
-    background: rgba(0,0,0,0);
+    background: rgba(0, 0, 0, 0);
   }
+
   100% {
     opacity: 1;
-    background: linear-gradient(to bottom, rgba(0,0,0,0.1), rgba(0,0,0,0.7));
+    background: linear-gradient(to bottom, rgba(0, 0, 0, 0.1), rgba(0, 0, 0, 0.7));
   }
 }
+
 /* 雙遮罩斜角區塊（增加陰影 + 空間感） */
 .mask {
   position: absolute;
   width: 180%;
   height: 180%;
   /* background: linear-gradient(to bottom right, #7395A6 70%, #5d7e91); */
-   background: linear-gradient(to bottom right, #000000 60%, #111111);
+  background: linear-gradient(to bottom right, #000000 60%, #111111);
   z-index: 10000;
   transform-origin: center;
   box-shadow: 0 0 60px rgba(0, 0, 0, 0.05);
@@ -567,7 +577,8 @@ display: flex; /* or grid */
   background-size: cover;
   background-position: center;
   background-repeat: no-repeat;
-background-color: #000; /* ✅ 加強黑底穩定性 */
+  background-color: #000;
+  /* ✅ 加強黑底穩定性 */
   /* ✅ 淡入動畫關鍵 */
   opacity: 0;
   /* transition: opacity 1.6s ease-in-out; */
@@ -690,7 +701,8 @@ background-color: #000; /* ✅ 加強黑底穩定性 */
   color: #ffffff;
   border: 1.5px solid rgba(255, 255, 255, 0.2);
   padding: 16px 26px;
-  width: 220px; /* ✅ 固定寬度 */
+  width: 220px;
+  /* ✅ 固定寬度 */
   border-radius: 999px;
   font-size: 20px;
   font-weight: bold;
@@ -725,12 +737,15 @@ background-color: #000; /* ✅ 加強黑底穩定性 */
     0 0 12px rgba(255, 255, 255, 0.25),
     0 0 20px rgba(255, 255, 255, 0.15),
     0 0 32px rgba(255, 255, 255, 0.1);
-   animation: whitePulse 2.4s ease-in-out infinite; /* ✅ 呼吸動畫 */
+  animation: whitePulse 2.4s ease-in-out infinite;
+  /* ✅ 呼吸動畫 */
 }
 
 /* ✅ 白色呼吸動畫 keyframes */
 @keyframes whitePulse {
-  0%, 100% {
+
+  0%,
+  100% {
     box-shadow:
       0 0 8px rgba(255, 255, 255, 0.3),
       0 0 16px rgba(255, 255, 255, 0.2),
@@ -749,11 +764,13 @@ background-color: #000; /* ✅ 加強黑底穩定性 */
   0% {
     box-shadow: 0 0 0px rgba(255, 255, 255, 0.2);
   }
+
   50% {
     box-shadow:
       0 0 6px rgba(255, 255, 255, 0.3),
       0 0 10px rgba(255, 255, 255, 0.15);
   }
+
   100% {
     box-shadow: 0 0 0px rgba(255, 255, 255, 0.2);
   }
@@ -765,12 +782,14 @@ background-color: #000; /* ✅ 加強黑底穩定性 */
       0 0 6px rgba(255, 255, 255, 0.25),
       0 0 14px rgba(255, 255, 255, 0.1);
   }
+
   50% {
     box-shadow:
       0 0 10px rgba(255, 255, 255, 0.3),
       0 0 24px rgba(255, 255, 255, 0.15),
       0 0 36px rgba(255, 255, 255, 0.1);
   }
+
   100% {
     box-shadow:
       0 0 6px rgba(255, 255, 255, 0.25),
@@ -824,13 +843,14 @@ background-color: #000; /* ✅ 加強黑底穩定性 */
   left: 0;
   width: 100vw;
   height: 100vh;
-   background-color: #000; /* ✅ 黑色底色補上 */
+  background-color: #000;
+  /* ✅ 黑色底色補上 */
   background-size: cover;
   background-position: center;
   background-repeat: no-repeat;
   opacity: 0;
   transform: scale(1.05);
-   transition: opacity 1.2s ease-in-out, transform 1.2s ease-in-out;
+  transition: opacity 1.2s ease-in-out, transform 1.2s ease-in-out;
   z-index: 0;
 }
 
@@ -866,7 +886,7 @@ background-color: #000; /* ✅ 加強黑底穩定性 */
 .spinner {
   width: 60px;
   height: 60px;
-  border: 6px solid rgba(255,255,255,0.2);
+  border: 6px solid rgba(255, 255, 255, 0.2);
   border-top: 6px solid #ffffff;
   border-radius: 50%;
   animation: spin 1.2s linear infinite;
@@ -948,9 +968,12 @@ background-color: #000; /* ✅ 加強黑底穩定性 */
 }
 
 @keyframes pulseGlow {
-  0%, 100% {
+
+  0%,
+  100% {
     box-shadow: 0 0 8px rgba(255, 215, 0, 0.3);
   }
+
   50% {
     box-shadow: 0 0 20px rgba(255, 215, 0, 0.6);
   }
@@ -961,6 +984,7 @@ background-color: #000; /* ✅ 加強黑底穩定性 */
     transform: translateY(20px);
     opacity: 0;
   }
+
   to {
     transform: translateY(0);
     opacity: 1;
@@ -990,7 +1014,8 @@ background-color: #000; /* ✅ 加強黑底穩定性 */
   width: 60px;
   height: 60px;
   border: 6px solid rgba(255, 255, 255, 0.2);
-  border-top: 6px solid var(--secondary-color-xlight); /* 使用網站主色 */
+  border-top: 6px solid var(--secondary-color-xlight);
+  /* 使用網站主色 */
   border-radius: 50%;
   animation: spin 1.4s linear infinite, pulseWhite 2s ease-in-out infinite;
   transform: translate(-50%, -50%);
@@ -1005,9 +1030,12 @@ background-color: #000; /* ✅ 加強黑底穩定性 */
 
 /* 替代 pulseGlow → 用淡白光暈效果 */
 @keyframes pulseWhite {
-  0%, 100% {
+
+  0%,
+  100% {
     box-shadow: 0 0 12px rgba(246, 251, 252, 0.2);
   }
+
   50% {
     box-shadow: 0 0 24px rgba(246, 251, 252, 0.5);
   }
@@ -1022,9 +1050,12 @@ background-color: #000; /* ✅ 加強黑底穩定性 */
 }
 
 @keyframes logoBounce {
-  0%, 100% {
+
+  0%,
+  100% {
     transform: translateY(0);
   }
+
   50% {
     transform: translateY(-10px);
   }
@@ -1046,6 +1077,7 @@ background-color: #000; /* ✅ 加強黑底穩定性 */
     transform: translateY(20px);
     opacity: 0;
   }
+
   to {
     transform: translateY(0);
     opacity: 1;
@@ -1061,6 +1093,7 @@ background-color: #000; /* ✅ 加強黑底穩定性 */
   from {
     opacity: 1;
   }
+
   to {
     opacity: 0;
     visibility: hidden;
@@ -1086,9 +1119,12 @@ background-color: #000; /* ✅ 加強黑底穩定性 */
 
 
 @keyframes bounceUpDown {
-  0%, 100% {
+
+  0%,
+  100% {
     transform: translate(-50%, -50%) translateY(0);
   }
+
   50% {
     transform: translate(-50%, -50%) translateY(-20px);
   }
@@ -1113,6 +1149,7 @@ background-color: #000; /* ✅ 加強黑底穩定性 */
     transform: translateX(-50%) translateY(30px);
     opacity: 0;
   }
+
   to {
     transform: translateX(-50%) translateY(0);
     opacity: 1;
@@ -1124,8 +1161,8 @@ background-color: #000; /* ✅ 加強黑底穩定性 */
   position: absolute;
   inset: 0;
   background: radial-gradient(circle at 20% 30%, #fff2 1px, transparent 2px),
-              radial-gradient(circle at 60% 70%, #fff3 1px, transparent 2px),
-              radial-gradient(circle at 80% 20%, #fffb 1px, transparent 2px);
+    radial-gradient(circle at 60% 70%, #fff3 1px, transparent 2px),
+    radial-gradient(circle at 80% 20%, #fffb 1px, transparent 2px);
   background-size: cover;
   background-repeat: no-repeat;
   z-index: 10000;
@@ -1179,15 +1216,17 @@ background-color: #000; /* ✅ 加強黑底穩定性 */
   font-size: 20px;
   font-family: var(--font-zh);
   color: var(--secondary-color-xlight);
-  
+
 }
 
 .scroll-icon-group {
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: 0px; /* 調整上下距離 */
-  margin-top: 60px; /* 往下推整個區塊 */
+  gap: 0px;
+  /* 調整上下距離 */
+  margin-top: 60px;
+  /* 往下推整個區塊 */
 }
 
 .scroll-text-line {
@@ -1227,9 +1266,12 @@ background-color: #000; /* ✅ 加強黑底穩定性 */
 }
 
 @keyframes twinkleText {
-  0%, 100% {
+
+  0%,
+  100% {
     opacity: 1;
   }
+
   50% {
     opacity: 0.4;
   }
@@ -1238,10 +1280,13 @@ background-color: #000; /* ✅ 加強黑底穩定性 */
 
 /* 星星閃爍動畫 */
 @keyframes twinkle {
-  0%, 100% {
+
+  0%,
+  100% {
     opacity: 0.8;
     transform: scale(0.7);
   }
+
   50% {
     opacity: 0.2;
     transform: scale(1.2);
@@ -1253,4 +1298,67 @@ background-color: #000; /* ✅ 加強黑底穩定性 */
   flex-direction: column;
   gap: 4px;
   align-items: center;
+}
+
+@media (min-width: 768px) and (max-width: 1024px) {
+  .explore-style-overlay-fade {
+    bottom: 47%;
+    padding: 65px 20px;
+  }
+
+  .explore-style-overlay-fade h2.zh-title-48 {
+    font-size: 36px;
+    line-height: 1.4;
+  }
+
+  .explore-style-overlay-fade p.zh-text-24 {
+    font-size: 20px;
+    line-height: 1.5;
+  }
+}
+
+@media (max-width: 767px) {
+  .explore-style-overlay-fade {
+    bottom: 47%;
+    /* ✅ 調整標題區塊往上 */
+    padding: 70px 16px;
+    /* ✅ 避免超出 */
+    width: 125%;
+  }
+
+  .explore-style-overlay-fade h2.zh-title-48 {
+    font-size: 22px;
+    line-height: 1.4;
+    white-space: normal;
+    word-break: break-word;
+  }
+
+  .explore-style-overlay-fade p.zh-text-24 {
+    font-size: 14px;
+    line-height: 1.5;
+    padding-top: 8px;
+    white-space: normal;
+    word-break: break-word;
+  }
+
+  .swiper-arrow img {
+    width: 28px;
+    height: auto;
+    display: block;
+    filter: drop-shadow(0 0 2px rgba(0, 0, 0, 0.5));
+  }
+
+  .explore-swiper-next {
+    right: 15px;
+  }
+
+  .explore-swiper-prev {
+    left: 20px;
+  }
+
+  .scroll-icon-group .scroll-label-new {
+    font-size: 14px;
+    font-family: var(--font-zh);
+    color: var(--secondary-color-xlight);
+}
 }
