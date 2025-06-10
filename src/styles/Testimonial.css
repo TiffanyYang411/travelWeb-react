@@ -132,11 +132,64 @@
 
 /* ✅ 平板 RWD */
 @media (max-width: 1024px) {
+  .testimonial-section {
+    padding-top: 100px;
+    padding-bottom: 60px;
+    /* ✅ 預留底部空間避免緊貼 Footer */
+    height: auto !important;
+    /* ✅ 防止多餘空白 */
+    overflow: visible;
+    /* ✅ 避免內容被 mask 裁切 */
+  }
+
+  .testimonial-header {
+    position: relative !important;
+    /* ✅ 移除桌機 absolute 定位 */
+    top: auto !important;
+    left: auto !important;
+    transform: none !important;
+    width: 100%;
+    padding: 0 10px;
+    box-sizing: border-box;
+    text-align: center;
+    margin-bottom: 70px;
+    z-index: 10;
+  }
+
+  .testimonial-header .en-title-32 {
+    font-size: 24px;
+    white-space: normal;
+    word-break: break-word;
+    line-height: 1.4;
+    text-align: center;
+  }
+
+  .testimonial-header .zh-title-32 {
+    font-size: 20px;
+    text-align: center;
+  }
+
+  .testimonial-slider-outer {
+    height: 450px;
+    /* 約每張卡片 120~140px 高 × 3 張 */
+    overflow: hidden;
+    position: relative;
+    mask-image: linear-gradient(to bottom, transparent, white 20%, white 80%, transparent);
+    -webkit-mask-image: linear-gradient(to bottom, transparent, white 20%, white 80%, transparent);
+    margin-top: 0px;
+  }
+
+  .testimonial-track {
+    animation: scrollTestimonials 20s linear infinite;
+    display: flex;
+    flex-direction: column;
+  }
+
   .testimonial-card {
     width: 90%;
-    /* ✅ 自動縮放 */
     flex-direction: column;
-    align-items: flex-start;
+    align-items: center;
+    /* ✅ 確保整體內容置中 */
     gap: 12px;
     padding: 20px;
   }
@@ -145,11 +198,15 @@
     width: 72px;
     height: 72px;
     align-self: center;
+    /* ✅ 加這行讓頭像置中 */
+    display: block;         /* ✅ 消除預設 inline 行為 */
+  margin: 0 auto;         /* ✅ 強制水平置中 */
+  align-self: center;     /* ✅ 再次確保 flex 對齊 */
   }
 
   .zh-text-14 {
-    font-size: 15px !important;
-    text-align: left;
+    font-size: 14px !important;
+    text-align: center;
   }
 }
 
@@ -212,7 +269,7 @@
     width: 80%;
     flex-direction: column;
     align-items: center;
-    padding: 20px 16px;
+    padding: 20px 20px;
     box-sizing: border-box;
   }
 
