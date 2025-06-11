@@ -117,6 +117,34 @@
   transform: translateY(0);
 }
 
+@media screen and (min-width: 1681px) {
+  .hero-quote.quote-expanded {
+    left: 230px;
+    bottom: 400px;
+  }
+
+  .fullscreen-img.slide-one.active {
+    transform: translateX(70px);
+    /* 改成 40px、20px、或 0px 試試 */
+  }
+
+ .hero-window-frame {
+    transform-origin: 80.2% 84%;
+  }
+
+  .hero-section.expanded .hero-window-frame {
+    transform: scale(3.5) translate(-8px, 0px);
+  }
+
+  .fullscreen-img {
+    object-position: center center !important;
+    /* ✅ 左右居中 */
+    height: 100vh;
+    transform: scale(1.2);
+    /* ✅ 可選，稍微縮放讓構圖剛好 */
+  }
+}
+
 /* ✅ 桌機 (> 1024px)：維持原始設計縮放與位移 */
 @media screen and (min-width: 1441px) and (max-width: 1680px) {
   .hero-quote.quote-expanded {
@@ -125,11 +153,11 @@
   }
   
   .hero-window-frame {
-    transform-origin: 80.2% 85%;
+    transform-origin: 80.2% 87%;
   }
 
   .hero-section.expanded .hero-window-frame {
-    transform: scale(3.5) translate(-7px, 50px);
+    transform: scale(3.5) translate(-8px, 50px);
   }
 
   .fullscreen-img.slide-one.active {
