@@ -36,7 +36,7 @@
   position: relative; /* ✅ 必須relative才能設z-index */
   max-width: 1200px;
   margin: 0 auto;
-  padding: 0 20px;
+  padding: 100px 20px;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -317,7 +317,7 @@ br {
 
   .whyus-content {
     gap: 180px;
-    margin-bottom: 50px;
+    margin-bottom: 20px;
   }
 
   .whyus-item {
@@ -358,7 +358,7 @@ br {
   .whyus-text {
     margin-top: 0;
     margin-left: 0;
-    padding: 0 20px;
+    padding: 20px 30px 0 30px;
   }
 
   .whyus-text p {
@@ -382,6 +382,10 @@ br {
     max-width: 420px;
     height: auto;
     margin-top: 0;
+  }
+
+  .testimonial-card {
+    height: 210px;
   }
 }
 

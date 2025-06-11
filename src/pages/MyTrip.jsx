@@ -22,6 +22,15 @@ function formatDateToZh(date) {
 
 function MyTrip() {
   const navigate = useNavigate();
+  const [isMobile, setIsMobile] = useState(window.innerWidth < 899);
+  useEffect(() => {
+    const handleResize = () => {
+      setIsMobile(window.innerWidth < 899);
+    };
+
+    window.addEventListener('resize', handleResize);
+    return () => window.removeEventListener('resize', handleResize);
+  }, []);
   const {
     pendingTrips,
     setPendingTrips,
@@ -370,51 +379,51 @@ function MyTrip() {
   };
 
   function calculateConfirmedTotalPrice(startDate, trips) {
-  let currentDate = new Date(startDate);
-  let total = 0;
+    let currentDate = new Date(startDate);
+    let total = 0;
 
-  trips.forEach((trip) => {
-    const detail = findTripById(trip.tripId);
-    if (!detail) return;
-    const people = parseInt(trip.peopleCount, 10) || 0;
-    const days = parseInt(detail.days?.match(/(\d+)\s*天/)?.[1], 10) || 0;
+    trips.forEach((trip) => {
+      const detail = findTripById(trip.tripId);
+      if (!detail) return;
+      const people = parseInt(trip.peopleCount, 10) || 0;
+      const days = parseInt(detail.days?.match(/(\d+)\s*天/)?.[1], 10) || 0;
 
-    let hasWeekend = false;
-    for (let i = 0; i < days; i++) {
-      const d = new Date(currentDate);
-      d.setDate(d.getDate() + i);
-      const dow = d.getDay();
-      if (dow === 0 || dow === 6) {
-        hasWeekend = true;
-        break;
+      let hasWeekend = false;
+      for (let i = 0; i < days; i++) {
+        const d = new Date(currentDate);
+        d.setDate(d.getDate() + i);
+        const dow = d.getDay();
+        if (dow === 0 || dow === 6) {
+          hasWeekend = true;
+          break;
+        }
       }
-    }
 
-    const pricePerPerson = hasWeekend ? detail.price * 1.2 : detail.price;
-    total += pricePerPerson * people;
+      const pricePerPerson = hasWeekend ? detail.price * 1.2 : detail.price;
+      total += pricePerPerson * people;
 
-    currentDate.setDate(currentDate.getDate() + days);
-  });
+      currentDate.setDate(currentDate.getDate() + days);
+    });
 
-  return Math.round(total);
-}
+    return Math.round(total);
+  }
 
   const handleNext = () => {
     if (!canProceed()) return;
 
     // 🔥跳頁前，把 pendingTrips 存到 sessionStorage
     const confirmedTrips = pendingTrips;
-const confirmedTotalPeople = confirmedTrips.reduce(
-  (sum, trip) => sum + (parseInt(trip.peopleCount) || 0),
-  0
-);
-const confirmedTotalPrice = calculateConfirmedTotalPrice(startDate, confirmedTrips);
+    const confirmedTotalPeople = confirmedTrips.reduce(
+      (sum, trip) => sum + (parseInt(trip.peopleCount) || 0),
+      0
+    );
+    const confirmedTotalPrice = calculateConfirmedTotalPrice(startDate, confirmedTrips);
 
-sessionStorage.setItem('confirmedTrips', JSON.stringify(confirmedTrips));
-sessionStorage.setItem('confirmedStartDate', startDate);
-sessionStorage.setItem('confirmedEndDate', endDate);
-sessionStorage.setItem('confirmedTotalPeople', confirmedTotalPeople);
-sessionStorage.setItem('confirmedTotalPrice', confirmedTotalPrice);
+    sessionStorage.setItem('confirmedTrips', JSON.stringify(confirmedTrips));
+    sessionStorage.setItem('confirmedStartDate', startDate);
+    sessionStorage.setItem('confirmedEndDate', endDate);
+    sessionStorage.setItem('confirmedTotalPeople', confirmedTotalPeople);
+    sessionStorage.setItem('confirmedTotalPrice', confirmedTotalPrice);
 
 
     navigate('/trip-customization');
@@ -661,19 +670,40 @@ sessionStorage.setItem('confirmedTotalPrice', confirmedTotalPrice);
                           >
                             {/* 行程（圖片＋標題＋亮點） */}
                             <div className="mytrip-card-cell mytrip-card-left">
-                              <div className="trip-drag-handle">≡</div> {/* 👈 拖曳 icon */}
-                              <img
-                                src={tripDetail.bannerImage || tripDetail.banner}
-                                alt={tripDetail.title}
-                                className="mytrip-thumb"
-                              />
-                              <div className="mytrip-left-text">
-                                <h3 className="zh-title-24">{tripDetail.title}</h3>
-                                <p className="zh-text-18">
-                                  {tripDetail.highlights?.filter(Boolean).join('、') || ''}
-                                </p>
-                              </div>
+                              <div className="trip-drag-handle">≡</div>
+
+                              {isMobile ? (
+                                <div className="trip-content-block">
+                                  <img
+                                    src={tripDetail.bannerImage || tripDetail.banner}
+                                    alt={tripDetail.title}
+                                    className="mytrip-thumb"
+                                  />
+                                  <div className="mytrip-left-text">
+                                    <h3 className="zh-title-24">{tripDetail.title}</h3>
+                                    <p className="zh-text-18">
+                                      {tripDetail.highlights?.filter(Boolean).join('、') || ''}
+                                    </p>
+                                  </div>
+                                </div>
+                              ) : (
+                                <>
+                                  <img
+                                    src={tripDetail.bannerImage || tripDetail.banner}
+                                    alt={tripDetail.title}
+                                    className="mytrip-thumb"
+                                  />
+                                  <div className="mytrip-left-text">
+                                    <h3 className="zh-title-24">{tripDetail.title}</h3>
+                                    <p className="zh-text-18">
+                                      {tripDetail.highlights?.filter(Boolean).join('、') || ''}
+                                    </p>
+                                  </div>
+                                </>
+                              )}
                             </div>
+
+
 
                             {/* 天數 */}
                             <div className="mytrip-card-cell">{tripDetail.days}</div>

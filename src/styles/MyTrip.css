@@ -162,19 +162,6 @@
   overflow-y: auto;
 }
 
-/* 行程表 - 標題列 */
-/* .mytrip-header-row {
-  font-family: var(--font-zh);
-  display: grid;
-  grid-template-columns: 2.5fr 0.9fr 1.2fr 1fr 0.1fr;
-  align-items: center;
-  font-size: 20px;
-  font-weight: bold;
-  color: var(--primary-color);
-  margin-bottom: 20px;
-  padding: 10px 10px;
-} */
-
 .mytrip-header-row {
   display: grid;
   grid-template-columns: 3.2fr 1.2fr 1.2fr 1fr 0.6fr;
@@ -183,7 +170,8 @@
   font-weight: bold;
   color: var(--primary-color);
   padding: 10px 10px;
-  text-align: center; /* ✅ 所有欄位置中 */
+  text-align: center;
+  /* ✅ 所有欄位置中 */
 }
 
 .header-underline {
@@ -202,12 +190,13 @@
   display: flex;
   flex-direction: column;
   gap: 0px;
- overflow-y: visible; /* 或乾脆移除 */
+  overflow-y: visible;
+  /* 或乾脆移除 */
   flex-grow: 1;
   min-height: 200px;
   /* 或至少有 padding-bottom */
   min-width: 100%;
-    max-height: none;
+  max-height: none;
 }
 
 /* 單一行程 */
@@ -237,25 +226,35 @@
   font-family: var(--font-zh);
   font-size: 22px;
 }
+
 .header-col.title {
-  justify-content: flex-start; /* 行程靠左 */
-  padding-left: 35px; 
+  justify-content: flex-start;
+  /* 行程靠左 */
+  padding-left: 35px;
 }
+
 .header-col.days {
-  justify-content: flex-start; /* 行程靠左 */
-  padding-left: 10px; 
+  justify-content: flex-start;
+  /* 行程靠左 */
+  padding-left: 10px;
 }
+
 .header-col.price {
-  justify-content: flex-start; /* 行程靠左 */
-  padding-left: 0px; 
+  justify-content: flex-start;
+  /* 行程靠左 */
+  padding-left: 0px;
 }
+
 .header-col.people {
-  justify-content: flex-start; /* 行程靠左 */
-  padding-left: 48px; 
+  justify-content: flex-start;
+  /* 行程靠左 */
+  padding-left: 48px;
 }
+
 .header-col.delete {
-  justify-content: flex-end; /* 刪除鈕靠右 */
-    padding-right: 10px;
+  justify-content: flex-end;
+  /* 刪除鈕靠右 */
+  padding-right: 10px;
 }
 
 .mytrip-card-cell {
@@ -307,7 +306,7 @@
   font-family: var(--font-zh);
   font-size: 14px;
   color: var(--primary-color);
-  margin-right: 100px;
+  margin-right: 50px;
   /* ✅ 新增這行！右邊留一點空隙 */
   display: -webkit-box;
   -webkit-line-clamp: 2;
@@ -427,19 +426,19 @@
   border: none;
   cursor: pointer;
   transition: background-color 0.3s ease;
-    outline: none;
+  outline: none;
 }
 
 .next-step-btn:hover:not(.disabled):not(:disabled) {
   background-color: #e85b00;
-    outline: none;
+  outline: none;
 }
 
 .next-step-btn.disabled,
 .next-step-btn:disabled {
   background-color: grey;
   cursor: not-allowed;
-    outline: none;
+  outline: none;
 }
 
 .announcement-marquee {
@@ -495,7 +494,7 @@
 }
 
 /* 手機版RWD */
-@media (max-width: 768px) {
+@media (max-width: 767px) {
   .mytrip-main {
     flex-direction: column;
   }
@@ -515,7 +514,7 @@
 
   .mytrip-left-text p {
     display: -webkit-box;
-    -webkit-line-clamp: 2;
+    -webkit-line-clamp: 3;
     -webkit-box-orient: vertical;
     overflow: hidden;
     text-overflow: ellipsis;
@@ -718,12 +717,12 @@ select::-ms-expand {
   border: none;
   cursor: pointer;
   transition: background-color 0.3s ease;
-    outline: none;
+  outline: none;
 }
 
 .mytrip-start-trip-btn:hover {
   background-color: #e85b00;
-    outline: none;
+  outline: none;
 }
 
 .mytrip-item.deleting {
@@ -1018,10 +1017,13 @@ select::-ms-expand {
   margin-top: 8px 12px 0 12px;
   font-family: var(--font-zh);
   text-align: left;
- white-space: normal;         /* ✅ 允許自動換行 */
-   max-width: 100%;
-   padding: 0 25px;               /* ✅ 左右留一點空間避免貼邊 */
-  box-sizing: border-box;      /* ✅ 避免 padding 撐大元素 */
+  white-space: normal;
+  /* ✅ 允許自動換行 */
+  max-width: 100%;
+  padding: 0 20px;
+  /* ✅ 左右留一點空間避免貼邊 */
+  box-sizing: border-box;
+  /* ✅ 避免 padding 撐大元素 */
 }
 
 /* ✅ 當週末日期被選中，同時加上 active 時的特殊樣式 */
@@ -1088,9 +1090,12 @@ select::-ms-expand {
   margin-top: 10px;
   font-family: var(--font-zh);
   text-align: center;
-  white-space: normal;       /* ✅ 允許自動換行 */
-  word-break: break-word;    /* ✅ 如有必要可強制斷詞 */
-  overflow-wrap: break-word; /* ✅ 輔助處理中英文混合長詞 */
+  white-space: normal;
+  /* ✅ 允許自動換行 */
+  word-break: break-word;
+  /* ✅ 如有必要可強制斷詞 */
+  overflow-wrap: break-word;
+  /* ✅ 輔助處理中英文混合長詞 */
 }
 
 .drag-handle {
@@ -1199,4 +1204,309 @@ body,
   border-width: 6px;
   border-style: solid;
   border-color: #fff transparent transparent transparent;
+}
+
+/* ✅ 1666px 以下改為上下排列 */
+@media (max-width: 1666px) {
+  .mytrip-header-row {
+    grid-template-columns: 7.5fr 2fr 2.7fr 2.2fr 2fr;
+  }
+
+  .mytrip-item {
+    grid-template-columns: 6.7fr 2fr 2fr 2.6fr 1fr;
+  }
+  
+  .mytrip-main {
+    flex-direction: column;
+    align-items: center;
+    /* ✅ 讓內容置中 */
+    padding: 50px 50px;
+    gap: 40px;
+  }
+
+  .mytrip-calendar-wrapper {
+    width: 100%;
+    max-width: 600px;
+    margin: 0 auto;
+  }
+
+  .mytrip-info-container {
+    width: 100%;
+    max-width: 1000px;
+    padding: 30px 25px;
+  }
+
+  .mytrip-summary {
+    text-align: right;
+    margin-top: 10px;
+    padding-right: 0;
+  }
+
+  .mytrip-left-text p {
+    margin-right: 20px;
+  }
+
+  .mytrip-left-text h3 {
+    font-size: 18px;
+    margin: 0 20px 0 0;
+  }
+  
+  .people-select select {
+    padding: 20px 20px 20px 20px;
+  }
+}
+
+@media (max-width: 899px) {
+  .mytrip-header-row {
+    grid-template-columns: 3.5fr 1.6fr 1.6fr 2fr 1.2fr;
+  }
+
+  .mytrip-item {
+    grid-template-columns: 5.2fr 2.5fr 2.6fr 3.5fr 1fr;
+  }
+
+  .header-col {
+    font-size: 18px;
+  }
+
+  .mytrip-card-left {
+    display: flex;
+    flex-direction: row;
+    /* ✅ 三條線 + 內容並排 */
+    align-items: flex-start;
+    gap: 20px;
+  }
+
+  .trip-drag-handle {
+    font-size: 26px;
+    margin-top: 70px;
+    cursor: grab;
+    flex-shrink: 0;
+    color: var(--secondary-color-dark);
+  }
+
+  .trip-content-block {
+    display: flex;
+    flex-direction: column;
+    /* ✅ 圖片與文字直排 */
+    align-items: flex-start;
+  }
+
+  .mytrip-thumb {
+    width: 100px;
+    height: auto;
+    border-radius: 8px;
+    object-fit: cover;
+    margin-bottom: 8px;
+  }
+
+  .mytrip-left-text {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 2px;
+  }
+
+  .mytrip-left-text h3 {
+    font-size: 18px;
+    margin: 0 20px 0 0;
+  }
+
+  .mytrip-left-text p {
+    font-size: 14px;
+    margin-right: 20px;
+    white-space: normal;
+    word-break: break-word;
+    line-height: 1.5;
+  }
+
+  .people-select select {
+    padding: 20px 20px 20px 20px;
+  }
+
+   .drag-hint {
+    display: block !important;
+    font-size: 14px;
+    padding: 10px 20px;
+    text-align: center;
+    white-space: normal;
+    line-height: 1.6;
+    word-break: break-word;
+  }
+}
+
+@media (max-width: 494px) {
+  .mytrip-main {
+    flex-direction: column;
+    padding: 30px 30px;
+    gap: 30px;
+    margin-top: 60px;
+  }
+
+  .mytrip-calendar-wrapper,
+  .mytrip-info-container {
+    width: 100%;
+    max-width: 100%;
+  }
+
+  .mytrip-calendar {
+    max-width: 100%;
+    margin: 0 auto;
+  }
+
+  .mytrip-page-title {
+    left: 24px;
+    font-size: 24px;
+  }
+
+  .drag-hint {
+    font-size: 14px;
+    text-align: center;
+  }
+
+  .react-calendar__tile {
+    font-size: 14px;
+  }
+
+  .react-calendar__navigation button {
+    font-size: 18px;
+  }
+
+  .react-calendar__month-view__weekdays {
+    font-size: 12px;
+  }
+}
+
+@media (max-width: 767px) {
+  .mytrip-item {
+    display: grid !important;
+    grid-template-areas:
+      "image"
+      "info"
+      "days"
+      "price"
+      "people"
+      "delete";
+    grid-template-columns: 1fr;
+    gap: 6px;
+    padding: 20px 12px;
+    border-bottom: 1px solid var(--primary-color);
+    background-color: white;
+  }
+
+  .mytrip-card-cell {
+    display: flex;
+    align-items: flex-start;
+    justify-content: flex-start;
+    font-size: 14px;
+    padding-left: 30px;
+    /* 保持與圖片 margin 對齊 */
+    padding-right: 10px;
+  }
+
+  .mytrip-card-cell:nth-child(1) {
+    grid-area: image;
+    flex-direction: column;
+  }
+
+  .mytrip-card-cell:nth-child(2) {
+    grid-area: info;
+    flex-direction: column;
+  }
+
+  .mytrip-card-cell:nth-child(3) {
+    grid-area: days;
+  }
+
+  .mytrip-card-cell:nth-child(4) {
+    grid-area: price;
+  }
+
+  .mytrip-card-cell:nth-child(5) {
+    grid-area: people;
+  }
+
+  .mytrip-card-cell:nth-child(6) {
+    grid-area: delete;
+    justify-content: flex-end;
+  }
+
+  .trip-content-block {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .mytrip-thumb {
+    width: 100%;
+    border-radius: 8px;
+    object-fit: cover;
+  }
+
+  .mytrip-left-text {
+    margin-top: 6px;
+
+  }
+
+  .mytrip-left-text h3 {
+    font-size: 16px;
+    font-weight: bold;
+    margin-bottom: 4px;
+  }
+
+  .mytrip-left-text p {
+    font-size: 13px;
+    line-height: 1.4;
+    color: var(--primary-color);
+    display: -webkit-box;
+    -webkit-line-clamp: 3;
+  }
+
+  .trip-price-cell {
+    flex-direction: column;
+    font-weight: bold;
+  }
+
+  .original-price {
+    font-size: 12px;
+  }
+
+  .surcharge-price {
+    font-size: 14px;
+    color: var(--accent-color);
+  }
+
+  .people-select {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 6px;
+  }
+
+  .circle-btn.delete-btn {
+    margin-top: 0px;
+    margin-right: 0px;
+  }
+
+   .mytrip-left-text {
+    width: 100%;
+    padding-left: 0;
+  }
+
+  .mytrip-thumb {
+    width: 100%;
+    border-radius: 8px;
+    object-fit: cover;
+  }
+
+  .trip-drag-handle {
+    position: absolute;
+    top: 115px;
+    left: 8px;
+    font-size: 24px;
+    color: var(--secondary-color-dark);
+    z-index: 2;
+  }
+
+  
 }
