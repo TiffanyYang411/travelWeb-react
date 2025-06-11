@@ -19,7 +19,7 @@
 .tripcustom-edit-trip-btn {
     font-family: var(--font-zh);
     font-weight: bold;
-      outline: none;
+    outline: none;
 }
 
 /* ✅ 下面保持你的原設定 */
@@ -179,17 +179,23 @@
 .tripcustom-edit-trip-btn {
     background-color: #ff6f19;
     color: white;
-    padding: 6px 16px;
+    padding: 6px 20px;
+    min-width: 100px;
     height: 36px;
     border: none;
     border-radius: 8px;
     cursor: pointer;
     font-size: 16px;
-    display: flex;
+    display: inline-flex;
+    /* ✅ 對齊箭頭與文字 */
     align-items: center;
     justify-content: center;
     margin-top: 8px;
-      outline: none;
+    outline: none;
+    white-space: nowrap;
+    /* 不允許換行 */
+    gap: 6px;
+    /* ✅ 文字與箭頭之間的間距 */
 }
 
 /* 🔥 tripcustom-intro 改版 */
@@ -267,7 +273,7 @@
     cursor: pointer;
     align-self: flex-end;
     margin-left: 0;
-      outline: none;
+    outline: none;
 }
 
 .tripcustom-intro-wrapper {
@@ -514,7 +520,7 @@
     width: 100%;
     max-width: 700px;
     margin-top: 16px;
-      outline: none;
+    outline: none;
 }
 
 /* ✨ 下一步按鈕 */
@@ -527,12 +533,12 @@
     border-radius: 8px;
     cursor: pointer;
     transition: background-color 0.3s ease;
-      outline: none;
+    outline: none;
 }
 
 .tripcustom-next-step-btn:hover {
     background-color: #e65c00;
-      outline: none;
+    outline: none;
 }
 
 .tripcustom-stepper {
@@ -555,7 +561,8 @@
     position: relative;
     flex: 1;
     /* ✅ 每個步驟平均分配寬度 */
-    cursor: pointer; /* ✅ 新增這行，hover變成手型 */
+    cursor: pointer;
+    /* ✅ 新增這行，hover變成手型 */
 }
 
 /* 每個圓圈 */
@@ -584,22 +591,21 @@
 
 /* 虛線 */
 .stepper-line {
-  position: absolute;
-  top: 10px;
-  left: 50%;
-  right: -50%;
-  height: 2px;
-  background-image: repeating-linear-gradient(
-    to right,
-    #ffffff,             /* ✅ 未啟用的白色虛線 */
-    #ffffff 4px,
-    transparent 4px,
-    transparent 8px
-  );
-  background-size: 8px 2px;
-  background-repeat: repeat-x;
-  z-index: 0;
-  transition: background-color 0.4s ease, background-image 0.4s ease;
+    position: absolute;
+    top: 10px;
+    left: 50%;
+    right: -50%;
+    height: 2px;
+    background-image: repeating-linear-gradient(to right,
+            #ffffff,
+            /* ✅ 未啟用的白色虛線 */
+            #ffffff 4px,
+            transparent 4px,
+            transparent 8px);
+    background-size: 8px 2px;
+    background-repeat: repeat-x;
+    z-index: 0;
+    transition: background-color 0.4s ease, background-image 0.4s ease;
 }
 
 
@@ -705,18 +711,19 @@
     overflow: hidden;
     width: 100%;
     height: 44px;
-    border: 2px solid transparent; /* ✅起始透明，hover與focus時好加效果 */
+    border: 2px solid transparent;
+    /* ✅起始透明，hover與focus時好加效果 */
     transition: all 0.3s ease;
 }
 
 /* ✅ hover整塊 */
 .tripcustom-phone-full-wrapper:hover {
-  box-shadow: 0 0 0 2px rgba(255, 111, 25, 0.15);
+    box-shadow: 0 0 0 2px rgba(255, 111, 25, 0.15);
 }
 
 /* ✅ focus時加 Email 同色光暈 */
 .tripcustom-phone-full-wrapper:focus-within {
-     outline: none;
+    outline: none;
     box-shadow: 0 0 0 3px rgba(255, 111, 25, 0.3);
 }
 
@@ -725,9 +732,12 @@
     width: 120px;
     padding: 10px;
     font-size: 16px;
-    border: none; /* ✅移除國碼下拉原生邊框 */
-    outline: none; /* ✅點選後不要藍圈 */
-    background-color: transparent; /* ✅跟外框統一底色 */
+    border: none;
+    /* ✅移除國碼下拉原生邊框 */
+    outline: none;
+    /* ✅點選後不要藍圈 */
+    background-color: transparent;
+    /* ✅跟外框統一底色 */
     color: var(--primary-color);
     font-family: var(--font-zh);
     font-weight: bold;
@@ -740,9 +750,12 @@
     flex: 1;
     padding: 10px;
     font-size: 16px;
-    border: none; /* ✅移除電話input自己的框線 */
-    outline: none; /* ✅點選後不要藍圈 */
-    background-color: transparent; /* ✅跟外框統一底色 */
+    border: none;
+    /* ✅移除電話input自己的框線 */
+    outline: none;
+    /* ✅點選後不要藍圈 */
+    background-color: transparent;
+    /* ✅跟外框統一底色 */
     color: var(--primary-color);
     font-family: var(--font-zh);
 }
@@ -761,44 +774,53 @@
 
 /* ✅ 只針對電話號碼的input（不影響其他input） */
 .tripcustom-phone-full-wrapper .tripcustom-input.phone-input {
-    background-color: transparent; /* ✅ 改成透明，跟外層一致 */
-    border: none; /* ✅ 移除殘留邊框 */
-    box-shadow: none; /* ✅ 保證沒有陰影 */
-    outline: none; /* ✅ 移除點擊藍框 */
-    border-radius: 0; /* ✅ 不要自己額外圓角 */
+    background-color: transparent;
+    /* ✅ 改成透明，跟外層一致 */
+    border: none;
+    /* ✅ 移除殘留邊框 */
+    box-shadow: none;
+    /* ✅ 保證沒有陰影 */
+    outline: none;
+    /* ✅ 移除點擊藍框 */
+    border-radius: 0;
+    /* ✅ 不要自己額外圓角 */
 }
 
 .tripcustom-phone-select {
-  width: 100px; /* 國碼選單寬度（略小） */
-  padding: 0px;
-  text-align: center;
-  border: none;
-  background-color: #dce8ed;
-  color: var(--primary-color);
-  font-family: var(--font-zh);
-  font-weight: bold;
-  appearance: none;
-  margin-right: -10px; /* ✅ 加這個！微小間距 */
+    width: 100px;
+    /* 國碼選單寬度（略小） */
+    padding: 0px;
+    text-align: center;
+    border: none;
+    background-color: #dce8ed;
+    color: var(--primary-color);
+    font-family: var(--font-zh);
+    font-weight: bold;
+    appearance: none;
+    margin-right: -10px;
+    /* ✅ 加這個！微小間距 */
 }
 
 .stepper-circle.active {
-  background-image: none;
-  background-color: #ff6f19;
-  border: 2px solid #ff6f19;
-  box-shadow: 0 0 0 0 rgba(255, 111, 25, 0.4);
-  animation: glowPulseCustom 2s ease-in-out infinite;
+    background-image: none;
+    background-color: #ff6f19;
+    border: 2px solid #ff6f19;
+    box-shadow: 0 0 0 0 rgba(255, 111, 25, 0.4);
+    animation: glowPulseCustom 2s ease-in-out infinite;
 }
 
 @keyframes glowPulseCustom {
-  0% {
-    box-shadow: 0 0 0 0 rgba(255, 111, 25, 0.4);
-  }
-  50% {
-    box-shadow: 0 0 6px 2px rgba(255, 111, 25, 0.6);
-  }
-  100% {
-    box-shadow: 0 0 0 0 rgba(255, 111, 25, 0.4);
-  }
+    0% {
+        box-shadow: 0 0 0 0 rgba(255, 111, 25, 0.4);
+    }
+
+    50% {
+        box-shadow: 0 0 6px 2px rgba(255, 111, 25, 0.6);
+    }
+
+    100% {
+        box-shadow: 0 0 0 0 rgba(255, 111, 25, 0.4);
+    }
 }
 
 /* .stepper-circle.current {
@@ -809,79 +831,278 @@
 } */
 
 .stepper-circle.current {
-  border: 1.5px solid var(--secondary-color-xlight);
-  box-shadow: 0 0 20px 6px rgba(255, 111, 25, 0.6);
-  animation: pulseCurrent 2s ease-in-out infinite;
+    border: 1.5px solid var(--secondary-color-xlight);
+    box-shadow: 0 0 20px 6px rgba(255, 111, 25, 0.6);
+    animation: pulseCurrent 2s ease-in-out infinite;
 }
 
 @keyframes pulseCurrent {
-  0% {
-    transform: scale(1.2);
-    box-shadow: 0 0 6px 2px rgba(255, 111, 25, 0.4);
-  }
-  50% {
-    transform: scale(1.5);
-    box-shadow: 0 0 10px 4px rgba(255, 111, 25, 0.7);
-  }
-  100% {
-    transform: scale(1.2);
-    box-shadow: 0 0 6px 2px rgba(255, 111, 25, 0.4);
-  }
+    0% {
+        transform: scale(1.2);
+        box-shadow: 0 0 6px 2px rgba(255, 111, 25, 0.4);
+    }
+
+    50% {
+        transform: scale(1.5);
+        box-shadow: 0 0 10px 4px rgba(255, 111, 25, 0.7);
+    }
+
+    100% {
+        transform: scale(1.2);
+        box-shadow: 0 0 6px 2px rgba(255, 111, 25, 0.4);
+    }
 }
 
 @keyframes stepperGlow {
-  0% {
-    background-image: repeating-linear-gradient(
-      to right,
-      #ffffff,
-      #ffffff 4px,
-      transparent 4px,
-      transparent 8px
-    );
-  }
-  100% {
-    background-image: repeating-linear-gradient(
-      to right,
-      #ff6f19,
-      #ff6f19 4px,
-      var(--primary-color) 4px,
-      var(--primary-color) 8px
-    );
-  }
+    0% {
+        background-image: repeating-linear-gradient(to right,
+                #ffffff,
+                #ffffff 4px,
+                transparent 4px,
+                transparent 8px);
+    }
+
+    100% {
+        background-image: repeating-linear-gradient(to right,
+                #ff6f19,
+                #ff6f19 4px,
+                var(--primary-color) 4px,
+                var(--primary-color) 8px);
+    }
 }
 
 /* 當前步驟橘色 */
 .stepper-line.active {
-  background-image: repeating-linear-gradient(
-    to right,
-    #ff6f19,
-    #ff6f19 4px,
-    var(--primary-color) 4px,
-    var(--primary-color) 8px
-  );
-  animation: stepperGlow 0.5s cubic-bezier(0.25, 1, 0.5, 1) forwards;
+    background-image: repeating-linear-gradient(to right,
+            #ff6f19,
+            #ff6f19 4px,
+            var(--primary-color) 4px,
+            var(--primary-color) 8px);
+    animation: stepperGlow 0.5s cubic-bezier(0.25, 1, 0.5, 1) forwards;
 }
 
 .stepper-item.clickable {
-  cursor: pointer;
+    cursor: pointer;
 }
 
 .tripcustom-error-global {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  color: #ff4d4f;
-  font-size: 15px;
-  margin-top: 10px;
-  margin-bottom: 20px;
-  gap: 3px;
-  font-family: var(--font-zh);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #ff4d4f;
+    font-size: 15px;
+    margin-top: 10px;
+    margin-bottom: 20px;
+    gap: 3px;
+    font-family: var(--font-zh);
 }
 
 .tripcustom-error-icon {
-  font-size: 13px;
+    font-size: 13px;
 }
 
 .tripcustom-error-text {
-  font-weight: 500;
+    font-weight: 500;
+}
+
+@media screen and (max-width: 1350px) {
+    .tripcustom-summary-bar {
+        max-width: calc(100% - 100px);
+        /* ✅ 保留30px左右邊距 */
+        margin: 100px auto 10px;
+    }
+}
+
+/* === 💻 RWD: 平板（768px ～ 1024px） === */
+@media screen and (max-width: 1216px) and (min-width: 768px) {
+    .tripcustom-intro-wrapper {
+        flex-direction: column;
+        align-items: center;
+        padding: 0 40px;
+        gap: 50px;
+    }
+
+    .tripcustom-intro-left {
+        padding-left: 0;
+        align-items: center;
+        margin-bottom: 60px; /* 或 32px 看你想要留多大 */
+    }
+
+    .intro-img-main {
+        width: 300px;
+        left: 0;
+        top: 0;
+        position: relative;
+    }
+
+    .intro-img-sub {
+        position: relative;
+        width: 260px;
+        bottom: 0;
+        left: 0;
+        margin-top: 20px;
+    }
+
+    .tripcustom-intro-right {
+        padding-left: 0;
+        text-align: center;
+        align-items: center;
+    }
+
+    .tripcustom-intro-right h2,
+    .tripcustom-intro-right p {
+        text-align: center;
+    }
+
+    .tripcustom-next-step-btn {
+        align-self: center;
+    }
+
+    .tripcustom-edit-trip-btn {
+        /* margin-top: auto; */
+        align-self: center;
+    }
+
+    .tripcustom-intro-right p {
+        font-size: 20px;
+        line-height: 1.6;
+    }
+
+    .zh-title-36 {
+        font-size: 32px !important;
+    }
+}
+
+/* === 📱 RWD: 手機（小於768px） === */
+@media screen and (max-width: 767px) {
+    .tripcustom-intro-wrapper {
+        flex-direction: column;
+        align-items: center;
+        padding: 0 20px;
+        margin-top: 40px;
+        gap: 40px;
+    }
+
+    .tripcustom-intro-left {
+        padding-left: 0;
+        align-items: center;
+        margin-bottom: 40px; /* 或 32px 看你想要留多大 */
+    }
+
+    .intro-img-main {
+        width: 80%;
+        max-width: 280px;
+        left: 0;
+        top: 0;
+        position: relative;
+    }
+
+    .intro-img-sub {
+        position: relative;
+        width: 80%;
+        max-width: 240px;
+        bottom: 0;
+        left: 0;
+        margin-top: 16px;
+    }
+
+    .tripcustom-intro-right {
+        padding-left: 0;
+        max-width: 100%;
+        text-align: center;
+        align-items: center;
+    }
+
+    .tripcustom-intro-right h2,
+    .tripcustom-intro-right p {
+        text-align: center;
+    }
+
+    .tripcustom-next-step-btn {
+        align-self: center;
+    }
+
+    .tripcustom-edit-trip-btn {
+        font-size: 14px;
+        padding: 6px 16px;
+        min-width: 90px;
+    }
+
+     .tripcustom-summary-bar {
+    width: 75%;               /* ✅ 不要用 margin 擠壓，用百分比寬度 */
+    max-width: none;          /* ✅ 移除限制寬度 */
+    margin: 40px auto 20px;   /* ✅ 自動置中 */
+    padding: 20px;            /* ✅ padding 保留內容內縮 */
+    box-sizing: border-box;   /* ✅ 防止 padding 撐爆 */
+  }
+
+    .tripcustom-summary-info {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 10px;
+    }
+
+    .tripcustom-info-column {
+        padding: 0;
+        width: 100%;
+    }
+
+    .tripcustom-info-column:not(:last-of-type)::after {
+        display: none;
+    }
+
+    .tripcustom-summary-bar {
+        flex-direction: column;
+        align-items: center;
+        height: auto;
+        padding: 20px;
+        gap: 20px;
+    }
+
+    .tripcustom-summary-trips {
+        justify-content: center;
+        width: 100%;
+    }
+
+    .tripcustom-summary-info {
+        flex-direction: column;
+        align-items: center;
+        gap: 10px;
+    }
+
+    .tripcustom-info-column {
+        padding: 0;
+        width: 100%;
+        text-align: center;
+    }
+
+    .tripcustom-info-column:not(:last-of-type)::after {
+        display: none;
+    }
+
+    .tripcustom-edit-trip-btn {
+        align-self: center;
+        margin-top: 8px;
+        min-width: 100px;
+        padding: 10px 20px;
+        white-space: nowrap;
+        display: inline-flex;
+        justify-content: center;
+        align-items: center;
+        gap: 6px;
+    }
+
+    .tripcustom-intro-wrapper {
+        padding-left: 50px;
+        padding-right: 50px;
+    }
+
+    .tripcustom-intro-right p {
+        font-size: 18px;
+        line-height: 1.6;
+    }
+
+    .zh-title-36 {
+        font-size: 30px !important;
+    }
 }
