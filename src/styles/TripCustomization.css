@@ -919,7 +919,7 @@
 }
 
 /* === 💻 RWD: 平板（768px ～ 1024px） === */
-@media screen and (max-width: 1216px) and (min-width: 768px) {
+@media screen and (max-width: 999px) and (min-width: 500px) {
     .tripcustom-intro-wrapper {
         flex-direction: column;
         align-items: center;
@@ -979,7 +979,7 @@
 }
 
 /* === 📱 RWD: 手機（小於768px） === */
-@media screen and (max-width: 767px) {
+@media screen and (max-width: 700px) {
     .tripcustom-intro-wrapper {
         flex-direction: column;
         align-items: center;
@@ -1036,7 +1036,7 @@
      .tripcustom-summary-bar {
     width: 75%;               /* ✅ 不要用 margin 擠壓，用百分比寬度 */
     max-width: none;          /* ✅ 移除限制寬度 */
-    margin: 40px auto 20px;   /* ✅ 自動置中 */
+    margin: 100px auto 20px;   /* ✅ 自動置中 */
     padding: 20px;            /* ✅ padding 保留內容內縮 */
     box-sizing: border-box;   /* ✅ 防止 padding 撐爆 */
   }
