@@ -911,6 +911,11 @@
         /* ✅ 保留30px左右邊距 */
         margin: 100px auto 10px;
     }
+
+    .tripcustom-edit-trip-btn {
+        /* margin-top: auto; */
+        align-self: center;
+    }
 }
 
 /* === 💻 RWD: 平板（768px ～ 1024px） === */
