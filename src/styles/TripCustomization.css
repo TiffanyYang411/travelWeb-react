@@ -823,13 +823,6 @@
     }
 }
 
-/* .stepper-circle.current {
-  border: 1.5px solid var(--secondary-color-xlight);
-  box-shadow: 0 0 20px 6px rgba(255, 111, 25, 0.6);
-  transform: scale(1.4);
-  transition: transform 0.3s ease-in-out;
-} */
-
 .stepper-circle.current {
     border: 1.5px solid var(--secondary-color-xlight);
     box-shadow: 0 0 20px 6px rgba(255, 111, 25, 0.6);
@@ -930,7 +923,8 @@
     .tripcustom-intro-left {
         padding-left: 0;
         align-items: center;
-        margin-bottom: 60px; /* 或 32px 看你想要留多大 */
+        margin-bottom: 60px;
+        /* 或 32px 看你想要留多大 */
     }
 
     .intro-img-main {
@@ -991,7 +985,8 @@
     .tripcustom-intro-left {
         padding-left: 0;
         align-items: center;
-        margin-bottom: 40px; /* 或 32px 看你想要留多大 */
+        margin-bottom: 40px;
+        /* 或 32px 看你想要留多大 */
     }
 
     .intro-img-main {
@@ -1025,6 +1020,7 @@
 
     .tripcustom-next-step-btn {
         align-self: center;
+        font-size: 16px;
     }
 
     .tripcustom-edit-trip-btn {
@@ -1033,13 +1029,18 @@
         min-width: 90px;
     }
 
-     .tripcustom-summary-bar {
-    width: 75%;               /* ✅ 不要用 margin 擠壓，用百分比寬度 */
-    max-width: none;          /* ✅ 移除限制寬度 */
-    margin: 100px auto 20px;   /* ✅ 自動置中 */
-    padding: 20px;            /* ✅ padding 保留內容內縮 */
-    box-sizing: border-box;   /* ✅ 防止 padding 撐爆 */
-  }
+    .tripcustom-summary-bar {
+        width: 75%;
+        /* ✅ 不要用 margin 擠壓，用百分比寬度 */
+        max-width: none;
+        /* ✅ 移除限制寬度 */
+        margin: 100px auto 20px;
+        /* ✅ 自動置中 */
+        padding: 20px;
+        /* ✅ padding 保留內容內縮 */
+        box-sizing: border-box;
+        /* ✅ 防止 padding 撐爆 */
+    }
 
     .tripcustom-summary-info {
         flex-direction: column;
@@ -1109,5 +1110,133 @@
 
     .zh-title-36 {
         font-size: 30px !important;
+    }
+
+    .stepper-label {
+        margin-top: 12px;
+        font-family: var(--font-zh);
+        font-size: 12px;
+        font-weight: bold;
+        line-height: 1.5;
+        letter-spacing: 5%;
+        color: #ffffff;
+        white-space: nowrap;
+        text-align: center;
+    }
+
+    .tripcustom-question-card h2 {
+        margin-bottom: 16px;
+        font-size: 18px;
+    }
+
+    .tripcustom-option-item .zh-title-32 {
+        font-size: 24px;
+    }
+
+    .stepper-circle {
+        width: 15px;
+        height: 15px;
+        border-radius: 50%;
+        background-color: #ffffff;
+        border: 2px solid #ffffff;
+        position: relative;
+        z-index: 1;
+    }
+
+    .stepper-circle::after {
+        content: '';
+        width: 5px;
+        height: 5px;
+        background-color: #142e3f;
+        border-radius: 50%;
+        position: absolute;
+        top: 51%;
+        left: 51%;
+        transform: translate(-50%, -50%);
+    }
+
+    .stepper-line {
+        top: 7px;
+    }
+
+    .tripcustom-input-row {
+        display: flex;
+        align-items: center;
+        justify-content: flex-start;
+        /* ✅ 讓標籤跟輸入框 垂直置中 */
+        gap: 6px;
+        width: auto;
+        min-width: 180px;
+        /* ✅ 自己控制每列最小寬度 */
+    }
+
+    .tripcustom-input {
+        width: 100%;
+        max-width: 100%;
+        /* ✅ 新增這行，限制最大寬度 */
+        box-sizing: border-box;
+        padding: 12px 12px;
+        font-family: var(--font-zh);
+        font-size: 16px;
+        font-weight: bold;
+        color: var(--primary-color);
+        background-color: #dce8ed;
+        border: none;
+        border-radius: 12px;
+        transition: all 0.3s ease;
+    }
+
+    .tripcustom-input-group {
+        width: 100%;
+        max-width: 100%;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 16px;
+    }
+
+    .tripcustom-label-wrapper {
+        width: auto;
+        justify-content: center;
+    }
+
+    .tripcustom-input-label {
+        width: auto;
+        text-align: center;
+    }
+
+    .tripcustom-phone-outer-wrapper {
+        width: 100%;
+    }
+
+    .tripcustom-phone-select {
+        display: none;
+    }
+
+    .tripcustom-question-card {
+        background-color: #f6fbfc;
+        border-radius: 16px;
+        padding: 20px 35px 25px;
+        /* ✅ 上20px 左右26px 下25px */
+        width: 100%;
+        max-width: 700px;
+        box-shadow: 0px 4px 20px rgba(0, 0, 0, 0.1);
+        text-align: center;
+        display: flex;
+        /* ✅ 加 */
+        flex-direction: column;
+        /* ✅ 加 */
+        align-items: center;
+        /* ✅ 加：置中排列 */
+    }
+
+    .tripcustom-next-step-btn-wrapper {
+        display: flex;
+        justify-content: center;
+        /* ✅ 按鈕水平置中 */
+        width: 100%;
+        max-width: 700px;
+        margin-top: 8px;
+        outline: none;
     }
 }
