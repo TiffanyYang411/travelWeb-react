@@ -655,3 +655,25 @@
     align-items: center;
   }
 }
+
+/* === 📱 手機 popup RWD === */
+@media (max-width: 767px) {
+  .trip-summary-popup {
+    width: 90%;
+    padding: 24px 20px;
+    font-size: 16px;
+    top: 35vh;
+    border-radius: 12px;
+  }
+}
+
+/* === 💻 平板 popup RWD === */
+@media (min-width: 768px) and (max-width: 1099px) {
+  .trip-summary-popup {
+    width: 70%;
+    padding: 32px 40px;
+    font-size: 18px;
+    top: 38vh;
+    border-radius: 14px;
+  }
+}

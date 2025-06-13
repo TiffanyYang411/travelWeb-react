@@ -541,6 +541,166 @@
   font-size: 16px;
 }
 
+/* === 平板 RWD（768px ~ 1024px）=== */
+@media screen and (max-width: 1024px) and (min-width: 768px) {
+  .upcoming-record-card {
+    flex-direction: column;
+    align-items: flex-start;
+    height: auto;
+    gap: 20px;
+  }
+
+  .upcoming-trip-thumbnails {
+    max-width: 100%;
+    margin-right: 0;
+    justify-content: flex-start;
+  }
+
+   /* .upcoming-info-columns {
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: 32px;
+    width: 100%;
+    max-width: 500px;
+    margin: 0 auto;
+  } */
+
+  .tripcustom-info-column {
+    width: 160px;
+    text-align: center;
+  }
+
+  
+   .upcoming-expand-btn {
+    margin-top: 0px;
+    width: 18%;
+    text-align: center;
+  }
+
+  .upcoming-trip-detail {
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    padding: 24px 20px;
+  }
+
+  .upcoming-trip-img {
+    width: 80%;
+    height: auto;
+    max-height: 280px;
+  }
+
+  .upcoming-schedule {
+    width: 90%;
+  }
+
+  .upcoming-custom-list {
+    width: 90%;
+  }
+
+  .upcoming-trip-content {
+    align-items: center;
+  }
+}
+
+
+/* === 手機 RWD（<= 767px）=== */
+@media screen and (max-width: 767px) {
+  .upcoming-page {
+    padding: 80px 50px 60px 30px;
+  }
+
+  .upcoming-page-title {
+    font-size: 20px;
+    padding: 8px 16px;
+    margin-top: 40px;
+  }
+
+  .upcoming-trip-thumbnails {
+    flex-direction: row;
+    gap: 8px;
+    max-height: none;
+  }
+
+  .upcoming-record-card {
+    flex-direction: column;
+    height: auto;
+    padding: 20px 16px;
+    align-items: flex-start;
+    gap: 16px;
+  }
+
+  .upcoming-info-columns {
+    flex-direction: column;
+    gap: 12px;
+    width: 100%;
+  }
+
+  .upcoming-expand-btn {
+    width: 25%;
+    height: 36px;
+    font-size: 14px;
+    padding: 0px;
+  }
+
+  .upcoming-trip-detail {
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    padding: 20px 20px;
+    gap: 20px;
+  }
+
+  .upcoming-trip-img {
+    width: 100%;
+    height: auto;
+    max-height: 240px;
+  }
+
+  .upcoming-trip-content {
+    width: 100%;
+    align-items: center;
+  }
+
+  .upcoming-price-wrapper {
+    justify-content: center;
+  }
+
+  .upcoming-schedule {
+    width: 100%;
+  }
+
+  .upcoming-custom-list {
+    width: 100%;
+    padding: 0 10px;
+  }
+
+  .upcoming-custom-list li {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .upcoming-custom-list strong,
+  .upcoming-custom-list li > span,
+  .upcoming-custom-list li > div {
+    width: 100%;
+    text-align: left;
+  }
+
+  .upcoming-trip-index-label {
+    position: relative;
+    top: 0;
+    left: 0;
+    margin-bottom: 8px;
+  }
+
+  .tripcustom-info-column,
+  .tripcustom-info-column::before,
+  .tripcustom-info-column::after {
+    border: none !important;
+    content: none !important;
+  }
+}
 
 
 
