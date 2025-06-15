@@ -117,7 +117,7 @@
   transform: translateY(0);
 }
 
-@media screen and (min-width: 1681px) {
+@media screen and (min-width: 1680px){
   .hero-quote.quote-expanded {
     left: 230px;
     bottom: 400px;
@@ -129,7 +129,7 @@
   }
 
  .hero-window-frame {
-    transform-origin: 80.2% 84%;
+    transform-origin: 80.2% 92%;
   }
 
   .hero-section.expanded .hero-window-frame {
@@ -312,9 +312,9 @@
   }
 
   .hero-quote.quote-expanded {
-    left: 20px;
-    bottom: 300px;
-    width: 350px;
+    left: 16px;
+    bottom: 390px;
+    width: 330px;
     transform: translateY(30px);
     opacity: 0;
     transition: opacity 2.4s ease-in-out 0.3s, transform 2.4s ease-in-out 0.3s;
@@ -330,16 +330,16 @@
   }
 
   .hero-section.expanded .hero-window-frame {
-    transform: scale(2.4) translate(-120px, 45px); /* ✅ 避免窗框超出畫面右側，並稍微往下壓 */
+    transform: scale(2.4) translate(-120px, 65px); /* ✅ 避免窗框超出畫面右側，並稍微往下壓 */
   }
 
   .fullscreen-img {
     object-position: center center !important;
-    transform: scale(1.4);
+    transform: scale(1);
   }
 
   .fullscreen-img.slide-one.active {
-    transform: translateX(10px);
+    transform: translateX(0px);
   }
 }
 

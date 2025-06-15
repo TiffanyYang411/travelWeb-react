@@ -2,19 +2,26 @@
 
 .cart-container {
   position: relative;
-  width: 57px;   /* 稍微大一點，容納hover範圍 */
+  width: 57px;
+  /* 稍微大一點，容納hover範圍 */
   height: 80px;
-  display: flex; /* ✅ 加這行 */
-  align-items: center; /* ✅ 置中對齊 */
-  justify-content: center; /* ✅ 置中對齊 */
+  display: flex;
+  /* ✅ 加這行 */
+  align-items: center;
+  /* ✅ 置中對齊 */
+  justify-content: center;
+  /* ✅ 置中對齊 */
 }
 
 
 .cart-dropdown-wrapper {
   position: absolute;
-  top: 3px; /* 往下接 */
-  left: -125px; /* ✅ 用left置中 */
-  transform: translateX(-50%); /* ✅ 水平置中 */
+  top: 3px;
+  /* 往下接 */
+  left: -125px;
+  /* ✅ 用left置中 */
+  transform: translateX(-50%);
+  /* ✅ 水平置中 */
   width: 180px;
   pointer-events: auto;
   z-index: 999;
@@ -31,7 +38,8 @@
   -webkit-backdrop-filter: blur(80px);
   border-radius: 20px;
   border: 1px solid rgba(255, 255, 255, 0.3);
-  border-top: none; /* ✅ 加這個 */
+  border-top: none;
+  /* ✅ 加這個 */
   box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
   color: #000;
   pointer-events: auto;
@@ -53,13 +61,16 @@
 
 .cart-triangle {
   position: absolute;
-  bottom: 100%; /* ✅ 關鍵：對齊 dropdown 的上邊緣 */
+  bottom: 100%;
+  /* ✅ 關鍵：對齊 dropdown 的上邊緣 */
   left: 61%;
   transform: translateX(-50%);
   width: 30px;
   height: 30px;
-  background: rgba(255, 255, 255, 0.6); /* ✅ 提高透明度、避免透明失真 */
-  backdrop-filter: none;                /* ✅ 移除模糊效果，避免重疊干擾 */
+  background: rgba(255, 255, 255, 0.6);
+  /* ✅ 提高透明度、避免透明失真 */
+  backdrop-filter: none;
+  /* ✅ 移除模糊效果，避免重疊干擾 */
   clip-path: path('M0 30 L13 10 Q15 5 17 10 L30 30 Z');
   z-index: 998;
 }
@@ -181,7 +192,8 @@
   border-radius: 10px;
   font-size: 1rem;
   cursor: pointer;
-  outline: none;             /* ⬅️ 移除點擊後的外框 */
+  outline: none;
+  /* ⬅️ 移除點擊後的外框 */
 }
 
 
@@ -195,13 +207,36 @@
 @media (max-width: 1024px) {
   .cart-triangle {
     left: 61.5%;
-    margin-bottom: 0px; /* ✅ 貼更近，用正值會讓它遠離 */
+    margin-bottom: 0px;
+    /* ✅ 貼更近，用正值會讓它遠離 */
   }
 }
 
 @media (max-width: 767px) {
   .cart-triangle {
     left: 61.5%;
-    margin-bottom: 0px; /* ✅ 貼更近，用正值會讓它遠離 */
+    margin-bottom: 0px;
+    /* ✅ 貼更近，用正值會讓它遠離 */
+  }
+
+  .cart-dropdown-wrapper {
+    position: absolute;
+    top: 3px;
+    /* 往下接 */
+    left: -138px;
+    /* ✅ 用left置中 */
+    transform: translateX(-50%);
+    /* ✅ 水平置中 */
+    width: 180px;
+    pointer-events: auto;
+    z-index: 999;
+  }
+
+  .cart-dot {
+    width: 14px;
+    height: 14px;
+    font-size: 9px;
+    right: 8px;
+    top: 6px;
   }
 }

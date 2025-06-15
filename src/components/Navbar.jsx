@@ -107,7 +107,10 @@ function Navbar() {
   return (
     <nav className="navbar">
       <Link to="/" className="navbar-logo" style={{ cursor: 'pointer' }}>
-        <img src={logo} alt="Élan Journeys Logo" className="logo-img" />
+        {/* 桌機版 logo */}
+        <img src={logo} alt="Élan Journeys Logo" className="logo-img logo-desktop" />
+        {/* 手機版 logo：改為 public 路徑 */}
+        <img src={`${import.meta.env.BASE_URL}images/logo-mobile.svg`} alt="mobile logo" className="logo-img logo-mobile" />
       </Link>
 
       <div className={`navbar-center ${loggedIn ? 'shift-right' : ''}`}>

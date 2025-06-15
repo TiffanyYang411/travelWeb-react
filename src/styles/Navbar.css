@@ -12,8 +12,10 @@
   background-color: rgba(20, 46, 63, 0.3);
   backdrop-filter: blur(12px);
   -webkit-backdrop-filter: blur(12px);
-  height: 70px; /* ✅ 調整這邊，讓內容有空間顯示 */
-  padding: 0 30px;  /* ✅ 建議左右留白用 padding 控制 */
+  height: 70px;
+  /* ✅ 調整這邊，讓內容有空間顯示 */
+  padding: 0 30px;
+  /* ✅ 建議左右留白用 padding 控制 */
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
 }
 
@@ -21,10 +23,14 @@
   font-size: 2rem;
   font-weight: bold;
   color: #333;
-  padding-left: 0px;  /* ✅ 你可以從 30px 改成 15px、10px，甚至 0，看你的視覺需求 */
-  padding-right: 30px; /* ✅ 可保留原本的右側間距 */
+  padding-left: 0px;
+  /* ✅ 你可以從 30px 改成 15px、10px，甚至 0，看你的視覺需求 */
+  padding-right: 30px;
+  /* ✅ 可保留原本的右側間距 */
   cursor: pointer;
   /* ✅ 加入手型游標 */
+  display: flex;
+  align-items: center;
 }
 
 .logo-img {
@@ -182,8 +188,39 @@
   box-shadow: none;
 }
 
+/* ✅ 明確指定選擇器，避免被 .logo-img 覆蓋 */
+.logo-img.logo-desktop {
+  display: block;
+}
+
+.logo-img.logo-mobile {
+  display: none;
+}
+
 /* ✅ RWD：手機（最大 767px） */
 @media (max-width: 767px) {
+  .icon-link {
+    padding-right: 15px;
+}
+
+  .logo-img.logo-desktop {
+    display: none !important;
+  }
+
+    .logo-img.logo-mobile {
+    display: block;
+    width: 30px;      /* ✅ 根據你的 logo 寬度調整 */
+    height: auto;
+    object-fit: contain;
+  }
+
+  .logo-mobile {
+    display: block;
+    width: 100px;
+    /* ✅ 可依設計調整寬度 */
+    height: auto;
+  }
+
   .user-info {
     gap: 0px;
     /* icon 與文字間縮小間距 */
@@ -202,15 +239,17 @@
   }
 
   .navbar {
-    height: 60px;               /* ✅ 你要的手機版高度 */
+    height: 60px;
+    /* ✅ 你要的手機版高度 */
     padding: 10px 10px !important;
     display: flex;
-    align-items: center;        /* ✅ 讓 logo 和 icon 在高度中置中 */
+    align-items: center;
+    /* ✅ 讓 logo 和 icon 在高度中置中 */
     box-sizing: border-box;
   }
 
   .navbar-logo {
-    margin-left: 5px !important;
+     padding-left: 15px; /* ✅ 避免貼邊  */
   }
 
   .navbar-center {
@@ -223,14 +262,15 @@
   }
 
   .navbar-icons {
-  display: flex;
-  align-items: center;
-  gap: 0px !important; /* ✅ 強制指定 icon 間距 */
-  margin-left: auto;
-  padding: 0 !important;
-  margin-right: 0px !important;
-  flex-shrink: 0;
-}
+    display: flex;
+    align-items: center;
+    gap: 0px !important;
+    /* ✅ 強制指定 icon 間距 */
+    margin-left: auto;
+    padding: 0 !important;
+    margin-right: 0px !important;
+    flex-shrink: 0;
+  }
 
 
   .nav-icon {
@@ -241,13 +281,14 @@
   }
 
   .mobile-menu-icon {
-  display: flex !important;
-  font-size: 24px;
-  color: white;
-  margin-left: auto !important;  /* ✅ 關鍵：把它推到最右側 */
-  padding-left: 10px;
-  flex-shrink: 0;
-}
+    display: flex !important;
+    font-size: 24px;
+    color: white;
+    margin-left: auto !important;
+    /* ✅ 關鍵：把它推到最右側 */
+    padding-left: 28px;
+    flex-shrink: 0;
+  }
 
 
   .cart-container {
@@ -256,14 +297,16 @@
   }
 
   .logout-btn {
-  margin-left: 20px !important;    /* ✅ 小一點，避免擠出畫面 */
-  display: flex !important;
-  align-items: center;
-  background: none;
-  border: none;
-  padding: 0;
-  cursor: pointer;
-  flex-shrink: 0;                 /* ✅ 不允許它被壓縮到不見 */
+    margin-left: 20px !important;
+    /* ✅ 小一點，避免擠出畫面 */
+    display: flex !important;
+    align-items: center;
+    background: none;
+    border: none;
+    padding: 0;
+    cursor: pointer;
+    flex-shrink: 0;
+    /* ✅ 不允許它被壓縮到不見 */
   }
 }
 
@@ -284,7 +327,8 @@
   .mobile-menu-drawer {
     position: fixed;
     top: 0;
-    right: -320px; /* ✅ 初始在畫面右側外 */
+    right: -320px;
+    /* ✅ 初始在畫面右側外 */
     width: 250px;
     height: 45vh;
     background-color: #142E3F;

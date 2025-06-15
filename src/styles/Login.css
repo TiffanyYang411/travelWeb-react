@@ -18,7 +18,7 @@
   padding-top: 67px;
   border-radius: 20px;
   width: 520px;
-  max-width: 520px; /* ✅ 對齊 .login-box 內部寬度 */
+  max-width: 480px; /* ✅ 對齊 .login-box 內部寬度 */
   height: 560px;
   box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1);
   text-align: center;
@@ -126,6 +126,98 @@ margin: 0 auto;
   outline: none;
 }
 
+/* === 平板（768px ~ 1024px）=== */
+@media screen and (max-width: 1024px) {
+  .login-box {
+    width: 90%;
+    max-width: 420px;
+    height: auto;
+    padding: 50px 20px;
+    border-radius: 16px;
+  }
+
+  .logo-img {
+    width: 260px;
+    height: auto;
+  }
+
+  .login-title.title-zh-36,
+  .zh-title-36 {
+    font-size: 28px;
+    margin-top: 20px;
+    margin-bottom: 30px;
+  }
+
+  .form-group {
+    max-width: 280px;
+  }
+
+  .form-group input {
+    font-size: 18px;
+    height: 44px;
+  }
+
+  .form-group input::placeholder {
+    font-size: 18px;
+  }
+
+  .login-btn {
+    font-size: 16px;
+    padding: 0.5rem 1.2rem;
+  }
+}
+
+
+/* === 手機（小於 768px）=== */
+@media screen and (max-width: 767px) {
+  .login-box {
+    width: 90%;
+    max-width: 320px;
+    height: auto;
+    padding: 40px 16px;
+    border-radius: 12px;
+  }
+
+  .logo-img {
+    width: 220px;
+    height: auto;
+  }
+
+  .login-title.title-zh-36,
+  .zh-title-36 {
+    margin-top: 16px;
+    margin-bottom: 5px;
+  }
+
+  .form-group {
+    max-width: 240px;
+  }
+
+  .form-group label {
+    font-size: 20px;
+    height: auto;
+  }
+
+  .form-group input {
+    font-size: 16px;
+    height: 40px;
+    padding: 0 0.8rem;
+  }
+
+  .form-group input::placeholder {
+    font-size: 16px;
+  }
+
+  .login-btn {
+    font-size: 15px;
+    padding: 0.5rem 1rem;
+    border-radius: 5px;
+  }
+
+  .login-form {
+    row-gap: 7px;
+}
+}
 
 
 
