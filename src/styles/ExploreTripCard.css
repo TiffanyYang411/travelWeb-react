@@ -267,7 +267,7 @@
 }
 
 /* ✅ 平板 RWD */
-@media screen and (max-width: 1024px) {
+@media screen and (max-width: 1439px) {
   .explore-trip-card-container {
     padding: 30px 16px;
     gap: 12px;

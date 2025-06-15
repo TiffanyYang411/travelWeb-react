@@ -1,7 +1,7 @@
 /* TripSummary.css */
 
 .trip-summary-page {
-  padding: 40px 0 80px;
+  padding: 40px 50px 80px 30px;
   /* 上下空間更寬裕，避免碰到 navbar */
   background-color: var(--primary-color);
   min-height: 100vh;
@@ -109,8 +109,6 @@
 .trip-summary-trip-card {
   display: flex;
   gap: 24px;
-  height: 350px;
-  /* ✅ 固定高度 */
   align-items: center;
   background-color: #ffffff;
   border-radius: 12px;
@@ -119,6 +117,7 @@
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.05);
   flex-wrap: wrap;
 }
+
 
 .trip-summary-info {
   flex: 0 0 240px;
@@ -222,7 +221,10 @@
   justify-content: center;
   gap: 40px;
   margin-bottom: 0px;
-  min-height: 40px; /* ⬅️ 保證上下固定 */
+  min-height: 40px;
+  max-width: 250px; /* ✅ 新增：限制寬度 */
+  margin-left: auto;  /* ✅ 讓 header 水平置中 */
+  margin-right: auto;
 }
 
 .trip-summary-schedule-header button {
@@ -334,4 +336,344 @@
 
 .trip-summary-confirm:hover {
   background-color: #e45f10;
+}
+
+/* === 📱 手機版 RWD（最大767px）=== */
+@media (max-width: 767px) {
+  .trip-summary-wrapper {
+    width: 100%;
+    padding: 20px;
+    border-radius: 15px;
+    box-shadow: none;
+  }
+
+  .trip-summary-code {
+    font-size: 14px;
+    padding: 10px 16px;
+  }
+
+  .trip-summary-dates {
+    font-size: 14px;
+  }
+
+  .trip-summary-header-message h2 {
+    font-size: 16px;
+  }
+
+  .trip-summary-header-message p {
+    font-size: 14px;
+  }
+
+  .trip-summary-trip-card {
+    flex-direction: column;
+    height: auto;
+    padding: 16px;
+    max-height: auto;
+    overflow: visible;
+    flex-wrap: nowrap; /* ✅ 重點：防止 wrap 把行程排出畫面 */
+  }
+
+  .trip-summary-info {
+    width: 100%;
+    text-align: center;
+    margin-bottom: 20px;
+  }
+
+  .trip-summary-img {
+    width: 100%;
+    height: auto;
+    max-width: 220px;
+    max-height: 220px;
+    border-radius: 12px;
+  }
+
+  .trip-summary-content {
+    width: 100%;
+    min-width: auto;
+    gap: 8px;
+  }
+
+  .trip-summary-price-wrapper {
+    justify-content: center;
+    flex-wrap: wrap;
+  }
+
+  .trip-summary-schedule {
+    width: 100%;
+    min-height: auto;
+    padding: 12px;
+    margin-top: 20px;
+  }
+
+  .trip-summary-schedule-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    max-width: 200px;
+    gap: 16px;
+    width: 100%;
+    flex-wrap: nowrap;
+  }
+
+  /* .trip-summary-schedule-header {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 50px;
+  margin-bottom: 0px;
+  min-height: 40px;
+  max-width: 200px;
+  margin-left: auto; 
+  margin-right: auto;
+} */
+
+  .trip-summary-schedule-header button {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: transparent;
+    border: none;
+    padding: 0;
+    width: 40px;
+    height: 40px;
+  }
+
+  .trip-summary-arrow-left,
+  .trip-summary-arrow-right {
+    width: 24px;
+    height: 24px;
+  }
+
+  .trip-summary-day-label {
+    flex: 1;
+    text-align: center;
+    padding: 8px 12px;
+    font-size: 14px;
+    background-color: #142E3F;
+    color: #F6FBFC;
+    border-radius: 6px;
+    font-family: 'LXGW WenKai TC';
+    white-space: nowrap;
+  }
+
+  .trip-summary-customization {
+    width: 100%;
+    padding: 0 12px;
+  }
+
+  .trip-summary-custom-row {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 6px;
+  }
+
+  .trip-summary-custom-label,
+  .trip-summary-custom-value {
+    width: 100%;
+    text-align: left;
+  }
+
+  .trip-summary-confirm {
+  width: 140px; /* ✅ 固定寬度，依你喜好可調整 */
+  font-size: 16px;
+  padding: 12px 0;
+  margin: 32px auto 0; /* ✅ 確保置中 */
+  display: block;
+  text-align: center;
+}
+
+  .trip-summary-page {
+    padding: 40px 40px 80px 25px;
+    /* 上下空間更寬裕，避免碰到 navbar */
+    background-color: var(--primary-color);
+    min-height: 100vh;
+    font-family: 'Piazzolla', 'LXGW WenKai TC', serif;
+    color: #142e3f;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .trip-summary-header-message {
+    text-align: center;
+    margin-bottom: 10px;
+    max-width: 920px;
+    padding-top: 60px;
+  }
+}
+
+/* === 💻 平板 RWD（768px - 1024px）=== */
+@media screen and (min-width: 768px) and (max-width: 1099px) {
+  .trip-summary-wrapper {
+    width: 95%;
+    padding: 32px;
+    border-radius: 10;
+  }
+
+  .trip-summary-trip-card {
+    flex-direction: column;
+    height: auto;
+    padding: 20px;
+    gap: 20px;
+    overflow: visible;
+    flex-wrap: nowrap; /* ✅ 重點：防止 wrap 把行程排出畫面 */
+  }
+
+  .trip-summary-info {
+    width: 100%;
+    text-align: center;
+  }
+
+  .trip-summary-img {
+    width: 100%;
+    max-width: 360px;
+    max-height: 240px;
+    margin: 0 auto;
+  }
+
+  .trip-summary-content {
+    width: 100%;
+    gap: 10px;
+  }
+
+  .trip-summary-schedule {
+    width: 100%;
+    min-height: auto;
+    padding: 16px;
+    margin-top: 16px;
+    background-color: #DCE8ED;
+    border-radius: 10px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 16px;
+  }
+
+  /* ✅ 保證 header 裡的箭頭＋第幾天能橫排不被壓縮 */
+  .trip-summary-schedule-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    max-width: 220px;
+    gap: 20px;
+    width: 100%;
+  }
+
+  .trip-summary-schedule-header button {
+    width: 40px;
+    height: 40px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 0;
+    background: transparent;
+    border: none;
+  }
+
+  .trip-summary-arrow-left,
+  .trip-summary-arrow-right {
+    width: 20px;
+    height: 20px;
+  }
+
+  .trip-summary-day-label {
+    flex: 1;
+    text-align: center;
+    background-color: #142E3F;
+    color: white;
+    padding: 6px 12px;
+    border-radius: 8px;
+    font-size: 14px;
+  }
+
+  /* ✅ 保證 scrollable 行程描述出現 */
+  .trip-summary-schedule-detail {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    max-height: none;
+    overflow-y: visible;
+  }
+
+  .trip-summary-schedule-item {
+    display: flex;
+    flex-direction: column;
+    font-size: 14px;
+    color: #142E3F;
+  }
+
+  .trip-summary-schedule-time {
+    font-weight: bold;
+    margin-bottom: 4px;
+  }
+
+  .trip-summary-schedule-desc {
+    line-height: 1.6;
+  }
+
+  .trip-summary-customization {
+    width: 90%;
+    padding: 0 16px;
+  }
+
+  .trip-summary-custom-row {
+    flex-direction: row;
+    align-items: center;
+    gap: 12px;
+  }
+
+  .trip-summary-custom-label {
+    flex: 1;
+    text-align: right;
+  }
+
+  .trip-summary-custom-value {
+    flex: 2;
+    text-align: left;
+  }
+
+  .trip-summary-custom-label,
+  .trip-summary-custom-value {
+    width: 100%;
+    text-align: center;
+  }
+  .trip-summary-confirm {
+    font-size: 17px;
+    padding: 12px 30px;
+  }
+
+  .trip-summary-page {
+    padding: 40px 40px 80px 20px;
+    /* 上下空間更寬裕，避免碰到 navbar */
+    background-color: var(--primary-color);
+    min-height: 100vh;
+    font-family: 'Piazzolla', 'LXGW WenKai TC', serif;
+    color: #142e3f;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+}
+
+/* === 📱 手機 popup RWD === */
+@media (max-width: 767px) {
+  .trip-summary-popup {
+    width: 90%;
+    padding: 24px 20px;
+    font-size: 16px;
+    top: 35vh;
+    border-radius: 12px;
+  }
+}
+
+/* === 💻 平板 popup RWD === */
+@media (min-width: 768px) and (max-width: 1099px) {
+  .trip-summary-popup {
+    width: 70%;
+    padding: 32px 40px;
+    font-size: 18px;
+    top: 38vh;
+    border-radius: 14px;
+  }
 }

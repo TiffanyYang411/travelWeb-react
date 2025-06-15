@@ -26,7 +26,7 @@ function TripSummary() {
     const transformedTrips = (summaryData.trips || []).map(({ tripId, peopleCount }) => {
       const trip = allTrips.find(t => Number(t.id) === Number(tripId));
       if (!trip || !trip.id) {
-        
+
         return null;
       }
 
@@ -34,21 +34,31 @@ function TripSummary() {
       const daySchedules = (trip.itinerary || [])
         .filter(d => d.desc || d.image) // ✅ 過濾掉空資料
         .map((dayObj, index) => {
+  const lines = String(dayObj.desc ?? '').split('\n').map(l => l.trim()).filter(Boolean);
+  let current = '';
+  let morning = '', afternoon = '', evening = '';
+  let hasLabel = false; // ✅ 一定要加這行！
 
-          const lines = String(dayObj.desc ?? '').split('\n').map(l => l.trim()).filter(Boolean);
-          let current = '';
-          let morning = '', afternoon = '', evening = '';
+  lines.forEach((line) => {
+    if (/^清晨|上午/.test(line)) {
+      current = 'morning';
+      hasLabel = true;
+    } else if (/^中午|下午/.test(line)) {
+      current = 'afternoon';
+      hasLabel = true;
+    } else if (/^傍晚|晚上/.test(line)) {
+      current = 'evening';
+      hasLabel = true;
+    } else if (current) {
+      if (current === 'morning') morning += line + ' ';
+      if (current === 'afternoon') afternoon += line + ' ';
+      if (current === 'evening') evening += line + ' ';
+    }
+  });
 
-          lines.forEach((line) => {
-            if (/^清晨|上午/.test(line)) current = 'morning';
-            else if (/^中午|下午/.test(line)) current = 'afternoon';
-            else if (/^傍晚|晚上/.test(line)) current = 'evening';
-            else if (current) {
-              if (current === 'morning') morning += line + ' ';
-              if (current === 'afternoon') afternoon += line + ' ';
-              if (current === 'evening') evening += line + ' ';
-            }
-          });
+  if (!hasLabel && lines.length > 0) {
+    morning = lines.join(' ');
+  }
 
           return {
             day: index + 1,
@@ -68,6 +78,7 @@ function TripSummary() {
     }).filter(Boolean);
 
     setTrips(transformedTrips);
+    console.log('✅ 轉換後 trips 資料:', transformedTrips); // ← ✅ 加在這
     const defaultIndexes = {};
     transformedTrips.forEach(t => {
       defaultIndexes[t.id] = 0;
@@ -188,16 +199,38 @@ function TripSummary() {
 
               const currentIndex = dayIndexes?.[trip.id] ?? 0;
 
-              const safeIndex = Math.min(currentIndex, trip.daySchedules.length - 1);
+              const safeIndex = Math.max(0, Math.min(currentIndex ?? 0, trip.daySchedules.length - 1));
               const isAtFirstDay = safeIndex <= 0;
               const isAtLastDay = safeIndex >= trip.daySchedules.length - 1;
+              if (!trip.daySchedules || trip.daySchedules.length === 0) {
+                console.log('📦 trip =', trip);
+                console.log('📆 daySchedules =', trip.daySchedules);
+                return (
+                  <div key={trip.id} className="trip-summary-trip-card">
+                    <div className="trip-summary-info">
+                      <img
+                        src={`${import.meta.env.BASE_URL}${String(trip.image ?? '').replace('./', '')}`}
+                        alt={`Trip ${trip.title}`}
+                        className="trip-summary-img"
+                      />
+                    </div>
+                    <div className="trip-summary-content">
+                      <div className="trip-summary-top">
+                        <div className="trip-summary-days">{trip.days}</div>
+                        <div className="trip-summary-name">{trip.title}</div>
+                      </div>
+                      <div className="trip-summary-bottom">
+                        <div className="trip-summary-highlight-label">⚠️ 尚無每日行程內容</div>
+                        <div className="trip-summary-highlight-content">請重新選擇旅程或刷新頁面。</div>
+                      </div>
+                    </div>
+                  </div>
+                );
+              }
+
+              // ✅ 👇 這行應該放在 if 條件 return 後面
               const currentDay = trip.daySchedules?.[safeIndex];
-
-
-
-
               const { morning, afternoon, evening } = currentDay;
-
 
               // ⏱ 根據 sessionStorage 中的 startDate 和 trip 天數計算日期範圍
               const startDateStr = sessionStorage.getItem('confirmedStartDate');
@@ -234,9 +267,7 @@ function TripSummary() {
               return (
                 <div key={trip.id} className="trip-summary-trip-card" style={{
                   maxWidth: '960px',
-                  margin: '15px auto',
-                  maxHeight: '550px',
-                  overflow: 'hidden'
+    margin: '25px auto'
                 }}
                 >
                   <div className="trip-summary-info">
