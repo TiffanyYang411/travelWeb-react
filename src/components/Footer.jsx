@@ -44,12 +44,13 @@ function Footer() {
                 className="zh-text-14"
                 style={{ cursor: 'pointer' }}
                 onClick={() => {
-                  sessionStorage.setItem('scrollToTop', 'true');
+                  sessionStorage.setItem('forceScrollToTop', 'true');
                   navigate('/explore?style=1');
                 }}
               >
                 探索旅遊風格
               </span>
+
             </div>
 
             <div className="footer-link-item" style={{ gridColumn: '4', gridRow: '1' }}>
@@ -91,19 +92,50 @@ function Footer() {
 
             {/* 探索風格列（固定） */}
             <div className="footer-link-item" style={{ gridColumn: '3', gridRow: '2' }}>
-              <Link to="/explore?style=1" className="zh-text-14">極致戶外探險</Link>
+              <Link
+                to="/explore?style=1"
+                className="zh-text-14"
+                onClick={() => sessionStorage.setItem('forceScrollToTop', 'true')}
+              >
+                極致戶外探險
+              </Link>
             </div>
             <div className="footer-link-item" style={{ gridColumn: '3', gridRow: '3' }}>
-              <Link to="/explore?style=2" className="zh-text-14">米其林美食巡禮</Link>
+              <Link
+                to="/explore?style=2"
+                className="zh-text-14"
+                onClick={() => sessionStorage.setItem('forceScrollToTop', 'true')}
+              >
+                米其林美食巡禮
+              </Link>
+
             </div>
             <div className="footer-link-item" style={{ gridColumn: '3', gridRow: '4' }}>
-              <Link to="/explore?style=3" className="zh-text-14">頂級奢華度假</Link>
+              <Link
+                to="/explore?style=3"
+                className="zh-text-14"
+                onClick={() => sessionStorage.setItem('forceScrollToTop', 'true')}
+              >
+                頂級奢華度假
+              </Link>
             </div>
             <div className="footer-link-item" style={{ gridColumn: '3', gridRow: '5' }}>
-              <Link to="/explore?style=4" className="zh-text-14">深度文化之旅</Link>
+              <Link
+                to="/explore?style=4"
+                className="zh-text-14"
+                onClick={() => sessionStorage.setItem('forceScrollToTop', 'true')}
+              >
+                深度文化之旅
+              </Link>
             </div>
             <div className="footer-link-item" style={{ gridColumn: '3', gridRow: '6' }}>
-              <Link to="/explore?style=5" className="zh-text-14">北歐療癒假期</Link>
+              <Link
+                to="/explore?style=5"
+                className="zh-text-14"
+                onClick={() => sessionStorage.setItem('forceScrollToTop', 'true')}
+              >
+                北歐療癒假期
+              </Link>
             </div>
           </div>
         </div>

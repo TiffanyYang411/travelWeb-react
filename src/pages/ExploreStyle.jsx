@@ -14,12 +14,17 @@ import 'swiper/css/effect-fade';
 import 'swiper/css';
 import logo from '../images/Logo.svg';
 import { useTripStore } from '../store/useTripStore';
+import { useHorizontalDragScroll } from '../hooks/useHorizontalDragScroll';
+import { useLayoutEffect } from 'react';
+import useForceScrollToTop from '../hooks/useForceScrollToTop';
 
 function ExploreStyle() {
+
   const navigate = useNavigate();
   const location = useLocation();
   const [searchParams] = useSearchParams();
   const styleParam = parseInt(searchParams.get('style'));
+
   const initialIndex = travelStyles.findIndex(style => style.id === styleParam);
   const { setStartDate, setEndDate, setTotalPrice } = useTripStore();
   const [selectedStyleId, setSelectedStyleId] = useState(
@@ -42,35 +47,46 @@ function ExploreStyle() {
   const swiperRef = useRef(null);
   const swiperInstanceRef = useRef(null);
   const tripDetailRef = useRef(null);
+  const tripCardContainerRef = useRef(null);
+  useHorizontalDragScroll(tripCardContainerRef);
+
   const isScrollingToDetail = useRef(false);
 
   useEffect(() => {
-    const shouldScrollToTop = sessionStorage.getItem('scrollToTop') === 'true';
+    const forceTop = sessionStorage.getItem('forceScrollToTop') === 'true';
 
-    if (shouldScrollToTop) {
+    if (forceTop) {
+      window.scrollTo({ top: 0, behavior: 'auto' });
       setTimeout(() => {
-        swiperRef.current?.scrollIntoView({ behavior: 'smooth', block: 'start' });
-        sessionStorage.removeItem('scrollToTop');
-      }, 100);
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+      }, 1000);
     } else {
-      setTimeout(() => {
-        tripCardRef.current?.scrollIntoView({ behavior: 'auto', block: 'start' });
-      }, 10);
+      // fallback：首次進入 Explore 頁時自動置頂
+      const isFirstVisit = sessionStorage.getItem('hasVisitedExplore') !== 'true';
+      if (isFirstVisit) {
+        window.scrollTo({ top: 0});
+        sessionStorage.setItem('hasVisitedExplore', 'true');
+      }
     }
 
     const timeout = setTimeout(() => {
       const overlay = document.querySelector('.loading-overlay');
-      if (overlay) {
-        overlay.classList.add('fade-out');
-      }
-      setTimeout(() => setHideOverlay(true), 800);
-      setIsLoading(false);
-    }, 1400);
+      if (overlay) overlay.classList.add('fade-out');
 
-    return () => clearTimeout(timeout);
-  }, [location.search]);
+      setTimeout(() => {
+        setHideOverlay(true);
+        setIsLoading(false);
+        sessionStorage.removeItem('forceScrollToTop');
+      }, 800);
+    }, 1400);
+  }, [location.pathname, location.search]);
+
+
+
 
   useEffect(() => {
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+
     const styleParam = parseInt(searchParams.get('style'));
     const matchedStyle = travelStyles.find(style => style.id === styleParam);
     if (matchedStyle) {
@@ -78,7 +94,7 @@ function ExploreStyle() {
       setActiveTripIndex(null);
       setShowTripCards(true);
     }
-  }, [searchParams]);
+  }, [location.pathname, searchParams]);
 
   useEffect(() => {
     if (showTripCards && tripCardRef.current) {
@@ -151,6 +167,9 @@ function ExploreStyle() {
       window.dispatchEvent(new Event('openCartDropdown'));
     }
 
+     useEffect(() => {
+    sessionStorage.removeItem('hasVisitedExplore');
+  }, []);
   };
 
   return (
@@ -270,7 +289,6 @@ function ExploreStyle() {
                     )}
 
 
-
                   </div>
                 </div>
               </SwiperSlide>
@@ -289,6 +307,11 @@ function ExploreStyle() {
                 setSelectedStyleId(style.id);
                 setActiveTripIndex(null);
                 setShowTripCards(true);
+
+                // ✅ 等畫面更新後再滾動到卡片區塊
+                setTimeout(() => {
+                  tripCardRef.current?.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                }, 300);
               }}
             >
               {style.title}
@@ -296,9 +319,10 @@ function ExploreStyle() {
           ))}
         </div>
 
+
         <div ref={tripCardRef} className={`explore-trip-card-wrapper ${showTripCards ? 'visible' : 'hidden'}`}>
-           <div className="scroll-hint">← 左右滑動探索行程 →</div>
-          <div className="explore-trip-card-container">
+          <div className="scroll-hint">← 左右滑動探索行程 →</div>
+          <div ref={tripCardContainerRef} className="explore-trip-card-container">
             {selectedTrips.map((trip, index) => (
               <ExploreTripCard
                 key={trip.id}

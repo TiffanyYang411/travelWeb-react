@@ -51,11 +51,14 @@ function TravelStyles() {
   const swiperRef = useRef(null);
 
   const handleExploreClick = () => {
-    const styleId = travelStyles[selectedIndex].id;
-    if (styleId) {
-      navigate(`/explore?style=${styleId}`);
-    }
-  };
+  const styleId = travelStyles[selectedIndex].id;
+  if (styleId) {
+    window.scrollTo({ top: 0 }); // 🚀 可選，立即滾上去
+    sessionStorage.setItem('forceScrollToTop', 'true'); // ✅ 加這行
+    navigate(`/explore?style=${styleId}`);
+  }
+};
+
 
   const handleSlideChange = (swiper) => {
     const index = swiper.realIndex;

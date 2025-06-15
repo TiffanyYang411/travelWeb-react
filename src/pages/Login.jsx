@@ -44,7 +44,7 @@ function Login() {
               name="username"
               value={usernameInput}
               onChange={(e) => setUsernameInput(e.target.value)}
-              placeholder="請輸入帳號"
+              placeholder="歡迎回來，請輸入您的 Email"
               required
             />
           </div>
@@ -57,7 +57,7 @@ function Login() {
               name="password"
               value={passwordInput}
               onChange={(e) => setPasswordInput(e.target.value)}
-              placeholder="請輸入密碼"
+              placeholder="請輸入您的專屬密碼"
               required
             />
           </div>

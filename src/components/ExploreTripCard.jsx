@@ -14,7 +14,7 @@ function ExploreTripCard({ trip, onClick, isActive, delayIndex }) {
         <img src={trip.bannerImage} alt={trip.title} />
 
         {/* 黑色遮罩，未點擊時顯示 */}
-        <div className={`trip-card-mask ${isActive ? 'hidden' : ''}`}></div>
+     <div className="trip-card-mask"></div>
 
         {/* 預設顯示：行程 + 幾天幾夜 */}
         <div className="trip-card-info">

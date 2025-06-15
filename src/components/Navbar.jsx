@@ -125,7 +125,7 @@ function Navbar() {
                   to={link.path}
                   className="zh-text-16"
                   onClick={() => {
-                    sessionStorage.setItem('scrollToTop', 'true');
+                    sessionStorage.setItem('forceScrollToTop', 'true');
                     setMobileMenuOpen(false);
                   }}
                 >
