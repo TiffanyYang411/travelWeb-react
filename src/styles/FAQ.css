@@ -29,12 +29,11 @@
 .faq-hero-overlay {
   position: relative;
   z-index: 2;
-  text-align: left;
+  text-align: center;
   color: #ffffff;
   padding: 2rem 4rem;
   max-width: 600px;
-  margin-left: -1250px;
-  margin-top: 140px;
+  margin-top: 100px;
   align-self: flex-start;
 }
 
@@ -140,7 +139,7 @@
   margin: 0;
 }
 
-@media (min-width: 768px) and (max-width: 1024px) {
+@media (max-width: 1024px) {
   .faq-hero {
     position: relative;
     height: 30vh;
@@ -157,7 +156,6 @@
   .faq-hero-overlay {
     text-align: center;
     /* ✅ 改為左對齊 */
-    margin-left: 45%;
     padding: 0rem 2rem;
     max-width: 90%;
   }

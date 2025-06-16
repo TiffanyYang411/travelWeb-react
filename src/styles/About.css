@@ -480,7 +480,7 @@
 
 
 /* ✅ 針對手機與平板 (小於 1024px) */
-@media (max-width: 1024px) {
+@media (max-width: 1487px) {
   .about-top-heading {
     padding: 0 20px;
     text-align: center;
@@ -492,7 +492,7 @@
     text-align: center;
   }
 
-  @media (max-width: 1024px) {
+  @media (max-width: 1487px) {
     .about-index {
       padding: 80px 20px 20px 20px;
       /* ✅ 移除左 padding 230px，改用內距 20px */
@@ -519,7 +519,7 @@
     display: flex;
     flex-direction: column;
     align-items: center;
-    padding: 0 20px;
+    padding: 0 100px;
     gap: 0 !important;
   }
 
@@ -539,7 +539,7 @@
     position: static;
     width: 90%;
     max-width: 800px;
-    padding: 30px;
+    padding: 30px 0;
     margin: 0px auto 0px auto;
     margin-top: 0px !important;
     background-color: rgba(20, 46, 63, 0.9);
@@ -562,7 +562,7 @@
   }
 
   .about-text-overlay p.zh-text-16-regular {
-    font-size: 14px;
+    font-size: 18px;
     line-height: 1.8;
   }
 
@@ -584,7 +584,7 @@
   }
 
   .about-contact-section {
-    padding: 30px 20px;
+    padding: 30px 30px;
   }
 
   .about-contact-header h2 {
@@ -619,7 +619,7 @@
   }
 
   .about-text-overlay {
-    padding: 15px 40px 15px 20px;
+    padding: 15px 25px 15px 25px;
     margin: 0 auto;
     width: 100%;
     box-sizing: border-box;
@@ -631,6 +631,11 @@
 
   .about-text-overlay h3 {
     font-size: 16px !important;
+  }
+
+  .about-text-overlay p.zh-text-16-regular {
+    font-size: 16px;
+    line-height: 1.8;
   }
 
   .about-index-title {
@@ -662,13 +667,13 @@
     width: 70%;
     max-width: 300px; /* ✅ 可以限制最大寬度 */
     margin: 0 auto;
-    padding: 0 15px 10px 5px;  /* ✅ 控制兩側距離 */
+    padding: 0 15px 10px 15px;  /* ✅ 控制兩側距離 */
     display: block;
     border-radius: 20px;
   }
 
   .about-card-text {
-    padding: 20px 30px 0 15px;
+    padding: 20px 15px 0 15px;
     width: 100%;
     margin-bottom: 0 !important;
     padding-bottom: 0 !important;
