@@ -10,6 +10,7 @@ import { findTripById } from '../utils/findTripById';
 import { getUserTrips, removeTripFromUser } from '../utils/tripUtils';
 // import { DragDropContext, Droppable, Draggable } from 'react-beautiful-dnd';
 import { DragDropContext, Droppable, Draggable } from '@hello-pangea/dnd';
+import { FiInfo } from 'react-icons/fi';
 
 function formatDateToZh(date) {
   const days = ['日', '一', '二', '三', '四', '五', '六'];
@@ -805,12 +806,10 @@ function MyTrip() {
               價格：
               <strong>NT$ {isNaN(totalPrice) ? 0 : totalPrice.toLocaleString()}</strong>
               {hasSurcharge && (
-                <span
-                  className="surcharge-badge"
-                  title={`週末加價日：${surchargeDates.join('、')}`}
-                >
-                  含週末加價 🛈
+                <span className="surcharge-badge">
+                  含週末加價 <FiInfo className="info-icon" />
                 </span>
+
               )}
 
             </p>

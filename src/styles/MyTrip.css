@@ -1206,6 +1206,13 @@ body,
   border-color: #fff transparent transparent transparent;
 }
 
+.info-icon {
+  margin-bottom: 2px;
+  font-size: 14px;
+  vertical-align: middle;
+  color: white;
+}
+
 /* ✅ 1666px 以下改為上下排列 */
 @media (max-width: 1666px) {
   .mytrip-header-row {
