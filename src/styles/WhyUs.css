@@ -275,7 +275,7 @@
 .whyus-item {
     display: flex;
     align-items: center;
-    gap: 8vw;
+    gap: 4vw;
     justify-content: flex-start;
 }
 
@@ -343,7 +343,7 @@ br {
 }
 
 /* ✅ 平板 RWD (max-width: 1024px) */
-@media screen and (max-width: 1025px) {
+@media screen and (max-width: 1350px) {
   .whyus-section {
     padding: 120px 20px;
     min-height: auto;
@@ -431,7 +431,7 @@ br {
   .whyus-large-img,
   .top-img,
   .bottom-img {
-    width: 50%;
+    width: 45%;
     max-width: 420px;
     height: auto;
     margin-top: 0;
