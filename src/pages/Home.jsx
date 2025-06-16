@@ -5,6 +5,7 @@ import '../styles/Typography.css';
 import TravelStyles from '../components/TravelStyles';
 import WhyUs from '../components/WhyUs';
 import Testimonial from '../components/Testimonial';
+import usePageTitle from '../hooks/usePageTitle';
 
 const windowFrameImg = `${import.meta.env.BASE_URL}images/window-frame-large.png`;
 
@@ -22,6 +23,7 @@ const slideImages = [
 ];
 
 function Home() {
+  usePageTitle('首頁');
   const [ready, setReady] = useState(false);
   const [expanded, setExpanded] = useState(false);
   const [currentSlide, setCurrentSlide] = useState(0);

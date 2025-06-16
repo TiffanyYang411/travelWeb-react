@@ -6,8 +6,10 @@ import '../styles/Login.css';
 import '../styles/Typography.css';
 import logo from '../images/Logo-login.svg';
 import { login } from '../utils/auth';
+import usePageTitle from '../hooks/usePageTitle';
 
 function Login() {
+  usePageTitle('會員登入');
   const [usernameInput, setUsernameInput] = useState('');
   const [passwordInput, setPasswordInput] = useState('');
   const navigate = useNavigate();

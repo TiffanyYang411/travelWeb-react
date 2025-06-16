@@ -17,9 +17,10 @@ import { useTripStore } from '../store/useTripStore';
 import { useHorizontalDragScroll } from '../hooks/useHorizontalDragScroll';
 import { useLayoutEffect } from 'react';
 import useForceScrollToTop from '../hooks/useForceScrollToTop';
+import usePageTitle from '../hooks/usePageTitle';
 
 function ExploreStyle() {
-
+usePageTitle('探索旅遊風格');
   const navigate = useNavigate();
   const location = useLocation();
   const [searchParams] = useSearchParams();

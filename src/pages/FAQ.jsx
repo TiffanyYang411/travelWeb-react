@@ -2,8 +2,10 @@
 import '../styles/Typography.css';
 import '../styles/FAQ.css';
 import { useState } from 'react';
+import usePageTitle from '../hooks/usePageTitle';
 
 function FAQ() {
+   usePageTitle('常見問題');
   const faqData = [
     {
       category: '關於行程與客製化',

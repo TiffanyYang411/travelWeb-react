@@ -2,6 +2,7 @@ import { useEffect, useState } from 'react';
 import '../styles/UpcomingTrips.css';
 import { getUserName } from '../utils/auth';
 import { FiChevronDown, FiChevronUp } from 'react-icons/fi';
+import usePageTitle from '../hooks/usePageTitle';
 
 function formatDate(dateString) {
   if (!dateString) return '';
@@ -13,6 +14,7 @@ function formatDate(dateString) {
 }
 
 function UpcomingTrips() {
+  usePageTitle('即將出發');
   const [upcomingTrips, setUpcomingTrips] = useState([]);
   const [expandedIndex, setExpandedIndex] = useState(null);
   const [dayIndexes, setDayIndexes] = useState({});

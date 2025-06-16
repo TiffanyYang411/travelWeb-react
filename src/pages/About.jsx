@@ -1,8 +1,10 @@
 // src/pages/About.jsx
 import "../styles/About.css";
 import { useEffect, useState } from "react";
+import usePageTitle from '../hooks/usePageTitle';
 
 function About() {
+  usePageTitle('關於我們');
   const [isMobile, setIsMobile] = useState(false);
   const [windowWidth, setWindowWidth] = useState(window.innerWidth);
 

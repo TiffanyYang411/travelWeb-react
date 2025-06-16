@@ -8,9 +8,9 @@ import '../styles/Typography.css';
 import { useTripStore } from '../store/useTripStore';
 import { findTripById } from '../utils/findTripById';
 import { getUserTrips, removeTripFromUser } from '../utils/tripUtils';
-// import { DragDropContext, Droppable, Draggable } from 'react-beautiful-dnd';
 import { DragDropContext, Droppable, Draggable } from '@hello-pangea/dnd';
 import { FiInfo } from 'react-icons/fi';
+import usePageTitle from '../hooks/usePageTitle';
 
 function formatDateToZh(date) {
   const days = ['日', '一', '二', '三', '四', '五', '六'];
@@ -22,6 +22,7 @@ function formatDateToZh(date) {
 }
 
 function MyTrip() {
+  usePageTitle('我的行程');
   const navigate = useNavigate();
   const [isMobile, setIsMobile] = useState(window.innerWidth < 899);
   useEffect(() => {
@@ -32,6 +33,7 @@ function MyTrip() {
     window.addEventListener('resize', handleResize);
     return () => window.removeEventListener('resize', handleResize);
   }, []);
+  
   const {
     pendingTrips,
     setPendingTrips,
@@ -129,7 +131,6 @@ function MyTrip() {
     sessionStorage.setItem('userTrips', JSON.stringify(pendingTrips));
   }, [pendingTrips, startDate]);
 
-
   const calculateTotal = (inputStartDate = startDate, inputTrips = pendingTrips) => {
     let total = 0;
     let foundSurcharge = false;
@@ -175,7 +176,6 @@ function MyTrip() {
       currentDate.setDate(currentDate.getDate() + days);
     });
 
-
     // ✅ 先排序週末日期，避免順序亂跳
     weekendDates.sort((a, b) => {
       const [aM, aD] = a.split('/').map(Number);
@@ -214,7 +214,6 @@ function MyTrip() {
     }
     return false;
   })();
-
 
   const recalculateEndDate = (currentStartDate, tripArray) => {
     if (!currentStartDate || tripArray.length === 0) {
@@ -296,10 +295,6 @@ function MyTrip() {
     }
   };
 
-
-
-
-
   const handleRemoveTrip = (tripId) => {
     const updatedTrips = pendingTrips.filter(trip => trip.tripId !== tripId);
     setPendingTrips(updatedTrips);
@@ -349,7 +344,6 @@ function MyTrip() {
       fullyBookedDates.push(date.toISOString().split('T')[0]);
     });
   }
-
 
   const isFullyBooked = (date) => {
     const yyyyMMdd = date.toISOString().split('T')[0];
@@ -426,7 +420,6 @@ function MyTrip() {
     sessionStorage.setItem('confirmedTotalPeople', confirmedTotalPeople);
     sessionStorage.setItem('confirmedTotalPrice', confirmedTotalPrice);
 
-
     navigate('/trip-customization');
   };
 
@@ -457,7 +450,6 @@ function MyTrip() {
       </div>
     );
   }
-
 
   return (
     <div className="mytrip-page-wrapper slide-up-appear">
@@ -508,7 +500,6 @@ function MyTrip() {
                 return false;
               }}
 
-
               tileClassName={({ date, view }) => {
                 const classes = [];
 
@@ -550,10 +541,6 @@ function MyTrip() {
 
                 return classes;
               }}
-
-
-
-
 
               tileLabel={({ date }) => {
                 const yyyyMMdd = date.toISOString().split('T')[0];
@@ -641,10 +628,6 @@ function MyTrip() {
                       }
                     }
 
-                    // const finalPrice = tripHasWeekend
-                    //   ? Math.round(tripDetail.price * 1.2)
-                    //   : tripDetail.price;
-
                     //  ⬆️ 在這段上方先補上這兩行：
                     const shouldShowSurcharge = startDate && tripHasWeekend;
                     const finalPrice = shouldShowSurcharge
@@ -704,13 +687,10 @@ function MyTrip() {
                               )}
                             </div>
 
-
-
                             {/* 天數 */}
                             <div className="mytrip-card-cell">{tripDetail.days}</div>
 
                             {/* 費用 */}
-
 
                             {/* ⬇️ 然後把原本的 JSX 換成這個 */}
                             <div className="mytrip-card-cell trip-price-cell">
@@ -730,8 +710,6 @@ function MyTrip() {
                                 <>NT$ {finalPrice.toLocaleString()}</>
                               )}
                             </div>
-
-
 
                             {/* 人數選擇 */}
                             <div className="mytrip-card-cell people-select">
@@ -807,14 +785,10 @@ function MyTrip() {
               <strong>NT$ {isNaN(totalPrice) ? 0 : totalPrice.toLocaleString()}</strong>
               {hasSurcharge && (
                 <span className="surcharge-badge" title={`週末加價日：${surchargeDates.join('、')}`}>
-  含週末加價 <FiInfo className="info-icon" />
-</span>
-
-
+                  含週末加價 <FiInfo className="info-icon" />
+                </span>
               )}
-
             </p>
-
 
             <button
               className={`next-step-btn zh-text-18 ${canProceed() ? '' : 'disabled'}`}
@@ -824,15 +798,10 @@ function MyTrip() {
             >
               下一步 ➔
             </button>
-
           </div>
         </div>
       </div>
-
-
-
     </div>
-
   );
 }
 

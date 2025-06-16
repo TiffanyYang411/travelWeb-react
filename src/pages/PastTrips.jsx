@@ -1,8 +1,10 @@
 import { useEffect, useState } from 'react';
 import '../styles/UpcomingTrips.css';
 import { getUserName } from '../utils/auth';
+import usePageTitle from '../hooks/usePageTitle';
 
 function PastTrips() {
+  usePageTitle('歷史行程');
   const [pastTrips, setPastTrips] = useState([]);
   const [expandedIndex, setExpandedIndex] = useState(0); // ✅ 預設展開第一筆
 
