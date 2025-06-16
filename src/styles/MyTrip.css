@@ -862,6 +862,21 @@ select::-ms-expand {
   box-shadow: 0 1px 4px rgba(0, 0, 0, 0.15);
 }
 
+.surcharge-badge {
+  cursor: help;
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+}
+
+.info-icon {
+  pointer-events: none; /* ✅ 若只是裝飾，防止干擾 hover */
+  font-size: 14px;
+  color: white;
+  margin-bottom: 2px;
+}
+
 /* 漂亮的小動畫 */
 @keyframes fadeInBadge {
   from {

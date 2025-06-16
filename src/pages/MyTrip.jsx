@@ -806,9 +806,10 @@ function MyTrip() {
               價格：
               <strong>NT$ {isNaN(totalPrice) ? 0 : totalPrice.toLocaleString()}</strong>
               {hasSurcharge && (
-                <span className="surcharge-badge">
-                  含週末加價 <FiInfo className="info-icon" />
-                </span>
+                <span className="surcharge-badge" title={`週末加價日：${surchargeDates.join('、')}`}>
+  含週末加價 <FiInfo className="info-icon" />
+</span>
+
 
               )}
 
