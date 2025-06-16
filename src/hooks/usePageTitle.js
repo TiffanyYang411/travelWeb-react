@@ -3,7 +3,7 @@ import { useEffect } from 'react';
 
 function usePageTitle(title) {
   useEffect(() => {
-    document.title = `ÉLAN JOURNEYS | ${title}｜北歐高端旅遊規劃平台`;
+    document.title = `ÉLAN JOURNEYS | ${title} | 北歐高端旅遊規劃平台`;
   }, [title]);
 }
 
