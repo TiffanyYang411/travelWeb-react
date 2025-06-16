@@ -483,7 +483,7 @@
 }
 
   .trip-summary-page {
-    padding: 40px 40px 80px 25px;
+    padding: 40px 30px 80px 30px;
     /* 上下空間更寬裕，避免碰到 navbar */
     background-color: var(--primary-color);
     min-height: 100vh;
@@ -644,7 +644,7 @@
   }
 
   .trip-summary-page {
-    padding: 40px 40px 80px 20px;
+    padding: 40px 20px 80px 20px;
     /* 上下空間更寬裕，避免碰到 navbar */
     background-color: var(--primary-color);
     min-height: 100vh;
