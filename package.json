@@ -4,12 +4,11 @@
   "version": "0.0.0",
   "type": "module",
   "scripts": {
-  "dev": "vite",
-  "build": "vite build",
-  "predeploy": "npm run build && copy dist\\index.html dist\\404.html && type NUL > dist\\.nojekyll",
-  "deploy": "gh-pages -d dist"
-},
-
+    "dev": "vite",
+    "build": "vite build",
+    "predeploy": "npm run build && copy dist\\index.html dist\\404.html && type NUL > dist\\.nojekyll",
+    "deploy": "gh-pages -d dist"
+  },
   "dependencies": {
     "@hello-pangea/dnd": "^18.0.1",
     "framer-motion": "^12.9.4",
@@ -17,6 +16,7 @@
     "react-beautiful-dnd": "^13.1.1",
     "react-calendar": "^5.1.0",
     "react-dom": "^18.2.0",
+    "react-icons": "^5.5.0",
     "react-router-dom": "^7.6.0",
     "swiper": "^11.2.6"
   },

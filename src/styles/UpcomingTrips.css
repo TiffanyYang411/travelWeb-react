@@ -541,6 +541,45 @@
   font-size: 16px;
 }
 
+.upcoming-expand-btn {
+  background-color: var(--accent-color); /* 如 #FF6F19 */
+  color: white;
+  font-weight: bold;
+  cursor: pointer;
+}
+
+.expand-icon {
+  font-size: 20px;
+  vertical-align: middle;
+}
+
+/* ✅ 手機：最多顯示 2 張 (280px) */
+@media screen and (max-width: 767px) {
+  .upcoming-trip-thumbnails {
+    flex-wrap: nowrap;
+    overflow-x: auto;
+    max-width: calc(140px * 2 + 16px); /* 2張圖片 + gap */
+  }
+}
+
+/* ✅ 平板：最多顯示 4 張 (592px) */
+@media screen and (min-width: 768px) and (max-width: 1024px) {
+  .upcoming-trip-thumbnails {
+    flex-wrap: nowrap;
+    overflow-x: auto;
+    max-width: calc(140px * 4 + 36px); /* 4張圖片 + gap */
+  }
+}
+
+/* ✅ 桌機以上維持原本的設定 */
+@media screen and (min-width: 1025px) {
+  .upcoming-trip-thumbnails {
+    flex-wrap: nowrap;
+    overflow-x: auto;
+    max-width: 100%;
+  }
+}
+
 /* === 平板 RWD（768px ~ 1024px）=== */
 @media screen and (max-width: 1024px) and (min-width: 768px) {
   .upcoming-record-card {
@@ -607,7 +646,7 @@
 /* === 手機 RWD（<= 767px）=== */
 @media screen and (max-width: 767px) {
   .upcoming-page {
-    padding: 80px 30px 60px 30px;
+    padding: 80px 35px 60px 35px;
   }
 
   .upcoming-page-title {

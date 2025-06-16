@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react';
 import '../styles/UpcomingTrips.css';
 import { getUserName } from '../utils/auth';
+import { FiChevronDown, FiChevronUp } from 'react-icons/fi';
 
 function formatDate(dateString) {
   if (!dateString) return '';
@@ -98,11 +99,20 @@ function UpcomingTrips() {
                       </div>
                     </div>
                     <button
-                      className="upcoming-expand-btn"
-                      onClick={() => setExpandedIndex(index === expandedIndex ? null : index)}
-                    >
-                      {expandedIndex === index ? '收起 ▲' : '展開 ▼'}
-                    </button>
+  className="upcoming-expand-btn"
+  onClick={() => setExpandedIndex(index === expandedIndex ? null : index)}
+>
+  {expandedIndex === index ? (
+    <>
+      收起 <FiChevronUp className="expand-icon" />
+    </>
+  ) : (
+    <>
+      展開 <FiChevronDown className="expand-icon" />
+    </>
+  )}
+</button>
+
                   </div>
                 </div>
 
@@ -127,36 +137,36 @@ function UpcomingTrips() {
                       const originalPrice = trip.price;
 
                       const schedules = (trip.itinerary || [])
-  .filter(d => d.desc || d.image) // ✅ 過濾空日
-  .map((dayObj, i) => {
-    const lines = String(dayObj.desc ?? '').split('\n').map(l => l.trim()).filter(Boolean);
-    let current = '';
-    let morning = '', afternoon = '', evening = '';
+                        .filter(d => d.desc || d.image) // ✅ 過濾空日
+                        .map((dayObj, i) => {
+                          const lines = String(dayObj.desc ?? '').split('\n').map(l => l.trim()).filter(Boolean);
+                          let current = '';
+                          let morning = '', afternoon = '', evening = '';
 
-    lines.forEach((line) => {
-      if (/^清晨|上午/.test(line)) current = 'morning';
-      else if (/^中午|下午/.test(line)) current = 'afternoon';
-      else if (/^傍晚|晚上/.test(line)) current = 'evening';
-      else if (current) {
-        if (current === 'morning') morning += line + ' ';
-        if (current === 'afternoon') afternoon += line + ' ';
-        if (current === 'evening') evening += line + ' ';
-      }
-    });
+                          lines.forEach((line) => {
+                            if (/^清晨|上午/.test(line)) current = 'morning';
+                            else if (/^中午|下午/.test(line)) current = 'afternoon';
+                            else if (/^傍晚|晚上/.test(line)) current = 'evening';
+                            else if (current) {
+                              if (current === 'morning') morning += line + ' ';
+                              if (current === 'afternoon') afternoon += line + ' ';
+                              if (current === 'evening') evening += line + ' ';
+                            }
+                          });
 
-    return {
-      day: i + 1,
-      morning: morning.trim(),
-      afternoon: afternoon.trim(),
-      evening: evening.trim(),
-      image: dayObj.image
-    };
-  });
+                          return {
+                            day: i + 1,
+                            morning: morning.trim(),
+                            afternoon: afternoon.trim(),
+                            evening: evening.trim(),
+                            image: dayObj.image
+                          };
+                        });
 
 
                       const dayIndex = dayIndexes[trip.id] ?? 0;
-const safe = Math.min(dayIndex, schedules.length - 1);
-const sch = schedules[safe] || {}; // fallback 保險
+                      const safe = Math.min(dayIndex, schedules.length - 1);
+                      const sch = schedules[safe] || {}; // fallback 保險
 
                       start.setDate(start.getDate() + tripDays);
 
@@ -200,55 +210,55 @@ const sch = schedules[safe] || {}; // fallback 保險
                     })}
 
                     <section className="upcoming-customization">
-  <h3 className="upcoming-custom-title">客製化</h3>
-  <ul className="upcoming-custom-list">
-    {[
-      { label: '人數', key: 'totalPeople', value: record.customization.totalPeople + ' 人' },
-      { label: '費用', key: 'totalPrice', value: 'NT$ ' + Number(record.customization.totalPrice).toLocaleString() },
-      { label: '專屬導遊 / 私人導覽', key: '1' },
-      { label: '豪華專車接送', key: '2' },
-      { label: '升級住宿', key: '3' },
-      { label: '飲食需求', key: '4', value: record.customization.foodNote },
-      { label: '姓名', key: 'name' },
-      { label: 'Email', key: 'email' },
-      { label: '聯絡電話', key: 'phone' },
-      { label: '其他特別需求', key: 'specialRequest' },
-    ]
-      .map(({ label, key, value }) => {
-        const selected = record.customization[key];
+                      <h3 className="upcoming-custom-title">客製化</h3>
+                      <ul className="upcoming-custom-list">
+                        {[
+                          { label: '人數', key: 'totalPeople', value: record.customization.totalPeople + ' 人' },
+                          { label: '費用', key: 'totalPrice', value: 'NT$ ' + Number(record.customization.totalPrice).toLocaleString() },
+                          { label: '專屬導遊 / 私人導覽', key: '1' },
+                          { label: '豪華專車接送', key: '2' },
+                          { label: '升級住宿', key: '3' },
+                          { label: '飲食需求', key: '4', value: record.customization.foodNote },
+                          { label: '姓名', key: 'name' },
+                          { label: 'Email', key: 'email' },
+                          { label: '聯絡電話', key: 'phone' },
+                          { label: '其他特別需求', key: 'specialRequest' },
+                        ]
+                          .map(({ label, key, value }) => {
+                            const selected = record.customization[key];
 
-        if (['1', '2', '3', '4'].includes(key)) {
-          if (selected === 'yes' && value) {
-            return (
-              <li key={key}>
-                <strong>{label}：</strong>
-                <div>是，{value}</div>
-              </li>
-            );
-          }
-          if (selected === 'yes') {
-            return (
-              <li key={key}>
-                <strong>{label}：</strong>
-                <div>是</div>
-              </li>
-            );
-          }
-          return null;
-        }
+                            if (['1', '2', '3', '4'].includes(key)) {
+                              if (selected === 'yes' && value) {
+                                return (
+                                  <li key={key}>
+                                    <strong>{label}：</strong>
+                                    <div>是，{value}</div>
+                                  </li>
+                                );
+                              }
+                              if (selected === 'yes') {
+                                return (
+                                  <li key={key}>
+                                    <strong>{label}：</strong>
+                                    <div>是</div>
+                                  </li>
+                                );
+                              }
+                              return null;
+                            }
 
-        // 其他欄位顯示非空值
-        if (!selected || selected === 'no') return null;
+                            // 其他欄位顯示非空值
+                            if (!selected || selected === 'no') return null;
 
-        return (
-          <li key={key}>
-            <strong>{label}：</strong>
-            <div>{value || selected}</div>
-          </li>
-        );
-      })}
-  </ul>
-</section>
+                            return (
+                              <li key={key}>
+                                <strong>{label}：</strong>
+                                <div>{value || selected}</div>
+                              </li>
+                            );
+                          })}
+                      </ul>
+                    </section>
 
 
                   </div>
