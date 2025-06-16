@@ -143,8 +143,11 @@ function Footer() {
 
       {/* 最下層 淺藍版權區 */}
       <div className="footer-bottom">
-        <p className="en-title-16">© 2025 by VIP Global (Taiwan). All rights reserved.</p>
+        <p className="footer-bottom-text">
+          © 2025 ÉLAN Journeys. All rights reserved. 此網站設計為學生練習作品，無任何商業營利用途。
+        </p>
       </div>
+
     </footer>
   );
 }

@@ -2,19 +2,6 @@
 @import './styles/colors.css';
 @import './styles/Typography.css';
 
-/* ✅ 解決 draggable 無效問題：強制 root 全域無 transform 或 overflow 限制 */
-/* * {
-  box-sizing: border-box;
-}
-
-html, body, #root {
-  padding: 0;
-  margin: 0;
-  height: 100%;
-  overflow: visible !important;
-  transform: none !important;
-} */
-
 :root {
   /* 字型設定 */
   font-family: Inter, system-ui, Avenir, Helvetica, Arial, sans-serif;
