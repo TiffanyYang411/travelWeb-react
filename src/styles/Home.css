@@ -222,7 +222,7 @@
   }
 
   .hero-section.expanded .hero-window-frame {
-    transform: scale(2.9) translate(-63px, 55px);
+    transform: scale(2.9) translate(-55px, 55px);
   }
 
   .fullscreen-img.slide-one.active {
@@ -291,7 +291,7 @@
   }
 
   .hero-section.expanded .hero-window-frame {
-    transform: scale(2.7) translate(-58px, 40px);
+    transform: scale(3.3) translate(-58px, 50px);
     /* ✅ 向左下擴張一點點 */
   }
 
@@ -302,6 +302,10 @@
 
   .fullscreen-img.slide-one.active {
     transform: translateX(20px);
+  }
+
+  .fullscreen-img.slide-one {
+    object-position: 50% center !important;
   }
 }
 
