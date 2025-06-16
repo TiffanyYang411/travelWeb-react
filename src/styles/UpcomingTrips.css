@@ -32,7 +32,8 @@
   color: #fff;
   text-align: center;
   margin-top: 120px;
-  font-size: 20px; /* ✅ 你指定的字體大小 */
+  font-size: 20px;
+  /* ✅ 你指定的字體大小 */
 }
 
 .upcoming-record-wrapper {
@@ -74,14 +75,16 @@
 
 .upcoming-record-card {
   background-color: var(--secondary-color-light);
-  border-radius: 0 0 16px 16px; /* ✅ 右上角改為 0 */
+  border-radius: 0 0 16px 16px;
+  /* ✅ 右上角改為 0 */
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
   overflow: hidden;
   padding: 20px 24px;
   display: flex;
   justify-content: space-between;
   align-items: center;
-  flex-wrap: nowrap; /* ✅ 讓圖片 + 資訊橫排，避免換行 */
+  flex-wrap: nowrap;
+  /* ✅ 讓圖片 + 資訊橫排，避免換行 */
   height: 150px;
 }
 
@@ -157,7 +160,7 @@
   left: 0;
   right: 0;
   bottom: 0;
-  background: rgba(0,0,0,0.5);
+  background: rgba(0, 0, 0, 0.5);
   display: flex;
   justify-content: center;
   align-items: center;
@@ -182,12 +185,14 @@
   align-items: stretch;
   gap: 0;
 }
+
 .upcoming-label {
   font-size: 18px;
   font-weight: bold;
   color: #142E3F;
   margin-bottom: 4px;
 }
+
 .upcoming-value {
   font-size: 16px;
   font-weight: bold;
@@ -197,7 +202,7 @@
 }
 
 .upcoming-expand-btn {
-   background-color: #FF6F19;
+  background-color: #FF6F19;
   color: white;
   border: none;
   padding: 6px 16px;
@@ -211,7 +216,8 @@
 .upcoming-expanded-wrapper {
   margin-top: 24px;
   width: 100%;
-  max-width: 960px; /* ✅ 跟 .upcoming-record-wrapper 和 .upcoming-trip-detail 一樣 */
+  max-width: 960px;
+  /* ✅ 跟 .upcoming-record-wrapper 和 .upcoming-trip-detail 一樣 */
   margin-left: auto;
   margin-right: auto;
 }
@@ -224,7 +230,7 @@
 }
 
 .upcoming-trip-detail {
-    display: flex;
+  display: flex;
   flex-wrap: wrap;
   gap: 24px;
   background-color: #ffffff;
@@ -235,7 +241,8 @@
   align-items: center;
   justify-content: space-between;
   position: relative;
-  max-width: 960px; /* ✅ 統一展開寬度與收起狀態 */
+  max-width: 960px;
+  /* ✅ 統一展開寬度與收起狀態 */
   margin-left: auto;
   margin-right: auto;
 }
@@ -270,7 +277,7 @@
 }
 
 .upcoming-detail-title {
-   font-size: 20px;
+  font-size: 20px;
   font-weight: 700;
   font-family: 'LXGW WenKai TC';
 }
@@ -341,7 +348,7 @@
 }
 
 .upcoming-schedule-header {
-    width: 100%;
+  width: 100%;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -417,7 +424,7 @@
   font-weight: bold;
   font-family: 'LXGW WenKai TC';
   color: #142E3F;
-   margin: 0 0 4px 32px;
+  margin: 0 0 4px 32px;
 }
 
 .upcoming-code-box {
@@ -475,7 +482,8 @@
   white-space: nowrap;
 }
 
-.upcoming-custom-list li > span, .upcoming-custom-list li > div {
+.upcoming-custom-list li>span,
+.upcoming-custom-list li>div {
   flex: 2;
   padding: 6px 12px;
   background-color: #DCE8ED;
@@ -486,7 +494,7 @@
 }
 
 .upcoming-detail-days {
-   font-size: 20px;
+  font-size: 20px;
   font-weight: 700;
   font-family: 'LXGW WenKai TC';
 }
@@ -531,7 +539,8 @@
   white-space: nowrap;
 }
 
-.upcoming-custom-list li > span, .upcoming-custom-list li > div {
+.upcoming-custom-list li>span,
+.upcoming-custom-list li>div {
   flex: 2;
   padding: 6px 12px;
   background-color: #DCE8ED;
@@ -542,7 +551,8 @@
 }
 
 .upcoming-expand-btn {
-  background-color: var(--accent-color); /* 如 #FF6F19 */
+  background-color: var(--accent-color);
+  /* 如 #FF6F19 */
   color: white;
   font-weight: bold;
   cursor: pointer;
@@ -558,7 +568,13 @@
   .upcoming-trip-thumbnails {
     flex-wrap: nowrap;
     overflow-x: auto;
-    max-width: calc(140px * 2 + 16px); /* 2張圖片 + gap */
+    max-width: calc(140px * 2 + 0px);
+    /* 2張圖片 + gap */
+  }
+
+  .upcoming-trip-thumbnails::-webkit-scrollbar {
+    height: 8px;
+    /* ✅ 原本未設定，預設偏寬，這裡改細一點 */
   }
 }
 
@@ -567,16 +583,8 @@
   .upcoming-trip-thumbnails {
     flex-wrap: nowrap;
     overflow-x: auto;
-    max-width: calc(140px * 4 + 36px); /* 4張圖片 + gap */
-  }
-}
-
-/* ✅ 桌機以上維持原本的設定 */
-@media screen and (min-width: 1025px) {
-  .upcoming-trip-thumbnails {
-    flex-wrap: nowrap;
-    overflow-x: auto;
-    max-width: 100%;
+    max-width: calc(140px * 4 + 0px);
+    /* 4張圖片 + gap */
   }
 }
 
@@ -595,7 +603,7 @@
     justify-content: flex-start;
   }
 
-   /* .upcoming-info-columns {
+  /* .upcoming-info-columns {
     justify-content: center;
     flex-wrap: wrap;
     gap: 32px;
@@ -609,8 +617,8 @@
     text-align: center;
   }
 
-  
-   .upcoming-expand-btn {
+
+  .upcoming-expand-btn {
     margin-top: 0px;
     width: 18%;
     text-align: center;
@@ -720,8 +728,8 @@
   }
 
   .upcoming-custom-list strong,
-  .upcoming-custom-list li > span,
-  .upcoming-custom-list li > div {
+  .upcoming-custom-list li>span,
+  .upcoming-custom-list li>div {
     width: 100%;
     text-align: left;
   }
@@ -740,10 +748,3 @@
     content: none !important;
   }
 }
-
-
-
-
-
-
-
