@@ -327,6 +327,7 @@
 
   .hero-window-frame {
     transform-origin: 70% 74%; /* ✅ 從偏右偏下的位置縮放，維持構圖平衡 */
+  transform: scale(2.4) translate(-100px, 40px);
   }
 
   .hero-section.expanded .hero-window-frame {
@@ -340,6 +341,10 @@
 
   .fullscreen-img.slide-one.active {
     transform: translateX(0px);
+  }
+
+  .fullscreen-img.slide-one {
+    object-position: 65% center !important;
   }
 }
 
