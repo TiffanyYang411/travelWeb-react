@@ -222,7 +222,7 @@
   }
 
   .hero-section.expanded .hero-window-frame {
-    transform: scale(3.2) translate(-15px, 45px);
+    transform: scale(3.2) translate(-5px, 45px);
   }
 
   .fullscreen-img.slide-one.active {
