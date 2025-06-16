@@ -24,6 +24,7 @@ function formatDateToZh(date) {
 function MyTrip() {
   usePageTitle('我的行程');
   const navigate = useNavigate();
+  const [showTooltip, setShowTooltip] = useState(false);
   const [isMobile, setIsMobile] = useState(window.innerWidth < 899);
   useEffect(() => {
     const handleResize = () => {
@@ -33,7 +34,7 @@ function MyTrip() {
     window.addEventListener('resize', handleResize);
     return () => window.removeEventListener('resize', handleResize);
   }, []);
-  
+
   const {
     pendingTrips,
     setPendingTrips,
@@ -130,6 +131,16 @@ function MyTrip() {
 
     sessionStorage.setItem('userTrips', JSON.stringify(pendingTrips));
   }, [pendingTrips, startDate]);
+
+  useEffect(() => {
+  const handleClickOutside = (e) => {
+    if (!e.target.closest('.next-step-wrapper')) {
+      setShowTooltip(false);
+    }
+  };
+  document.addEventListener('click', handleClickOutside);
+  return () => document.removeEventListener('click', handleClickOutside);
+}, []);
 
   const calculateTotal = (inputStartDate = startDate, inputTrips = pendingTrips) => {
     let total = 0;
@@ -784,9 +795,20 @@ function MyTrip() {
               價格：
               <strong>NT$ {isNaN(totalPrice) ? 0 : totalPrice.toLocaleString()}</strong>
               {hasSurcharge && (
-                <span className="surcharge-badge" title={`週末加價日：${surchargeDates.join('、')}`}>
-                  含週末加價 <FiInfo className="info-icon" />
-                </span>
+                <div className="next-step-wrapper">
+                  <span
+                    className="surcharge-badge"
+                    onClick={() => setShowTooltip(!showTooltip)}
+                  >
+                    含週末加價 <FiInfo className="info-icon" />
+                  </span>
+                  {showTooltip && (
+                    <div className="tooltip-bubble">
+                      您的行程包含週末：{surchargeDates.join('、')}
+                    </div>
+                  )}
+                </div>
+
               )}
             </p>
 

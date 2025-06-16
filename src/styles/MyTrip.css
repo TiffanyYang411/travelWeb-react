@@ -1174,6 +1174,12 @@ body,
   perspective: none !important;
 } */
 
+.mytrip-info-container {
+  max-width: 100%;
+  overflow-x: hidden;
+}
+
+
 @media (max-width: 767px) {
   .mytrip-info-container {
     max-height: none;
@@ -1188,8 +1194,7 @@ body,
 
 .tooltip-bubble {
   position: absolute;
-  bottom: 120%;
-  /* 顯示在上方 */
+  bottom: -122%;
   left: 50%;
   transform: translateX(-50%);
   background-color: #fff;
@@ -1198,19 +1203,41 @@ body,
   border-radius: 10px;
   font-size: 14px;
   box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
-  white-space: nowrap;
-  pointer-events: none;
-  opacity: 0;
+  white-space: normal; /* ✅ 改為可自動換行 */
   max-width: 240px;
+  width: max-content;
+  min-width: 100px;
   z-index: 1000;
   transition: opacity 0.3s ease;
+  word-break: break-word;  /* ✅ 中文換行防斷 */
+  overflow-wrap: break-word;
 }
+
+/* ✅ 如果真的靠邊，可以用 media query 修正偏移 */
+@media (min-width: 768px) {
+  .next-step-wrapper {
+    position: relative;
+  }
+
+  .tooltip-bubble {
+    left: auto;
+    right: -18px;
+    transform: none;
+  }
+
+  .tooltip-bubble::after {
+    left: auto;
+    right: 20px; /* 調整箭頭位置 */
+    transform: none;
+  }
+}
+
 
 .next-step-wrapper:hover .tooltip-bubble {
   opacity: 1;
 }
 
-.tooltip-bubble::after {
+/* .tooltip-bubble::after {
   content: '';
   position: absolute;
   top: 100%;
@@ -1219,7 +1246,7 @@ body,
   border-width: 6px;
   border-style: solid;
   border-color: #fff transparent transparent transparent;
-}
+} */
 
 .info-icon {
   margin-bottom: 2px;
