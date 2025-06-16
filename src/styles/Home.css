@@ -204,7 +204,7 @@
 }
 
 /* ✅ 平板 (768px ~ 1024px)：居中縮放，移除偏移 */
-@media screen and (min-width: 1100px) and (max-width: 1298px) {
+@media screen and (min-width: 1001px) and (max-width: 1298px) {
   .hero-quote:not(.quote-expanded) {
     left: 15%;
     top: 55%;
@@ -222,7 +222,7 @@
   }
 
   .hero-section.expanded .hero-window-frame {
-    transform: scale(3.1) translate(-22px, 60px);
+    transform: scale(2.9) translate(-63px, 55px);
   }
 
   .fullscreen-img.slide-one.active {
@@ -377,11 +377,11 @@
   .hero-window-frame {
     transform-origin: 70% 74%;
     /* ✅ 從偏右偏下的位置縮放，維持構圖平衡 */
-    transform: scale(1.8) translate(-110px, 90px);
+    transform: scale(1.8) translate(-100px, 90px);
   }
 
   .hero-section.expanded .hero-window-frame {
-    transform: scale(1.9) translate(-160px, 100px);
+    transform: scale(1.9) translate(-160px, 80px);
     /* ✅ 避免窗框超出畫面右側，並稍微往下壓 */
   }
 
