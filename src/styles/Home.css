@@ -117,7 +117,7 @@
   transform: translateY(0);
 }
 
-@media screen and (min-width: 1680px){
+@media screen and (min-width: 1680px) {
   .hero-quote.quote-expanded {
     left: 230px;
     bottom: 400px;
@@ -128,7 +128,7 @@
     /* 改成 40px、20px、或 0px 試試 */
   }
 
- .hero-window-frame {
+  .hero-window-frame {
     transform-origin: 80.2% 92%;
   }
 
@@ -151,7 +151,7 @@
     left: 150px;
     bottom: 280px;
   }
-  
+
   .hero-window-frame {
     transform-origin: 80.2% 87%;
   }
@@ -180,7 +180,7 @@
     left: 160px;
     bottom: 300px;
   }
-  
+
   .hero-window-frame {
     transform-origin: 80.2% 88%;
   }
@@ -204,7 +204,7 @@
 }
 
 /* ✅ 平板 (768px ~ 1024px)：居中縮放，移除偏移 */
-@media screen and (min-width: 1200px) and (max-width: 1298px) {
+@media screen and (min-width: 1100px) and (max-width: 1298px) {
   .hero-quote:not(.quote-expanded) {
     left: 15%;
     top: 55%;
@@ -239,8 +239,8 @@
   }
 }
 
-/* ✅ 桌機中尺寸（例如：1025 ~ 1199px）也要有定義 */
-@media screen and (min-width: 1001px) and (max-width: 1199px) {
+/* ✅ 桌機中尺寸（例如：1025 ~ 1199px）也要有定義
+@media screen and (min-width: 1001px) and (max-width: 1099px) {
   .hero-quote:not(.quote-expanded) {
     left: 15%;
     top: 50%;
@@ -269,7 +269,7 @@
   .fullscreen-img.slide-one.active {
     transform: translateX(20px);
   }
-}
+} */
 
 /* ✅ 桌機中尺寸（例如：1025 ~ 1199px）也要有定義 */
 @media screen and (min-width: 700px) and (max-width: 1000px) {
@@ -286,11 +286,13 @@
   }
 
   .hero-window-frame {
-    transform-origin: 87% 85%;  /* ✅ 從偏左的地方開始放大 */
+    transform-origin: 87% 85%;
+    /* ✅ 從偏左的地方開始放大 */
   }
 
   .hero-section.expanded .hero-window-frame {
-    transform: scale(2.7) translate(-58px, 40px);  /* ✅ 向左下擴張一點點 */
+    transform: scale(2.7) translate(-58px, 40px);
+    /* ✅ 向左下擴張一點點 */
   }
 
   .fullscreen-img {
@@ -326,12 +328,14 @@
   }
 
   .hero-window-frame {
-    transform-origin: 70% 74%; /* ✅ 從偏右偏下的位置縮放，維持構圖平衡 */
-  transform: scale(2.4) translate(-100px, 40px);
+    transform-origin: 70% 74%;
+    /* ✅ 從偏右偏下的位置縮放，維持構圖平衡 */
+    transform: scale(1.5) translate(-110px, 80px);
   }
 
   .hero-section.expanded .hero-window-frame {
-    transform: scale(2.4) translate(-120px, 65px); /* ✅ 避免窗框超出畫面右側，並稍微往下壓 */
+    transform: scale(2) translate(-180px, 65px);
+    /* ✅ 避免窗框超出畫面右側，並稍微往下壓 */
   }
 
   .fullscreen-img {
@@ -348,4 +352,40 @@
   }
 }
 
+@media screen and (max-width: 400px) {
+  .hero-quote:not(.quote-expanded) {
+    left: 15%;
+    top: 55%;
+    width: 180px;
+    transform: translate(-10px, -50%);
+  }
 
+  .hero-quote.quote-expanded {
+    left: 16px;
+    bottom: 390px;
+    width: 330px;
+    transform: translateY(30px);
+    opacity: 0;
+    transition: opacity 2.4s ease-in-out 0.3s, transform 2.4s ease-in-out 0.3s;
+  }
+
+  .hero-quote.quote-expanded.visible {
+    opacity: 1;
+    transform: translateY(0);
+  }
+
+  .hero-window-frame {
+    transform-origin: 70% 74%;
+    /* ✅ 從偏右偏下的位置縮放，維持構圖平衡 */
+    transform: scale(1.8) translate(-110px, 90px);
+  }
+
+  .hero-section.expanded .hero-window-frame {
+    transform: scale(1.9) translate(-160px, 100px);
+    /* ✅ 避免窗框超出畫面右側，並稍微往下壓 */
+  }
+
+  .fullscreen-img.slide-one {
+    object-position: 60% center !important;
+  }
+}
