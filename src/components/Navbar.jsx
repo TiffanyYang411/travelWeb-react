@@ -202,12 +202,18 @@ function Navbar() {
           {navLinks.map((link) => (
             <li key={link.path}>
               <Link
-                to={link.path}
-                onClick={() => setMobileMenuOpen(false)}
-                className="zh-text-16"
-              >
-                {link.name}
-              </Link>
+  to={link.path}
+  onClick={() => {
+    if (link.scrollToTop) {
+      sessionStorage.setItem('forceScrollToTop', 'true');
+    }
+    setMobileMenuOpen(false);
+  }}
+  className="zh-text-16"
+>
+  {link.name}
+</Link>
+
             </li>
           ))}
         </ul>
