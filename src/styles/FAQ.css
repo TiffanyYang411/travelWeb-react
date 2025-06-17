@@ -188,7 +188,7 @@
   }
 }
 
-@media (max-width: 390px) {
+@media (max-width: 420px) {
   .faq-hero {
     position: relative;
     height: 36vh;
