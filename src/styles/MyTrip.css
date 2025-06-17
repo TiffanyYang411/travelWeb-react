@@ -870,8 +870,14 @@ select::-ms-expand {
   gap: 4px;
 }
 
+.surcharge-badge:hover {
+  background-color: #e65c00;
+  outline: none;
+}
+
 .info-icon {
-  pointer-events: none; /* ✅ 若只是裝飾，防止干擾 hover */
+  pointer-events: none;
+  /* ✅ 若只是裝飾，防止干擾 hover */
   font-size: 14px;
   color: white;
   margin-bottom: 2px;
@@ -1203,13 +1209,15 @@ body,
   border-radius: 10px;
   font-size: 14px;
   box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
-  white-space: normal; /* ✅ 改為可自動換行 */
+  white-space: normal;
+  /* ✅ 改為可自動換行 */
   max-width: 240px;
   width: max-content;
   min-width: 100px;
   z-index: 1000;
   transition: opacity 0.3s ease;
-  word-break: break-word;  /* ✅ 中文換行防斷 */
+  word-break: break-word;
+  /* ✅ 中文換行防斷 */
   overflow-wrap: break-word;
 }
 
@@ -1227,7 +1235,8 @@ body,
 
   .tooltip-bubble::after {
     left: auto;
-    right: 20px; /* 調整箭頭位置 */
+    right: 20px;
+    /* 調整箭頭位置 */
     transform: none;
   }
 }
@@ -1258,16 +1267,16 @@ body,
 /* ✅ 1666px 以下改為上下排列 */
 @media (max-width: 1666px) {
   .people-select input[type="number"] {
-  width: 100px;
-  padding: 20px 10px;
-  font-size: 16px;
-  border-radius: 6px;
-  border: 1px solid #ccc;
-  margin-left: 20px;
-  /* ✅ 這行讓它往右移動 */
-  margin-top: -15px;
-  /* ✅ 負值會讓它往上 */
-}
+    width: 100px;
+    padding: 20px 10px;
+    font-size: 16px;
+    border-radius: 6px;
+    border: 1px solid #ccc;
+    margin-left: 20px;
+    /* ✅ 這行讓它往右移動 */
+    margin-top: -15px;
+    /* ✅ 負值會讓它往上 */
+  }
 
   .mytrip-header-row {
     grid-template-columns: 7.9fr 2.1fr 2.8fr 2.2fr 2fr;
@@ -1276,7 +1285,7 @@ body,
   .mytrip-item {
     grid-template-columns: 6.7fr 2fr 2fr 2.6fr 1fr;
   }
-  
+
   .mytrip-main {
     flex-direction: column;
     align-items: center;
@@ -1311,7 +1320,7 @@ body,
     font-size: 18px;
     margin: 0 20px 0 0;
   }
-  
+
   .people-select select {
     padding: 20px 20px 20px 20px;
   }
@@ -1385,17 +1394,17 @@ body,
     padding: 20px 20px 20px 0px;
   }
 
-      .people-select input[type="number"] {
-        width: 100px;
-        padding: 20px 10px;
-        font-size: 16px;
-        border-radius: 6px;
-        border: 1px solid #ccc;
-        margin-left: 0px;
-        margin-top: -15px;
-    }
+  .people-select input[type="number"] {
+    width: 100px;
+    padding: 20px 10px;
+    font-size: 16px;
+    border-radius: 6px;
+    border: 1px solid #ccc;
+    margin-left: 0px;
+    margin-top: -15px;
+  }
 
-   .drag-hint {
+  .drag-hint {
     display: block !important;
     font-size: 14px;
     padding: 10px 20px;
@@ -1559,7 +1568,7 @@ body,
     margin-right: 0px;
   }
 
-   .mytrip-left-text {
+  .mytrip-left-text {
     width: 100%;
     padding-left: 0;
   }
@@ -1579,5 +1588,5 @@ body,
     z-index: 2;
   }
 
-  
+
 }

@@ -197,6 +197,10 @@
     gap: 6px;
     /* ✅ 文字與箭頭之間的間距 */
 }
+.tripcustom-edit-trip-btn:hover {
+    background-color: #e65c00;
+    outline: none;
+}
 
 /* 🔥 tripcustom-intro 改版 */
 .tripcustom-intro {

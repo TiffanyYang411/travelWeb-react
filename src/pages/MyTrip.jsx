@@ -133,14 +133,14 @@ function MyTrip() {
   }, [pendingTrips, startDate]);
 
   useEffect(() => {
-  const handleClickOutside = (e) => {
-    if (!e.target.closest('.next-step-wrapper')) {
-      setShowTooltip(false);
-    }
-  };
-  document.addEventListener('click', handleClickOutside);
-  return () => document.removeEventListener('click', handleClickOutside);
-}, []);
+    const handleClickOutside = (e) => {
+      if (!e.target.closest('.next-step-wrapper')) {
+        setShowTooltip(false);
+      }
+    };
+    document.addEventListener('click', handleClickOutside);
+    return () => document.removeEventListener('click', handleClickOutside);
+  }, []);
 
   const calculateTotal = (inputStartDate = startDate, inputTrips = pendingTrips) => {
     let total = 0;
@@ -451,7 +451,7 @@ function MyTrip() {
           <h2 className="zh-title-36">您的專屬旅程</h2>
           <p className="zh-text-20">旅程的篇章尚未開始書寫，<br />現在，就是您與北歐邂逅的最佳時刻。</p>
           <button className="mytrip-start-trip-btn zh-text-18" onClick={() => {
-            sessionStorage.setItem('scrollToTop', 'true');
+            sessionStorage.setItem('forceScrollToTop', 'true');
             navigate('/explore');
           }}
           >
