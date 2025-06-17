@@ -654,7 +654,7 @@
 /* === 手機 RWD（<= 767px）=== */
 @media screen and (max-width: 740px) {
   .upcoming-page {
-    padding: 80px 10px 60px 10px;
+    padding: 80px 30px 60px 30px;
   }
 
   .upcoming-page-title {
@@ -747,4 +747,13 @@
     border: none !important;
     content: none !important;
   }
+
+  .upcoming-record-wrapper {
+    max-width: 100%;
+    margin: 0 auto;
+    display: flex;
+    flex-direction: column;
+    gap: 36px;
+    background-color: var(--primary-color);
+}
 }
