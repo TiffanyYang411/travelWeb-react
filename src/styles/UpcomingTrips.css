@@ -678,11 +678,14 @@
      width: 100%;
   }
 
-  .upcoming-expand-btn {
-    width: 28%;
-    height: 36px;
+    .upcoming-expand-btn {
+    width: auto;
+    min-width: 120px;
+    height: 40px;
     font-size: 14px;
-    padding: 0px;
+    padding: 6px 16px;
+    margin: 0 auto;
+    display: block;
   }
 
    .tripcustom-info-column {
