@@ -654,7 +654,7 @@
 /* === 手機 RWD（<= 767px）=== */
 @media screen and (max-width: 740px) {
   .upcoming-page {
-    padding: 80px 30px 60px 30px;
+    padding: 80px 16px 60px 16px;
   }
 
   .upcoming-page-title {
@@ -675,6 +675,7 @@
     padding: 20px 16px;
     align-items: flex-start;
     gap: 16px;
+     width: 100%;
   }
 
   .upcoming-expand-btn {
@@ -755,6 +756,7 @@
 
   .upcoming-record-wrapper {
     max-width: 100%;
+    padding: 0;
     margin: 0 auto;
     display: flex;
     flex-direction: column;
