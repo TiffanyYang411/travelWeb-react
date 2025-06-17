@@ -6,6 +6,7 @@ import '../styles/TripSummary.css';
 import { clearCart } from '../utils/tripUtils';
 import { tripData } from '../data/tripData';
 import { useTripStore } from '../store/useTripStore';
+import { formatDateYMD } from '../utils/formatDate';
 
 function TripSummary() {
   const navigate = useNavigate();
@@ -294,7 +295,7 @@ function TripSummary() {
                       </div>
                       {tripStartDate && tripEndDate && (
                         <div className="trip-summary-trip-dates" style={{ fontFamily: 'LXGW WenKai TC' }}>
-                          {tripStartDate.toLocaleDateString()} ～ {tripEndDate.toLocaleDateString()}
+                          {formatDateYMD(tripStartDate)} ～ {formatDateYMD(tripEndDate)}
                         </div>
                       )}
                       <div className="trip-summary-price-wrapper">
