@@ -654,7 +654,7 @@
 /* === 手機 RWD（<= 767px）=== */
 @media screen and (max-width: 740px) {
   .upcoming-page {
-    padding: 80px 30px 60px 30px;
+    padding: 80px 10px 60px 10px;
   }
 
   .upcoming-page-title {
