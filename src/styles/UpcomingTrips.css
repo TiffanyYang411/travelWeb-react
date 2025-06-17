@@ -39,6 +39,7 @@
 .upcoming-record-wrapper {
   max-width: 960px;
   /* ⬅️ 原本 1280px，改成 960px 讓整體縮短 */
+  width: 90%;
   margin: 0 auto;
   display: flex;
   flex-direction: column;
@@ -675,7 +676,7 @@
     box-sizing: border-box;
     margin: 0 auto;
   }
-  
+
   .upcoming-record-card {
     flex-direction: column;
     height: auto;
