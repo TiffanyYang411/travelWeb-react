@@ -164,7 +164,7 @@
 
 .mytrip-header-row {
   display: grid;
-  grid-template-columns: 3.2fr 1.2fr 1.2fr 1fr 0.6fr;
+  grid-template-columns: 2.8fr 1fr 1.1fr 1fr 0.6fr;
   align-items: center;
   font-size: 20px;
   font-weight: bold;
@@ -1257,8 +1257,20 @@ body,
 
 /* ✅ 1666px 以下改為上下排列 */
 @media (max-width: 1666px) {
+  .people-select input[type="number"] {
+  width: 100px;
+  padding: 20px 10px;
+  font-size: 16px;
+  border-radius: 6px;
+  border: 1px solid #ccc;
+  margin-left: 20px;
+  /* ✅ 這行讓它往右移動 */
+  margin-top: -15px;
+  /* ✅ 負值會讓它往上 */
+}
+
   .mytrip-header-row {
-    grid-template-columns: 7.5fr 2fr 2.7fr 2.2fr 2fr;
+    grid-template-columns: 7.9fr 2.1fr 2.8fr 2.2fr 2fr;
   }
 
   .mytrip-item {
@@ -1370,8 +1382,18 @@ body,
   }
 
   .people-select select {
-    padding: 20px 20px 20px 20px;
+    padding: 20px 20px 20px 0px;
   }
+
+      .people-select input[type="number"] {
+        width: 100px;
+        padding: 20px 10px;
+        font-size: 16px;
+        border-radius: 6px;
+        border: 1px solid #ccc;
+        margin-left: 0px;
+        margin-top: -15px;
+    }
 
    .drag-hint {
     display: block !important;
@@ -1450,7 +1472,7 @@ body,
     font-size: 14px;
     padding-left: 30px;
     /* 保持與圖片 margin 對齊 */
-    padding-right: 10px;
+    padding-right: 6px;
   }
 
   .mytrip-card-cell:nth-child(1) {
