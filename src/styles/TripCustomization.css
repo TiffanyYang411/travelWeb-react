@@ -205,7 +205,7 @@
     align-items: center;
     gap: 60px;
     /* 左右距離 */
-    margin: 60px auto 150px;
+    margin: 0px auto 150px;
     max-width: 1200px;
 }
 
@@ -896,6 +896,28 @@
 
 .tripcustom-error-text {
     font-weight: 500;
+}
+
+.tripcustom-fee-alert {
+  background-color: #fff3eb;
+  border-left: 5px solid #ff6f19;
+  padding: 12px 16px;
+  border-radius: 8px;
+  color: #142E3F;
+  font-weight: bold;
+  margin: 20px 0;
+  line-height: 1.6;
+}
+
+.fee-alert-title {
+  font-weight: bold;
+  color: #ff6f19;
+  margin-bottom: 6px;
+  text-align: center;
+}
+
+.fee-alert-body {
+  line-height: 1.8;
 }
 
 @media screen and (max-width: 1350px) {
