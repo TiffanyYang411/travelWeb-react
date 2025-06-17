@@ -677,17 +677,22 @@
     gap: 16px;
   }
 
-  .upcoming-info-columns {
-    flex-direction: column;
-    gap: 12px;
-    width: 100%;
-  }
-
   .upcoming-expand-btn {
-    width: 25%;
+    width: 28%;
     height: 36px;
     font-size: 14px;
     padding: 0px;
+  }
+
+   .tripcustom-info-column {
+    width: 100%;
+    text-align: left;
+  }
+
+  .upcoming-info-columns {
+    flex-direction: column;
+    width: 100%;
+    gap: 8px;
   }
 
   .upcoming-trip-detail {
