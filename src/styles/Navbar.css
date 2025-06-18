@@ -418,6 +418,7 @@
 @media (max-width: 1200px) {
   .navbar {
     padding-right: 0px;
+    padding-left: 50px;
   }
 
   .navbar-links {
