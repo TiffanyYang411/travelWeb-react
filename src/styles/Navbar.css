@@ -201,15 +201,16 @@
 @media (max-width: 767px) {
   .icon-link {
     padding-right: 15px;
-}
+  }
 
   .logo-img.logo-desktop {
     display: none !important;
   }
 
-    .logo-img.logo-mobile {
+  .logo-img.logo-mobile {
     display: block;
-    width: 30px;      /* ✅ 根據你的 logo 寬度調整 */
+    width: 30px;
+    /* ✅ 根據你的 logo 寬度調整 */
     height: auto;
     object-fit: contain;
   }
@@ -249,7 +250,8 @@
   }
 
   .navbar-logo {
-     padding-left: 15px; /* ✅ 避免貼邊  */
+    padding-left: 15px;
+    /* ✅ 避免貼邊  */
   }
 
   .navbar-center {
@@ -286,8 +288,9 @@
     color: white;
     margin-left: auto !important;
     /* ✅ 關鍵：把它推到最右側 */
-    padding-left: 35px;
+    padding-left: 15px;
     flex-shrink: 0;
+    margin-bottom: 5px
   }
 
 
@@ -322,6 +325,7 @@
     font-size: 28px;
     color: white;
     margin-left: 25px;
+    margin-bottom: 5px
   }
 
   .mobile-menu-drawer {
