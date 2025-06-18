@@ -26,6 +26,9 @@ function Login() {
       returnTo = '/';
     }
 
+    // ✅ 新增：設定滾到頂部的 flag
+    sessionStorage.setItem('forceScrollToTop', 'true');
+
     // ✅ 改用 navigate，避免 reload 導致 returnTo 失效或跳錯頁
     navigate(returnTo, { replace: true });
 
