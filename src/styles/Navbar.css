@@ -424,8 +424,8 @@
   }
 
   .nav-icon {
-    width: 26px;
-    height: 26px;
+    width: 30px;
+    height: 30px;
   }
 
   .logo-img {
@@ -442,7 +442,7 @@
     }
 }
 
-@media (max-width: 420px) {
+@media (max-width: 450px) {
   .mobile-menu-drawer {
     position: fixed;
     top: 0;
@@ -451,4 +451,9 @@
     width: 250px;
     height: 52vh;
     }
+
+    .nav-icon {
+    width: 26px;
+    height: 26px;
+  }
 }
