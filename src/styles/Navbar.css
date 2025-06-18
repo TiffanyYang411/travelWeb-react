@@ -288,7 +288,7 @@
     color: white;
     margin-left: auto !important;
     /* ✅ 關鍵：把它推到最右側 */
-    padding-left: 15px;
+    padding-left: 30px;
     flex-shrink: 0;
     margin-bottom: 5px
   }
@@ -343,6 +343,7 @@
     gap: 30px;
     transition: right 0.6s ease;
     z-index: 9999;
+    height: 45vh;
   }
 
   .mobile-menu-drawer.open {
@@ -430,4 +431,24 @@
   .logo-img {
     width: 140px;
   }
+
+  .mobile-menu-drawer {
+    position: fixed;
+    top: 0;
+    right: -320px;
+    /* ✅ 初始在畫面右側外 */
+    width: 250px;
+    height: 45vh;
+    }
+}
+
+@media (max-width: 420px) {
+  .mobile-menu-drawer {
+    position: fixed;
+    top: 0;
+    right: -320px;
+    /* ✅ 初始在畫面右側外 */
+    width: 250px;
+    height: 52vh;
+    }
 }
