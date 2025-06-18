@@ -172,8 +172,26 @@
     font-size: 16px;
     font-weight: bold;
     margin-top: 4px;
-    white-space: pre-line;
+    white-space: nowrap;
     text-align: center;
+}
+
+.tripcustom-info-value {
+    /* display: flex;              */
+    justify-content: center;
+    align-items: center;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.nowrap-text {
+    display: inline-block;
+    white-space: nowrap;
+}
+
+.tripcustom-info-value.no-break {
+    white-space: nowrap;
 }
 
 .tripcustom-edit-trip-btn {
@@ -190,13 +208,14 @@
     /* ✅ 對齊箭頭與文字 */
     align-items: center;
     justify-content: center;
-    margin-top: 8px;
+    margin-top: 10px;
     outline: none;
     white-space: nowrap;
     /* 不允許換行 */
     gap: 6px;
     /* ✅ 文字與箭頭之間的間距 */
 }
+
 .tripcustom-edit-trip-btn:hover {
     background-color: #e65c00;
     outline: none;
@@ -903,31 +922,31 @@
 }
 
 .tripcustom-fee-alert {
-  background-color: #fff3eb;
-  border-left: 5px solid #ff6f19;
-  padding: 12px 16px;
-  border-radius: 8px;
-  color: #142E3F;
-  font-weight: bold;
-  margin: 20px 0;
-  line-height: 1.6;
+    background-color: #fff3eb;
+    border-left: 5px solid #ff6f19;
+    padding: 12px 16px;
+    border-radius: 8px;
+    color: #142E3F;
+    font-weight: bold;
+    margin: 20px 0;
+    line-height: 1.6;
 }
 
 .fee-alert-title {
-  font-weight: bold;
-  color: #ff6f19;
-  margin-bottom: 6px;
-  text-align: center;
+    font-weight: bold;
+    color: #ff6f19;
+    margin-bottom: 6px;
+    text-align: center;
 }
 
 .fee-alert-body {
-  line-height: 1.8;
+    line-height: 1.8;
 }
 
-@media screen and (max-width: 1350px) {
+
+@media screen and (max-width: 1290px) {
     .tripcustom-summary-bar {
-        max-width: calc(100% - 100px);
-        /* ✅ 保留30px左右邊距 */
+        max-width: calc(100% - 80px);
         margin: 100px auto 10px;
     }
 
@@ -935,10 +954,22 @@
         /* margin-top: auto; */
         align-self: center;
     }
+
+    .tripcustom-info-column {
+        display: flex !important;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        text-align: center;
+    }
+
+    .tripcustom-info-value {
+        white-space: normal !important;
+    }
 }
 
 /* === 💻 RWD: 平板（768px ～ 1024px） === */
-@media screen and (max-width: 999px) and (min-width: 500px) {
+@media screen and (max-width: 1000px) and (min-width: 700px) {
     .tripcustom-intro-wrapper {
         flex-direction: column;
         align-items: center;
@@ -996,10 +1027,12 @@
     .zh-title-36 {
         font-size: 32px !important;
     }
+
+
 }
 
 /* === 📱 RWD: 手機（小於768px） === */
-@media screen and (max-width: 712px) {
+@media screen and (max-width: 820px) {
     .tripcustom-intro-wrapper {
         flex-direction: column;
         align-items: center;
@@ -1057,15 +1090,10 @@
 
     .tripcustom-summary-bar {
         width: 75%;
-        /* ✅ 不要用 margin 擠壓，用百分比寬度 */
         max-width: none;
-        /* ✅ 移除限制寬度 */
         margin: 100px auto 20px;
-        /* ✅ 自動置中 */
         padding: 20px;
-        /* ✅ padding 保留內容內縮 */
         box-sizing: border-box;
-        /* ✅ 防止 padding 撐爆 */
     }
 
     .tripcustom-summary-info {

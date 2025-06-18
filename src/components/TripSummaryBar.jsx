@@ -52,7 +52,7 @@ function TripSummaryBar({ trips, startDate, endDate, totalPeople, totalPrice }) 
         </div>
         <div className="tripcustom-info-column">
           <div className="tripcustom-info-label">人數</div>
-          <div className="tripcustom-info-value">{totalPeople} 位</div>
+          <div className="tripcustom-info-value no-break">{totalPeople} 位</div>
         </div>
         <div className="tripcustom-info-column">
           <div className="tripcustom-info-label">價格</div>

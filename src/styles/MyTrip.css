@@ -164,7 +164,7 @@
 
 .mytrip-header-row {
   display: grid;
-  grid-template-columns: 2.8fr 1fr 1.1fr 1fr 0.6fr;
+  grid-template-columns: 3.1fr 1.1fr 1.3fr 1fr 0.6fr;
   align-items: center;
   font-size: 20px;
   font-weight: bold;
@@ -206,7 +206,7 @@
   /* 或 180px 視設計而定 */
   display: grid !important;
   justify-content: space-between;
-  grid-template-columns: 3.2fr 1.2fr 1.2fr 1fr 0.6fr;
+  grid-template-columns: 3.1fr 1.2fr 1.2fr 1fr 0.6fr;
   align-items: center;
   padding: 10px 5px 10px 5px;
   border-bottom: 2px solid var(--primary-color);
@@ -1281,7 +1281,7 @@ body,
   }
 
   .mytrip-header-row {
-    grid-template-columns: 7.9fr 2.1fr 2.8fr 2.2fr 2fr;
+    grid-template-columns: 8fr 2.2fr 2.8fr 2.2fr 2fr;
   }
 
   .mytrip-item {
