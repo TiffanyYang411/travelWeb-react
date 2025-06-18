@@ -39,6 +39,7 @@
 .upcoming-record-wrapper {
   max-width: 960px;
   /* ⬅️ 原本 1280px，改成 960px 讓整體縮短 */
+  width: 90%;
   margin: 0 auto;
   display: flex;
   flex-direction: column;
@@ -589,7 +590,7 @@
 }
 
 /* === 平板 RWD（768px ~ 1024px）=== */
-@media screen and (max-width: 1024px) and (min-width: 850px) {
+@media screen and (max-width: 1024px) and (min-width: 740px) {
   .upcoming-record-card {
     flex-direction: column;
     align-items: flex-start;
@@ -652,9 +653,9 @@
 
 
 /* === 手機 RWD（<= 767px）=== */
-@media screen and (max-width: 849px) {
+@media screen and (max-width: 740px) {
   .upcoming-page {
-    padding: 80px 20px 60px 20px;
+    padding: 80px 16px 60px 16px;
   }
 
   .upcoming-page-title {
@@ -669,25 +670,41 @@
     max-height: none;
   }
 
+   .upcoming-record {
+    width: 100%;
+    max-width: 100%;
+    box-sizing: border-box;
+    margin: 0 auto;
+  }
+
   .upcoming-record-card {
     flex-direction: column;
     height: auto;
     padding: 20px 16px;
     align-items: flex-start;
     gap: 16px;
+     width: 100%;
+  }
+
+    .upcoming-expand-btn {
+    width: auto;
+    min-width: 120px;
+    height: 40px;
+    font-size: 14px;
+    padding: 6px 16px;
+    margin: 0 auto;
+    display: block;
+  }
+
+   .tripcustom-info-column {
+    width: 100%;
+    text-align: left;
   }
 
   .upcoming-info-columns {
     flex-direction: column;
-    gap: 12px;
     width: 100%;
-  }
-
-  .upcoming-expand-btn {
-    width: 25%;
-    height: 36px;
-    font-size: 14px;
-    padding: 0px;
+    gap: 8px;
   }
 
   .upcoming-trip-detail {
@@ -747,4 +764,14 @@
     border: none !important;
     content: none !important;
   }
+
+  .upcoming-record-wrapper {
+    max-width: 100%;
+    padding: 0;
+    margin: 0 auto;
+    display: flex;
+    flex-direction: column;
+    gap: 36px;
+    background-color: var(--primary-color);
+}
 }

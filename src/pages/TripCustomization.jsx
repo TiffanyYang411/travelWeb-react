@@ -245,8 +245,19 @@ function TripCustomization() {
                         <div className="tripcustom-intro-right">
                             <h2 className="zh-title-36 tripcustom-highlight">即將為您客製化需求</h2>
                             <p className="zh-text-24">不只是行程規劃，更是專屬您的北歐生活提案。我們將根據您的喜好與節奏，量身打造每一站、每一景，讓您感受真正屬於您的北歐之旅。</p>
+
+                            {/* ✅ 新增提醒區塊 */}
+                            <div className="tripcustom-fee-alert zh-text-14">
+                                <div className="fee-alert-title">※ 填寫前注意事項 ※</div>
+                                <div className="fee-alert-body">
+                                    部分客製化選項為額外服務，填寫後將酌收 5～10% 加價費用，由專人於後續確認與安排，敬請放心填寫。
+                                </div>
+                            </div>
+
+
                             <button className="tripcustom-next-step-btn zh-text-18" onClick={handleNextStep}>下一步 ➔</button>
                         </div>
+
                     </div>
                 </div>
             ) : (
@@ -293,10 +304,18 @@ function TripCustomization() {
                         {step >= 1 && step <= 4 && (
                             <>
                                 <h2>
+
                                     {step === 4
                                         ? '請問您有任何飲食禁忌或素食需求嗎？'
                                         : ['請問您需要專屬導遊 / 私人導覽嗎？', '請問您需要豪華專車接送嗎？', '請問您需要升級住宿嗎？'][step - 1]}
                                 </h2>
+
+                                {/* 加價提醒（僅針對 step 1~3） */}
+                                {step >= 1 && step <= 3 && (
+                                    <p className="tripcustom-hint zh-text-14">
+                                        ※ 此為額外付費服務，內容確認後將產生 5～10% 不等加價，由專人與您聯繫確認。
+                                    </p>
+                                )}
 
                                 {step === 4 && (
                                     <p className="tripcustom-hint zh-text-14">

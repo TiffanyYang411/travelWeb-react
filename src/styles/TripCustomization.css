@@ -197,6 +197,10 @@
     gap: 6px;
     /* ✅ 文字與箭頭之間的間距 */
 }
+.tripcustom-edit-trip-btn:hover {
+    background-color: #e65c00;
+    outline: none;
+}
 
 /* 🔥 tripcustom-intro 改版 */
 .tripcustom-intro {
@@ -205,7 +209,7 @@
     align-items: center;
     gap: 60px;
     /* 左右距離 */
-    margin: 60px auto 150px;
+    margin: 0px auto 150px;
     max-width: 1200px;
 }
 
@@ -333,7 +337,7 @@
     display: flex;
     flex-direction: column;
     align-items: center;
-    padding: 30px 40px 140px 40px;
+    padding: 30px 30px 140px 30px;
     /* 🔥 原本是上下60px，現在下方多給 120px */
 }
 
@@ -898,6 +902,28 @@
     font-weight: 500;
 }
 
+.tripcustom-fee-alert {
+  background-color: #fff3eb;
+  border-left: 5px solid #ff6f19;
+  padding: 12px 16px;
+  border-radius: 8px;
+  color: #142E3F;
+  font-weight: bold;
+  margin: 20px 0;
+  line-height: 1.6;
+}
+
+.fee-alert-title {
+  font-weight: bold;
+  color: #ff6f19;
+  margin-bottom: 6px;
+  text-align: center;
+}
+
+.fee-alert-body {
+  line-height: 1.8;
+}
+
 @media screen and (max-width: 1350px) {
     .tripcustom-summary-bar {
         max-width: calc(100% - 100px);
@@ -973,7 +999,7 @@
 }
 
 /* === 📱 RWD: 手機（小於768px） === */
-@media screen and (max-width: 700px) {
+@media screen and (max-width: 712px) {
     .tripcustom-intro-wrapper {
         flex-direction: column;
         align-items: center;
@@ -1216,7 +1242,7 @@
     .tripcustom-question-card {
         background-color: #f6fbfc;
         border-radius: 16px;
-        padding: 20px 16px 25px;
+        padding: 20px 20px 25px;
         /* ✅ 上20px 左右26px 下25px */
         width: 100%;
         max-width: 700px;

@@ -527,7 +527,7 @@
     display: flex;
     flex-direction: column;
     align-items: center;
-    padding: 0 100px;
+    padding: 0 80px;
     gap: 0 !important;
   }
 
@@ -614,7 +614,7 @@
   }
   
   .about-image-wrapper {
-    padding: 0 !important;
+    padding: 15px !important;
     margin: 0 auto;
     width: 100%;
     box-sizing: border-box;
@@ -627,7 +627,7 @@
   }
 
   .about-text-overlay {
-    padding: 15px 25px 15px 25px;
+    padding: 15px 15px 15px 15px;
     margin: 0 auto;
     width: 100%;
     box-sizing: border-box;
@@ -681,7 +681,7 @@
   }
 
   .about-card-text {
-    padding: 20px 15px 0 15px;
+    padding: 20px 10px 0 10px;
     width: 100%;
     margin-bottom: 0 !important;
     padding-bottom: 0 !important;
@@ -697,7 +697,7 @@
     display: flex;
     flex-direction: column;
     gap: 30px;
-    padding: 20px;
+    padding: 10px;
   }
 
   .about-row {
@@ -708,7 +708,7 @@
   }
 
   .about-inner {
-    padding: 0 25px 0 25px;
+    padding: 0 15px 0 15px;
     box-sizing: border-box;
     text-align: center;
   }

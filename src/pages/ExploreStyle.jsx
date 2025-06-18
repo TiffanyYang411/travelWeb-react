@@ -20,10 +20,19 @@ import useForceScrollToTop from '../hooks/useForceScrollToTop';
 import usePageTitle from '../hooks/usePageTitle';
 
 function ExploreStyle() {
-usePageTitle('探索旅遊風格');
+  usePageTitle('探索旅遊風格');
   const navigate = useNavigate();
   const location = useLocation();
   const [searchParams] = useSearchParams();
+
+  useLayoutEffect(() => {
+  if (window.innerWidth <= 1024) {
+    requestAnimationFrame(() => {
+      window.scrollTo(0, 0);
+    });
+  }
+}, [location.pathname, location.search]);
+
   const styleParam = parseInt(searchParams.get('style'));
 
   const initialIndex = travelStyles.findIndex(style => style.id === styleParam);
@@ -62,10 +71,10 @@ usePageTitle('探索旅遊風格');
         window.scrollTo({ top: 0, behavior: 'smooth' });
       }, 1000);
     } else {
-      // fallback：首次進入 Explore 頁時自動置頂
+      
       const isFirstVisit = sessionStorage.getItem('hasVisitedExplore') !== 'true';
       if (isFirstVisit) {
-        window.scrollTo({ top: 0});
+        window.scrollTo({ top: 0 });
         sessionStorage.setItem('hasVisitedExplore', 'true');
       }
     }
@@ -136,7 +145,9 @@ usePageTitle('探索旅遊風格');
 
     requestAnimationFrame(scroll);
   };
-
+useEffect(() => {
+      sessionStorage.removeItem('hasVisitedExplore');
+    }, []);
   const handleAddToTrip = (tripId) => {
     const isLoggedIn = localStorage.getItem("isLoggedIn");
 
@@ -168,9 +179,9 @@ usePageTitle('探索旅遊風格');
       window.dispatchEvent(new Event('openCartDropdown'));
     }
 
-     useEffect(() => {
-    sessionStorage.removeItem('hasVisitedExplore');
-  }, []);
+    // useEffect(() => {
+    //   sessionStorage.removeItem('hasVisitedExplore');
+    // }, []);
   };
 
   return (
