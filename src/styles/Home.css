@@ -146,7 +146,7 @@
 }
 
 /* ✅ 桌機 (> 1024px)：維持原始設計縮放與位移 */
-@media screen and (min-width: 1441px) and (max-width: 1680px) {
+@media screen and (min-width: 1440px) and (max-width: 1680px) {
   .hero-quote.quote-expanded {
     left: 150px;
     bottom: 280px;
@@ -175,7 +175,7 @@
 }
 
 /* ✅ 桌機 (> 1024px)：維持原始設計縮放與位移 */
-@media screen and (min-width: 1299px) and (max-width: 1440px) {
+@media screen and (min-width: 1299px) and (max-width: 1439px) {
   .hero-quote.quote-expanded {
     left: 160px;
     bottom: 300px;
