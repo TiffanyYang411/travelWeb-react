@@ -260,6 +260,7 @@
 .mytrip-card-cell {
   display: flex;
   align-items: center;
+  font-family: var(--font-zh);
 }
 
 .mytrip-item:active {
@@ -895,6 +896,7 @@ select::-ms-expand {
   flex-direction: column;
   align-items: flex-start;
   line-height: 1.2;
+  font-family: var(--font-zh);
 }
 
 .original-price {
