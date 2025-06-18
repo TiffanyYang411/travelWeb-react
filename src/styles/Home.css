@@ -182,15 +182,15 @@
   }
 
   .hero-window-frame {
-    transform-origin: 80.2% 88%;
+    transform-origin: 82% 88%;
   }
 
   .hero-section.expanded .hero-window-frame {
-    transform: scale(3.3) translate(-35px, 50px);
+    transform: scale(3.1) translate(-30px, 50px);
   }
 
   .fullscreen-img.slide-one.active {
-    transform: translateX(50px);
+    transform: translateX(46px);
     /* 改成 40px、20px、或 0px 試試 */
   }
 
@@ -218,11 +218,11 @@
   }
 
   .hero-window-frame {
-    transform-origin: 81% 90%;
+    transform-origin: 90% 90%;
   }
 
   .hero-section.expanded .hero-window-frame {
-    transform: scale(3.2) translate(-5px, 45px);
+    transform: scale(2.7) translate(-20px, 65px);
   }
 
   .fullscreen-img.slide-one.active {
@@ -291,7 +291,7 @@
   }
 
   .hero-section.expanded .hero-window-frame {
-    transform: scale(3.3) translate(-58px, 50px);
+    transform: scale(2.8) translate(-65px, 50px);
     /* ✅ 向左下擴張一點點 */
   }
 
@@ -334,11 +334,11 @@
   .hero-window-frame {
     transform-origin: 70% 74%;
     /* ✅ 從偏右偏下的位置縮放，維持構圖平衡 */
-    transform: scale(1.5) translate(-110px, 80px);
+    transform: scale(1.75) translate(-90px, 80px);
   }
 
   .hero-section.expanded .hero-window-frame {
-    transform: scale(2) translate(-180px, 65px);
+    transform: scale(2) translate(-180px, 75px);
     /* ✅ 避免窗框超出畫面右側，並稍微往下壓 */
   }
 
@@ -352,7 +352,7 @@
   }
 
   .fullscreen-img.slide-one {
-    object-position: 65% center !important;
+    object-position: 60% center !important;
   }
 }
 
@@ -381,15 +381,15 @@
   .hero-window-frame {
     transform-origin: 70% 74%;
     /* ✅ 從偏右偏下的位置縮放，維持構圖平衡 */
-    transform: scale(1.8) translate(-100px, 90px);
+    transform: scale(1.9) translate(-100px, 105px);
   }
 
   .hero-section.expanded .hero-window-frame {
-    transform: scale(1.9) translate(-160px, 80px);
+    transform: scale(1.9) translate(-170px, 100px);
     /* ✅ 避免窗框超出畫面右側，並稍微往下壓 */
   }
 
   .fullscreen-img.slide-one {
-    object-position: 60% center !important;
+    object-position: 59% center !important;
   }
 }
