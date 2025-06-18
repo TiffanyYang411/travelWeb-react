@@ -179,7 +179,7 @@
   cursor: pointer;
   display: flex;
   align-items: center;
-  margin-left: 2rem;
+  margin-left: 1rem;
 }
 
 .logout-btn:focus,
@@ -268,7 +268,7 @@
     /* ✅ 強制指定 icon 間距 */
     margin-left: auto;
     padding: 0 !important;
-    margin-right: 0px !important;
+    margin-right: 10px !important;
     flex-shrink: 0;
   }
 
@@ -286,7 +286,7 @@
     color: white;
     margin-left: auto !important;
     /* ✅ 關鍵：把它推到最右側 */
-    padding-left: 28px;
+    padding-left: 35px;
     flex-shrink: 0;
   }
 
@@ -312,7 +312,7 @@
 
 /* ✅ RWD：手機與平板版 navbar 隱藏導覽列 */
 /* ✅ 手機與平板（≤1529px）：顯示漢堡 icon 與滑出 drawer */
-@media (max-width: 1529px) {
+@media (max-width: 1619px) {
   .navbar-center {
     display: none !important;
   }
@@ -321,7 +321,7 @@
     display: flex !important;
     font-size: 28px;
     color: white;
-    margin-left: 20px;
+    margin-left: 25px;
   }
 
   .mobile-menu-drawer {
@@ -386,7 +386,7 @@
 }
 
 /* ✅ 桌機版完全隱藏漢堡選單與滑出選單 */
-@media (min-width: 1530px) {
+@media (min-width: 1619px) {
   .mobile-menu-icon {
     display: none !important;
   }
