@@ -315,7 +315,7 @@
 
 /* ✅ RWD：手機與平板版 navbar 隱藏導覽列 */
 /* ✅ 手機與平板（≤1529px）：顯示漢堡 icon 與滑出 drawer */
-@media (max-width: 1619px) {
+@media (max-width: 1399px) {
   .navbar-center {
     display: none !important;
   }
@@ -391,7 +391,11 @@
 }
 
 /* ✅ 桌機版完全隱藏漢堡選單與滑出選單 */
-@media (min-width: 1619px) {
+@media (min-width: 1400px) {
+  .navbar-center.shift-right {
+    padding-left: 70px;
+  }
+
   .mobile-menu-icon {
     display: none !important;
   }
@@ -439,7 +443,7 @@
     /* ✅ 初始在畫面右側外 */
     width: 250px;
     height: 48vh;
-    }
+  }
 }
 
 @media (max-width: 450px) {
@@ -450,9 +454,9 @@
     /* ✅ 初始在畫面右側外 */
     width: 250px;
     height: 52vh;
-    }
+  }
 
-    .nav-icon {
+  .nav-icon {
     width: 26px;
     height: 26px;
   }
