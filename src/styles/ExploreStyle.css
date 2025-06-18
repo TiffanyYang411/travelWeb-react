@@ -142,7 +142,7 @@
 
 .scroll-up-indicator-fade {
   position: absolute;
-  bottom: 100px;
+  bottom: 130px;
   /* 往上移 */
   left: 50%;
   transform: translateX(-50%);
@@ -1334,7 +1334,7 @@
     /* ✅ 調整標題區塊往上 */
     padding: 70px 16px;
     /* ✅ 避免超出 */
-    width: 125%;
+    width: 130%;
   }
 
   .explore-style-overlay-fade h2.zh-title-48 {
