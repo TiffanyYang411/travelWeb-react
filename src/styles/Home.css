@@ -157,7 +157,7 @@
   }
 
   .hero-section.expanded .hero-window-frame {
-    transform: scale(3.5) translate(-8px, 50px);
+    transform: scale(3.5) translate(-8px, 20px);
   }
 
   .fullscreen-img.slide-one.active {
@@ -186,7 +186,7 @@
   }
 
   .hero-section.expanded .hero-window-frame {
-    transform: scale(3.3) translate(-2px, 35px);
+    transform: scale(3.3) translate(-2px, 55px);
   }
 
   .fullscreen-img.slide-one.active {
@@ -385,7 +385,7 @@
   }
 
   .hero-section.expanded .hero-window-frame {
-    transform: scale(1.9) translate(-170px, 100px);
+    transform: scale(1.9) translate(-165px, 105px);
     /* ✅ 避免窗框超出畫面右側，並稍微往下壓 */
   }
 
