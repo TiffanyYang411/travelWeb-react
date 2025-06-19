@@ -107,7 +107,7 @@
   bottom: 300px;
   left: 240px;
   width: 650px;
-  transform: translateY(30px);
+  transform: translateY(20px);
   opacity: 0;
   transition: opacity 3.6s ease-in-out 0.4s, transform 3.6s ease-in-out 0.4s;
 }
@@ -120,7 +120,7 @@
 @media screen and (min-width: 1680px) {
   .hero-quote.quote-expanded {
     left: 230px;
-    bottom: 400px;
+    bottom: 300px;
   }
 
   .fullscreen-img.slide-one.active {
@@ -213,7 +213,7 @@
 
   .hero-quote.quote-expanded {
     left: 120px;
-    bottom: 280px;
+    bottom: 300px;
     width: 500px;
   }
 
