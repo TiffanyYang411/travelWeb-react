@@ -62,7 +62,7 @@
 .cart-triangle {
   position: absolute;
   bottom: 100%;
-  margin-bottom: -0.5px;
+  margin-bottom: -0.4px;
   /* ✅ 關鍵：對齊 dropdown 的上邊緣 */
   left: 61%;
   transform: translateX(-50%);
