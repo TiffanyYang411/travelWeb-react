@@ -119,8 +119,8 @@
 
 @media screen and (min-width: 1680px) {
   .hero-quote.quote-expanded {
-    left: 230px;
-    bottom: 300px;
+    left: 250px;
+    bottom: 350px;
   }
 
   .fullscreen-img.slide-one.active {
@@ -149,7 +149,7 @@
 @media screen and (min-width: 1440px) and (max-width: 1680px) {
   .hero-quote.quote-expanded {
     left: 150px;
-    bottom: 280px;
+    bottom: 350px;
   }
 
   .hero-window-frame {
