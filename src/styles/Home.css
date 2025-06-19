@@ -133,7 +133,7 @@
   }
 
   .hero-section.expanded .hero-window-frame {
-    transform: scale(3.5) translate(-8px, 0px);
+    transform: scale(3.5) translate(-8px, -10px);
   }
 
   .fullscreen-img {
