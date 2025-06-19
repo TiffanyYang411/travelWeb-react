@@ -207,7 +207,7 @@
 @media (max-width: 1024px) {
   .cart-triangle {
     left: 61.5%;
-    margin-bottom: 0.1px;
+    margin-bottom: 0px;
     /* ✅ 貼更近，用正值會讓它遠離 */
   }
 }
@@ -215,7 +215,7 @@
 @media (max-width: 767px) {
   .cart-triangle {
     left: 61.5%;
-    margin-bottom: 0.1px;
+    margin-bottom: 0.4px;
     /* ✅ 貼更近，用正值會讓它遠離 */
   }
 
