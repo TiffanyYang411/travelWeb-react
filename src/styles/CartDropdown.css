@@ -61,7 +61,8 @@
 
 .cart-triangle {
   position: absolute;
-  bottom: 99.9%;
+  bottom: 100%;
+  margin-bottom: -0.5px;
   /* ✅ 關鍵：對齊 dropdown 的上邊緣 */
   left: 61%;
   transform: translateX(-50%);
@@ -207,7 +208,7 @@
 @media (max-width: 1024px) {
   .cart-triangle {
     left: 61.5%;
-    margin-bottom: 0px;
+    margin-bottom: -0.2px;
     /* ✅ 貼更近，用正值會讓它遠離 */
   }
 }
@@ -215,7 +216,7 @@
 @media (max-width: 767px) {
   .cart-triangle {
     left: 61.5%;
-    margin-bottom: 0.4px;
+    margin-bottom: 0px;
     /* ✅ 貼更近，用正值會讓它遠離 */
   }
 
