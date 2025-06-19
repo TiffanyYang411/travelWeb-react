@@ -182,11 +182,11 @@
   }
 
   .hero-window-frame {
-    transform-origin: 88% 88%;
+    transform-origin: 82% 88%;
   }
 
   .hero-section.expanded .hero-window-frame {
-    transform: scale(2.8) translate(-30px, 50px);
+    transform: scale(3.3) translate(-2px, 35px);
   }
 
   .fullscreen-img.slide-one.active {
@@ -218,11 +218,11 @@
   }
 
   .hero-window-frame {
-    transform-origin: 93% 90%;
+    transform-origin: 85% 90%;
   }
 
   .hero-section.expanded .hero-window-frame {
-    transform: scale(2.7) translate(10px, 75px);
+    transform: scale(3) translate(0px, 75px);
   }
 
   .fullscreen-img.slide-one.active {
@@ -291,7 +291,7 @@
   }
 
   .hero-section.expanded .hero-window-frame {
-    transform: scale(2.8) translate(-65px, 50px);
+    transform: scale(2.7) translate(-65px, 50px);
     /* ✅ 向左下擴張一點點 */
   }
 
